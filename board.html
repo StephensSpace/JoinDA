@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+    <!-- Seitenleiste mit Logo -->
+    <nav class="sidebar">
+        <div class="logo-container static">
+            <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+        </div>
+        <ul>
+            <li><a href="summary.html">Summary</a></li>
+            <li><a href="#">Add Task</a></li>
+            <li><a href="#" class="active">Board</a></li>
+            <li><a href="#">Contacts</a></li>
+        </ul>
+        <footer>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Legal Notice</a>
+        </footer>
+    </nav>
+
+    <!-- Hauptinhalt -->
+    <main class="content">
+        <h1>Board</h1>
+        <div class="board-container">
+            <div class="board-column">
+                <h2>To do</h2>
+                <div class="task-card">No tasks to do</div>
+            </div>
+            <div class="board-column">
+                <h2>In Progress</h2>
+                <div class="task-card">
+                    <span class="task-title">User Story</span>
+                    <p>Kochwelt Page & Recipe Recommender</p>
+                </div>
+            </div>
+            <div class="board-column">
+                <h2>Await feedback</h2>
+                <div class="task-card">
+                    <span class="task-title">Technical Task</span>
+                    <p>HTML Base Template Creation</p>
+                </div>
+            </div>
+            <div class="board-column">
+                <h2>Done</h2>
+                <div class="task-card">
+                    <span class="task-title">Technical Task</span>
+                    <p>CSS Architecture Planning</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
