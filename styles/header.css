@@ -1,0 +1,16 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 96px;
+    width: -webkit-fill-available;
+    padding-right: 40px;
+    padding-left: 72px;
+    background-color: var(--background-color-header);
+}
+
+header div {
+    display: flex;
+    align-items: center;
+}
+

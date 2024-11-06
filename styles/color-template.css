@@ -1,0 +1,13 @@
+
+:root {
+    --background-color-header: #FFFFFF;     /* Helles Cyan */
+    --background-color-nav: #2b3a4a;        /* Sanftes Türkis */
+    --background-color-main: #F6F7F8;       /* Leichtes Aqua */
+    --background-color-aside: #4DD0E1;      /* Frisches Blau */
+    --background-color-section: #26C6DA;    /* Lebhaftes Türkis */
+    --background-color-footer: #00BCD4;     /* Kräftiges Blau */
+    --background-color-card: #00ACC1;       /* Mittelblau */
+    --background-color-overlay: #0097A7;    /* Dunkleres Blau */
+    --background-color-highlight: #00838F;  /* Tiefes Türkis */
+    --background-color-deep: #006064;       /* Dunkles Zyan */
+  }
