@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/img/favicon-bright.png"
+      type="image/x-icon"
+    />
     <script src="./script/register.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script>
-        const firebaseConfig = {
-          apiKey: "AIzaSyCeDJLaxR5LOFSo6e48oPoNUDZTed8KTl0",
-          authDomain: "joinda-1dd15.firebaseapp.com",
-          databaseURL: "https://joinda-1dd15-default-rtdb.europe-west1.firebasedatabase.app",
-          projectId: "joinda-1dd15",
-          storageBucket: "joinda-1dd15.firebasestorage.app",
-          messagingSenderId: "5299972773",
-          appId: "1:5299972773:web:708a815a6ad5a2e8a27b4c"
-        };
-        firebase.initializeApp(firebaseConfig);
+      const firebaseConfig = {
+        apiKey: "AIzaSyCeDJLaxR5LOFSo6e48oPoNUDZTed8KTl0",
+        authDomain: "joinda-1dd15.firebaseapp.com",
+        databaseURL:
+          "https://joinda-1dd15-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "joinda-1dd15",
+        storageBucket: "joinda-1dd15.firebasestorage.app",
+        messagingSenderId: "5299972773",
+        appId: "1:5299972773:web:708a815a6ad5a2e8a27b4c",
+      };
+      firebase.initializeApp(firebaseConfig);
     </script>
     <script src="./script/register.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <form onsubmit="SignUp(); return false;">
-        <input type="text" id="name" required placeholder="Name">
-        <input type="email" id="email" required placeholder="Email">
-        <input type="password" id="password" required placeholder="Password">
-        <input type="password" id="pwCheck" required placeholder="Confirm Password">
-        <button type="submit">Sign Up</button>
+      <input type="text" id="name" required placeholder="Name" />
+      <input type="email" id="email" required placeholder="Email" />
+      <input type="password" id="password" required placeholder="Password" />
+      <input
+        type="password"
+        id="pwCheck"
+        required
+        placeholder="Confirm Password"
+      />
+      <button type="submit">Sign Up</button>
     </form>
-</body>
-
+  </body>
 </html>

@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css" />
     <script src="./script/script.js"></script>
-</head>
-<body>
+    <link
+      rel="shortcut icon"
+      href="./assets/img/favicon-bright.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
     <!-- Logo-Bereich -->
     <div class="logo-container" id="logoContainer">
-        <img src="./assets/img/logo.png" alt="Logo" class="logo">
+      <img src="./assets/img/logo.png" alt="Logo" class="logo" />
     </div>
 
     <!-- "Not a User?" Bereich außerhalb der Card -->
-    <div class="not-a-user" id="notAUser" style="display: none;">
-        Not a user? <a href="signup.html">Sign up</a>
+    <div class="not-a-user" id="notAUser" style="display: none">
+      Not a user ? <a href="signup.html">Sign up</a>
     </div>
 
     <!-- Login-Formular -->
-    <div class="login-container" id="loginContainer" style="display: none;">
-        <h1>Log in</h1>
-        <form action="summary.html" method="post">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <label><input type="checkbox"> Remember me</label>
-            <button type="submit">Log in</button>
-            <button type="button" onclick="guestLogin()">Guest Log in</button>
-        </form>
+    <div class="login-container" id="loginContainer" style="display: none">
+      <h1>Log in</h1>
+      <form action="summary.html" method="post">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <label><input type="checkbox" /> Remember me</label>
+        <button type="submit">Log in</button>
+        <button class="guestLogin" type="button" onclick="guestLogin()">
+          Guest Log in
+        </button>
+      </form>
     </div>
-
-</body>
+  </body>
 </html>
