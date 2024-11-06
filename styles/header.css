@@ -8,6 +8,7 @@ header {
     padding-left: 72px;
     background-color: var(--background-color-header);
     font-size: large;
+    font-weight: 600;
 }
 
 header div {
