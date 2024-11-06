@@ -24,6 +24,7 @@ header div {
     padding: 8px;
     width: 48px;
     height: 48px;
+    color: var(--background-color-aside);
 }
 
 header img:hover {
