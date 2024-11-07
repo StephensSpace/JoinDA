@@ -9,6 +9,8 @@ header {
     background-color: var(--background-color-header);
     font-size: large;
     font-weight: 600;
+
+    filter: drop-shadow(0 -6px 6px);
 }
 
 header div {

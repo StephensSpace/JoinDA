@@ -8,4 +8,13 @@ aside {
 main {
     display: flex;
     flex-direction: column;
+    padding: 0 !important;
+}
+
+.contact-board {
+    width: 33%;
+    height: 100vh;
+    z-index: 2;
+    filter: drop-shadow(-5px 8px 7px);
+    background-color: var(--background-color-header);
 }
