@@ -37,10 +37,15 @@ async function userInformations(user = "", data = "") {
     const userEmail = await getUserInformations(user = `${i}/`, data = "email");
     const userPw = await getUserInformations(user = `${i}/`, data = "password");
     const userPhoneNmb = await getUserInformations(user = `${i}/`, data = "phonenumber")
+    
+    if (userPhoneNmb == null) { // nur zur fehler überbrückung :)
+        const userPhoneNmb = "noch nicht das";
+    
 
     console.log("Benutzername:",userName + " Email: " +userEmail + " Password: " +userPw + " Telefonnr.: " +userPhoneNmb);
     
-    return {userName, userEmail, userPW, userPhoneNmb}
+    return {userName, userEmail, userPw, userPhoneNmb}
+    }
 }
 
 
