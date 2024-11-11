@@ -76,7 +76,7 @@
           <div class="contentheadline">
             <h1>Board</h1>
           </div>
-          <input type="text" placeholder="   Find Task" />
+          <input type="text" id="searchInput" placeholder="   Find Task" />
           <button id="addTaskButton">Add task +</button>
         </div>
 
@@ -98,11 +98,19 @@
             <button class="add-task-btn">+</button>
           </div>
         </div>
-        
+
         <div class="board-container">
           <div class="board-column" data-status="todo">
-            <div class="task-card" draggable="true" data-task="Task 1">
-              Task 1
+            <div
+              class="task-card"
+              data-title="Kochwelt Page & Recipe Recommender"
+              data-description="Build start page with recipe recommendation."
+              data-dueDate="10/05/2023"
+              data-priority="Medium"
+              data-assignedTo="Emmanuel Mauer, Marcel Bauer, Anton Mayer"
+              data-subtasks="✔ Implement Recipe Recommendation, Start Page Layout"
+            >
+              Kochwelt Page & Recipe Recommender
             </div>
           </div>
           <div class="board-column" data-status="in-progress"></div>
@@ -112,11 +120,34 @@
       </main>
 
       <!-- Task Details Modal -->
-      <div id="taskDetailsModal" class="modal">
-        <div class="modal-content">
+      <div class="modal" id="taskDetailsModal">
+        <div class="modal-content-task">
           <span class="close-button">&times;</span>
-          <h2>Task Details</h2>
-          <p id="taskContent"></p>
+          <div class="task-header">
+            <div class="task-type">User Story</div>
+            <h2 id="taskDetailTitle">Task Title</h2>
+          </div>
+          <p id="taskDetailDescription">Description of the task goes here...</p>
+          <div class="task-info">
+            <p><strong>Due date:</strong> <span id="taskDueDate">Date</span></p>
+            <p>
+              <strong>Priority:</strong> <span id="taskPriority">Medium</span>
+            </p>
+            <p><strong>Assigned to:</strong></p>
+            <ul id="taskAssignedTo">
+              <!-- Assigned people will be listed here -->
+            </ul>
+          </div>
+          <div class="subtasks">
+            <h3>Subtasks</h3>
+            <ul id="taskSubtasks">
+              <!-- Subtasks will be listed here -->
+            </ul>
+          </div>
+          <div class="task-actions">
+            <button class="delete-btn">Delete</button>
+            <button class="edit-btn">Edit</button>
+          </div>
         </div>
       </div>
 
@@ -126,21 +157,77 @@
           <span class="close-button">&times;</span>
           <h2>Add Task</h2>
           <form id="addTaskForm">
-            <label for="taskTitle">Title:</label>
-            <input type="text" id="taskTitle" required />
+            <label for="taskTitle">Title <span>*</span>:</label>
+            <input
+              type="text"
+              id="taskTitle"
+              placeholder="Enter a title"
+              required
+            />
+
             <label for="taskDescription">Description:</label>
-            <textarea id="taskDescription" required></textarea>
+            <textarea
+              id="taskDescription"
+              placeholder="Enter a description"
+              required
+            ></textarea>
+
+            <label for="taskAssigned">Assigned to:</label>
+            <select id="taskAssigned" required>
+              <option>Select contacts to assign</option>
+              <!-- Add contacts here -->
+            </select>
+
+            <label for="taskDueDate">Due date <span>*</span>:</label>
+            <input type="date" id="taskDueDate" required />
+
+            <label for="taskPriority">Priority:</label>
+            <div class="priority">
+              <button type="button" class="priority-btn urgent" id="urgentBtn">
+                <img
+                  src="./assets/icons/property_urgent.png"
+                  alt="Urgent"
+                  class="priority-icon"
+                  id="urgentIcon"
+                />
+                Urgent
+              </button>
+              <button type="button" class="priority-btn medium" id="mediumBtn">
+                <img
+                  src="./assets/icons/property_medium.png"
+                  alt="Medium"
+                  class="priority-icon"
+                  id="mediumIcon"
+                />
+                Medium
+              </button>
+              <button type="button" class="priority-btn low" id="lowBtn">
+                <img
+                  src="./assets/icons/property_low.png"
+                  alt="Low"
+                  class="priority-icon"
+                  id="lowIcon"
+                />
+                Low
+              </button>
+            </div>
+
+            <label for="taskCategory">Category <span>*</span>:</label>
+            <select id="taskCategory" required>
+              <option>Select task category</option>
+              <!-- Add categories here -->
+            </select>
+
+            <label for="taskSubtasks">Subtasks:</label>
+            <input
+              type="text"
+              id="taskSubtasks"
+              placeholder="Add new subtask"
+            />
+            <button type="button" class="add-subtask-btn">Cancel x</button>
+
             <button type="submit">Create Task</button>
           </form>
-        </div>
-      </div>
-
-      <!-- Task Details Modal -->
-      <div class="modal" id="taskModal">
-        <div class="modal-content">
-          <span class="close" onclick="closeTaskModal()">&times;</span>
-          <h2 id="taskTitleDetail">Task Title</h2>
-          <p id="taskDescriptionDetail">Task description goes here.</p>
         </div>
       </div>
     </aside>

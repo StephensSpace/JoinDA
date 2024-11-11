@@ -219,86 +219,208 @@ h1 {
   background-color: #e0e0e0;
 }
 
-/* Modal Styling */
-.modal {
+/* Add Task Modal Styling - bleibt unverändert */
+#addTaskModal {
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  background: white;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
-  width: 90%;
+  overflow-y: auto;
 }
 
+.add-task-modal-content {
+  background-color: white;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 10px;
+  width: 500px; /* Breite bleibt gleich wie vorher */
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Modal Styling */
+#taskDetailsModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Modal Inhalt */
 .modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  background-color: white;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 10px;
+  width: 730px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
+.modal-content-task {
+  background-color: white;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.form-group textarea {
-  resize: vertical;
-}
-
-.prio-buttons {
-  display: flex;
-  gap: 5px;
-}
-
-.prio-button {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 5px;
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
   cursor: pointer;
 }
 
-.prio-button[data-prio="medium"] {
-  background-color: #ffcc00;
-  color: #fff;
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.form-actions button {
-  padding: 8px 12px;
-  border: none;
+/* Input styling */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
   border-radius: 5px;
-  cursor: pointer;
+  border: 1px solid #ccc;
 }
 
-.form-actions button[type="submit"] {
-  background-color: #0079ff;
+textarea {
+  height: 100px;
+}
+
+button[type="submit"],
+.add-subtask-btn {
+  background-color: #2a3647;
   color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.form-actions button:hover {
-  background-color: #006fdc;
+button[type="submit"]:hover,
+.add-subtask-btn:hover {
+  background-color: #29abe2;
+}
+
+/* Priority button styling */
+.priority {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Grundlegendes Styling für die Buttons */
+.priority-btn {
+  background-color: white; /* Weißer Hintergrund */
+  color: #333; /* Textfarbe */
+  border: 2px solid #ddd; /* Standardgraue Grenze */
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Weiche Übergänge */
+  margin-right: 10px;
+}
+
+/* Hover-Effekt (Button geht leicht nach oben mit Schatten) */
+.priority-btn:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Schatten */
+  transform: translateY(-4px); /* Button geht leicht nach oben */
+}
+
+/* Stil für die Icons */
+.priority-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px; /* Abstand zwischen Icon und Text */
+  transition: all 0.3s ease;
+}
+
+/* Additional subtask button */
+.add-subtask-btn {
+  background-color: #29abe2;
+  margin-top: 5px;
+}
+
+.add-subtask-btn:hover {
+  background-color: #2196f3;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-type {
+  background-color: blue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.task-info {
+  margin-top: 20px;
+}
+
+.subtasks {
+  margin-top: 20px;
+}
+
+.subtasks ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.subtasks li {
+  margin: 10px 0;
+}
+
+.subtasks input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.task-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #2a3647;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
 }
