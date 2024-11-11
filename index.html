@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="./styles/style.css">
-    <script src="./script/script.js"></script>
+    <script src="./script/login.js"></script>
 </head>
 <body>
     <!-- Logo-Bereich -->
@@ -21,9 +21,9 @@
     <!-- Login-Formular -->
     <div class="login-container" id="loginContainer" style="display: none;">
         <h1>Log in</h1>
-        <form action="summary.html" method="post">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
+        <form onsubmit="login(); return false" method="post">
+            <input type="email" placeholder="Email" id="email" required>
+            <input type="password" placeholder="Password" id="password" required>
             <label><input type="checkbox"> Remember me</label>
             <button type="submit">Log in</button>
             <button type="button" onclick="guestLogin()">Guest Log in</button>
