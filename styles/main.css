@@ -1,3 +1,5 @@
+
+
 aside {
     display: flex;
     flex-direction: column;
@@ -7,14 +9,12 @@ aside {
 
 main {
     display: flex;
-    flex-direction: column;
     padding: 0 !important;
 }
 
-.contact-board {
-    width: 33%;
-    height: 100vh;
-    z-index: 2;
-    filter: drop-shadow(-5px 8px 7px);
-    background-color: var(--background-color-header);
+
+/* Für das H1 - Elements jeder Seite */
+.contentH1 {
+    font-size: xxx-large !important;
+    margin: 0 !important;
 }

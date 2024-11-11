@@ -23,7 +23,7 @@ function getWholeApiInformations() {
 
 // zieht alle Informationen aus dem "User" Verzeichnis
 function getUserInformations(user = "", data = "") {
-    return firebase.database().ref('User/' + user + data).once('value')   // nur ein "/" um im Hauptordner zusein "User/" führt uns in den Unterordner "User"
+    return firebase.database().ref('User/' + `${user}/` + data).once('value')   // nur ein "/" um im Hauptordner zusein "User/" führt uns in den Unterordner "User"
             .then((snapshot) => {
            return snapshot.val();
 });
@@ -33,13 +33,13 @@ function getUserInformations(user = "", data = "") {
 async function userInformations(user = "", data = "") {
                                                           
     let i = "Niclas";                                                   // hier eine schleife rein zur allg. Abfrage der kompletten Users
-    const userName = await getUserInformations(user = `${i}/`, data = "name");
-    const userEmail = await getUserInformations(user = `${i}/`, data = "email");
-    const userPw = await getUserInformations(user = `${i}/`, data = "password");
-    const userPhoneNmb = await getUserInformations(user = `${i}/`, data = "phonenumber")
+    const userName = await getUserInformations(user = i, data = "name");
+    const userEmail = await getUserInformations(user = i, data = "email");
+    const userPw = await getUserInformations(user = i, data = "password");
+    const userPhoneNmb = await getUserInformations(user = i, data = "phonenumber")
     
     if (userPhoneNmb == null) { // nur zur fehler überbrückung :)
-        const userPhoneNmb = "noch nicht das";
+        const userPhoneNmb = "noch nicht da";
     
 
     console.log("Benutzername:",userName + " Email: " +userEmail + " Password: " +userPw + " Telefonnr.: " +userPhoneNmb);

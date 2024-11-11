@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./styles/color-template.css">
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/contacts.css">
     
     <!-- Firebase SDK für die App und die Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
@@ -19,8 +20,7 @@
      <script src="./script/firebase-config.js"></script>
     <script src="./script/contacts.js"></script>
 
-
-
+    
 </head>
 <body>
 
@@ -47,7 +47,7 @@
         <!-- Header -->
         <header>
             <div>
-                <span>Kanban Project Managment Tool</span>
+                <span style="font-weight: normal;">Kanban Project Managment Tool</span>
             </div>
             <div>
                 <div>
@@ -62,10 +62,38 @@
 
         <!-- Hauptinhalt -->
         <main class="content">
+            
             <div class="contact-board">
-                123
+                <div class="add-new-contact-btn">
+                        <p>Add new contact</p><img src="./assets/img/person_add.png" alt="./assets/img/person_add.png">
+                </div>
+
+                <div id="contactInterface">
+
+                </div>
             </div>
+
+
+            <div class="contact-content">
+                <div class="contact-content-head">
+                    <h1 class="contentH1">Contacts</h1>
+                    <hr>
+                    <p>Better with a team</p>
+                </div>
+
+                <div class="contact-content-table">
+
+
+                </div>
+
+            </div>
+
+
+        
+        
+        
         </main>
+    
     </aside>
 
     
