@@ -1,201 +1,304 @@
 /* Grundlegendes Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7f9;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .content-board {
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-    text-align: left;
-    margin-left: 90px;
-  }
-  
-  .search-bar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-right: 90px;
-  }
-  
-  .search-bar input {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 200px;
-  }
-  
-  .search-bar button {
-    padding: 6px 12px;
-    font-size: 14px;
-    background-color: #2a3647;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 120px;
-  }
-  
-  .search-bar button:hover {
-    background-color: #29abe2;
-  }
-  
-  /* Board-Container Styling */
-  .board-container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .board-column {
-    width: 200px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .column-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .column-header h2 {
-    font-size: 1.2em;
-    color: #333;
-  }
-  
-  .add-column-task-button {
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  
-  .add-column-task-button:hover {
-    background-color: #d4d4d4;
-  }
-  
-  /* Task-Karten */
-  .task-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .task-card {
-    background-color: #f5f5f5;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: grab;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-  }
-  
-  .task-card:hover {
-    background-color: #e0e0e0;
-  }
-  
-  /* Modal Styling */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    background: white;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    width: 90%;
-  }
-  
-  .modal-content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .form-group textarea {
-    resize: vertical;
-  }
-  
-  .prio-buttons {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .prio-button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .prio-button[data-prio="medium"] {
-    background-color: #ffcc00;
-    color: #fff;
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  .form-actions button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-actions button[type="submit"] {
-    background-color: #0079ff;
-    color: white;
-  }
-  
-  .form-actions button:hover {
-    background-color: #006fdc
-  
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f9;
+  margin: 0;
+  padding: 0;
+}
+
+.content-board {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-align: left;
+  margin-left: 90px;
+}
+
+.contentheadline {
+  padding-right: 420px;
+}
+
+/* Container für die Headlines und Spalten */
+.headlines {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  margin-bottom: 20px;
+  gap: 45px;
+}
+
+.headlines div {
+  display: flex;
+  justify-content: center; /* Wichtiger Teil für die Anordnung von Überschrift und Button */
+  align-items: baseline;
+  width: 100%;
+}
+
+.headlines h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: left; /* Positioniert den Text links */
+  flex-grow: 1; /* Damit die Überschrift den verfügbaren Platz einnimmt */
+}
+
+.add-task-btn {
+  color: #2a3647;
+  border: 2px solid #2a3647;
+  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 3px;
+  background-color: white;
+  margin-left: 10px;
+}
+
+.add-task-btn:hover {
+  color: #29abe2;
+  border-color: #29abe2;
+  background-color: white;
+}
+
+/* Container für jede Überschrift und den Button */
+.card {
+  display: flex;
+  justify-content: space-between; /* Verteilt den Platz zwischen Überschrift und Button */
+  align-items: center; /* Zentriert die Inhalte vertikal */
+  width: 100%; /* Nimmt den gesamten verfügbaren Platz ein */
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: left; /* Überschrift nach links ausrichten */
+  flex-grow: 1; /* Damit die Überschrift den verfügbaren Platz ausfüllt */
+  display: flex; /* Macht die h2 zu einem flex-Element */
+  align-items: center; /* Zentriert den Text innerhalb von h2 */
+}
+.card button {
+  color: #2a3647;
+  border: 2px solid #2a3647;
+  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 3px;
+  background-color: white;
+  margin-left: 10px; /* Abstand zwischen Button und Überschrift */
+}
+
+.card button:hover {
+  color: #29abe2;
+  border-color: #29abe2;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-right: 90px;
+  align-items: baseline;
+}
+
+.search-bar input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.search-bar button {
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #2a3647;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 120px;
+}
+
+.search-bar button:hover {
+  background-color: #29abe2;
+}
+
+/* Container für das Board und die Spalten */
+.board-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.board-column {
+  border-radius: 10px;
+  width: 22%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-column .task-card {
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.board-column .task-card:hover {
+  background-color: #ccc;
+}
+
+/* Platzierung der Spaltenüberschriften und der Buttons */
+.board-column h3 {
+  font-size: 1.1rem;
+  text-align: left;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.column-header h2 {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.add-column-task-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.add-column-task-button:hover {
+  background-color: #d4d4d4;
+}
+
+/* Task-Karten */
+.task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-card {
+  padding: 10px;
+  cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.task-card:hover {
+  background-color: #e0e0e0;
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 90%;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.prio-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.prio-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.prio-button[data-prio="medium"] {
+  background-color: #ffcc00;
+  color: #fff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.form-actions button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #0079ff;
+  color: white;
+}
+
+.form-actions button:hover {
+  background-color: #006fdc;
+}

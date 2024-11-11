@@ -72,28 +72,42 @@
 
       <!-- Hauptinhalt -->
       <main class="content-board">
-        <h1>Board</h1>
         <div class="search-bar">
+          <div class="contentheadline">
+            <h1>Board</h1>
+          </div>
           <input type="text" placeholder="   Find Task" />
           <button id="addTaskButton">Add task +</button>
         </div>
 
+        <div class="headlines">
+          <div class="card">
+            <h2>To do</h2>
+            <button class="add-task-btn">+</button>
+          </div>
+          <div class="card">
+            <h2>In Progress</h2>
+            <button class="add-task-btn">+</button>
+          </div>
+          <div class="card">
+            <h2>Await feedback</h2>
+            <button class="add-task-btn">+</button>
+          </div>
+          <div class="card">
+            <h2>Done</h2>
+            <button class="add-task-btn">+</button>
+          </div>
+        </div>
+        
         <div class="board-container">
           <div class="board-column" data-status="todo">
-            <h2>To do</h2>
             <div class="task-card" draggable="true" data-task="Task 1">
               Task 1
             </div>
           </div>
-          <div class="board-column" data-status="in-progress">
-            <h2>In Progress</h2>
-          </div>
-          <div class="board-column" data-status="await-feedback">
-            <h2>Await feedback</h2>
-          </div>
-          <div class="board-column" data-status="done">
-            <h2>Done</h2>
-          </div>
+          <div class="board-column" data-status="in-progress"></div>
+          <div class="board-column" data-status="await-feedback"></div>
+          <div class="board-column" data-status="done"></div>
         </div>
       </main>
 
