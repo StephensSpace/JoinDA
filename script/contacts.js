@@ -7,3 +7,5 @@ async function fetchData(path = "") {
     let response = await fetch(FIREBASE_URL + path);
     return (responseToJson = await response.json());
 }
+
+
