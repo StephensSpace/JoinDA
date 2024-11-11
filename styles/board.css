@@ -355,6 +355,21 @@ button[type="submit"]:hover,
   transform: translateY(-4px); /* Button geht leicht nach oben */
 }
 
+#urgentBtn:hover {
+  background-color: red;
+  color: white;
+}
+
+#mediumBtn:hover {
+  background-color: orange;
+  color: white;
+}
+
+#lowBtn:hover {
+  background-color: green;
+  color: white;
+}
+
 /* Stil für die Icons */
 .priority-icon {
   width: 20px;
@@ -365,12 +380,15 @@ button[type="submit"]:hover,
 
 /* Additional subtask button */
 .add-subtask-btn {
-  background-color: #29abe2;
+  background-color: white;
+  border: 1px solid #29abe2;
   margin-top: 5px;
+  color: black;
 }
 
 .add-subtask-btn:hover {
-  background-color: #2196f3;
+  color: #29abe2;
+  background-color: white;
 }
 
 .task-header {
@@ -420,7 +438,4 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-button:hover {
 }
