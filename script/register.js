@@ -1,7 +1,6 @@
-let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebasedatabase.app/User/";
-
-function SignUp() {
+function SignUp(event) {
     //document.getElementById('msgBox').innerHTML = ''
+    event.preventDefault();
     let name = document.getElementById('name').value
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
@@ -35,6 +34,7 @@ async function setUserToFirebase(userRef, name, email, password) {
             password: password
         });
         clearInput()
+        slideIn()
         //document.getElementById('msgBox').innerHTML = 'User successfully registered!';
     } catch (error) {
         console.error("Error saving user to Firebase:", error);
@@ -47,6 +47,11 @@ function clearInput() {
     document.getElementById('email').value = ''
     document.getElementById('password').value = ''
     document.getElementById('pwCheck').value = ''
+}
+
+function slideIn() {
+    const signedUpElement = document.getElementById("signedUp");
+    signedUpElement.classList.add("slide-in");
 }
 
 function userInUse() {

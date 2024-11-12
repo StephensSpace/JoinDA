@@ -19,7 +19,7 @@ async function login() {
     let password = document.getElementById('password')
 
     try {
-        const Users = await fetch(UserDatabaseURL +'.json')
+        const Users = await fetch(UserDatabaseURL + '.json')
         const data = await Users.json();
         checkPw(mail, password, data)
     } catch (error) {
@@ -30,10 +30,24 @@ async function login() {
 function checkPw(mail, password, data) {
     console.log(data);
     let fittingUser = Object.values(data).find(user => user.email == mail.value && user.password == password.value)
-    if (fittingUser) { 
+    if (fittingUser) {
         window.location.href = "summary.html";
     }
     else {
         alert("Login failed: User not found or incorrect password.");
     }
+}
+
+function loadRegister() {
+    document.getElementById('loginContainer').innerHTML = `<div class="SignUpHead">
+            <img src="./assets/buttons/arrowLeft.png" id="arrowLeft">
+            <h1 id="signUpHeader">SIGN UP</h1>
+        </div>
+        <form onsubmit="SignUp(event)">
+        <input type="name" id="name" required placeholder="Name">
+        <input type="email" id="email" required placeholder="Email">
+        <input type="password" id="password" required placeholder="Password">
+        <input type="password" id="pwCheck" required placeholder="Confirm Password">
+        <button type="submit">Sign Up</button>
+    </form>`
 }
