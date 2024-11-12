@@ -1,20 +1,19 @@
 
 // Template für gesamte User Ansicht unter "Add new contact"
-function contactBoradUserTemplate(firstNameLetter, userName, userEmail) {
+function contactBoradUserTemplate(userName, userEmail) {
     return `
     
     <div>
-        <div>
-            ${firstNameLetter}
-        </div>
-
         <div>
             ${buildUserIconTemplate(userName)}
         </div>
 
         <div>
             ${userName}
-            <a href="mailto:${userEmail}">${userEmail}</a>
+        </div>
+
+        <div>
+            <a href="mailto:${userEmail}" style="text-decoration: none;">${userEmail}</a>
         </div>
     </div>
 
