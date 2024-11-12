@@ -3,7 +3,7 @@
 function contactBoradUserTemplate(userName, userEmail) {
     return `
     
-    <div>
+    <div class="user-contact">
         <div>
             ${buildUserIconTemplate(userName)}
         </div>

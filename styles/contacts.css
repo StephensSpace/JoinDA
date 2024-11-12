@@ -36,7 +36,9 @@ hr {
     background-color: var(--background-color-header);
 }
 
-
+.user-contact {         
+    padding: 12px 0;
+}
 
 .add-new-contact-btn {
     background-color: var(--background-color-nav);

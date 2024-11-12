@@ -36,7 +36,7 @@ async function getContactsLength() {
 
 async function getAllDetailsOfEachUser() {
     const OBJECT = await getFirebaseData(path = "/contacts");   // OBJECT MIT ALLEN USERN   
-    const CONTACTS_IN_CON_BOARD = document.getElementById('contactInterface');
+    const CONTACTS_BOARD_DIV = document.getElementById('contactInterface');
     for (let userIndex = 0; userIndex < await getContactsLength(); userIndex++) { // 8 noch ersetzten durch object länge
     
       const USER = Object.keys(OBJECT)[userIndex];   // iteriert durch die User in "Contacts"   
@@ -44,9 +44,8 @@ async function getAllDetailsOfEachUser() {
       const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
       const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
 
-      CONTACTS_IN_CON_BOARD.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL)
+      CONTACTS_BOARD_DIV.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL)
     }
-
 }
   
   
