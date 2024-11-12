@@ -14,7 +14,7 @@ function contactBoradUserTemplate(firstNameLetter, userName, userEmail) {
 
         <div>
             ${userName}
-            ${userEmail}
+            <a href="mailto:${userEmail}">${userEmail}</a>
         </div>
     </div>
 
