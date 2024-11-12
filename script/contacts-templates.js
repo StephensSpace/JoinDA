@@ -1,5 +1,5 @@
 
-
+// Template für gesamte User Ansicht unter "Add new contact"
 function contactBoradUserTemplate(firstNameLetter, userName, userEmail) {
     return `
     
@@ -21,6 +21,7 @@ function contactBoradUserTemplate(firstNameLetter, userName, userEmail) {
     `
 }
 
+// Erstellt das Bild Template vor dem Namen & Email des User
 function buildUserIconTemplate(userName) {
     let firstLetterFullName = userName;
     let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
