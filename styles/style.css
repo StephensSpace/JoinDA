@@ -25,16 +25,16 @@ body {
 
 /* Seitenleiste */
 .sidebar {
-  z-index: 9999;
-  width: 250px;
-  background-color: #2b3a4a;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  height: 100vh;
-  z-index: 9999;
+    z-index: 9999;
+    width: 250px;
+    background-color: #2b3a4a;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    height: 100vh;
+    z-index: 9999;
 }
 
 .sidebar ul {
@@ -83,6 +83,6 @@ body {
 
 /* Hauptinhalt */
 .content {
-  padding: 40px;
-  flex: 1;
+    padding: 40px;
+    flex: 1;
 }
