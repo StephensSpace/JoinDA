@@ -1,3 +1,9 @@
+async function getFirebaseData(path = "/") {
+  const SNAPSHOT = await firebase.database().ref(path).once("value");
+  const RESULT = SNAPSHOT.val(); // Ergebnis als Object
+  return RESULT;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const taskCards = document.querySelectorAll(".task-card");
   const columns = document.querySelectorAll(".board-column");

@@ -67,27 +67,6 @@ main {
   align-items: center; /* Zentriert den Text innerhalb von h2 */
 }
 
-.card button {
-  color: #2a3647;
-  border: 2px solid #2a3647;
-  border-radius: 8px;
-  width: 24px;
-  height: 24px;
-  font-size: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 3px;
-  background-color: white;
-  margin-left: 10px; /* Abstand zwischen Button und Überschrift */
-}
-
-.card button:hover {
-  color: #29abe2;
-  border-color: #29abe2;
-}
-
 .search-bar {
   width: 1208px;
   height: 232px;
@@ -185,13 +164,11 @@ main {
 
 .board-column {
   margin-bottom: 10px;
-  padding: 15px;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
   height: 688px;
-  width: 1208px;
 }
 
 .board-column .task-card:hover {
@@ -452,7 +429,6 @@ textarea {
   height: 100px;
 }
 
-button[type="submit"],
 .add-subtask-btn {
   background-color: #2a3647;
   color: white;
@@ -464,7 +440,6 @@ button[type="submit"],
   width: 100%;
 }
 
-button[type="submit"]:hover,
 .add-subtask-btn:hover {
   background-color: #29abe2;
 }
@@ -571,13 +546,4 @@ button[type="submit"]:hover,
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #2a3647;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
