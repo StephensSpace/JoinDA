@@ -46,6 +46,11 @@ input[type="name"] {
     border-radius: 4px;
 }
 
+#msgBox {
+    margin-bottom: 4px;
+    color: coral;
+}
+
 button {
     width: 100%;
     padding: 0.5em;
@@ -69,8 +74,8 @@ button:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
-    animation: fadeIn 1s forwards, slideUp 1s forwards;
-    animation-delay: 0s, 5s;
+    animation: fadeIn 1s forwards, fadeUp 1s forwards;
+    animation-delay: 0s, 3s;
     /* Einblendung sofort, Slide nach 5s */
 }
 
@@ -94,7 +99,7 @@ button:hover {
     }
 }
 
-@keyframes slideUp {
+@keyframes fadeUp {
     0% {
         top: 50%;
         left: 50%;
@@ -131,69 +136,10 @@ button:hover {
     color: #fff;
 }
 
-.signedInFont {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 120%;
-    color: #FFFFFF;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+.dNone {
+    display: none;
 }
 
-#signedUp {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 25px;
-    width: 312px;
-    height: 74px;
-    background: #2A3647;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
-    border-radius: 20px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
-    /* Animation hinzufügen */
-    opacity: 0;
-    /* Startet unsichtbar */
-    transform: translateY(-100%);
-    /* Startposition oberhalb des Viewports */
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    /* Übergang */
-}
-
-#signedUp.slide-in {
-    animation: slideDown 1.5s ease forwards;
-}
-
-@keyframes slideDown {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-#arrowLeft {
-    width: 21.33px;
-    height: 20.74px;
-    cursor: pointer;
-}
-
-#signUpHeader {
-margin-left: 32px;
-}
-
-.SignUpHead {
-    display: flex;
-    justify-content: flex-start;
+.dBlock {
+    display: block;
 }

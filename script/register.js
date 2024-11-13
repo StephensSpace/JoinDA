@@ -1,6 +1,7 @@
 function SignUp(event) {
     //document.getElementById('msgBox').innerHTML = ''
     event.preventDefault();
+    document.getElementById('msgBox2').classList.add("dNone");
     let name = document.getElementById('name').value
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
@@ -11,10 +12,10 @@ function SignUp(event) {
 
 async function checkNewUserAvailable(userRef, name, email, password) {
     try {
-        const snapshot = await fetch(UserDatabaseURL +'.json')
+        const snapshot = await fetch(UserDatabaseURL + '.json')
         const data = await snapshot.json();
         const user = Object.values(data).find(user => user.name === name);
-        user ? userInUse():setUserToFirebase(userRef, name, email, password);
+        user ? userInUse() : setUserToFirebase(userRef, name, email, password);
     } catch (error) {
         console.error("Fehler beim Speichern in Firebase:", error);
     }
@@ -51,9 +52,32 @@ function clearInput() {
 
 function slideIn() {
     const signedUpElement = document.getElementById("signedUp");
+    signedUpElement.classList.remove("hidden");
     signedUpElement.classList.add("slide-in");
+    setTimeout(() => slideOut(signedUpElement), 4000);
+}
+
+function slideOut(signedUpElement) {
+    signedUpElement.classList.remove("slide-in");
+    signedUpElement.classList.add("slide-out")
+    setTimeout(() => {
+        signedUpElement.classList.remove("slide-out")
+        signedUpElement.classList.add("hidden")
+    }, 4000);
 }
 
 function userInUse() {
-    console.log('Benutzer besteht bereits')
+    document.getElementById('msgBox2').classList.remove("dNone");
+}
+
+function backToLogin() {
+    document.getElementById('loginContainer').innerHTML = `<h1>Log in</h1>
+        <form onsubmit="login(); return false" method="post">
+            <input type="email" placeholder="Email" id="email" required>
+            <input type="password" placeholder="Password" id="password" required>
+            <message id="msgBox" class="dNone">Username or Password wrong</message>
+            <label><input type="checkbox"> Remember me</label>
+            <button type="submit">Log in</button>
+            <button type="button" onclick="guestLogin()">Guest Log in</button>
+        </form>`;
 }

@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
         // Login-Container und "Not a User" einblenden
         document.getElementById("loginContainer").style.display = "block";
         document.getElementById("notAUser").style.display = "block";
-    }, 6000); // 5 Sekunden Wartezeit + 1 Sekunde für die Animation
+    }, 4000); // 5 Sekunden Wartezeit + 1 Sekunde für die Animation
 });
 
 // Funktion für den Gast-Login
@@ -15,9 +15,10 @@ function guestLogin() {
 }
 
 async function login() {
+    document.getElementById('msgBox').classList.add('dNone');
+    document.getElementById('msgBox').classList.remove('dBlock');
     let mail = document.getElementById('email')
     let password = document.getElementById('password')
-
     try {
         const Users = await fetch(UserDatabaseURL + '.json')
         const data = await Users.json();
@@ -28,23 +29,24 @@ async function login() {
 }
 
 function checkPw(mail, password, data) {
-    console.log(data);
     let fittingUser = Object.values(data).find(user => user.email == mail.value && user.password == password.value)
     if (fittingUser) {
         window.location.href = "summary.html";
     }
     else {
-        alert("Login failed: User not found or incorrect password.");
+        document.getElementById('msgBox').classList.remove('dNone');
+        document.getElementById('msgBox').classList.add('dBlock');
     }
 }
 
 function loadRegister() {
     document.getElementById('loginContainer').innerHTML = `<div class="SignUpHead">
-            <img src="./assets/buttons/arrowLeft.png" id="arrowLeft">
+            <img src="./assets/buttons/arrowLeft.png" id="arrowLeft" onclick="backToLogin()">
             <h1 id="signUpHeader">SIGN UP</h1>
         </div>
         <form onsubmit="SignUp(event)">
         <input type="name" id="name" required placeholder="Name">
+        <div class="dNone" id="msgBox2">This Name is allready in Use</div>
         <input type="email" id="email" required placeholder="Email">
         <input type="password" id="password" required placeholder="Password">
         <input type="password" id="pwCheck" required placeholder="Confirm Password">
