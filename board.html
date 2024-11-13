@@ -71,53 +71,53 @@
       </header>
 
       <!-- Hauptinhalt -->
-      <main class="content-board">
-        <div class="search-bar">
-          <div class="contentheadline">
-            <h1>Board</h1>
+      <div class="search-bar">
+        <h1>Board</h1>
+        <div class="right-section">
+          <div class="input-container">
+            <input type="text" id="searchInput" placeholder="   Find Task" />
           </div>
-          <input type="text" id="searchInput" placeholder="   Find Task" />
           <button id="addTaskButton">Add task +</button>
         </div>
+      </div>
 
-        <div class="headlines">
-          <div class="card">
-            <h2>To do</h2>
-            <button class="add-task-btn">+</button>
-          </div>
-          <div class="card">
-            <h2>In Progress</h2>
-            <button class="add-task-btn">+</button>
-          </div>
-          <div class="card">
-            <h2>Await feedback</h2>
-            <button class="add-task-btn">+</button>
-          </div>
-          <div class="card">
-            <h2>Done</h2>
-            <button class="add-task-btn">+</button>
+      <div class="headlines">
+        <div class="card">
+          <h2>To do</h2>
+          <button class="add-task-btn">+</button>
+        </div>
+        <div class="card">
+          <h2>In Progress</h2>
+          <button class="add-task-btn">+</button>
+        </div>
+        <div class="card">
+          <h2>Await feedback</h2>
+          <button class="add-task-btn">+</button>
+        </div>
+        <div class="card">
+          <h2>Done</h2>
+          <button class="add-task-btn">+</button>
+        </div>
+      </div>
+
+      <div class="board-container">
+        <div class="board-column" data-status="todo">
+          <div
+            class="task-card"
+            data-title="Kochwelt Page & Recipe Recommender"
+            data-description="Build start page with recipe recommendation."
+            data-dueDate="10/05/2023"
+            data-priority="Medium"
+            data-assignedTo="Emmanuel Mauer, Marcel Bauer, Anton Mayer"
+            data-subtasks="✔ Implement Recipe Recommendation, Start Page Layout"
+          >
+            Kochwelt Page & Recipe Recommender
           </div>
         </div>
-
-        <div class="board-container">
-          <div class="board-column" data-status="todo">
-            <div
-              class="task-card"
-              data-title="Kochwelt Page & Recipe Recommender"
-              data-description="Build start page with recipe recommendation."
-              data-dueDate="10/05/2023"
-              data-priority="Medium"
-              data-assignedTo="Emmanuel Mauer, Marcel Bauer, Anton Mayer"
-              data-subtasks="✔ Implement Recipe Recommendation, Start Page Layout"
-            >
-              Kochwelt Page & Recipe Recommender
-            </div>
-          </div>
-          <div class="board-column" data-status="in-progress"></div>
-          <div class="board-column" data-status="await-feedback"></div>
-          <div class="board-column" data-status="done"></div>
-        </div>
-      </main>
+        <div class="board-column" data-status="in-progress"></div>
+        <div class="board-column" data-status="await-feedback"></div>
+        <div class="board-column" data-status="done"></div>
+      </div>
 
       <!-- Task Details Modal -->
       <div class="modal" id="taskDetailsModal">

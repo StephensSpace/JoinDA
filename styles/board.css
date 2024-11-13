@@ -14,7 +14,7 @@ h1 {
   font-size: 2em;
   margin-bottom: 10px;
   text-align: left;
-  margin-left: 90px;
+  margin-left: 64px;
 }
 
 .contentheadline {
@@ -23,11 +23,13 @@ h1 {
 
 /* Container für die Headlines und Spalten */
 .headlines {
+  width: 1208px;
+  height: 24px;
+  top: 200.5px;
+  padding: 0px 64px 0px 64px;
+  gap: 10px;
   display: flex;
-  justify-content: space-evenly;
-  padding: 20px;
-  margin-bottom: 20px;
-  gap: 45px;
+  justify-content: space-between;
 }
 
 .headlines div {
@@ -104,19 +106,25 @@ h1 {
 }
 
 .search-bar {
+  width: 1056px;
+  height: 73px;
+  top: 79.5px;
+  left: 64px;
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  margin-right: 90px;
-  align-items: baseline;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
 }
 
 .search-bar input {
-  padding: 8px;
   font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 200px;
+  width: 280px;
+  height: 32px;
+  justify-content: space-between;
 }
 
 .search-bar button {
@@ -132,6 +140,56 @@ h1 {
 
 .search-bar button:hover {
   background-color: #29abe2;
+}
+
+.input-container {
+  position: relative;
+  margin-right: 10px; /* Abstand zwischen Input-Feld und Button */
+}
+
+.input-container input {
+  padding-right: 50px; /* Platz für Linie und Icon */
+}
+
+.input-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 36px; /* Position der vertikalen Linie */
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background-color: #000; /* Farbe der Linie */
+}
+
+.input-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Position des Such-Icons */
+  transform: translateY(-50%);
+  background-image: url("./assets/icons/search.png");
+  background-size: 16px 16px; /* Größe des Icons */
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+}
+
+.input-decoration {
+  width: 48px;
+  height: 32px;
+}
+
+.vertical-line {
+  width: 1px;
+  height: 20px;
+  background-color: #000;
+  margin-right: 5px;
+}
+
+.symbol-image {
+  width: 32px;
+  height: 32px;
 }
 
 /* Container für das Board und die Spalten */
