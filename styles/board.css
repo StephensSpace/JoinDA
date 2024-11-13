@@ -6,15 +6,13 @@ body {
   padding: 0;
 }
 
-.content-board {
-  padding: 20px;
+main {
+  flex-direction: column;
+  margin: 0 64px;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 10px;
-  text-align: left;
-  margin-left: 64px;
+.content-board {
+  padding: 20px;
 }
 
 .contentheadline {
@@ -26,7 +24,6 @@ h1 {
   width: 1208px;
   height: 24px;
   top: 200.5px;
-  padding: 0px 64px 0px 64px;
   gap: 10px;
   display: flex;
   justify-content: space-between;
@@ -106,10 +103,10 @@ h1 {
 }
 
 .search-bar {
-  width: 1056px;
-  height: 73px;
-  top: 79.5px;
-  left: 64px;
+  width: 1208px;
+  height: 232px;
+  top: 96px;
+  left: 232px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -117,7 +114,7 @@ h1 {
 
 .right-section {
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 
 .search-bar input {
@@ -166,13 +163,13 @@ h1 {
   content: "";
   position: absolute;
   top: 50%;
-  right: 10px; /* Position des Such-Icons */
+  right: 3.5px; /* Position des Such-Icons */
   transform: translateY(-50%);
-  background-image: url("./assets/icons/search.png");
-  background-size: 16px 16px; /* Größe des Icons */
+  background-image: url("/assets/icons/search.png");
+  background-size: 32px 32px; /* Größe des Icons */
   background-repeat: no-repeat;
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
 }
 
 .input-decoration {
@@ -196,8 +193,11 @@ h1 {
 .board-container {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  padding: 0 20px;
+  width: 1208px;
+  height: 688px;
+  top: 336px;
+  left: 232px;
+  gap: 26px;
 }
 
 .board-column {
