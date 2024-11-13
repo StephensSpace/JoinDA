@@ -385,13 +385,14 @@ main {
 /* Modal Inhalt */
 .modal-content {
   background-color: white;
-  margin: 0 auto;
+  margin: 0px;
   padding: 40px;
-  border-radius: 10px;
-  width: 730px;
+  border-radius: 30px;
+  width: 1116px;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  left: 125px;
 }
 
 .modal-content-task {
@@ -443,47 +444,175 @@ textarea {
   background-color: #29abe2;
 }
 
-/* Priority button styling */
-.priority {
-  display: flex;
-  justify-content: space-around;
-}
-
-/* Grundlegendes Styling für die Buttons */
-.priority-btn {
-  background-color: white; /* Weißer Hintergrund */
-  color: #333; /* Textfarbe */
-  border: 2px solid #ddd; /* Standardgraue Grenze */
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 14px;
-  display: flex;
+/* Basic Modal Styling */
+.modal-addTask {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
+}
+
+.modal-content-addTask {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 800px;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contentH2 {
+  font-size: 61px;
+  font-weight: 700;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
-  transition: all 0.3s ease; /* Weiche Übergänge */
-  margin-right: 10px;
+  font-size: 24px;
 }
 
-/* Hover-Effekt (Button geht leicht nach oben mit Schatten) */
-.priority-btn:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Schatten */
-  transform: translateY(-4px); /* Button geht leicht nach oben */
+/* Divider Styling */
+.divider {
+  width: 1px;
+  background-color: #ddd;
+  margin: 0 20px; /* Abstand zwischen der Linie und den Spalten */
+  align-self: stretch; /* Stellt sicher, dass die Linie die volle Höhe hat */
 }
 
-#urgentBtn:hover {
-  background-color: red;
+/* Form Layout */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+.required {
+  color: red;
+}
+
+/* Priority Button Styling */
+.priority {
+  display: flex;
+  gap: 10px;
+}
+
+.priority-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.priority-btn.urgent {
+  background-color: #ffcccc;
+  color: black;
+}
+
+.priority-btn.medium {
+  background-color: #ffe6cc;
+  color: black;
+}
+
+.priority-btn.low {
+  background-color: #ccffcc;
+  color: black;
+}
+
+/* Hover Effects for Priority Buttons */
+.priority-btn.urgent:hover {
+  background-color: #ff4d4d;
   color: white;
 }
 
-#mediumBtn:hover {
-  background-color: orange;
+.priority-btn.medium:hover {
+  background-color: #ff9900;
   color: white;
 }
 
-#lowBtn:hover {
-  background-color: green;
+.priority-btn.low:hover {
+  background-color: #33cc33;
   color: white;
+}
+
+/* Form Actions Styling */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.addTask-buttons {
+  display: flex;
+  gap: 25px;
+}
+
+.cancel-btn {
+  color: #2a3647;
+  padding: 16px;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  gap: 4px;
+  width: 126px;
+  height: 56px;
+  background-color: white;
+}
+
+.create-task-btn {
+  background-color: #2a3647;
+  width: 183px;
+  height: 56px;
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  gap: 4px;
 }
 
 /* Stil für die Icons */

@@ -209,78 +209,105 @@
       <div id="addTaskModal" class="modal">
         <div class="modal-content">
           <span class="close-button">&times;</span>
-          <h2>Add Task</h2>
+          <h2 class="contentH2">Add Task</h2>
           <form id="addTaskForm">
-            <label for="taskTitle">Title <span>*</span>:</label>
-            <input
-              type="text"
-              id="taskTitle"
-              placeholder="Enter a title"
-              required
-            />
-
-            <label for="taskDescription">Description:</label>
-            <textarea
-              id="taskDescription"
-              placeholder="Enter a description"
-              required
-            ></textarea>
-
-            <label for="taskAssigned">Assigned to:</label>
-            <select id="taskAssigned" required>
-              <option>Select contacts to assign</option>
-              <!-- Add contacts here -->
-            </select>
-
-            <label for="taskDueDate">Due date <span>*</span>:</label>
-            <input type="date" id="taskDueDate" required />
-
-            <label for="taskPriority">Priority:</label>
-            <div class="priority">
-              <button type="button" class="priority-btn urgent" id="urgentBtn">
-                <img
-                  src="./assets/icons/property_urgent.png"
-                  alt="Urgent"
-                  class="priority-icon"
-                  id="urgentIcon"
+            <div class="form-row">
+              <div class="form-column">
+                <label for="taskTitle"
+                  >Title <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="taskTitle"
+                  placeholder="Enter a title"
+                  required
                 />
-                Urgent
-              </button>
-              <button type="button" class="priority-btn medium" id="mediumBtn">
-                <img
-                  src="./assets/icons/property_medium.png"
-                  alt="Medium"
-                  class="priority-icon"
-                  id="mediumIcon"
+
+                <label for="taskDescription">Description</label>
+                <textarea
+                  id="taskDescription"
+                  placeholder="Enter a Description"
+                  required
+                ></textarea>
+
+                <label for="taskAssigned">Assigned to</label>
+                <select id="taskAssigned" required>
+                  <option>Select contacts to assign</option>
+                  <!-- Add contacts here -->
+                </select>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="form-column">
+                <label for="taskDueDate"
+                  >Due Date <span class="required">*</span></label
+                >
+                <input type="date" id="taskDueDate" required />
+
+                <label for="taskPriority">Prio</label>
+                <div class="priority">
+                  <button
+                    type="button"
+                    class="priority-btn urgent"
+                    id="urgentBtn"
+                  >
+                    Urgent
+                    <img
+                      src="./assets/icons/property_urgent.png"
+                      alt="Urgent"
+                      class="priority-icon"
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    class="priority-btn medium"
+                    id="mediumBtn"
+                  >
+                    Medium
+                    <img
+                      src="./assets/icons/property_medium.png"
+                      alt="Medium"
+                      class="priority-icon"
+                    />
+                  </button>
+                  <button type="button" class="priority-btn low" id="lowBtn">
+                    Low
+                    <img
+                      src="./assets/icons/property_low.png"
+                      alt="Low"
+                      class="priority-icon"
+                    />
+                  </button>
+                </div>
+
+                <label for="taskCategory"
+                  >Category <span class="required">*</span></label
+                >
+                <select id="taskCategory" required>
+                  <option>Select task category</option>
+                  <!-- Add categories here -->
+                </select>
+
+                <label for="taskSubtasks">Subtasks</label>
+                <input
+                  type="text"
+                  id="taskSubtasks"
+                  placeholder="Add new subtask"
                 />
-                Medium
-              </button>
-              <button type="button" class="priority-btn low" id="lowBtn">
-                <img
-                  src="./assets/icons/property_low.png"
-                  alt="Low"
-                  class="priority-icon"
-                  id="lowIcon"
-                />
-                Low
-              </button>
+              </div>
             </div>
-
-            <label for="taskCategory">Category <span>*</span>:</label>
-            <select id="taskCategory" required>
-              <option>Select task category</option>
-              <!-- Add categories here -->
-            </select>
-
-            <label for="taskSubtasks">Subtasks:</label>
-            <input
-              type="text"
-              id="taskSubtasks"
-              placeholder="Add new subtask"
-            />
-            <button type="button" class="add-subtask-btn">Cancel x</button>
-
-            <button type="submit">Create Task</button>
+            <div class="form-actions">
+              <label for="required"
+                ><span class="required">*</span>This field is required</label
+              >
+              <div class="addTask-buttons">
+                <button type="button" class="cancel-btn">Cancel x</button>
+                <button type="submit" class="create-task-btn">
+                  Create Task
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       </div>
