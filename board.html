@@ -101,53 +101,102 @@
         </div>
 
         <div class="board-container">
+          <!-- To do column -->
           <div class="board-column" data-status="todo">
-            <div
-              class="task-card"
-              data-title="Kochwelt Page & Recipe Recommender"
-              data-description="Build start page with recipe recommendation."
-              data-dueDate="10/05/2023"
-              data-priority="Medium"
-              data-assignedTo="Emmanuel Mauer, Marcel Bauer, Anton Mayer"
-              data-subtasks="✔ Implement Recipe Recommendation, Start Page Layout"
-            >
-              Kochwelt Page & Recipe Recommender
+            <div class="no-tasks">No tasks To do</div>
+          </div>
+
+          <!-- In progress column -->
+          <div class="board-column" data-status="in-progress">
+            <div class="task-card user-story">
+              <div class="tag">User Story</div>
+              <h3>Kochwelt Page & Recipe Recommender</h3>
+              <p>Build start page with recipe recommendation...</p>
+              <div class="progress">
+                <div class="progress-bar"></div>
+                <span>1/2 Subtasks</span>
+              </div>
+              <div class="avatars">
+                <div class="avatar" style="background-color: #ff8a65">AM</div>
+                <div class="avatar" style="background-color: #4db6ac">EM</div>
+                <div class="avatar" style="background-color: #9575cd">MB</div>
+              </div>
+              <div class="icon menu-icon">&#9776;</div>
             </div>
           </div>
-          <div class="board-column" data-status="in-progress"></div>
-          <div class="board-column" data-status="await-feedback"></div>
-          <div class="board-column" data-status="done"></div>
+
+          <!-- Await feedback column -->
+          <div class="board-column" data-status="await-feedback">
+            <div class="task-card technical-task">
+              <div class="tag">Technical Task</div>
+              <h3>HTML Base Template Creation</h3>
+              <p>Create reusable HTML base templates...</p>
+              <div class="avatars">
+                <div class="avatar" style="background-color: #f06292">DE</div>
+                <div class="avatar" style="background-color: #ba68c8">BZ</div>
+                <div class="avatar" style="background-color: #7986cb">AS</div>
+              </div>
+              <div class="icon arrow-icon">&#9660;</div>
+            </div>
+
+            <div class="task-card user-story">
+              <div class="tag">User Story</div>
+              <h3>Daily Kochwelt Recipe</h3>
+              <p>Implement daily recipe and portion calculator...</p>
+              <div class="avatars">
+                <div class="avatar" style="background-color: #ffb74d">EF</div>
+                <div class="avatar" style="background-color: #f06292">AS</div>
+                <div class="avatar" style="background-color: #ef5350">TW</div>
+              </div>
+              <div class="icon menu-icon">&#9776;</div>
+            </div>
+          </div>
+
+          <!-- Done column -->
+          <div class="board-column" data-status="done">
+            <div class="task-card technical-task">
+              <div class="tag">Technical Task</div>
+              <h3>CSS Architecture Planning</h3>
+              <p>Define CSS naming conventions and structure...</p>
+              <div class="progress">
+                <div class="progress-bar full"></div>
+                <span>2/2 Subtasks</span>
+              </div>
+              <div class="avatars">
+                <div class="avatar" style="background-color: #4dd0e1">SM</div>
+                <div class="avatar" style="background-color: #ba68c8">BZ</div>
+              </div>
+              <div class="icon arrow-icon">&#9650;</div>
+            </div>
+          </div>
         </div>
       </main>
 
-      <!-- Task Details Modal -->
+      <!-- Modal für Task-Details -->
       <div class="modal" id="taskDetailsModal">
         <div class="modal-content-task">
           <span class="close-button">&times;</span>
           <div class="task-header">
-            <div class="task-type">User Story</div>
-            <h2 id="taskDetailTitle">Task Title</h2>
+            <div class="task-type" id="taskType"></div>
+            <h2 id="taskDetailTitle"></h2>
           </div>
-          <p id="taskDetailDescription">Description of the task goes here...</p>
+          <p id="taskDetailDescription"></p>
           <div class="task-info">
-            <p><strong>Due date:</strong> <span id="taskDueDate">Date</span></p>
+            <p><strong>Due date:</strong> <span id="taskDueDate"></span></p>
             <p>
-              <strong>Priority:</strong> <span id="taskPriority">Medium</span>
+              <strong>Priority:</strong> <span id="taskPriority"></span>
+              <span class="priority-icon" id="taskPriorityIcon"></span>
             </p>
             <p><strong>Assigned to:</strong></p>
-            <ul id="taskAssignedTo">
-              <!-- Assigned people will be listed here -->
-            </ul>
+            <ul id="taskAssignedTo" class="assigned-to-list"></ul>
           </div>
           <div class="subtasks">
             <h3>Subtasks</h3>
-            <ul id="taskSubtasks">
-              <!-- Subtasks will be listed here -->
-            </ul>
+            <ul id="taskSubtasks"></ul>
           </div>
           <div class="task-actions">
-            <button class="delete-btn">Delete</button>
-            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">&#128465; Delete</button>
+            <button class="edit-btn">&#9998; Edit</button>
           </div>
         </div>
       </div>
