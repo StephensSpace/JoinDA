@@ -10,4 +10,5 @@
     --background-color-overlay: #0097A7;    /* Dunkleres Blau */
     --background-color-highlight: #00838F;  /* Tiefes Türkis */
     --background-color-deep: #006064;       /* Dunkles Zyan */
+    --background-color-hover: #29ABE2;      /* Hover für Add new contact & Add task*/
   }

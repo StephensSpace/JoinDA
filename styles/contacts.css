@@ -51,6 +51,9 @@ hr {
     width: 24px;
 }
 
+.add-new-contact-btn:hover {
+    background-color: var(--background-color-card);
+}
 
 
 
