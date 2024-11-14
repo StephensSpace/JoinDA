@@ -47,24 +47,31 @@ async function getAllDetailsOfEachUser() {
       const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
       const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
       const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
-      checkFirstnameLetter(USER_NAME)
-      contactBoardFirstLetterHeadTemplate(USER_NAME)
+      getFirstnameLetter(USER_NAME);                    // Übergebe User Namen
+      contactBoardFirstLetterHeadTemplate(USER_NAME);   // Übergebe User Namen
       CONTACTS_BOARD_DIV.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL)
+      checkHeadLetter();                                // führe Funktion aus
     }
 }
   
 
 
 // Gibt den Ersten Buchstaben des Vornamen aus
-function checkFirstnameLetter(userName) {
-    let firstLetterFirstname = userName;
+function getFirstnameLetter(USER_NAME) {
+    let firstLetterFirstname = USER_NAME;
     let getFirstLetter = firstLetterFirstname.split(" ")[0][0]   // Teilt den String in Wörter auf + nimmt das erste Wort + nimmt den ersten Buchstaben des ersten Worts
     return getFirstLetter;
 }
 
-// Überprüft übereinstimmenden Buchentaben des Vornamen
-function checkIfFirstnameLetterMatching(userName) {
-
+// Überprüft übereinstimmenden Buchentaben im "headLetter" & Entferne "headLetterDiv" bei Gleichheit
+function checkHeadLetter() {
+    for (let index = 0; index < headLetter.length; index++) {
+        let x = headLetter[(index)].innerHTML;
+        let y = headLetter[(index + 1)]?.innerHTML;
+        if (x == y) {
+            headLetterDiv[(index+1)].remove();
+        }
+    }
 }
 
 
