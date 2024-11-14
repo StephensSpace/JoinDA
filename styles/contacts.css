@@ -15,25 +15,27 @@
     font-size: larger;
 }
 
-hr {
-    width: 2px;
-    border: 2px;
-    background-color: var(--background-color-aside);
-    border-radius: 1px;
-}
-
-
 
 /* Alles zum Contact-Board */
 
 
 .contact-board {
-    padding: 24px 40px;
+    padding: 0 40px;
     width: 33%;
-    max-height: 100vh;
+    max-height: calc(100vh - 96px);         /* 96px beträgt die Höhe der Nav-Bar */
     z-index: 2;
     filter: drop-shadow(-5px 8px 5px);
     background-color: var(--background-color-header);
+    overflow-y: auto;
+}
+
+
+.add-new-contact-background{
+    filter: drop-shadow(-6px 10px 6px white);
+    background-color: white;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
 }
 
 .add-new-contact-btn {
@@ -45,18 +47,37 @@ hr {
     color: white;
     padding: 8px;
     border-radius: 6px;
+
+
+
+    position: sticky; 
+    top: 0;
 }
 
 .add-new-contact-btn img {
     width: 24px;
 }
 
+.add-new-contact-btn p {
+    font-weight: 550;
+    font-size: 17px;
+}
+
 .add-new-contact-btn:hover {
+    z-index: 99;
     background-color: var(--background-color-card);
+    filter: drop-shadow(0 -6px 6px);
 }
 
 
 
 .user-contact {         
     padding: 12px 0;
+}
+
+
+
+.headLetter {
+    font-size: large;
+    padding: 20px;
 }

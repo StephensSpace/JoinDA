@@ -5,20 +5,24 @@
 
 //############################################################
 
+// Initialisierung Schritt
 async function init() {
     await renderAll();
 }
 
+// Rendere alle Funktionen 
 async function renderAll() {
     await getAllDetailsOfEachUser();
 }
 
+// bekomme die allg. Daten aus der Firebase
 async function getFirebaseData(path = "/") {
     const SNAPSHOT = await firebase.database().ref(path).once('value');   //   .ref("\User/Niclas")
     const RESULT = SNAPSHOT.val(); // Ergebnis als Object
     return RESULT;
 }
 
+// bekomme die Länge der Momentanen Kontakte im Verzeichnis "contacts/"
 async function getContactsLength() {
     const ALL_CONTACTS = (await getFirebaseData(`contacts/`));   
     const LENGTH_OF_ALL_CONTACTS = Object.keys(ALL_CONTACTS).length;
@@ -43,11 +47,30 @@ async function getAllDetailsOfEachUser() {
       const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
       const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
       const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
-
+      checkFirstnameLetter(USER_NAME)
+      contactBoardFirstLetterHeadTemplate(USER_NAME)
       CONTACTS_BOARD_DIV.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL)
     }
 }
   
+
+
+// Gibt den Ersten Buchstaben des Vornamen aus
+function checkFirstnameLetter(userName) {
+    let firstLetterFirstname = userName;
+    let getFirstLetter = firstLetterFirstname.split(" ")[0][0]   // Teilt den String in Wörter auf + nimmt das erste Wort + nimmt den ersten Buchstaben des ersten Worts
+    return getFirstLetter;
+}
+
+// Überprüft übereinstimmenden Buchentaben des Vornamen
+function checkIfFirstnameLetterMatching(userName) {
+
+}
+
+
+
+
+
   
   
   
