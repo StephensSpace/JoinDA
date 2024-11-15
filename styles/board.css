@@ -156,6 +156,7 @@ main {
 
 /* Container für das Board und die Spalten */
 .board-container {
+  display: flex;
   width: 1208px;
   height: 688px;
   top: 336px;
@@ -530,15 +531,22 @@ textarea {
 }
 
 .priority-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
-  font-size: 14px;
-  border: 1px solid transparent;
-  border-radius: 5px;
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.priority-btn.clicked {
+  background-color: #007bff;
+  color: white;
+}
+
+.priority-btn .priority-icon {
+  margin-right: 5px;
+  transition: filter 0.3s;
 }
 
 .priority-btn.urgent {

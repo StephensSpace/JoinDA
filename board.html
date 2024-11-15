@@ -11,7 +11,7 @@
       type="image/x-icon"
     />
 
-    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/board.css" />
     <link rel="stylesheet" href="./styles/color-template.css" />
     <link rel="stylesheet" href="./styles/header.css" />
@@ -248,36 +248,39 @@
                 <label for="taskPriority">Prio</label>
                 <div class="priority">
                   <button
-                    type="button"
-                    class="priority-btn urgent"
                     id="urgentBtn"
+                    class="priority-btn"
+                    data-priority="Urgent"
                   >
-                    Urgent
                     <img
-                      src="./assets/icons/property_urgent.png"
-                      alt="Urgent"
+                      src="./assets/icons/urgent.png"
+                      id="urgentIcon"
                       class="priority-icon"
+                      alt="Urgent"
                     />
+                    Urgent
                   </button>
                   <button
-                    type="button"
-                    class="priority-btn medium"
                     id="mediumBtn"
+                    class="priority-btn"
+                    data-priority="Medium"
                   >
-                    Medium
                     <img
-                      src="./assets/icons/property_medium.png"
+                      src="./assets/icons/medium.png"
+                      id="mediumIcon"
+                      class="priority-icon"
                       alt="Medium"
-                      class="priority-icon"
                     />
+                    Medium
                   </button>
-                  <button type="button" class="priority-btn low" id="lowBtn">
-                    Low
+                  <button id="lowBtn" class="priority-btn" data-priority="Low">
                     <img
-                      src="./assets/icons/property_low.png"
-                      alt="Low"
+                      src="./assets/icons/low.png"
+                      id="lowIcon"
                       class="priority-icon"
+                      alt="Low"
                     />
+                    Low
                   </button>
                 </div>
 
@@ -286,6 +289,10 @@
                 >
                 <select id="taskCategory" required>
                   <option>Select task category</option>
+                  <option value="todo">To Do</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="await-feedback">Await Feedback</option>
+                  <option value="done">Done</option>
                   <!-- Add categories here -->
                 </select>
 
@@ -302,10 +309,8 @@
                 ><span class="required">*</span>This field is required</label
               >
               <div class="addTask-buttons">
-                <button type="button" class="cancel-btn">Cancel x</button>
-                <button type="submit" class="create-task-btn">
-                  Create Task
-                </button>
+                <button class="cancel-btn" id="cancelButton">Cancel x</button>
+                <button type="submit" class="create-task-btn">Add Task</button>
               </div>
             </div>
           </form>
