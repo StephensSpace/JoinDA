@@ -208,33 +208,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Search and Filter Functionality
-  const searchInput = document.getElementById("searchInput");
-  const searchButton = document.getElementById("searchButton");
-  const statusFilter = document.getElementById("statusFilter");
-  const priorityFilter = document.getElementById("priorityFilter");
+  //   const searchInput = document.getElementById("searchInput");
+  //   const searchButton = document.getElementById("searchButton");
+  //   const statusFilter = document.getElementById("statusFilter");
+  //   const priorityFilter = document.getElementById("priorityFilter");
 
-  searchButton.addEventListener("click", () => {
-    const searchQuery = searchInput.value.toLowerCase();
-    const selectedStatus = statusFilter.value;
-    const selectedPriority = priorityFilter.value;
+  //   searchButton.addEventListener("click", () => {
+  //     const searchQuery = searchInput.value.toLowerCase();
+  //     const selectedStatus = statusFilter.value;
+  //     const selectedPriority = priorityFilter.value;
 
-    taskCards.forEach((task) => {
-      const title = task.dataset.title.toLowerCase();
-      const taskStatus = task.dataset.status.toLowerCase();
-      const taskPriority = task.dataset.priority.toLowerCase();
+  //     taskCards.forEach((task) => {
+  //       const title = task.dataset.title.toLowerCase();
+  //       const taskStatus = task.dataset.status.toLowerCase();
+  //       const taskPriority = task.dataset.priority.toLowerCase();
 
-      const matchesSearch = title.includes(searchQuery);
-      const matchesStatus = selectedStatus
-        ? taskStatus === selectedStatus
-        : true;
-      const matchesPriority = selectedPriority
-        ? taskPriority === selectedPriority
-        : true;
+  //       const matchesSearch = title.includes(searchQuery);
+  //       const matchesStatus = selectedStatus
+  //         ? taskStatus === selectedStatus
+  //         : true;
+  //       const matchesPriority = selectedPriority
+  //         ? taskPriority === selectedPriority
+  //         : true;
 
-      task.style.display =
-        matchesSearch && matchesStatus && matchesPriority ? "block" : "none";
-    });
-  });
+  //       task.style.display =
+  //         matchesSearch && matchesStatus && matchesPriority ? "block" : "none";
+  //     });
+  //   });
 
   // Priority Buttons
   const urgentBtn = document.getElementById("urgentBtn");
