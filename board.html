@@ -89,15 +89,24 @@
         <div class="headlines">
           <div class="card">
             <h2>To do</h2>
-            <button class="add-task-btn">+</button>
+            <button class="add-task-btn-category" data-category="todo">
+              +
+            </button>
           </div>
           <div class="card">
             <h2>In progress</h2>
-            <button class="add-task-btn">+</button>
+            <button class="add-task-btn-category" data-category="in-progress">
+              +
+            </button>
           </div>
           <div class="card">
             <h2>Await feedback</h2>
-            <button class="add-task-btn">+</button>
+            <button
+              class="add-task-btn-category"
+              data-category="await-feedback"
+            >
+              +
+            </button>
           </div>
           <div class="card">
             <h2>Done</h2>
@@ -108,69 +117,127 @@
           <!-- To do column -->
           <div class="board-column" data-status="todo">
             <div class="no-tasks">No tasks To do</div>
+            <div class="tasks-container"></div>
           </div>
 
           <!-- In progress column -->
           <div class="board-column" data-status="in-progress">
-            <div class="task-card user-story">
-              <div class="tag">User Story</div>
-              <h3>Kochwelt Page & Recipe Recommender</h3>
-              <p>Build start page with recipe recommendation...</p>
-              <div class="progress">
-                <div class="progress-bar"></div>
-                <span>1/2 Subtasks</span>
+            <div class="no-tasks">No tasks In progress</div>
+            <div class="tasks-container">
+              <div
+                class="task-card user-story"
+                data-id="task1"
+                data-category="in-progress"
+                data-title="Kochwelt Page &amp; Recipe Recommender"
+                data-description="Build start page with recipe recommendation..."
+                data-due-date="2023-10-20"
+                data-priority="Medium"
+                data-assigned-to="AM,EM,MB"
+                data-subtasks="Implement UI,Connect API"
+                data-type="User Story"
+                data-completed-subtasks="1"
+              >
+                <div class="tag">User Story</div>
+                <h3>Kochwelt Page &amp; Recipe Recommender</h3>
+                <p>Build start page with recipe recommendation...</p>
+                <div class="progress">
+                  <div class="progress-bar" style="width: 50%"></div>
+                  <span>1/2 Subtasks</span>
+                </div>
+                <div class="avatars">
+                  <div class="avatar" style="background-color: #ff8a65">AM</div>
+                  <div class="avatar" style="background-color: #4db6ac">EM</div>
+                  <div class="avatar" style="background-color: #9575cd">MB</div>
+                </div>
+                <div class="icon menu-icon">&#9776;</div>
               </div>
-              <div class="avatars">
-                <div class="avatar" style="background-color: #ff8a65">AM</div>
-                <div class="avatar" style="background-color: #4db6ac">EM</div>
-                <div class="avatar" style="background-color: #9575cd">MB</div>
-              </div>
-              <div class="icon menu-icon">&#9776;</div>
             </div>
           </div>
 
           <!-- Await feedback column -->
           <div class="board-column" data-status="await-feedback">
-            <div class="task-card technical-task">
-              <div class="tag">Technical Task</div>
-              <h3>HTML Base Template Creation</h3>
-              <p>Create reusable HTML base templates...</p>
-              <div class="avatars">
-                <div class="avatar" style="background-color: #f06292">DE</div>
-                <div class="avatar" style="background-color: #ba68c8">BZ</div>
-                <div class="avatar" style="background-color: #7986cb">AS</div>
+            <div class="no-tasks">No tasks Await Feedback</div>
+            <div class="tasks-container">
+              <div
+                class="task-card technical-task"
+                data-id="task2"
+                data-category="await-feedback"
+                data-title="HTML Base Template Creation"
+                data-description="Create reusable HTML base templates..."
+                data-due-date="2023-10-22"
+                data-priority="High"
+                data-assigned-to="DE,BZ,AS"
+                data-subtasks="Setup project,Define templates"
+                data-type="Technical Task"
+                data-completed-subtasks="0"
+              >
+                <div class="tag">Technical Task</div>
+                <h3>HTML Base Template Creation</h3>
+                <p>Create reusable HTML base templates...</p>
+                <div class="avatars">
+                  <div class="avatar" style="background-color: #f06292">DE</div>
+                  <div class="avatar" style="background-color: #ba68c8">BZ</div>
+                  <div class="avatar" style="background-color: #7986cb">AS</div>
+                </div>
+                <div class="icon arrow-icon">&#9660;</div>
               </div>
-              <div class="icon arrow-icon">&#9660;</div>
-            </div>
 
-            <div class="task-card user-story">
-              <div class="tag">User Story</div>
-              <h3>Daily Kochwelt Recipe</h3>
-              <p>Implement daily recipe and portion calculator...</p>
-              <div class="avatars">
-                <div class="avatar" style="background-color: #ffb74d">EF</div>
-                <div class="avatar" style="background-color: #f06292">AS</div>
-                <div class="avatar" style="background-color: #ef5350">TW</div>
+              <div
+                class="task-card user-story"
+                data-id="task3"
+                data-category="await-feedback"
+                data-title="Daily Kochwelt Recipe"
+                data-description="Implement daily recipe and portion calculator..."
+                data-due-date="2023-10-25"
+                data-priority="Low"
+                data-assigned-to="EF,AS,TW"
+                data-subtasks="Design UI,Develop logic"
+                data-type="User Story"
+                data-completed-subtasks="0"
+              >
+                <div class="tag">User Story</div>
+                <h3>Daily Kochwelt Recipe</h3>
+                <p>Implement daily recipe and portion calculator...</p>
+                <div class="avatars">
+                  <div class="avatar" style="background-color: #ffb74d">EF</div>
+                  <div class="avatar" style="background-color: #f06292">AS</div>
+                  <div class="avatar" style="background-color: #ef5350">TW</div>
+                </div>
+                <div class="icon menu-icon">&#9776;</div>
               </div>
-              <div class="icon menu-icon">&#9776;</div>
             </div>
           </div>
 
           <!-- Done column -->
           <div class="board-column" data-status="done">
-            <div class="task-card technical-task">
-              <div class="tag">Technical Task</div>
-              <h3>CSS Architecture Planning</h3>
-              <p>Define CSS naming conventions and structure...</p>
-              <div class="progress">
-                <div class="progress-bar full"></div>
-                <span>2/2 Subtasks</span>
+            <div class="no-tasks">No tasks Done</div>
+            <div class="tasks-container">
+              <div
+                class="task-card technical-task"
+                data-id="task4"
+                data-category="done"
+                data-title="CSS Architecture Planning"
+                data-description="Define CSS naming conventions and structure..."
+                data-due-date="2023-10-30"
+                data-priority="Medium"
+                data-assigned-to="SM,BZ"
+                data-subtasks="Research best practices,Document guidelines"
+                data-type="Technical Task"
+                data-completed-subtasks="2"
+              >
+                <div class="tag">Technical Task</div>
+                <h3>CSS Architecture Planning</h3>
+                <p>Define CSS naming conventions and structure...</p>
+                <div class="progress">
+                  <div class="progress-bar full"></div>
+                  <span>2/2 Subtasks</span>
+                </div>
+                <div class="avatars">
+                  <div class="avatar" style="background-color: #4dd0e1">SM</div>
+                  <div class="avatar" style="background-color: #ba68c8">BZ</div>
+                </div>
+                <div class="icon arrow-icon">&#9650;</div>
               </div>
-              <div class="avatars">
-                <div class="avatar" style="background-color: #4dd0e1">SM</div>
-                <div class="avatar" style="background-color: #ba68c8">BZ</div>
-              </div>
-              <div class="icon arrow-icon">&#9650;</div>
             </div>
           </div>
         </div>
@@ -186,10 +253,12 @@
           </div>
           <p id="taskDetailDescription"></p>
           <div class="task-info">
-            <p><strong>Due date:</strong> <span id="taskDueDate"></span></p>
             <p>
-              <strong>Priority:</strong> <span id="taskPriority"></span>
-              <span class="priority-icon" id="taskPriorityIcon"></span>
+              <strong>Due date:</strong> <span id="taskDetailDueDate"></span>
+            </p>
+            <p>
+              <strong>Priority:</strong> <span id="taskDetailPriority"></span>
+              <span class="priority-icon" id="taskDetailPriorityIcon"></span>
             </p>
             <p><strong>Assigned to:</strong></p>
             <ul id="taskAssignedTo" class="assigned-to-list"></ul>
@@ -223,6 +292,7 @@
                   required
                 />
 
+                <!-- Description -->
                 <label for="taskDescription">Description</label>
                 <textarea
                   id="taskDescription"
@@ -230,27 +300,32 @@
                   required
                 ></textarea>
 
+                <!-- Assigned To -->
                 <label for="taskAssigned">Assigned to</label>
-                <select id="taskAssigned" required>
-                  <option>Select contacts to assign</option>
-                  <!-- Add contacts here -->
-                </select>
-              </div>
+<select id="taskAssigned" required>
+  <!-- Optionen werden dynamisch per JavaScript hinzugefügt -->
+</select>
 
               <div class="divider"></div>
 
+              <!-- Due Date -->
               <div class="form-column">
                 <label for="taskDueDate"
                   >Due Date <span class="required">*</span></label
                 >
                 <input type="date" id="taskDueDate" required />
+                <div id="dueDateError" class="error-message hidden">
+                    This field is required
+                  </div>
 
+                   <!-- Priority -->
                 <label for="taskPriority">Prio</label>
                 <div class="priority">
                   <button
                     id="urgentBtn"
                     class="priority-btn"
                     data-priority="Urgent"
+                    type="button"
                   >
                     <img
                       src="./assets/icons/urgent.png"
@@ -264,6 +339,7 @@
                     id="mediumBtn"
                     class="priority-btn"
                     data-priority="Medium"
+                    type="button"
                   >
                     <img
                       src="./assets/icons/medium.png"
@@ -273,7 +349,12 @@
                     />
                     Medium
                   </button>
-                  <button id="lowBtn" class="priority-btn" data-priority="Low">
+                  <button
+                    id="lowBtn"
+                    class="priority-btn"
+                    data-priority="Low"
+                    type="button"
+                  >
                     <img
                       src="./assets/icons/low.png"
                       id="lowIcon"
@@ -288,26 +369,31 @@
                   >Category <span class="required">*</span></label
                 >
                 <select id="taskCategory" required>
-                  <option>Select task category</option>
-                  <option value="todo">To Do</option>
-                  <option value="in-progress">In Progress</option>
-                  <option value="await-feedback">Await Feedback</option>
-                  <option value="done">Done</option>
-                  <!-- Add categories here -->
+                  <option disabled>Select task category</option>
+                  <option value="User Story">User Story</option>
+                  <option value="Technical Task">Technical Task</option>
                 </select>
 
+                 <!-- Subtasks -->
                 <label for="taskSubtasks">Subtasks</label>
-                <input
-                  type="text"
-                  id="taskSubtasks"
-                  placeholder="Add new subtask"
-                />
-              </div>
-            </div>
+<div id="subtaskSelectContainer" class="subtask-select-container">
+  <button id="addSubtaskButton" class="add-subtask-button">+</button>
+  <div id="subtaskOptions" class="subtask-options" style="display: none;">
+    <select id="subtaskSelect">
+      <option value="Contact Form">Contact Form</option>
+      <option value="Write Legal Imprint">Write Legal Imprint</option>
+    </select>
+    <button id="confirmSubtask" class="confirm-subtask-button">✔️</button>
+    <button id="cancelSubtask" class="cancel-subtask-button">❌</button>
+  </div>
+</div>
+<div id="confirmedSubtasks" class="confirmed-subtasks"></div>
+
             <div class="form-actions">
               <label for="required"
                 ><span class="required">*</span>This field is required</label
               >
+              <!-- Actions -->
               <div class="addTask-buttons">
                 <button class="cancel-btn" id="cancelButton">Cancel x</button>
                 <button type="submit" class="create-task-btn">Add Task</button>

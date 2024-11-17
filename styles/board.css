@@ -36,7 +36,7 @@ main {
   width: 100%;
 }
 
-.add-task-btn {
+.add-task-btn-category {
   color: #2a3647;
   border: 2px solid #2a3647;
   border-radius: 8px;
@@ -53,7 +53,7 @@ main {
   margin: 0px;
 }
 
-.add-task-btn:hover {
+.add-task-btn-category:hover {
   color: #29abe2;
   border-color: #29abe2;
   background-color: white;
@@ -167,7 +167,6 @@ main {
   margin-bottom: 10px;
   border-radius: 5px;
   font-size: 1rem;
-  cursor: pointer;
   transition: background-color 0.3s;
 }
 
@@ -242,6 +241,7 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
   position: relative;
+  cursor: pointer;
 }
 
 .task-card:hover {
@@ -537,10 +537,21 @@ textarea {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  border-radius: 8px;
 }
 
-.priority-btn.clicked {
-  background-color: #007bff;
+.priority-btn[data-priority="Urgent"].active {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.priority-btn[data-priority="Medium"].active {
+  background-color: #ff9900;
+  color: white;
+}
+
+.priority-btn[data-priority="Low"].active {
+  background-color: #33cc33;
   color: white;
 }
 
@@ -549,33 +560,18 @@ textarea {
   transition: filter 0.3s;
 }
 
-.priority-btn.urgent {
-  background-color: #ffcccc;
-  color: black;
-}
-
-.priority-btn.medium {
-  background-color: #ffe6cc;
-  color: black;
-}
-
-.priority-btn.low {
-  background-color: #ccffcc;
-  color: black;
-}
-
 /* Hover Effects for Priority Buttons */
-.priority-btn.urgent:hover {
+.priority-btn[data-priority="Urgent"]:hover {
   background-color: #ff4d4d;
   color: white;
 }
 
-.priority-btn.medium:hover {
+.priority-btn[data-priority="Medium"]:hover {
   background-color: #ff9900;
   color: white;
 }
 
-.priority-btn.low:hover {
+.priority-btn[data-priority="Low"]:hover {
   background-color: #33cc33;
   color: white;
 }
@@ -623,6 +619,14 @@ textarea {
   gap: 4px;
 }
 
+.delete-btn {
+  cursor: pointer;
+}
+
+.edit-btn {
+  cursor: pointer;
+}
+
 /* Stil für die Icons */
 .priority-icon {
   width: 20px;
@@ -661,25 +665,77 @@ textarea {
   margin-top: 20px;
 }
 
-.subtasks {
-  margin-top: 20px;
-}
-
-.subtasks ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.subtasks li {
-  margin: 10px 0;
-}
-
-.subtasks input[type="checkbox"] {
-  margin-right: 10px;
-}
-
 .task-actions {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+}
+
+/* Subtasks Styles */
+.subtask-select-container {
+  margin-top: 10px;
+}
+
+.add-subtask-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.subtask-options {
+  display: flex;
+  gap: 5px;
+}
+
+.confirmed-subtasks {
+  margin-top: 10px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.subtask-item .subtask-text {
+  flex-grow: 1;
+}
+
+.subtask-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Assigned To Styles */
+.assigned-to-list label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.assigned-to-list input[type="checkbox"] {
+  display: none;
+}
+
+.assigned-to-list .assigned-name {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.assigned-to-list input[type="checkbox"]:checked + .assigned-name {
+  background-color: #1a237e;
+  color: white;
+}
+
+/* Due Date Error */
+.error-message {
+  color: red;
+  font-size: 0.8em;
+}
+
+.error-message.hidden {
+  display: none;
 }
