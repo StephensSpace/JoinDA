@@ -35,21 +35,21 @@ function userIconTemplate(userName) {
 
 
 // Template für gesamte User Ansicht unter "Add new contact"
-function contactBoradUserTemplate(USER_NAME, USER_EMAIL) {
-
+function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
+    //${(USER_NAME).split(" ")[0]} statt userIndex
     return `
 
         ${contactBoardFirstLetterHeadTemplate(USER_NAME)}
-        <div class="user-contact">
+        <div class="user-contact" onclick="getUserInfoInContacts(${userIndex})">
             <div class="user-symbole">
                 <p style="color: lightblue;">${userIconTemplate(USER_NAME)}</p>
             </div>
             <div class="user-shortcut-info">
                 <div>
-                    <p>${USER_NAME}</p>
+                    <p class="user-shortcut-name">${USER_NAME}</p>
                 </div>
                 <div>
-                    <a href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
+                    <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
                 </div>
             </div>
         </div>
@@ -57,3 +57,45 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL) {
 
 }
 
+
+
+
+// Unter Contacts | Better with a Team Template
+function contactContentTableTemplate(USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
+    return `
+    <div>
+
+        <div>
+            <img>
+            <div>
+                <p>${USER_NAME}</p>
+                <div style="display: flex; gap: 16px;">
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <img src="./assets/icons/edit.png" alt="./assets/icons/edit.png"> 
+                        <p>Edit</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <img src="./assets/icons/delete.png" alt="./assets/icons/delete.png"> 
+                        <p>Delete</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div>
+                <p>Contact Information</p>
+            </div>
+            <div>
+                <p>E-Mail</p>
+                <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
+            </div>
+            <div>
+                <p>Phone</p>
+                <p>${USER_PHONE_NUMB}</p>
+            </div>
+        </div>
+
+    </div>
+    `
+}
