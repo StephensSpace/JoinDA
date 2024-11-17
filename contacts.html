@@ -23,7 +23,7 @@
 
     
 </head>
-<body onload="init()">
+<body onload="initContacts()">
 
     <!-- Seitenleiste mit Logo -->
     <nav class="sidebar">
@@ -67,7 +67,7 @@
             <div class="contact-board">
 
                 <div class="add-new-contact-background">
-                    <div class="add-new-contact-btn" onclick="">
+                    <div class="add-new-contact-btn" onclick="addContact()">
                             <p>Add new contact</p><img src="./assets/img/person_add.png" alt="./assets/img/person_add.png">
                     </div>
                 </div>
@@ -82,11 +82,11 @@
             <div class="contact-content">
                 <div class="contact-content-head">
                     <h1 class="contentH1">Contacts</h1>
-                    <hr style="width: 2px; border: 2px; background-color: var(--background-color-aside); border-radius: 1px;">
+                    <hr>
                     <p>Better with a team</p>
                 </div>
 
-                <div class="contact-content-table">
+                <div class="contact-content-table" id="contact-content-table">
 
 
                 </div>

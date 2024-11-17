@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./styles/signUp.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="./script/login.js"></script>
+    <script src="./script/register.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCeDJLaxR5LOFSo6e48oPoNUDZTed8KTl0",
+            authDomain: "joinda-1dd15.firebaseapp.com",
+            databaseURL: "https://joinda-1dd15-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "joinda-1dd15",
+            storageBucket: "joinda-1dd15.firebasestorage.app",
+            messagingSenderId: "5299972773",
+            appId: "1:5299972773:web:708a815a6ad5a2e8a27b4c"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="./script/register.js"></script>
+</head>
+
+<body>
+    <!-- Logo-Bereich -->
+    <div class="logo-container" id="logoContainer">
+        <img src="./assets/img/logo.png" alt="Logo" class="logo">
+    </div>
+
+    <div id="signedUp" class="signedInFont hidden">You Signed Up Succesfully</div>
+
+    <!-- "Not a User?" Bereich außerhalb der Card -->
+    <div class="not-a-user" id="notAUser" style="display: none;">
+        Not a user? <a href="#" onclick="loadRegister(); return false">Sign up</a>
+    </div>
+
+    <!-- Login-Formular -->
+    <div class="login-container" id="loginContainer">
+        <h1>Log in</h1>
+        <div class="vector"></div>
+        <form onsubmit="login(); return false" method="post">
+            <div class="lockWrapper">
+                <input type="email" placeholder="Email" id="email" required>
+                <img src="./assets/icons/mail.svg" alt="" class="mail">
+            </div>
+            <div class="lockWrapper">
+                <input type="password" placeholder="Password" id="password" required>
+                <img src="./assets/icons/lock.svg" alt="" class="lock">
+            </div>
+            <message id="msgBox" class="dNone">Username or Password wrong</message>
+            <label id="rememberMe"><input type="checkbox" class="customCheckbox"> Remember me</label>
+            <div class="loginButtons">
+                <button type="submit" class="buttonLogIn"><span id="btnTextLogin">Log in</span></button>
+                <button type="button" class="buttonGuestLog"onclick="guestLogin()"><span id="guestLogText">Guest Log in</span></button>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>

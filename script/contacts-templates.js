@@ -18,7 +18,7 @@ function contactBoardFirstLetterHeadTemplate(USER_NAME) {
 }
 
 
-// Erstellt das Bild Template vor dem Namen & Email des User
+// Erstellt das Bild Template vor dem Namen & Email des User SOWIE im contactContentTableTemplate vor dem ganzen Namen
 function userIconTemplate(userName) {
     let firstLetterFullName = userName;
     let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
@@ -35,21 +35,21 @@ function userIconTemplate(userName) {
 
 
 // Template für gesamte User Ansicht unter "Add new contact"
-function contactBoradUserTemplate(USER_NAME, USER_EMAIL) {
-
+function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
+    //${(USER_NAME).split(" ")[0]} statt userIndex
     return `
 
         ${contactBoardFirstLetterHeadTemplate(USER_NAME)}
-        <div class="user-contact">
+        <div class="user-contact" onclick="getUserInfoInContacts(${userIndex})">
             <div class="user-symbole">
                 <p style="color: lightblue;">${userIconTemplate(USER_NAME)}</p>
             </div>
             <div class="user-shortcut-info">
                 <div>
-                    <p>${USER_NAME}</p>
+                    <p class="user-shortcut-name">${USER_NAME}</p>
                 </div>
                 <div>
-                    <a href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
+                    <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
                 </div>
             </div>
         </div>
@@ -57,3 +57,45 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL) {
 
 }
 
+
+
+
+// Unter Contacts | Better with a Team Template
+function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
+    return `
+    
+
+        <div class="contact-content-table-usernameAndIcons">
+            <p style="color: lightblue;">${userIconTemplate(USER_NAME)}</p>
+            <div>
+                <h2>${USER_NAME}</h2>
+                <div class="contact-content-table-editAndDeleteIcons">
+                    <div onclick="editContact(${userIndex})">
+                        <img src="./assets/icons/edit.png" alt="./assets/icons/edit.png"> 
+                        <p>Edit</p>
+                    </div>
+                    <div onclick="deleteContact(${userIndex})">
+                        <img src="./assets/icons/delete.png" alt="./assets/icons/delete.png"> 
+                        <p>Delete</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-content-table-usernameFullinformation">
+            
+            <p class="contact-content-information">Contact Information</p>
+            
+            <div>
+                <h4>E-Mail</h4>
+                <p><a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a></p>
+            </div>
+            <div>
+                <h4>Phone</h4>
+                <p>${USER_PHONE_NUMB}</p>
+            </div>
+        </div>
+
+    
+    `
+}

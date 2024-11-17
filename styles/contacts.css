@@ -1,4 +1,4 @@
-
+/* Alles zum  Contact-Content */
 
 .contact-content {
     margin: 0 36px;
@@ -13,6 +13,45 @@
 .contact-content-head p {
     align-content: center;
     font-size: larger;
+}
+
+.contact-content-head hr {
+    width: 2px;
+    border: 2px;
+    background-color: var(--background-color-aside);
+    border-radius: 1px;
+}
+
+.contact-content-table-usernameAndIcons {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.contact-content-table-editAndDeleteIcons {
+    display: flex;
+    gap: 16px;
+}
+
+.contact-content-table-editAndDeleteIcons div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+/* Nur für die P-Tags unter "E-Mail und Phone" */
+.contact-content-table-usernameFullinformation div p {
+    padding: 20px 0;
+}
+
+.contact-content-table-usernameFullinformation a {
+    color: var(--background-color-aside)
+}
+
+/* Nur für "Contact Information" */
+.contact-content-table-usernameFullinformation p {
+    padding: 36px 0;
 }
 
 
@@ -47,9 +86,6 @@
     color: white;
     padding: 8px;
     border-radius: 6px;
-
-
-
     position: sticky; 
     top: 0;
 }
@@ -69,16 +105,17 @@
     filter: drop-shadow(0 -6px 6px);
 }
 
-
-
 .user-contact {         
     padding: 12px 0;
     display: flex;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
 }
 
-
+.user-contact:hover {
+    background-color: aliceblue;
+}
 
 .headLetter {
     font-size: large;
