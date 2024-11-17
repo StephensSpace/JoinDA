@@ -18,7 +18,7 @@ function contactBoardFirstLetterHeadTemplate(USER_NAME) {
 }
 
 
-// Erstellt das Bild Template vor dem Namen & Email des User
+// Erstellt das Bild Template vor dem Namen & Email des User SOWIE im contactContentTableTemplate vor dem ganzen Namen
 function userIconTemplate(userName) {
     let firstLetterFullName = userName;
     let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
@@ -61,20 +61,20 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
 
 
 // Unter Contacts | Better with a Team Template
-function contactContentTableTemplate(USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
+function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
     return `
-    <div>
+    
 
-        <div>
-            <img>
+        <div class="contact-content-table-usernameAndIcons">
+            <p style="color: lightblue;">${userIconTemplate(USER_NAME)}</p>
             <div>
-                <p>${USER_NAME}</p>
-                <div style="display: flex; gap: 16px;">
-                    <div style="display: flex; align-items: center; gap: 4px;">
+                <h2>${USER_NAME}</h2>
+                <div class="contact-content-table-editAndDeleteIcons">
+                    <div onclick="editContact(${userIndex})">
                         <img src="./assets/icons/edit.png" alt="./assets/icons/edit.png"> 
                         <p>Edit</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 4px;">
+                    <div onclick="deleteContact(${userIndex})">
                         <img src="./assets/icons/delete.png" alt="./assets/icons/delete.png"> 
                         <p>Delete</p>
                     </div>
@@ -82,20 +82,20 @@ function contactContentTableTemplate(USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
             </div>
         </div>
         
-        <div>
+        <div class="contact-content-table-usernameFullinformation">
+            
+            <p class="contact-content-information">Contact Information</p>
+            
             <div>
-                <p>Contact Information</p>
+                <h4>E-Mail</h4>
+                <p><a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a></p>
             </div>
             <div>
-                <p>E-Mail</p>
-                <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
-            </div>
-            <div>
-                <p>Phone</p>
+                <h4>Phone</h4>
                 <p>${USER_PHONE_NUMB}</p>
             </div>
         </div>
 
-    </div>
+    
     `
 }

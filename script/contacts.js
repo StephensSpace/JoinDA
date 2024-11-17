@@ -79,7 +79,7 @@ async function getUserInfoInContacts(userIndex) {
     const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
     const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
     
-    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
+    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
     // NUR MIT NAMEN ALS PARAMETER UND ABFRAGE 
     //async function getUserInfoInContacts(USER) {
     //    const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
