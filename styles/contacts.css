@@ -2,6 +2,9 @@
 
 .contact-content {
     margin: 0 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
 }
 
 .contact-content-head {
@@ -46,11 +49,12 @@
 }
 
 .contact-content-table-usernameFullinformation a {
-    color: var(--background-color-aside)
+    
 }
 
 /* Nur für "Contact Information" */
-.contact-content-table-usernameFullinformation p {
+.contact-content-information {
+    font-size: 18px;
     padding: 36px 0;
 }
 
@@ -88,6 +92,7 @@
     border-radius: 6px;
     position: sticky; 
     top: 0;
+    cursor: pointer;
 }
 
 .add-new-contact-btn img {

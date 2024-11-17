@@ -102,22 +102,4 @@ async function addContact(params) {
 //############################################################
 
 
-// interagiert mit dem User Verzeichnis
-async function userInformations(user = "", data = "") {
-                                                          
-  let i = "Niclas";                                                   // hier eine schleife rein zur allg. Abfrage der kompletten Users
-  const userName = await getUserInformations(user = i, data = "name");
-  const userEmail = await getUserInformations(user = i, data = "email");
-  const userPw = await getUserInformations(user = i, data = "password");
-  const userPhoneNmb = await getUserInformations(user = i, data = "phonenumber")
-  
-  if (userPhoneNmb == null) { // nur zur fehler überbrückung :)
-      const userPhoneNmb = "noch nicht da";
-  
-
-  console.log("Benutzername:",userName + " Email: " +userEmail + " Password: " +userPw + " Telefonnr.: " +userPhoneNmb);
-  
-  return {userName, userEmail, userPw, userPhoneNmb}
-  }
-}
 
