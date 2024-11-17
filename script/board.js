@@ -28,10 +28,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   const taskSubtasks = document.getElementById("taskSubtasks");
   const deleteTaskButton = document.querySelector(".delete-btn");
   const editTaskButton = document.querySelector(".edit-btn");
+  await loadAssignedToOptions();
+  await loadTasksFromFirebase();
+  updateNoTasksMessages();
 
   let draggedTask = null;
   let selectedPriority = null; // Variable zum Speichern der ausgewählten Priorität
   let currentTaskId = null; // Speichert die ID der aktuellen Aufgabe für Bearbeitung/Löschung
+
+  async function loadAssignedToOptions() {
+    try {
+      // Pfad zu den Kontakten in Firebase
+      const snapshot = await firebase.database().ref("contacts").once("value");
+      const users = snapshot.val();
+
+      if (!users) {
+        console.warn("Keine Benutzer in Firebase gefunden.");
+        return;
+      }
+
+      // Dropdown-Element auswählen
+      const taskAssignedTo = document.getElementById("taskAssigned");
+
+      // Kontakte als Optionen hinzufügen
+      Object.values(users).forEach((user) => {
+        const option = document.createElement("option");
+        option.value = user.name; // Option-Wert
+        option.textContent = user.name; // Sichtbarer Text
+        taskAssignedTo.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
+    }
+  }
 
   // Funktion zum Hinzufügen der Drag & Drop Listener zu einer Aufgabe
   function addDragAndDropListeners(task) {
@@ -204,7 +233,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           confirmedSubtasksDiv.getElementsByClassName("subtask-text");
         for (var i = 0; i < existingSubtasks.length; i++) {
           if (existingSubtasks[i].textContent === subtaskName) {
-            alert("Dieser Subtask wurde bereits hinzugefügt.");
             document.getElementById("subtaskOptions").style.display = "none";
             return;
           }
@@ -591,9 +619,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Entferne den temporären Submit Handler und setze den Standard-Handler wieder ein
       addTaskForm.removeEventListener("submit", updateTaskHandler);
       addTaskForm.addEventListener("submit", addTaskFormSubmitHandler);
-    } catch (error) {
-      console.error("Fehler beim Aktualisieren der Aufgabe:", error);
-    }
+    } catch (error) {}
   }
 
   // Priority Buttons

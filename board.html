@@ -302,9 +302,11 @@
 
                 <!-- Assigned To -->
                 <label for="taskAssigned">Assigned to</label>
-<select id="taskAssigned" required>
-  <!-- Optionen werden dynamisch per JavaScript hinzugefügt -->
-</select>
+<div class="assigned-container">
+  <select id="taskAssigned" class="assigned-dropdown" required>
+    <option disabled selected value="">Select a user</option>
+  </select>
+</div>
 
               <div class="divider"></div>
 
