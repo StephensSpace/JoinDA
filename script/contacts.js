@@ -97,14 +97,16 @@ async function getUserInfoInContacts(userIndex) {
 
 
 
-
-async function addContact() {
+// Fügt das Modal in "Conctact-Content" ein, legt sich jedoch durch Z-Index über alles andere!
+function openAddcontactModal() {
     const CONTACT_CONTENT_REF = document.getElementsByClassName('contact-content')[0];
     CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
 }
 
-
-
+// Schließe das Modal für "Add new Contact" && "Edit Contact"!
+function closeModal() {
+    document.getElementsByTagName('modal')[0].remove();
+}
 
 
 

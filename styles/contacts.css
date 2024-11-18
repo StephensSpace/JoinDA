@@ -70,6 +70,7 @@
     filter: drop-shadow(-5px 8px 5px);
     background-color: var(--background-color-header);
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 
