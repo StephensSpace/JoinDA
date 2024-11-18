@@ -395,14 +395,20 @@ main {
 /* Modal Inhalt */
 .modal-content {
   background-color: white;
-  margin: 0px;
+  margin: 0;
   padding: 40px;
   border-radius: 30px;
   width: 1116px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 126px;
+  height: 870px;
+  position: fixed; /* Ändere zu "fixed" für zentrierte Position */
+  top: 50%; /* Zentrierung vertikal */
+  left: 50%; /* Zentrierung horizontal */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Korrektur, um das Element genau zu zentrieren */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Optional: Schatten für ein schöneres Aussehen */
+  z-index: 1000; /* Stellt sicher, dass es über anderen Elementen liegt */
 }
 
 /* Form-Container für zwei Spalten */
@@ -415,19 +421,25 @@ main {
 
 .modal-content-task {
   background-color: white;
-  margin: 0 auto;
-  padding: 40px;
-  border-radius: 10px;
-  width: 400px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 525px;
+  height: -webkit-fill-available;
+  left: 800px;
+  border-radius: 30px;
+  padding: 48px 40px;
+  gap: 24px;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  transform: translateY(-1%);
+  position: fixed;
 }
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 56px;
   font-size: 2rem;
   cursor: pointer;
 }
@@ -489,6 +501,13 @@ textarea {
 .contentH2 {
   font-size: 61px;
   font-weight: 700;
+  width: 466px;
+  height: 78px;
+  top: 64px;
+  left: 74px;
+  gap: 1px;
+  position: absolute;
+  display: flex;
 }
 
 .close-button {
@@ -503,6 +522,10 @@ textarea {
 .divider {
   width: 1px;
   height: 424px;
+  top: 174px;
+  left: 562.25px;
+  border: 1px;
+  position: absolute;
   background-color: #ddd;
   margin: 0 20px; /* Abstand zwischen der Linie und den Spalten */
   align-self: stretch; /* Stellt sicher, dass die Linie die volle Höhe hat */
@@ -514,11 +537,23 @@ textarea {
   gap: 20px;
 }
 
-.form-column {
+.form-column-left {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  width: 440px;
+  height: 376px;
+  top: 174px;
+  left: 74px;
+  position: absolute;
+}
+
+.form-column-right {
+  width: 440px;
+  height: 416px;
+  top: 174px;
+  left: 610.25px;
+  position: absolute;
 }
 
 input[type="text"],
@@ -529,6 +564,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 10px;
   outline: none;
+  cursor: pointer;
 }
 
 textarea {
@@ -543,17 +579,23 @@ textarea {
 /* Priority Button Styling */
 .priority {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  width: 440px;
+  height: 56px;
+  top: 120px;
 }
 
 .priority-btn {
   background-color: #f0f0f0;
   border: none;
-  padding: 10px;
+  padding: 16px 10px 16px 10px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 10px;
+  height: 56px;
+  width: 136px;
+  justify-content: center;
 }
 
 .priority-btn[data-priority="Urgent"].active {
@@ -605,12 +647,18 @@ textarea {
   width: 170px;
   height: 27px;
   position: absolute;
-  top: 596px;
+  top: 779px;
+  left: 74px;
 }
 
 .addTask-buttons {
   display: flex;
-  gap: 25px;
+  gap: 4px;
+  width: 334px;
+  height: 56px;
+  top: 750px;
+  left: 716.25px;
+  position: fixed;
 }
 
 .cancel-btn {
@@ -671,17 +719,31 @@ textarea {
   background-color: white;
 }
 
-.task-header {
+.modal-content-headline {
+  width: 445px;
+  height: 36px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.task-header {
+  width: 164px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 4px 24px;
+  gap: 10px;
+  display: flex;
 }
 
 .task-type {
   background-color: blue;
   color: white;
-  padding: 5px 10px;
-  border-radius: 10px;
+  width: 164px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 4px 24px;
+  gap: 10px;
+  display: flex;
 }
 
 .task-info {
@@ -692,6 +754,10 @@ textarea {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+}
+
+.addTask-headlines {
+  padding: 10px 0;
 }
 
 /* Subtasks Styles */
@@ -795,6 +861,7 @@ textarea {
   overflow-y: auto;
   z-index: 1000;
   background-color: white;
+  scrollbar-width: thin;
 }
 
 .hidden {
@@ -833,6 +900,20 @@ textarea {
   border: 2px solid white;
 }
 
+.dropdown-item.selected {
+  background-color: #091931;
+  color: white;
+}
+
+.selected-contacts-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.selected-contacts-container .avatar {
+  margin-right: 5px;
+}
+
 /* Dropdown geschlossen/verborgen */
 .dropdown-options.hidden {
   display: none;
@@ -843,15 +924,20 @@ textarea {
 }
 
 .dropdown-item input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  border-radius: 3px;
+  display: none;
 }
 
-/* Styling für das Assigned to Dropdown */
-.assigned-container {
-  position: relative;
-  width: 100%;
+.dropdown-item input[type="checkbox"] + .custom-checkbox {
+  width: 20px; /* Größe des Kästchens */
+  height: 20px;
+  display: inline-block;
+  background-image: url("./assets/icons/property-default.png"); /* Pfad zur leeren Checkbox */
+  background-size: cover;
+  cursor: pointer;
+}
+
+.dropdown-item input[type="checkbox"]:checked + .custom-checkbox {
+  background-image: url("./assets/icons/property-checked.png"); /* Pfad zur gefüllten Checkbox */
 }
 
 .assigned-option {
@@ -872,4 +958,17 @@ textarea {
 
 .assigned-name {
   flex-grow: 1;
+}
+
+.selected {
+  background-color: #d0ebff;
+}
+
+.category-label {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-bottom: 4px;
 }

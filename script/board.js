@@ -6,6 +6,7 @@ async function getFirebaseData(path = "/") {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Variableninitialisierung
   const taskCards = document.querySelectorAll(".task-card");
   const columns = document.querySelectorAll(".board-column");
   const taskDetailsModal = document.getElementById("taskDetailsModal");
@@ -31,6 +32,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dropdown = document.getElementById("taskAssignedDropdown");
   const options = document.getElementById("taskAssignedOptions");
   const arrow = document.getElementById("dropdownArrow");
+  const selectedContactsContainer = document.getElementById(
+    "selectedContactsContainer"
+  );
+  let users = [];
+
   await loadAssignedToOptions();
   await loadTasksFromFirebase();
   updateNoTasksMessages();
@@ -39,28 +45,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   let selectedPriority = null; // Variable zum Speichern der ausgewählten Priorität
   let currentTaskId = null; // Speichert die ID der aktuellen Aufgabe für Bearbeitung/Löschung
 
-  // Toggle Dropdown Visibility
-  dropdown.addEventListener("click", () => {
-    options.classList.toggle("hidden");
-    arrow.classList.toggle("up");
+  // **Neues Code-Fragment: Event Listener für das Eingabefeld 'taskTitle'**
+  const taskTitleInput = document.getElementById("taskTitle");
+
+  taskTitleInput.addEventListener("focus", () => {
+    taskTitleInput.value = "Contact Form & Imprint";
   });
+
+  // **Neues Code-Fragment: Event Listener für das textarea-Feld 'taskDescription'**
+  const taskDescriptionTextarea = document.getElementById("taskDescription");
+
+  taskDescriptionTextarea.addEventListener("focus", () => {
+    taskDescriptionTextarea.value = "Create a contact form and imprint page.";
+  });
+
+  // Toggle Dropdown Visibility
+  dropdown.addEventListener("click", toggleAssignedToDropdown);
 
   async function loadAssignedToOptions() {
     try {
       // Kontakte aus Firebase laden
       const snapshot = await firebase.database().ref("contacts").once("value");
-      const users = snapshot.val();
+      const data = snapshot.val();
 
-      if (!users) {
+      if (!data) {
         console.warn("Keine Benutzer in Firebase gefunden.");
         return;
       }
 
-      const dropdown = document.getElementById("taskAssignedDropdown");
+      users = Object.values(data);
+
       const optionsContainer = document.getElementById("taskAssignedOptions");
 
       // Kontakte dynamisch hinzufügen
-      Object.values(users).forEach((user) => {
+      users.forEach((user) => {
         const item = document.createElement("div");
         item.classList.add("dropdown-item");
 
@@ -81,35 +99,84 @@ document.addEventListener("DOMContentLoaded", async () => {
         name.textContent = user.name;
 
         // Checkbox erstellen
+        const label = document.createElement("label");
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.value = user.name;
 
+        const customCheckbox = document.createElement("span");
+        customCheckbox.classList.add("custom-checkbox");
+        customCheckbox.style.width = "20px";
+        customCheckbox.style.height = "20px";
+        customCheckbox.style.display = "inline-block";
+        customCheckbox.style.backgroundImage =
+          "url('./assets/icons/property-default.png')";
+        customCheckbox.style.backgroundSize = "cover";
+        customCheckbox.style.cursor = "pointer";
+
+        // Struktur zusammensetzen
+        label.appendChild(checkbox);
+        label.appendChild(customCheckbox);
+
         // Element zusammenfügen
         item.appendChild(avatar);
         item.appendChild(name);
-        item.appendChild(checkbox);
+        item.appendChild(label); // Entfernt die direkte Einfügung der Checkbox
         optionsContainer.appendChild(item);
-      });
 
-      // Dropdown öffnen und schließen
-      dropdown.addEventListener("click", () => {
-        optionsContainer.classList.toggle("hidden");
-      });
-
-      // Auswahl anzeigen
-      optionsContainer.addEventListener("click", (event) => {
-        const checkbox = event.target.closest("input[type='checkbox']");
-        if (checkbox) {
-          const selectedContacts = Array.from(
-            optionsContainer.querySelectorAll("input[type='checkbox']:checked")
-          )
-            .map((input) => input.value)
-            .join(", ");
-
-          document.querySelector(".dropdown-placeholder").textContent =
-            selectedContacts || "Select contacts to assign";
+        // Funktion zur Aktualisierung des Checkbox-Aussehens
+        function updateCheckboxAppearance() {
+          if (checkbox.checked) {
+            customCheckbox.style.backgroundImage =
+              "url('./assets/icons/property-checked.png')";
+            customCheckbox.style.filter = "brightness(0) invert(1)"; // Icon weiß färben
+          } else {
+            customCheckbox.style.backgroundImage =
+              "url('./assets/icons/property-default.png')";
+            customCheckbox.style.filter = ""; // Filter zurücksetzen
+          }
         }
+
+        // Event Listener zum Item hinzufügen
+        item.addEventListener("click", (event) => {
+          event.stopPropagation(); // Verhindert das Schließen des Dropdowns
+          // Wenn Checkbox geklickt wird, nichts tun (um Doppeltoggeln zu vermeiden)
+          if (event.target === checkbox) {
+            return;
+          }
+          // Toggle Checkbox Zustand
+          checkbox.checked = !checkbox.checked;
+
+          // Aktualisieren des Checkbox-Aussehens
+          updateCheckboxAppearance();
+
+          // Toggle selected class for background color
+          item.classList.toggle("selected", checkbox.checked);
+
+          // Update der Auswahlanzeige
+          updateSelectedContactsDisplay();
+        });
+
+        // Event Listener für Checkbox
+        checkbox.addEventListener("change", () => {
+          updateCheckboxAppearance();
+          updateSelectedContactsDisplay();
+        });
+
+        // Event Listener für Hover-Effekte
+        item.addEventListener("mouseover", () => {
+          // Wenn die Checkbox nicht ausgewählt ist, Icon weiß färben
+          if (!checkbox.checked) {
+            customCheckbox.style.filter = "brightness(0) invert(1)";
+          }
+        });
+
+        item.addEventListener("mouseout", () => {
+          // Wenn die Checkbox nicht ausgewählt ist, Filter zurücksetzen
+          if (!checkbox.checked) {
+            customCheckbox.style.filter = "";
+          }
+        });
       });
     } catch (error) {
       console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
@@ -126,35 +193,65 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Funktion: Dropdown für "Assigned to" öffnen/schließen
-  function toggleAssignedToDropdown() {
-    const dropdown = document.getElementById("taskAssignedOptions");
-    const placeholder = document.querySelector(".dropdown-placeholder");
+  function toggleAssignedToDropdown(event) {
+    event.stopPropagation(); // Verhindert das Schließen beim Klicken auf das Dropdown
+    const dropdownOptions = document.getElementById("taskAssignedOptions");
 
     // Toggle "hidden" Klasse, um Dropdown zu zeigen oder zu verstecken
-    dropdown.classList.toggle("hidden");
+    dropdownOptions.classList.toggle("hidden");
 
-    // Pfeil-Icon in der Placeholder umdrehen
-    placeholder.classList.toggle("open");
+    // Pfeil-Icon umdrehen
+    arrow.classList.toggle("up");
   }
 
   // Funktion: Schließen des Dropdowns, wenn außerhalb geklickt wird
   function closeAssignedToDropdown(event) {
-    const dropdown = document.getElementById("taskAssignedOptions");
     const dropdownContainer = document.getElementById("taskAssignedContainer");
 
     // Prüfen, ob der Klick außerhalb des Dropdowns war
     if (!dropdownContainer.contains(event.target)) {
-      dropdown.classList.add("hidden");
+      options.classList.add("hidden");
 
       // Stelle sicher, dass das Pfeil-Icon zurückgesetzt wird
-      document.querySelector(".dropdown-placeholder").classList.remove("open");
+      arrow.classList.remove("up");
+
+      // Aktualisiere die Anzeige der ausgewählten Kontakte
+      updateSelectedContactsDisplay();
     }
   }
 
-  // Event Listener: Dropdown öffnen/schließen
-  document
-    .querySelector(".dropdown-placeholder")
-    .addEventListener("click", toggleAssignedToDropdown);
+  // Funktion zum Aktualisieren der Anzeige der ausgewählten Kontakte
+  function updateSelectedContactsDisplay() {
+    const optionsContainer = document.getElementById("taskAssignedOptions");
+    const selectedInputs = optionsContainer.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+
+    const selectedContacts = Array.from(selectedInputs).map(
+      (input) => input.value
+    );
+
+    selectedContactsContainer.innerHTML = ""; // Vorherigen Inhalt löschen
+
+    if (selectedContacts.length > 0) {
+      // Für jeden ausgewählten Kontakt ein Avatar erstellen
+      selectedContacts.forEach((name) => {
+        const user = users.find((u) => u.name === name);
+        if (user) {
+          const avatar = document.createElement("div");
+          avatar.classList.add("avatar");
+          avatar.textContent = user.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase();
+          avatar.style.backgroundColor = user.color || getRandomColor();
+
+          selectedContactsContainer.appendChild(avatar);
+        }
+      });
+    }
+  }
 
   // Event Listener: Klick außerhalb des Dropdowns
   document.addEventListener("click", closeAssignedToDropdown);
@@ -321,109 +418,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     taskElement.dataset.type = task.type;
     taskElement.dataset.completedSubtasks = task.completedSubtasks || "0";
 
-    document
-      .getElementById("addSubtaskButton")
-      .addEventListener("click", function () {
-        document.getElementById("subtaskOptions").style.display = "block";
-      });
-
-    document
-      .getElementById("cancelSubtask")
-      .addEventListener("click", function () {
-        document.getElementById("subtaskOptions").style.display = "none";
-      });
-
-    document
-      .getElementById("confirmSubtask")
-      .addEventListener("click", function () {
-        var subtaskSelect = document.getElementById("subtaskSelect");
-        var subtaskName = subtaskSelect.value;
-        var confirmedSubtasksDiv = document.getElementById("confirmedSubtasks");
-
-        // Überprüfen, ob der Subtask bereits hinzugefügt wurde
-        var existingSubtasks =
-          confirmedSubtasksDiv.getElementsByClassName("subtask-text");
-        for (var i = 0; i < existingSubtasks.length; i++) {
-          if (existingSubtasks[i].textContent === subtaskName) {
-            document.getElementById("subtaskOptions").style.display = "none";
-            return;
-          }
-        }
-
-        // Erstelle ein neues Subtask-Element
-        var subtaskItem = document.createElement("div");
-        subtaskItem.classList.add("subtask-item");
-
-        // Subtask-Text
-        var subtaskText = document.createElement("span");
-        subtaskText.textContent = subtaskName;
-        subtaskText.classList.add("subtask-text");
-
-        // Editier-Button
-        var editButton = document.createElement("button");
-        editButton.innerHTML = "✏️";
-        editButton.classList.add("edit-subtask-button");
-
-        // Lösch-Button
-        var deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "❌";
-        deleteButton.classList.add("delete-subtask-button");
-
-        // Zusammenfügen der Elemente
-        subtaskItem.appendChild(subtaskText);
-        subtaskItem.appendChild(editButton);
-        subtaskItem.appendChild(deleteButton);
-
-        confirmedSubtasksDiv.appendChild(subtaskItem);
-        document.getElementById("subtaskOptions").style.display = "none";
-
-        // Funktion zum Editieren
-        function handleEdit() {
-          var inputField = document.createElement("input");
-          inputField.type = "text";
-          inputField.value = subtaskText.textContent;
-          subtaskItem.replaceChild(inputField, subtaskText);
-          editButton.innerHTML = "💾";
-
-          // Speichern des neuen Textes
-          editButton.onclick = function () {
-            subtaskText.textContent = inputField.value;
-            subtaskItem.replaceChild(subtaskText, inputField);
-            editButton.innerHTML = "✏️";
-            editButton.onclick = handleEdit;
-          };
-        }
-
-        editButton.onclick = handleEdit;
-
-        // Funktion zum Löschen
-        deleteButton.addEventListener("click", function () {
-          confirmedSubtasksDiv.removeChild(subtaskItem);
-        });
-      });
-
     let avatarsHtml = "";
     if (task.assignedTo) {
       avatarsHtml = `
-      <div class="avatars">
-        ${task.assignedTo
-          .split(",")
-          .map(
-            (person) => `<div class="avatar">${person.trim().charAt(0)}</div>`
-          )
-          .join("")}
-      </div>
-    `;
+            <div class="avatars">
+              ${task.assignedTo
+                .split(",")
+                .map(
+                  (person) =>
+                    `<div class="avatar">${person.trim().charAt(0)}</div>`
+                )
+                .join("")}
+            </div>
+          `;
     }
 
     taskElement.innerHTML = `
-    <div class="tag">${task.type || "Task"}</div>
-    <h3>${task.title}</h3>
-    <p>${task.description}</p>
-    ${subtasksHtml}
-    ${avatarsHtml}
-    <div class="icon menu-icon">&#9776;</div>
-  `;
+          <div class="tag">${task.type || "Task"}</div>
+          <h3>${task.title}</h3>
+          <p>${task.description}</p>
+          ${avatarsHtml}
+          <div class="icon menu-icon">&#9776;</div>
+        `;
 
     // Drag & Drop Listener hinzufügen
     addDragAndDropListeners(taskElement);
@@ -506,7 +522,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const description = document.getElementById("taskDescription").value;
     const dueDate = document.getElementById("taskDueDate").value;
     const priority = selectedPriority || "Low";
-    const assignedTo = document.getElementById("taskAssigned").value;
+    const assignedToInputs = options.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+    const assignedTo = Array.from(assignedToInputs)
+      .map((input) => input.value)
+      .join(", ");
     const subtasksInput = document.getElementById("taskSubtasks").value;
     const subtasks = subtasksInput ? subtasksInput.split(",") : [];
     const category = document.getElementById("taskCategory").value;
@@ -540,6 +561,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       document
         .querySelectorAll(".priority-icon")
         .forEach((iconElem) => (iconElem.style.filter = "none"));
+
+      // Zurücksetzen der ausgewählten Kontakte
+      options.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+        checkbox.checked = false;
+        // Entferne die ausgewählte Klasse
+        const item = checkbox.closest(".dropdown-item");
+        if (item) {
+          item.classList.remove("selected");
+        }
+      });
+      updateSelectedContactsDisplay();
 
       addTaskModal.style.right = "-100%";
       setTimeout(() => {
@@ -613,7 +645,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("taskTitle").value = taskData.title;
         document.getElementById("taskDescription").value = taskData.description;
         document.getElementById("taskDueDate").value = taskData.dueDate;
-        document.getElementById("taskAssigned").value = taskData.assignedTo;
+
+        // Setze die ausgewählten Kontakte
+        const assignedToNames = taskData.assignedTo
+          ? taskData.assignedTo.split(", ")
+          : [];
+        options
+          .querySelectorAll("input[type='checkbox']")
+          .forEach((checkbox) => {
+            checkbox.checked = assignedToNames.includes(checkbox.value);
+            // Toggle selected class for background color
+            const item = checkbox.closest(".dropdown-item");
+            if (item) {
+              item.classList.toggle("selected", checkbox.checked);
+            }
+          });
+        updateSelectedContactsDisplay();
+
         document.getElementById("taskSubtasks").value = taskData.subtasks
           ? taskData.subtasks.join(",")
           : "";
@@ -654,8 +702,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Standard Submit Handler für das Hinzufügen einer neuen Aufgabe
   async function addTaskFormSubmitHandler(e) {
     e.preventDefault();
-
-    // (Inhalt wie oben, daher nicht wiederholt)
+    // Inhalt wie oben, daher nicht wiederholt
   }
 
   // Submit Handler für das Aktualisieren einer bestehenden Aufgabe
@@ -666,7 +713,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const description = document.getElementById("taskDescription").value;
     const dueDate = document.getElementById("taskDueDate").value;
     const priority = selectedPriority || "Low";
-    const assignedTo = document.getElementById("taskAssigned").value;
+    const assignedToInputs = options.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+    const assignedTo = Array.from(assignedToInputs)
+      .map((input) => input.value)
+      .join(", ");
     const subtasksInput = document.getElementById("taskSubtasks").value;
     const subtasks = subtasksInput ? subtasksInput.split(",") : [];
     const category = document.getElementById("taskCategory").value;
@@ -723,6 +775,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         .querySelectorAll(".priority-icon")
         .forEach((iconElem) => (iconElem.style.filter = "none"));
 
+      // Zurücksetzen der ausgewählten Kontakte
+      options.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+        checkbox.checked = false;
+        // Entferne die ausgewählte Klasse
+        const item = checkbox.closest(".dropdown-item");
+        if (item) {
+          item.classList.remove("selected");
+        }
+      });
+      updateSelectedContactsDisplay();
+
       addTaskModal.style.right = "-100%";
       setTimeout(() => {
         addTaskModal.style.display = "none";
@@ -731,7 +794,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Entferne den temporären Submit Handler und setze den Standard-Handler wieder ein
       addTaskForm.removeEventListener("submit", updateTaskHandler);
       addTaskForm.addEventListener("submit", addTaskFormSubmitHandler);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren der Aufgabe:", error);
+    }
   }
 
   // Priority Buttons
