@@ -280,33 +280,33 @@
           <span class="close-button">&times;</span>
           <h2 class="contentH2">Add Task</h2>
           <form id="addTaskForm">
-            <div class="form-row">
+            <div class="form-container">
+              <!-- Linke Spalte -->
               <div class="form-column">
-                <label for="taskTitle"
-                  >Title <span class="required">*</span></label
-                >
-                <input
-                  type="text"
-                  id="taskTitle"
-                  placeholder="Enter a title"
-                  required
-                />
-
-                <!-- Description -->
+                <label for="taskTitle">Title <span class="required">*</span></label>
+                <input type="text" id="taskTitle" placeholder="Enter a title" required />
+      
                 <label for="taskDescription">Description</label>
-                <textarea
-                  id="taskDescription"
-                  placeholder="Enter a Description"
-                  required
-                ></textarea>
-
-                <!-- Assigned To -->
+                <textarea id="taskDescription" placeholder="Enter a Description" required></textarea>
+      
                 <label for="taskAssigned">Assigned to</label>
-<div class="assigned-container">
-  <select id="taskAssigned" class="assigned-dropdown" required>
-    <option disabled selected value="">Select a user</option>
-  </select>
-</div>
+                <div id="taskAssignedContainer" class="assigned-container">
+                <div id="taskAssignedDropdown" class="custom-dropdown">
+                <div class="dropdown-placeholder">Select contacts
+                    <div class="arrow">
+                    <img id="dropdownArrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.png" alt="Dropdown arrow" />
+                </div>
+                </div>
+                <div id="taskAssignedOptions" class="dropdown-options hidden"></div>
+                </div>
+                </div>
+                </div>
+                <div class="add-task-label">
+                <label for="required"
+                ><span class="required">*</span>This field is required</label
+              >
+            </div>
+              </div>
 
               <div class="divider"></div>
 
@@ -392,13 +392,10 @@
 <div id="confirmedSubtasks" class="confirmed-subtasks"></div>
 
             <div class="form-actions">
-              <label for="required"
-                ><span class="required">*</span>This field is required</label
-              >
               <!-- Actions -->
               <div class="addTask-buttons">
                 <button class="cancel-btn" id="cancelButton">Cancel x</button>
-                <button type="submit" class="create-task-btn">Add Task</button>
+                <button type="submit" class="create-task-btn">Create Task ✓</button>
               </div>
             </div>
           </form>

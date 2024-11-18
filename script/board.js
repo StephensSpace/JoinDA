@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const taskSubtasks = document.getElementById("taskSubtasks");
   const deleteTaskButton = document.querySelector(".delete-btn");
   const editTaskButton = document.querySelector(".edit-btn");
+  const dropdown = document.getElementById("taskAssignedDropdown");
+  const options = document.getElementById("taskAssignedOptions");
+  const arrow = document.getElementById("dropdownArrow");
   await loadAssignedToOptions();
   await loadTasksFromFirebase();
   updateNoTasksMessages();
@@ -36,9 +39,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   let selectedPriority = null; // Variable zum Speichern der ausgewählten Priorität
   let currentTaskId = null; // Speichert die ID der aktuellen Aufgabe für Bearbeitung/Löschung
 
+  // Toggle Dropdown Visibility
+  dropdown.addEventListener("click", () => {
+    options.classList.toggle("hidden");
+    arrow.classList.toggle("up");
+  });
+
   async function loadAssignedToOptions() {
     try {
-      // Pfad zu den Kontakten in Firebase
+      // Kontakte aus Firebase laden
       const snapshot = await firebase.database().ref("contacts").once("value");
       const users = snapshot.val();
 
@@ -47,26 +56,115 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      // Dropdown-Element auswählen
-      const taskAssignedTo = document.getElementById("taskAssigned");
+      const dropdown = document.getElementById("taskAssignedDropdown");
+      const optionsContainer = document.getElementById("taskAssignedOptions");
 
-      // Kontakte als Optionen hinzufügen
+      // Kontakte dynamisch hinzufügen
       Object.values(users).forEach((user) => {
-        const option = document.createElement("option");
-        option.value = user.name; // Option-Wert
-        option.textContent = user.name; // Sichtbarer Text
-        taskAssignedTo.appendChild(option);
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+
+        // Avatar erstellen (Initialen)
+        const avatar = document.createElement("div");
+        avatar.classList.add("avatar");
+        avatar.textContent = user.name
+          .split(" ")
+          .map((n) => n[0])
+          .join("")
+          .toUpperCase();
+
+        avatar.style.backgroundColor = user.color || getRandomColor();
+
+        // Name hinzufügen
+        const name = document.createElement("div");
+        name.classList.add("name");
+        name.textContent = user.name;
+
+        // Checkbox erstellen
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = user.name;
+
+        // Element zusammenfügen
+        item.appendChild(avatar);
+        item.appendChild(name);
+        item.appendChild(checkbox);
+        optionsContainer.appendChild(item);
+      });
+
+      // Dropdown öffnen und schließen
+      dropdown.addEventListener("click", () => {
+        optionsContainer.classList.toggle("hidden");
+      });
+
+      // Auswahl anzeigen
+      optionsContainer.addEventListener("click", (event) => {
+        const checkbox = event.target.closest("input[type='checkbox']");
+        if (checkbox) {
+          const selectedContacts = Array.from(
+            optionsContainer.querySelectorAll("input[type='checkbox']:checked")
+          )
+            .map((input) => input.value)
+            .join(", ");
+
+          document.querySelector(".dropdown-placeholder").textContent =
+            selectedContacts || "Select contacts to assign";
+        }
       });
     } catch (error) {
       console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
     }
   }
 
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // Funktion: Dropdown für "Assigned to" öffnen/schließen
+  function toggleAssignedToDropdown() {
+    const dropdown = document.getElementById("taskAssignedOptions");
+    const placeholder = document.querySelector(".dropdown-placeholder");
+
+    // Toggle "hidden" Klasse, um Dropdown zu zeigen oder zu verstecken
+    dropdown.classList.toggle("hidden");
+
+    // Pfeil-Icon in der Placeholder umdrehen
+    placeholder.classList.toggle("open");
+  }
+
+  // Funktion: Schließen des Dropdowns, wenn außerhalb geklickt wird
+  function closeAssignedToDropdown(event) {
+    const dropdown = document.getElementById("taskAssignedOptions");
+    const dropdownContainer = document.getElementById("taskAssignedContainer");
+
+    // Prüfen, ob der Klick außerhalb des Dropdowns war
+    if (!dropdownContainer.contains(event.target)) {
+      dropdown.classList.add("hidden");
+
+      // Stelle sicher, dass das Pfeil-Icon zurückgesetzt wird
+      document.querySelector(".dropdown-placeholder").classList.remove("open");
+    }
+  }
+
+  // Event Listener: Dropdown öffnen/schließen
+  document
+    .querySelector(".dropdown-placeholder")
+    .addEventListener("click", toggleAssignedToDropdown);
+
+  // Event Listener: Klick außerhalb des Dropdowns
+  document.addEventListener("click", closeAssignedToDropdown);
+
   // Funktion zum Hinzufügen der Drag & Drop Listener zu einer Aufgabe
   function addDragAndDropListeners(task) {
     task.setAttribute("draggable", "true");
 
     task.addEventListener("dragstart", (e) => {
+      console.log("Drag gestartet:", task);
       draggedTask = task;
       e.dataTransfer.setData("text/plain", task.dataset.task);
       task.classList.add("dragging");
@@ -125,30 +223,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   function addColumnDragAndDropListeners(column) {
     const tasksContainer = column.querySelector(".tasks-container");
 
+    // Dragover erlaubt das Ablegen innerhalb der Spalte
     tasksContainer.addEventListener("dragover", (e) => {
-      e.preventDefault();
+      e.preventDefault(); // Verhindert Standardaktionen (z. B. Textauswahl)
+      column.classList.add("drag-over"); // Optional: Visuelles Feedback
     });
 
+    // Entferne visuelles Feedback, wenn Drag endet
+    tasksContainer.addEventListener("dragleave", () => {
+      column.classList.remove("drag-over");
+    });
+
+    // Drop-Event
     tasksContainer.addEventListener("drop", async (e) => {
       e.preventDefault();
+
       if (draggedTask) {
+        console.log("Task wird verschoben:", draggedTask);
+
+        // Füge den Task in die neue Spalte ein
         tasksContainer.appendChild(draggedTask);
+
+        // Aktualisiere die Kategorie des Tasks
         const newCategory = column.dataset.status;
         draggedTask.dataset.category = newCategory;
 
-        // Update task in Firebase
+        // Speichere die Änderungen in Firebase
         try {
           const taskId = draggedTask.dataset.id;
           const updates = { category: newCategory };
           await firebase.database().ref(`tasks/${taskId}`).update(updates);
+          console.log("Task erfolgreich aktualisiert:", taskId, updates);
         } catch (error) {
-          console.error(
-            "Fehler beim Aktualisieren der Aufgabe in Firebase:",
-            error
-          );
+          console.error("Fehler beim Aktualisieren in Firebase:", error);
         }
-        updateNoTasksMessages();
+
+        column.classList.remove("drag-over"); // Entferne visuelles Feedback
       }
+      updateNoTasksMessages();
     });
   }
 

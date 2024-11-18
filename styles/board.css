@@ -24,7 +24,6 @@ main {
   width: 1208px;
   height: 24px;
   top: 200.5px;
-  gap: 10px;
   display: flex;
   justify-content: space-between;
 }
@@ -32,8 +31,8 @@ main {
 .headlines div {
   display: flex;
   justify-content: center; /* Wichtiger Teil für die Anordnung von Überschrift und Button */
-  align-items: baseline;
-  width: 100%;
+  width: 244px;
+  height: 24px;
 }
 
 .add-task-btn-category {
@@ -80,6 +79,8 @@ main {
 .right-section {
   display: flex;
   align-items: baseline;
+  width: 504px;
+  height: 48px;
 }
 
 .search-bar input {
@@ -90,14 +91,15 @@ main {
 }
 
 .search-bar button {
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: 12px 12px;
   background-color: #2a3647;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  width: 120px;
+  width: 160px;
+  font-size: large;
+  height: 48px;
 }
 
 .search-bar button:hover {
@@ -106,10 +108,12 @@ main {
 
 .input-container {
   position: relative;
-  margin-right: 10px; /* Abstand zwischen Input-Feld und Button */
+  margin-right: 24px;
 }
 
 .input-container input {
+  width: 312px;
+  height: 48px;
   padding-right: 50px; /* Platz für Linie und Icon */
 }
 
@@ -161,6 +165,7 @@ main {
   height: 688px;
   top: 336px;
   gap: 26px;
+  align-items: baseline;
 }
 
 .board-column {
@@ -215,7 +220,7 @@ main {
   align-items: center;
   justify-content: center;
   width: 246px;
-  height: 48px; /* Höhe der Box anpassen */
+  height: 19px;
   background-color: #f4f7f9;
   color: #b0b0b0;
   font-size: 1rem;
@@ -234,7 +239,7 @@ main {
 }
 
 .task-card {
-  width: 220px;
+  width: 252px;
   padding: 16px;
   background-color: white;
   border-radius: 12px;
@@ -358,6 +363,10 @@ main {
   overflow-y: auto;
 }
 
+#addTaskForm {
+  display: flex;
+}
+
 .add-task-modal-content {
   background-color: white;
   margin: 0 auto;
@@ -393,7 +402,15 @@ main {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  left: 125px;
+  left: 126px;
+}
+
+/* Form-Container für zwei Spalten */
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex: 1;
 }
 
 .modal-content-task {
@@ -485,6 +502,7 @@ textarea {
 /* Divider Styling */
 .divider {
   width: 1px;
+  height: 424px;
   background-color: #ddd;
   margin: 0 20px; /* Abstand zwischen der Linie und den Spalten */
   align-self: stretch; /* Stellt sicher, dass die Linie die volle Höhe hat */
@@ -507,11 +525,9 @@ input[type="text"],
 input[type="date"],
 select,
 textarea {
-  width: 100%;
-  padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   outline: none;
 }
 
@@ -579,10 +595,17 @@ textarea {
 /* Form Actions Styling */
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
   align-items: center;
+}
+
+.add-task-label {
+  width: 170px;
+  height: 27px;
+  position: absolute;
+  top: 596px;
 }
 
 .addTask-buttons {
@@ -708,28 +731,6 @@ textarea {
   padding: 5px;
 }
 
-/* Assigned To Styles */
-.assigned-to-list label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.assigned-to-list input[type="checkbox"] {
-  display: none;
-}
-
-.assigned-to-list .assigned-name {
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.assigned-to-list input[type="checkbox"]:checked + .assigned-name {
-  background-color: #1a237e;
-  color: white;
-}
-
 /* Due Date Error */
 .error-message {
   color: red;
@@ -743,43 +744,132 @@ textarea {
 /* Container für das Dropdown */
 .assigned-container {
   position: relative;
-  display: inline-block;
   width: 100%;
 }
 
 /* Dropdown-Styling */
-.assigned-dropdown {
-  width: 100%;
-  padding: 10px;
+.custom-dropdown {
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  appearance: none; /* Entfernt Standard-Browser-Styling */
-  cursor: pointer;
-}
-
-/* Dropdown-Hover */
-.assigned-dropdown:hover {
-  border-color: #007bff;
-}
-
-/* Styling für geöffnete Optionen */
-.assigned-dropdown:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-/* Dropdown-Optionen Styling */
-.assigned-dropdown option {
   padding: 10px;
-  font-size: 14px;
+  cursor: pointer;
   background-color: white;
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown-placeholder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.arrow:hover {
+  background-color: #d3d3d3;
+  border-radius: 55px;
+  height: 24px;
+  width: 24px;
+}
+
+.dropdown-arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.up {
+  transform: rotate(180deg);
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  background-color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: #091931;
+  color: white;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  margin-right: 10px;
+  border: 2px solid white;
+}
+
+/* Dropdown geschlossen/verborgen */
+.dropdown-options.hidden {
+  display: none;
+}
+
+.dropdown-item .name {
+  flex-grow: 1;
+}
+
+.dropdown-item input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+}
+
+/* Styling für das Assigned to Dropdown */
+.assigned-container {
+  position: relative;
+  width: 100%;
+}
+
+.assigned-option {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  gap: 10px;
   cursor: pointer;
 }
 
-/* Styling für ein leeres Dropdown */
-.assigned-dropdown[disabled] {
-  color: #aaa;
+.assigned-option:hover {
+  background-color: #f0f0f0;
+}
+
+.assigned-option.selected {
+  background-color: #e0f7fa;
+}
+
+.assigned-name {
+  flex-grow: 1;
 }
