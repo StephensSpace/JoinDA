@@ -98,3 +98,89 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
     
     `
 }
+
+// Modal Template für Add-New Contact
+function modalAddContactTemplate() {
+    return `
+    
+    <modal class="modal" id="modal">
+    
+        <div class="modal-left">
+
+            <img src="./assets/img/logo.png">
+            <h1>Add contact</h1>
+            <p>Tasks are better with a team!</p>
+            <hr>
+
+        </div>
+
+        <div class="modal-right">
+            
+            <div>
+                <img src="./assets/icons/contacts/person.png">
+            </div>
+
+            <div class="modal-inputfield">
+
+                <form>
+                    <input type="text" name="" id="" class="person-icon" placeholder="Name">
+                    
+                </form>
+
+                <form>
+                    <input type="email" name="" id="" class="check-icon" placeholder="Email">
+                </form>
+
+                <form>
+                    <input type="text" name="" id="" class="phone-icon" placeholder="Phone">
+                </form>
+
+                <div>
+                    <button type="submit" onclick="">Cancel <img src="./assets/icons/contacts/Vector-X.png"></button>
+                    <button type="submit" onclick="">Create contact <img src="./assets/icons/contacts/check.png"></button>
+                </div>
+
+            </div>
+        
+        </div>
+
+    </modal>
+
+    `
+}
+
+// Modal Template für Edit
+function modalEditContactTemplate() {
+    return `
+    
+    <modal class="modal" id="modal">
+    
+        <div class="modal-left">
+
+            <img src="./assets/img/logo.png">
+            <h1>Add contact</h1>
+            <p>Tasks are better with a team!</p>
+            <hr>
+
+        </div>
+
+        <div class="modal-right">
+            
+            
+            <div>
+                <img src="./assets/icons/person.png">
+            </div>
+
+            <div>
+                <input type="text" name="" id="">
+                <input type="email" name="" id="">
+                <input type="text" name="" id="">
+            </div>
+            
+
+        </div>
+
+    </modal>
+
+    `
+}

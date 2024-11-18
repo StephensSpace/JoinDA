@@ -47,6 +47,9 @@ function getFirstnameLetter(USER_NAME) {
     return getFirstLetter;
 }
 
+
+
+
 //############################################################
 
 //                WORKING ON FUNKTIONEN                     //
@@ -90,9 +93,17 @@ async function getUserInfoInContacts(userIndex) {
     //}
 }
 
+
+
+
+
+
 async function addContact() {
-    
+    const CONTACT_CONTENT_REF = document.getElementsByClassName('contact-content')[0];
+    CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
 }
+
+
 
 
 

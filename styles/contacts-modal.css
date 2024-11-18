@@ -1,0 +1,47 @@
+
+/* Alles zum Modal für Add new Contact & Edit */
+
+modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    background-color: rgba(5, 23, 30, 0.918);
+}
+
+modal input {
+    cursor: pointer;
+}
+
+.modal-right {
+    display: flex;
+}
+
+.modal-inputfield {
+    display: flex;
+    flex-direction: column;
+}
+
+.person-icon {
+    background: url(/assets/icons/contacts/person.png) no-repeat right;
+    background-size: 12px;
+    filter: invert(0.5);
+}
+
+.check-icon {
+    background: url(/assets/icons/contacts/mail.png) no-repeat right;
+    background-size: 12px;
+    filter: invert(0.5);
+}
+
+.phone-icon {
+    background: url(/assets/icons/contacts/call.png) no-repeat right;
+    background-size: 12px;
+    filter: invert(0.5);
+}
