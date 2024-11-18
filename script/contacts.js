@@ -90,9 +90,13 @@ async function getUserInfoInContacts(userIndex) {
     //}
 }
 
-async function addContact(params) {
+async function addContact() {
     
 }
+
+
+
+
 
 
 //############################################################
@@ -102,4 +106,13 @@ async function addContact(params) {
 //############################################################
 
 
+// close the dialog overlay with an click into nothing
+function closeDialogOverlay() {
+    document.getElementById('dialogBackground').remove();
+}
+
+// stopping event bubbling (clicks trough)
+function eventBubbling(event) {
+    event.stopPropagation();
+}
 

@@ -1,7 +1,6 @@
 
 
 // Container Template zur Trennung durch Anfangsbuchstaben Firstname
-
 function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     
 

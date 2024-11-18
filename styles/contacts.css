@@ -105,7 +105,7 @@
 }
 
 .add-new-contact-btn:hover {
-    z-index: 99;
+    z-index: 3;
     background-color: var(--background-color-card);
     filter: drop-shadow(0 -6px 6px);
 }
@@ -126,3 +126,4 @@
     font-size: large;
     padding: 20px;
 }
+
