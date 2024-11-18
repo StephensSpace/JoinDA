@@ -103,47 +103,50 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
 function modalAddContactTemplate() {
     return `
     
-    <modal class="modal" id="modal">
-    
-        <div class="modal-left">
-
-            <img src="./assets/img/logo.png">
-            <h1>Add contact</h1>
-            <p>Tasks are better with a team!</p>
-            <hr>
-
-        </div>
-
-        <div class="modal-right">
-            
-            <div>
-                <img src="./assets/icons/contacts/person.png">
-            </div>
-
-            <div class="modal-inputfield">
-
-                <form>
-                    <input type="text" name="" id="" class="person-icon" placeholder="Name">
-                    
-                </form>
-
-                <form>
-                    <input type="email" name="" id="" class="check-icon" placeholder="Email">
-                </form>
-
-                <form>
-                    <input type="text" name="" id="" class="phone-icon" placeholder="Phone">
-                </form>
-
-                <div>
-                    <button type="submit" onclick="">Cancel <img src="./assets/icons/contacts/Vector-X.png"></button>
-                    <button type="submit" onclick="">Create contact <img src="./assets/icons/contacts/check.png"></button>
+    <modal onclick="closeModal()" class="modal-background" id="modal-background">
+        <modal onclick="eventBubbling(event)" class="modal" id="modal">
+            <div class="modal-left modal-same-padding-left">
+                <div class="modal-left-div modal-same-height">
+                    <img src="./assets/img/logo-2.png">
+                    <h1>Add contact</h1>
+                    <p>Tasks are better with a team!</p>
+                    <hr>
                 </div>
-
             </div>
-        
-        </div>
 
+            <div class="modal-right modal-same-padding-right">
+                <div class="modal-right-div modal-same-height">
+                    
+                    
+
+                    <div class="modal-right-bottom">
+
+                        <div class="modal-userImg">
+                            <img src="./assets/icons/contacts/person.png">
+                        </div>
+
+                        <div class="modal-inputfield-div">
+                            <div class="modal-right-top">
+                                <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                            </div>
+                            
+                            <div class="modal-inputfield">
+                                <input type="text" name="" id="" class="person-icon" placeholder="Name">
+                                <input type="email" name="" id="" class="check-icon" placeholder="Email">
+                                <input type="text" name="" id="" class="phone-icon" placeholder="Phone">
+                            </div>
+
+                            <div class="modal-inputfield-buttons">
+                                <button id="cancelBtn" type="submit" onclick="closeModal()" style="background: var(--background-color-header);">Cancel <img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></button>
+                                <button id="createContactBtn" type="submit" onclick="" style="background: var(--background-color-nav); color: white;">Create contact <img src="./assets/icons/contacts/check.png"></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </modal>
     </modal>
 
     `
@@ -167,7 +170,7 @@ function modalEditContactTemplate() {
         <div class="modal-right">
             
             
-            <div>
+            <div class="modal-userImg">
                 <img src="./assets/icons/person.png">
             </div>
 
