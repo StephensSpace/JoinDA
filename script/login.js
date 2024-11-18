@@ -4,8 +4,10 @@ let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebaseda
 window.addEventListener("load", () => {
     setTimeout(() => {
         // Login-Container und "Not a User" einblenden
-        document.getElementById("loginContainer").classList.add('loginContainerFlex');
-        document.getElementById("notAUser").style.display = "block";
+        document.getElementById("loginContainer").classList.remove('dNone');
+        document.getElementById("loginContainer").classList.add('login-container');
+        document.getElementById("notAUser").classList.remove('dNone');
+        document.getElementById("notAUser").classList.add('not-a-user')
     }, 4000); // 5 Sekunden Wartezeit + 1 Sekunde für die Animation
 });
 
@@ -40,16 +42,41 @@ function checkPw(mail, password, data) {
 }
 
 function loadRegister() {
-    document.getElementById('loginContainer').innerHTML = `<div class="SignUpHead">
-            <img src="./assets/buttons/arrowLeft.png" id="arrowLeft" onclick="backToLogin()">
-            <h1 id="signUpHeader">SIGN UP</h1>
+    document.getElementById('loginContainer').classList.remove('login-container');
+    document.getElementById('loginContainer').classList.add('signUpContainer');
+    document.getElementById('loginContainer').innerHTML = `<div class="arrowLeft" onclick="backToLogin()">
+            <img src="./assets/buttons/arrowLeft.png" id="arrowLeft">
         </div>
+        <h1 id="signUpHeader">Sign up</h1>
+        <div class="vector"></div>    
         <form onsubmit="SignUp(event)">
-        <input type="name" id="name" required placeholder="Name">
+        <div class="lockWrapper">
+            <input type="name" id="name" required placeholder="Name">
+            <img src="./assets/icons/person.svg" alt="" class="person">
+        </div>
         <div class="dNone" id="msgBox2">This Name is allready in Use</div>
-        <input type="email" id="email" required placeholder="Email">
-        <input type="password" id="password" required placeholder="Password">
-        <input type="password" id="pwCheck" required placeholder="Confirm Password">
-        <button type="submit">Sign Up</button>
+        <div class="lockWrapper">
+            <input type="email" id="email" required placeholder="Email">
+            <img src="./assets/icons/mail.svg" alt="" class="mailSignUp">
+        </div>
+        <div class="lockWrapper">
+            <input type="password" id="password" required placeholder="Password">
+            <img src="./assets/icons/lock.svg" alt="" class="lockSignUp">
+        </div>
+        <div class="lockWrapper">
+            <input type="password" id="pwCheck" required placeholder="Confirm Password">
+            <img src="./assets/icons/lock.svg" alt="" class="lockSignUp2">
+        </div>
+        <div class="privacyCheckbox">
+            <input type="checkbox" class="customCheckbox" required onchange="toggleSubmitButton(this)">
+            <span id="iAccept">I accept the
+                <a href="privacy_policy.html">Privacy policy</a>
+            </span>
+        </div>
+        <button type="submit" id="submitButton" class="buttonLogIn" disabled>
+            <span class="btnTextLogin">
+                Sign Up
+            </span>
+        </button>
     </form>`
 }

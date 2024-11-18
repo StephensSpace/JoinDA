@@ -36,12 +36,12 @@
     <div id="signedUp" class="signedInFont hidden">You Signed Up Succesfully</div>
 
     <!-- "Not a User?" Bereich außerhalb der Card -->
-    <div class="not-a-user" id="notAUser" style="display: none;">
-        Not a user? <a href="#" onclick="loadRegister(); return false">Sign up</a>
+    <div class="dNone" id="notAUser">
+        Not a Join user? <button onclick="loadRegister()" class="signUpBtn"><span id="signUpBtnText">Sign up</span></button>
     </div>
 
     <!-- Login-Formular -->
-    <div class="login-container" id="loginContainer">
+    <div class="dNone" id="loginContainer">
         <h1>Log in</h1>
         <div class="vector"></div>
         <form onsubmit="login(); return false" method="post">
@@ -56,7 +56,7 @@
             <message id="msgBox" class="dNone">Username or Password wrong</message>
             <label id="rememberMe"><input type="checkbox" class="customCheckbox"> Remember me</label>
             <div class="loginButtons">
-                <button type="submit" class="buttonLogIn"><span id="btnTextLogin">Log in</span></button>
+                <button type="submit" class="buttonLogIn"><span class="btnTextLogin">Log in</span></button>
                 <button type="button" class="buttonGuestLog"onclick="guestLogin()"><span id="guestLogText">Guest Log in</span></button>
             </div>
         </form>

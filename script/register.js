@@ -70,7 +70,14 @@ function userInUse() {
     document.getElementById('msgBox2').classList.remove("dNone");
 }
 
+function toggleSubmitButton(checkbox) {
+    const submitButton = document.getElementById('submitButton');
+    submitButton.disabled = !checkbox.checked; // Aktivieren oder Deaktivieren basierend auf dem Zustand
+}
+
 function backToLogin() {
+    document.getElementById('loginContainer').classList.add('login-container');
+    document.getElementById('loginContainer').classList.remove('signUpContainer');
     document.getElementById('loginContainer').innerHTML = `<h1>Log in</h1>
         <div class="vector"></div>
         <form onsubmit="login(); return false" method="post">
@@ -85,7 +92,7 @@ function backToLogin() {
             <message id="msgBox" class="dNone">Username or Password wrong</message>
             <label id="rememberMe"><input type="checkbox" class="customCheckbox"> Remember me</label>
             <div class="loginButtons">
-                <button type="submit" class="buttonLogIn"><span id="btnTextLogin">Log in</span></button>
+                <button type="submit" class="buttonLogIn"><span class="btnTextLogin">Log in</span></button>
                 <button type="button" class="buttonGuestLog"onclick="guestLogin()"><span id="guestLogText">Guest Log in</span></button>
             </div>
         </form>
