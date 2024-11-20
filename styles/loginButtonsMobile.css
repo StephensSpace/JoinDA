@@ -1,0 +1,108 @@
+
+.buttonLogIn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 24px;
+    gap: 10px;
+    width: 180px;
+    height: 51px;
+    background: #091931;
+    border-radius: 8px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: none;
+}
+
+.signUpBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 16px;
+    gap: 10px;
+    width: 91px;
+    height: 49px;
+    background: #091931;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    color: #FFFFFF;
+    border: none;
+}
+
+.buttonLogIn:disabled {
+    background: #2A3647;
+    cursor: not-allowed;
+}
+
+
+#signUpBtnText {
+    width: 59px;
+    height: 19px;
+    white-space: nowrap;
+}
+
+
+.buttonLogIn:not(:disabled):hover,
+.signUpBtn:not(:disabled):hover {
+    background: #29ABE2;
+    border-color: #29ABE2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.btnTextLogin {
+    width: 110px;
+    height: 25px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.buttonGuestLog {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 24px;
+    gap: 10px;
+    width: 180px;
+    height: 51px;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #2A3647;
+    border-radius: 8px;
+    color: #2A3647;
+}
+
+.buttonGuestLog:hover {
+    box-sizing: border-box;
+    border: 2px solid #29ABE2;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 10px;
+    color: #29ABE2;
+}
+
+#guestLogText {
+    width: 129px;
+    height: 25px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+button {
+    font-family: 'Inter';
+    font-style: normal;
+    cursor: pointer;
+}

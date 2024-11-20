@@ -139,7 +139,7 @@ a:hover {
 
 .lockSignUp {
     position: absolute;
-    top: 318px;
+    top: 317px;
     right: 34px;
     margin: 0 auto;
     width: 24px;
@@ -148,7 +148,7 @@ a:hover {
 
 .lockSignUp2 {
     position: absolute;
-    top: 390px;
+    top: 389px;
     right: 34px;
     margin: 0 auto;
     width: 24px;
@@ -157,7 +157,7 @@ a:hover {
 
 .mailSignUp {
     position: absolute;
-    top: 246px;
+    top: 245px;
     right: 34px;
     margin: 0 auto;
     width: 24px;
@@ -166,9 +166,73 @@ a:hover {
 
 .person {
     position: absolute;
-    top: 174px;
+    top: 173px;
     right: 34px;
     margin: 0 auto;
     width: 24px;
     height: 24px;
+}
+
+#newUserSpan {
+    width: 153px;
+    height: 24px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    color: #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    white-space: nowrap;
+}
+
+.signUpContainer .vector {
+    margin-top: -26px;
+}
+
+.loginContainerFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 88px;
+    gap: 32px;
+    isolation: isolate;
+    position: absolute;
+    height: 595px;
+    width: 100%;
+    max-width: 396px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    border-radius: 30px;
+    font-family: 'Inter';
+    font-style: normal;
+}
+
+.signUpContainer form {
+    gap: 24px;
+    width: 100vw;
+}
+
+.signUpContainer h1 {
+    width: 173px !important;
+    height: 72px !important;
+    white-space: nowrap;
+}
+
+@media(max-width: 396px) {
+    .lockSignUp,
+    .lockSignUp2, 
+    .mailSignUp,
+    .person {
+        right: calc(94px - (396px - 100vw));
+    }
 }

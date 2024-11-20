@@ -50,7 +50,7 @@ function loadRegister() {
         </div>
         <h1 id="signUpHeader">Sign up</h1>
         <div class="vector"></div>    
-        <form onsubmit="SignUp(event)">
+        <form onsubmit="SignUp(event)" onchange="toggleSubmitButton()">
         <div class="lockWrapper">
             <input type="name" id="name" required placeholder="Name">
             <img src="./assets/icons/person.svg" alt="" class="person">
@@ -69,7 +69,7 @@ function loadRegister() {
             <img src="./assets/icons/lock.svg" alt="" class="lockSignUp2">
         </div>
         <div class="privacyCheckbox">
-            <input type="checkbox" class="customCheckbox" required onchange="toggleSubmitButton(this)">
+            <input type="checkbox" class="customCheckbox" id="checkBox" required>
             <span id="iAccept">I accept the
                 <a href="privacy_policy.html">Privacy policy</a>
             </span>

@@ -1,0 +1,71 @@
+.ppAndLnBox {
+    position: absolute;
+    width: 246px;
+    height: 35px;
+    left: calc(50% - 246px/2);
+    bottom: 40px;
+}
+
+.ppSpan {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    position: absolute;
+    width: 121px;
+    height: 35px;
+    left: calc(50% - 121px/2 - 62.5px);
+    top: calc(50% - 35px/2);
+}
+
+#ppLink {
+    width: 105px;
+    height: 19px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    display: flex;
+    align-items: center;
+    color: #A8A8A8;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    white-space: nowrap;
+}
+
+.lNSpan {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    position: absolute;
+    width: 109px;
+    height: 35px;
+    left: calc(50% - 109px/2 + 68.5px);
+    top: calc(50% - 35px/2);
+}
+
+.ppSpan a:hover,
+.lNSpan a:hover {
+    color: #007bff !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+#lNLink {
+    width: 93px;
+    height: 19px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    display: flex;
+    align-items: center;
+    color: #A8A8A8;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    white-space: nowrap;
+}

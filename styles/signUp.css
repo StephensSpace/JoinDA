@@ -57,13 +57,9 @@ a:hover {
     order: 0;
     flex-grow: 0;
     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
-    /* Animation hinzufügen */
     opacity: 0;
-    /* Startet unsichtbar */
     transform: translateY(-100%);
-    /* Startposition oberhalb des Viewports */
     transition: opacity 0.3s ease, transform 0.3s ease;
-    /* Übergang */
 }
 
 #signedUp.slide-in {
@@ -126,10 +122,10 @@ a:hover {
 }
 
 #iAccept {
-font-weight: 400;
-font-size: 16px;
-line-height: 120%;
-color: #A8A8A8;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #A8A8A8;
 }
 
 .hidden {
@@ -171,4 +167,53 @@ color: #A8A8A8;
     margin: 0 auto;
     width: 24px;
     height: 24px;
+}
+
+.signUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 88px;
+    gap: 32px;
+    isolation: isolate;
+    position: absolute;
+    width: 598px;
+    height: 630px;
+    left: calc(50% - 598px/2);
+    top: calc(50% - 630px/2);
+    background: #FFFFFF;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    border-radius: 30px;
+    font-family: 'Inter';
+    font-style: normal;
+}
+
+.signUpBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 16px;
+    gap: 10px;
+    width: 91px;
+    height: 49px;
+    background: #091931;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    color: #FFFFFF;
+    border: none;
+}
+
+#signUpBtnText {
+    width: 59px;
+    height: 19px;
+    white-space: nowrap;
+}
+
+.loginContainerFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

@@ -35,25 +35,6 @@ body {
     top: calc(50% - 493px/2);
 }
 
-.signUpContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 88px;
-    gap: 32px;
-    isolation: isolate;
-    position: absolute;
-    width: 598px;
-    height: 630px;
-    left: calc(50% - 598px/2);
-    top: calc(50% - 630px/2);
-    background: #FFFFFF;
-    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-    border-radius: 30px;
-    font-family: 'Inter';
-    font-style: normal;
-}
-
 .login-container h1,
 .signUpContainer h1 {
     width: 315px;
@@ -82,7 +63,6 @@ form {
     order: 0;
     flex-grow: 0;
 }
-
 
 input[type="email"],
 input[type="password"],
@@ -113,7 +93,6 @@ input[type="password"]::placeholder,
 input[type="name"]::placeholder {
     font-size: 20px;
 }
-
 
 .lock {
     position: absolute;
@@ -203,7 +182,7 @@ input[type="name"]::placeholder {
     gap: 10px;
     width: 110px;
     height: 48px;
-    background: #2A3647;
+    background: #091931;
     border-radius: 8px;
     flex: none;
     order: 0;
@@ -211,8 +190,13 @@ input[type="name"]::placeholder {
     border: none;
 }
 
-.buttonLogIn:hover,
-.signUpBtn:hover {
+.buttonLogIn:disabled {
+    background: #2A3647;
+    cursor: not-allowed;
+}
+
+.buttonLogIn:not(:disabled):hover,
+.signUpBtn:not(:disabled):hover {
     background: #29ABE2;
     border-color: #29ABE2;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -227,79 +211,6 @@ input[type="name"]::placeholder {
     line-height: 120%;
     color: #fff;
     white-space: nowrap;
-}
-
-.ppAndLnBox {
-    position: absolute;
-    width: 246px;
-    height: 35px;
-    left: calc(50% - 246px/2);
-    bottom: 40px;
-}
-
-.ppSpan {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px;
-    gap: 8px;
-    position: absolute;
-    width: 121px;
-    height: 35px;
-    left: calc(50% - 121px/2 - 62.5px);
-    top: calc(50% - 35px/2);
-}
-
-/* Legal notice */
-#ppLink {
-    width: 105px;
-    height: 19px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 120%;
-    display: flex;
-    align-items: center;
-    color: #A8A8A8;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    white-space: nowrap;
-}
-
-.lNSpan {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px;
-    gap: 8px;
-    position: absolute;
-    width: 109px;
-    height: 35px;
-    left: calc(50% - 109px/2 + 68.5px);
-    top: calc(50% - 35px/2);
-}
-
-.ppSpan a:hover,
-.lNSpan a:hover {
-    color: #007bff !important;
-    font-size: 17px !important;
-    font-weight: 600 !important;
-    text-decoration: none !important;
-}
-
-#lNLink {
-width: 93px;
-height: 19px;
-font-weight: 400;
-font-size: 16px;
-line-height: 120%;
-display: flex;
-align-items: center;
-color: #A8A8A8;
-flex: none;
-order: 0;
-flex-grow: 0;
-white-space: nowrap;
 }
 
 .buttonGuestLog {
@@ -343,7 +254,6 @@ button {
     cursor: pointer;
 }
 
-/* Logo-Animation und Positionen für index.html */
 .logo-container {
     position: absolute;
     top: 50%;
@@ -353,7 +263,6 @@ button {
     animation: fadeIn 1s forwards, fadeUp 1s forwards;
     animation-delay: 0s, 3s;
     z-index: 5;
-    /* Einblendung sofort, Slide nach 5s */
 }
 
 .logo-container.static {
@@ -390,7 +299,6 @@ button {
     }
 }
 
-/* "Not a User" Position außerhalb der Login-Box */
 .not-a-user {
     display: flex;
     flex-direction: row;
@@ -404,48 +312,13 @@ button {
     top: 67px;
 }
 
-
-.signUpBtn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 16px;
-    gap: 10px;
-    width: 91px;
-    height: 49px;
-    background: #2A3647;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 120%;
-    color: #FFFFFF;
-    border: none;
-}
-
-#signUpBtnText {
-    width: 59px;
-    height: 19px;
-    white-space: nowrap;
-}
-
 .vector {
     width: 150px;
     height: 0px;
-    border: 3px solid #29ABE2;
+    border: 2px solid #29ABE2;
     margin-top: -15px;
-}
-
-.loginContainerFlex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .dNone {
     display: none;
-}
-
-.dBlock {
-    display: block;
 }

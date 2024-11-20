@@ -23,7 +23,6 @@ async function checkNewUserAvailable(userRef, name, email, password) {
 
 function wrongPwCheck() {
     //document.getElementById('msgBox').innerHTML = 'Your Password does not Match';
-    document.getElementById('password').value = '';
     document.getElementById('pwCheck').value = '';
 }
 
@@ -70,9 +69,13 @@ function userInUse() {
     document.getElementById('msgBox2').classList.remove("dNone");
 }
 
-function toggleSubmitButton(checkbox) {
+function toggleSubmitButton() {
     const submitButton = document.getElementById('submitButton');
-    submitButton.disabled = !checkbox.checked; // Aktivieren oder Deaktivieren basierend auf dem Zustand
+    submitButton.disabled = !(document.getElementById('checkBox').checked &&
+        document.getElementById('name').value &&
+        document.getElementById('email').value &&
+        document.getElementById('password').value &&
+        document.getElementById('pwCheck').value);
 }
 
 function backToLogin() {
