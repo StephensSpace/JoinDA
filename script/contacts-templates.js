@@ -103,30 +103,25 @@ function modalAddContactTemplate() {
                 </div>
             </div>
 
-            <div class="modal-right modal-same-padding-right">
-                <div class="modal-right-div modal-same-height">
+            <div class="modal-inputfield">
+
+                <form>
+                    <input type="text" name="" id="" class="person-icon" placeholder="Name">
                     
-                    <div class="modal-right-bottom">
+                </form>
 
-                        <div class="modal-userImg">
-                            <img src="./assets/icons/contacts/person.png">
-                        </div>
+                <form>
+                    <input type="email" name="" id="" class="check-icon" placeholder="Email">
+                </form>
 
-                        <div class="modal-inputfield-div">
-                            <div class="modal-right-top">
-                                <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
-                            </div>
-                            
-                            <div class="modal-inputfield">
-                                <input type="text" name="" id="inputName" class="person-icon" placeholder="Name">
-                                <input type="email" name="" id="inputEmail" class="check-icon" placeholder="Email">
-                                <input type="text" name="" id="inputPhone" class="phone-icon" placeholder="Phone">
-                            </div>
+                <form>
+                    <input type="text" name="" id="" class="phone-icon" placeholder="Phone">
+                </form>
 
-                            <div class="modal-inputfield-buttons">
-                                <button id="cancelBtn" type="submit" onclick="closeModal()" style="background: var(--background-color-header);">Cancel <img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></button>
-                                <button id="createContactBtn" type="submit" onclick="addNewContact()" style="background: var(--background-color-nav); color: white;">Create contact <img src="./assets/icons/contacts/check.png"></button>
-                            </div>
+                <div>
+                    <button type="submit" onclick="">Cancel <img src="./assets/icons/contacts/Vector-X.png"></button>
+                    <button type="submit" onclick="">Create contact <img src="./assets/icons/contacts/check.png"></button>
+                </div>
 
                         </div>
 
@@ -152,30 +147,19 @@ function modalEditContactTemplate(userIndex) {
                 </div>
             </div>
 
-            <div class="modal-right modal-same-padding-right">
-                <div class="modal-right-div modal-same-height">
-                    
-                    <div class="modal-right-bottom">
+        <div class="modal-right">
+            
+            
+            <div>
+                <img src="./assets/icons/person.png">
+            </div>
 
-                        <div class="modal-userImg">
-                            <img src="./assets/icons/contacts/person.png">
-                        </div>
-
-                        <div class="modal-inputfield-div">
-                            <div class="modal-right-top">
-                                <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
-                            </div>
-                            
-                            <div class="modal-inputfield">
-                                <input type="text" name="" id="inputName" class="person-icon" placeholder="Name">
-                                <input type="email" name="" id="inputEmail" class="check-icon" placeholder="Email">
-                                <input type="text" name="" id="inputPhone" class="phone-icon" placeholder="Phone">
-                            </div>
-
-                            <div class="modal-inputfield-buttons">
-                                <button id="cancelBtn" type="submit" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
-                                <button id="createContactBtn" type="submit" onclick="" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
-                            </div>
+            <div>
+                <input type="text" name="" id="">
+                <input type="email" name="" id="">
+                <input type="text" name="" id="">
+            </div>
+            
 
                         </div>
 
