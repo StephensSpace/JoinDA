@@ -184,30 +184,6 @@ async function getUserIndex(NAME) {
 
 
 // Change Contact
-    // NUR MIT NAMEN ALS PARAMETER UND ABFRAGE 
-    //async function getUserInfoInContacts(USER) {
-    //    const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
-    //    const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
-    //    const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
-    //    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
-    //    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
-    //}
-}
-
-
-
-
-
-// Fügt das Modal in "Conctact-Content" ein, legt sich jedoch durch Z-Index über alles andere!
-function openAddcontactModal() {
-    const CONTACT_CONTENT_REF = document.getElementsByClassName('contact-content')[0];
-    CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
-}
-
-// Schließe das Modal für "Add new Contact" && "Edit Contact"!
-function closeModal() {
-    document.getElementsByTagName('modal')[0].remove();
-}
 
 
 
