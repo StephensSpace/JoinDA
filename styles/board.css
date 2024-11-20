@@ -459,21 +459,6 @@ textarea {
   height: 100px;
 }
 
-.add-subtask-btn {
-  background-color: #2a3647;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.add-subtask-btn:hover {
-  background-color: #29abe2;
-}
-
 /* Basic Modal Styling */
 .modal-addTask {
   display: none;
@@ -761,29 +746,47 @@ textarea {
 }
 
 /* Subtasks Styles */
-.subtask-select-container {
-  margin-top: 10px;
+.subtask-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
-.add-subtask-button {
+.subtask-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subtask-input {
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.subtask-options {
-  display: flex;
-  gap: 5px;
+.subtask-add-button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.confirmed-subtasks {
-  margin-top: 10px;
+.subtask-add-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.subtask-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
 }
 
 .subtask-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  padding: 5px 0;
 }
 
 .subtask-item .subtask-text {
@@ -795,6 +798,48 @@ textarea {
   border: none;
   cursor: pointer;
   padding: 5px;
+}
+
+.subtask-item-text {
+  flex-grow: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.subtask-actions img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.subtask-actions img:hover {
+  filter: brightness(0.8);
+}
+
+.subtask-options-container {
+  display: none; /* Standardmäßig versteckt */
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000;
+  max-height: 150px; /* Falls viele Optionen, setze eine Maximalhöhe */
+  overflow-y: auto; /* Scrollbar bei Bedarf */
+}
+
+.subtask-options-container.show {
+  display: block; /* Sichtbar machen */
+}
+
+.subtask-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.subtask-option:hover {
+  background-color: #f0f0f0;
 }
 
 /* Due Date Error */
@@ -823,6 +868,8 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  width: 100%;
 }
 
 .dropdown-placeholder {
