@@ -409,12 +409,29 @@
               <label for="taskCategory"
                 >Category <span class="required">*</span></label
               >
-              </div>
-              <select id="taskCategory" required>
-                <option disabled>Select task category</option>
-                <option value="User Story">User Story</option>
-                <option value="Technical Task">Technical Task</option>
-              </select>
+              </div>       
+<div id="taskCategoryContainer" class="assigned-container">
+  <div id="taskCategoryDropdown" class="custom-dropdown">
+    <div class="dropdown-placeholder">
+        <span id="taskCategorySelectedText">Select task category</span>
+      <div class="arrow">
+        <img
+          id="taskCategoryArrow"
+          class="dropdown-arrow"
+          src="./assets/icons/arrow_drop_down.png"
+          alt="Dropdown arrow"
+        />
+      </div>
+    </div>
+    <div id="taskCategoryOptions" class="dropdown-options hidden">
+      <div class="dropdown-option" data-value="User Story">User Story</div>
+      <div class="dropdown-option" data-value="Technical Task">Technical Task</div>
+    </div>
+    <div id="selectedCategoryContainer" class="selected-category-container"></div>
+  </div>
+  <input type="hidden" id="taskCategoryInput" name="taskCategory" required />
+</div>
+
      
               <!-- Subtasks -->
               <div class="addTask-headlines">

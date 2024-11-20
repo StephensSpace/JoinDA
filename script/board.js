@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const addTaskForm = document.getElementById("addTaskForm");
   const closeButton = document.querySelectorAll(".close-button");
   const cancelButton = document.getElementById("cancelButton");
-  const categoryField = document.getElementById("taskCategory");
   const addTaskButtonsByCategory = document.querySelectorAll(
     ".add-task-btn-category"
   );
@@ -34,6 +33,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const arrow = document.getElementById("dropdownArrow");
   const selectedContactsContainer = document.getElementById(
     "selectedContactsContainer"
+  );
+  const selectedCategoryContainer = document.getElementById(
+    "selectedCategoryContainer"
   );
   let users = [];
 
@@ -155,12 +157,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           // Update der Auswahlanzeige
           updateSelectedContactsDisplay();
+          updateSelectedCategoryDisplay();
         });
 
         // Event Listener für Checkbox
         checkbox.addEventListener("change", () => {
           updateCheckboxAppearance();
           updateSelectedContactsDisplay();
+          updateSelectedCategoryDisplay();
         });
 
         // Event Listener für Hover-Effekte
@@ -192,6 +196,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     return color;
   }
 
+  const taskCategorySelectedText = document.getElementById(
+    "taskCategorySelectedText"
+  );
+
+  const taskCategoryDropdown = document.getElementById("taskCategoryDropdown");
+  const taskCategoryPlaceholder = taskCategoryDropdown.querySelector(
+    ".dropdown-placeholder"
+  );
+  const taskCategoryOptions = document.getElementById("taskCategoryOptions");
+  const taskCategoryInput = document.getElementById("taskCategoryInput");
+  const taskCategoryArrow = document.getElementById("taskCategoryArrow"); // Pfeil-Icon
+
+  taskCategoryPlaceholder.addEventListener("click", () => {
+    taskCategoryOptions.classList.toggle("hidden");
+    taskCategoryArrow.classList.toggle("rotate"); // Pfeil drehen
+  });
+
+  const optiones = taskCategoryOptions.querySelectorAll(".dropdown-option");
+  optiones.forEach((option) => {
+    option.addEventListener("click", () => {
+      taskCategorySelectedText.textContent = option.textContent;
+      taskCategoryInput.value = option.getAttribute("data-value");
+      taskCategoryOptions.classList.add("hidden");
+      taskCategoryArrow.classList.remove("rotate"); // Pfeil zurückdrehen
+    });
+  });
+  // Schließt das Dropdown, wenn außerhalb geklickt wird
+  document.addEventListener("click", (event) => {
+    if (!taskCategoryDropdown.contains(event.target)) {
+      taskCategoryOptions.classList.add("hidden");
+      taskCategoryArrow.classList.remove("rotate"); // Pfeil zurückdrehen
+    }
+  });
+
   // Funktion: Dropdown für "Assigned to" öffnen/schließen
   function toggleAssignedToDropdown(event) {
     event.stopPropagation(); // Verhindert das Schließen beim Klicken auf das Dropdown
@@ -217,6 +255,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Aktualisiere die Anzeige der ausgewählten Kontakte
       updateSelectedContactsDisplay();
+      updateSelectedCategoryDisplay();
+    }
+  }
+
+  function closeAssignedToDropdown(event) {
+    const dropDownContainer = document.getElementById("taskCategoryContainer");
+
+    // Prüfen, ob der Klick außerhalb des Dropdowns war
+    if (!dropDownContainer.contains(event.target)) {
+      options.classList.add("hidden");
+
+      // Stelle sicher, dass das Pfeil-Icon zurückgesetzt wird
+      arrow.classList.remove("up");
+
+      // Aktualisiere die Anzeige der ausgewählten Kontakte
+      updateSelectedContactsDisplay();
+      updateSelectedCategoryDisplay();
     }
   }
 
@@ -248,6 +303,35 @@ document.addEventListener("DOMContentLoaded", async () => {
           avatar.style.backgroundColor = user.color || getRandomColor();
 
           selectedContactsContainer.appendChild(avatar);
+        }
+      });
+      // Aktualisiere die Anzeige der ausgewählten Kategorie
+      updateSelectedCategoryDisplay();
+    }
+  }
+
+  function updateSelectedCategoryDisplay() {
+    const optionsContainer = document.getElementById("taskCategoryOptions");
+    const selectedInputs = optionsContainer.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+
+    const selectedCategories = Array.from(selectedInputs).map(
+      (input) => input.value
+    );
+
+    selectedCategoryContainer.innerHTML = ""; // Vorherigen Inhalt löschen
+
+    if (selectedCategories.length > 0) {
+      selectedCategories.forEach((categoryName) => {
+        const category = category.find((c) => c.name === categoryName);
+        if (category) {
+          const categoryDiv = document.createElement("div");
+          categoryDiv.classList.add("category-item");
+          categoryDiv.textContent = category.name;
+          categoryDiv.style.backgroundColor = category.color;
+
+          selectedCategoryContainer.appendChild(categoryDiv);
         }
       });
     }
@@ -386,8 +470,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Aufgabe auf dem Kanban-Board anzeigen
   function displayTask(task, category) {
+    console.log("displayTask aufgerufen mit:", task);
+    console.log("Kategorie:", category);
+    const sanitizedCategory = category.toLowerCase().replace(/\s+/g, "");
     const targetColumn = document.querySelector(
-      `.board-column[data-status="${category}"] .tasks-container`
+      `.board-column[data-status="${sanitizedCategory}"] .tasks-container`
     );
 
     if (!targetColumn) {
@@ -397,10 +484,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const taskElement = document.createElement("div");
     taskElement.classList.add("task-card");
 
+    const taskType = task.type || "Task";
+
     // Füge zusätzliche Klassen hinzu, z.B. 'user-story' oder 'technical-task'
-    if (task.type === "User Story") {
+    if (taskType === "User Story") {
       taskElement.classList.add("user-story");
-    } else if (task.type === "Technical Task") {
+    } else if (taskType === "Technical Task") {
       taskElement.classList.add("technical-task");
     }
 
@@ -434,7 +523,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     taskElement.innerHTML = `
-          <div class="tag">${task.type || "Task"}</div>
+          <div class="tag">${taskType || "Task"}</div>
           <h3>${task.title}</h3>
           <p>${task.description}</p>
           ${avatarsHtml}
@@ -446,6 +535,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Task zur Kategorie hinzufügen
     targetColumn.appendChild(taskElement);
+    console.log("Aufgabe zum DOM hinzugefügt:", taskElement);
 
     updateNoTasksMessages();
   }
@@ -454,6 +544,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   addTaskButtonsByCategory.forEach((btn) => {
     btn.addEventListener("click", () => {
       const category = btn.dataset.category; // Kategorie aus dem Button-Attribut
+      const categoryField = document.getElementById("taskCategoryInput");
       categoryField.value = category; // Kategorie im Modal setzen
       addTaskModal.style.display = "block";
       setTimeout(() => {
@@ -530,7 +621,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .join(", ");
     const subtasksInput = document.getElementById("taskSubtasks").value;
     const subtasks = subtasksInput ? subtasksInput.split(",") : [];
-    const category = document.getElementById("taskCategory").value;
+    const category = document.getElementById("taskCategoryInput").value;
 
     const newTask = {
       title,
@@ -538,9 +629,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       dueDate,
       priority,
       category,
+      type: category, // Falls benötigt
       assignedTo,
       subtasks,
     };
+    console.log("Neue Aufgabe erstellt:", newTask);
 
     try {
       // Task in Firebase speichern
@@ -818,8 +911,4 @@ document.addEventListener("DOMContentLoaded", async () => {
       dueDateError.classList.add("hidden");
     }
   });
-
-  // Initialer Aufruf: Tasks aus Firebase laden
-  await loadTasksFromFirebase();
-  updateNoTasksMessages();
 });

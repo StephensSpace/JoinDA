@@ -849,6 +849,10 @@ textarea {
   transform: rotate(180deg);
 }
 
+.dropdown-arrow.rotate {
+  transform: rotate(180deg);
+}
+
 .dropdown-options {
   position: absolute;
   top: 100%;
@@ -971,4 +975,16 @@ textarea {
   border-radius: 4px;
   font-size: 12px;
   margin-bottom: 4px;
+}
+
+.selected-category-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.category-item {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
 }
