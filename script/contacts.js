@@ -74,9 +74,9 @@ function openAddContactModal() {
 async function getUserInfos(userIndex) {
     const OBJECT = await getFirebaseData(path = "/contacts");
     const USER = Object.keys(OBJECT)[userIndex];
-    const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
-    const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
-    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
+    const USER_NAME = (await getFirebaseData(`contacts/${USER}`))?.name;
+    const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`))?.email;
+    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`))?.phone_number; 
     return {userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB}
 }
 
@@ -84,7 +84,7 @@ async function getUserInfos(userIndex) {
 async function renderContactsInToContactList() {
     const CONTACTS_LIST = document.getElementById('contactList');
     CONTACTS_LIST.innerHTML = "";
-    for (let userIndex = 0; userIndex < await getContactsLength(); userIndex++) { // 8 noch ersetzten durch object länge   
+    for (let userIndex = 0; userIndex < await getContactsLength(); userIndex++) { 
       const {USER_NAME, USER_EMAIL} = await getUserInfos(userIndex);
       getFirstnameLetter(USER_NAME);                    // Übergebe User Namen
       contactBoardFirstLetterHeadTemplate(USER_NAME);   // Übergebe User Namen
@@ -115,9 +115,35 @@ async function openEditContactModal(userIndex) {
     inputfieldEmail.value = USER_EMAIL;
     inputfieldPhone.value = USER_PHONE_NUMB;
     userImage.innerHTML = document.getElementById(`userImage${userIndex}`).innerHTML;
+
 }
-
-
+// Change Contact Information
+async function editContactInModal(userIndex) {
+    const inputfieldName = document.getElementById('inputName');
+    const inputfieldEmail = document.getElementById('inputEmail');
+    const inputfieldPhone = document.getElementById('inputPhone');
+    const OBJECT = await getFirebaseData(path = "/contacts");
+    const USER = Object.keys(OBJECT)[userIndex];
+    const dataRef = firebase.database().ref("/contacts/" + `${USER}`);
+    try {
+        const NAME = inputfieldName.value;
+        const EMAIL = inputfieldEmail.value;
+        const PHONE_NUMB = inputfieldPhone.value;
+        await dataRef.set ({
+            name: NAME,
+            email: EMAIL,
+            phone_number: PHONE_NUMB,
+        })
+        const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
+        CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
+        console.log("Daten erfolgreich in Firebase geändert!");
+    } catch (error) {
+        console.error("Fehler beim ändern der Daten in Firebase:", error);
+    }
+    closeModal();
+    renderContactsInToContactList();
+    renderContactInfosInContactsTable(userIndex);
+}
 
 // delete User Information
 async function deleteContact(userIndex) {
@@ -126,9 +152,9 @@ async function deleteContact(userIndex) {
     try {
         const dataRef = firebase.database().ref("/contacts/" + `${USER}`); // Erstelle eine Referenz zu den Daten
         await dataRef.remove(); // Lösche die Daten
-        console.log("Daten erfolgreich gelöscht!");
+        console.log("Kontakt erfolgreich gelöscht!");
     } catch (error) {
-        console.error("Fehler beim Löschen:", error);
+        console.error("Fehler beim Löschen des Kontaktes:", error);
     }
     document.getElementById('contact-content-table').innerHTML = "";
     renderContactsInToContactList();
@@ -137,33 +163,43 @@ async function deleteContact(userIndex) {
 
 
 // Add Contact 
-
 async function addNewContact() {
-    const NAME = document.getElementById('inputName').value;
-    const EMAIL = document.getElementById('inputEmail').value;
+    const NAME = ((document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1)) 
+    + " " + 
+    (document.getElementById('inputName').value.split(' ')[1][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[1].slice(1))); // make firstname + lastname with uppercase firstletters
+    const EMAIL = (document.getElementById('inputEmail').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputEmail').value.split(' ')[0].slice(1)); // make firstletter uppercase
     const PHONE_NUMB = document.getElementById('inputPhone').value;
-    const dataRef = firebase.database().ref("/contacts/" + NAME); // Erstelle eine Referenz zu den Daten
+    const dataRef = firebase.database().ref("/contacts/" + NAME); 
+    addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
+    
+}
+// Auslagerung if/ else | check right input
+async function addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef) {
     if (NAME == '' || EMAIL == '' || PHONE_NUMB == '') {
         window.alert('Bitte Kontakt Daten eingeben! :)')
     } else {
-        try {
-            await dataRef.set ({
-                name: NAME,
-                email: EMAIL,
-                phone_number: PHONE_NUMB,
-            })
-            const userIndex = await getUserIndex(NAME);
-            const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
-            CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
-            console.log("Daten erfolgreich in Firebase gefetcht!");
-        } catch (error) {
-            console.error("Fehler beim Fetchen in Firebase:", error);
-        }
+        addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef);
         renderContactsInToContactList();
         closeModal();
     }
-    
 }
+// Auslagerung try catch
+async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
+    try {
+        await dataRef.set ({
+            name: NAME,
+            email: EMAIL,
+            phone_number: PHONE_NUMB,
+        })
+        const userIndex = await getUserIndex(NAME); // get userIndex of Firebase 
+        const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
+        CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
+        console.log("Kontakt erfolgreich in Firebase angelegt!");
+    } catch (error) {
+        console.error("Fehler beim anlegen eines neuen Kontaktes in Firebase:", error);
+    }
+}
+
 
 // get position (userIndex) of user in contacts
 async function getUserIndex(NAME) {
@@ -183,9 +219,6 @@ async function getUserIndex(NAME) {
 
 
 
-// Change Contact
-
-
 
 
 
@@ -195,12 +228,3 @@ async function getUserIndex(NAME) {
 
 //############################################################
 
-
-// NUR MIT NAMEN ALS PARAMETER UND ABFRAGE 
-//async function renderContactInfosInContactsTable(USER) {
-//    const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
-//    const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
-//    const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
-//    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
-//    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
-//}

@@ -16,15 +16,25 @@ function contactBoardFirstLetterHeadTemplate(USER_NAME) {
 // Erstellt das Bild Template vor dem Namen & Email des User SOWIE im contactContentTableTemplate vor dem ganzen Namen
 function userIconTemplate(userName) {
     let firstLetterFullName = userName;
-    let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
-    .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
-    .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
+    if (userName.includes(" ")) {        
+        let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
+        .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
+        .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
     
-    return `
-        
-        ${getFirstLetters}
-    
-    `
+        return `
+            
+            ${getFirstLetters}
+        `
+
+    } else {
+        let getFirstLetters = firstLetterFullName[0];                                                   // Fügt die Buchstaben zu einem String zusammen
+
+        return `
+            
+            ${getFirstLetters}
+        `
+    }
+
 }
 
 
@@ -174,7 +184,7 @@ function modalEditContactTemplate(userIndex) {
 
                             <div class="modal-inputfield-buttons">
                                 <button id="cancelBtn" type="submit" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
-                                <button id="createContactBtn" type="submit" onclick="" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
+                                <button id="createContactBtn" type="submit" onclick="editContactInModal(${userIndex})" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
                             </div>
 
                         </div>
