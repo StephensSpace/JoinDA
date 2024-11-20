@@ -1,15 +1,22 @@
 let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebasedatabase.app/User/";
 
-// Animation und Einblenden des Login-Formulars nach 5 Sekunden Wartezeit + 1 Sekunde Animation
 window.addEventListener("load", () => {
     setTimeout(() => {
-        // Login-Container und "Not a User" einblenden
-        document.getElementById("loginContainer").classList.remove('dNone');
-        document.getElementById("loginContainer").classList.add('login-container');
-        document.getElementById("notAUser").classList.remove('dNone');
-        document.getElementById("notAUser").classList.add('not-a-user');
-        document.getElementById("ppAndLnBox").classList.remove('dNone');
-    }, 4000); // 5 Sekunden Wartezeit + 1 Sekunde für die Animation
+        setTimeout(() => {
+            document.getElementById("logo").src = "./assets/img/logo.png";
+        }, 500);
+        const overlay = document.querySelector('.overlay');
+        overlay.classList.add('transparent');
+        setTimeout(() => {
+            document.getElementById("loginContainer").classList.remove('dNone');
+            document.getElementById("loginContainer").classList.add('login-container');
+            document.getElementById("notAUser").classList.remove('visabilityHidden');
+            document.getElementById("ppAndLnBox").classList.remove('dNone');
+        }, 400);
+        setTimeout(() => {
+            overlay.classList.add('dNone');
+        }, 2000);
+    }, 3200);
 });
 
 // Funktion für den Gast-Login

@@ -5,31 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./styles/login.css">
-    <link rel="stylesheet" href="./styles/signUp.css">
+    <link rel="stylesheet" href="./styles/loginMobile.css">
+    <link rel="stylesheet" href="./styles/signUpMobile.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="./script/firebase-config.js"></script>
+    <script src="./script/loginMobile.js"></script>
     <script src="./script/register.js"></script>
-    <script src="./script/login.js"></script>
 </head>
 
 <body>
+    <div class="overlay" id="overlay"></div>
     <!-- Logo-Bereich -->
     <div class="logo-container" id="logoContainer">
-        <img src="./assets/img/logo.png" alt="Logo" class="logo">
+        <img src="./assets/img/logo-2.png" alt="Logo" class="logo" id="logo">
     </div>
 
     <div id="signedUp" class="signedInFont hidden">You Signed Up Succesfully</div>
 
-    <!-- "Not a User?" Bereich außerhalb der Card -->
-    <div class="dNone" id="notAUser">
-        Not a Join user? <button onclick="loadRegister()" class="signUpBtn"><span id="signUpBtnText">Sign
-                up</span></button>
-    </div>
-
-    <!-- Login-Formular -->
     <div class="dNone" id="loginContainer">
         <h1>Log in</h1>
         <div class="vector"></div>
@@ -45,12 +39,21 @@
             <message id="msgBox" class="dNone">Username or Password wrong</message>
             <label id="rememberMe"><input type="checkbox" class="customCheckbox"> Remember me</label>
             <div class="loginButtons">
-                <button type="submit" class="buttonLogIn"><span class="btnTextLogin">Log in</span></button>
-                <button type="button" class="buttonGuestLog" onclick="guestLogin()"><span id="guestLogText">Guest Log
-                        in</span></button>
+                <button type="submit" class="buttonLogIn">
+                    <span class="btnTextLogin">Log in</span>
+                </button>
+                <button type="button" class="buttonGuestLog" onclick="guestLogin()">
+                    <span id="guestLogText">Guest Log in</span>
+                </button>
             </div>
         </form>
 
+    </div>
+    <div class="visabilityHidden not-a-user" id="notAUser">
+        <span id="newUserSpan">Not a Join user?</span>
+        <button onclick="loadRegister()" class="signUpBtn">
+            <span id="signUpBtnText">Sign up</span>
+        </button>
     </div>
     <div class="ppAndLnBox dNone" id="ppAndLnBox">
         <span class="ppSpan">

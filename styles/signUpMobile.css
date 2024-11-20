@@ -1,0 +1,174 @@
+.signedInFont {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.privacyCheckbox {
+    display: flex;
+    width: 235px;
+    height: 24px;
+    flex: none;
+    flex-grow: 0;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+a {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #29ABE2;
+    flex: none;
+    flex-grow: 0;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.privacyCheckbox:hover .customCheckbox {
+    border-color: #29ABE2;
+    background-color: lightgrey;
+    box-shadow: 0 0 5px black;
+}
+
+#signedUp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 25px;
+    width: 312px;
+    height: 74px;
+    background: #2A3647;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
+    /* Animation hinzufügen */
+    opacity: 0;
+    /* Startet unsichtbar */
+    transform: translateY(-100%);
+    /* Startposition oberhalb des Viewports */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* Übergang */
+}
+
+#signedUp.slide-in {
+    animation: slideDown 1.5s ease forwards;
+}
+
+#signedUp.slide-out {
+    animation: slideUp 1.5s ease forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+#arrowLeft {
+    width: 21.33px;
+    height: 20.74px;
+}
+
+.arrowLeft {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 40px;
+    top: 56px;
+    flex: none;
+    flex-grow: 0;
+    z-index: 3;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrowLeft:hover {
+    background-color: lightgrey;
+    width: 38px;
+    height: 38px;
+    border-radius: 18px;
+}
+
+#iAccept {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #A8A8A8;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.lockSignUp {
+    position: absolute;
+    top: 318px;
+    right: 34px;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+}
+
+.lockSignUp2 {
+    position: absolute;
+    top: 390px;
+    right: 34px;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+}
+
+.mailSignUp {
+    position: absolute;
+    top: 246px;
+    right: 34px;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+}
+
+.person {
+    position: absolute;
+    top: 174px;
+    right: 34px;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+}
