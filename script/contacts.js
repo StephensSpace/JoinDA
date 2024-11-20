@@ -164,14 +164,20 @@ async function deleteContact(userIndex) {
 
 // Add Contact 
 async function addNewContact() {
-    const NAME = ((document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1)) 
-    + " " + 
-    (document.getElementById('inputName').value.split(' ')[1][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[1].slice(1))); // make firstname + lastname with uppercase firstletters
+    const CHECK_INPUT_NAME = document.getElementById('inputName').value;
     const EMAIL = (document.getElementById('inputEmail').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputEmail').value.split(' ')[0].slice(1)); // make firstletter uppercase
     const PHONE_NUMB = document.getElementById('inputPhone').value;
-    const dataRef = firebase.database().ref("/contacts/" + NAME); 
-    addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
-    
+    if (CHECK_INPUT_NAME.includes(" ")) {
+        const NAME = ((document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1)) 
+        + " " + 
+        (document.getElementById('inputName').value.split(' ')[1][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[1].slice(1))); // make firstname + lastname with uppercase firstletters
+        const dataRef = firebase.database().ref("/contacts/" + NAME); 
+        addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
+    } else {
+        const NAME = (document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1));   // If we only have the firstname
+        const dataRef = firebase.database().ref("/contacts/" + NAME); 
+        addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
+    }
 }
 // Auslagerung if/ else | check right input
 async function addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef) {
@@ -211,11 +217,6 @@ async function getUserIndex(NAME) {
         } 
     }
 }
-
-
-// (await getUserIndex(7))[0] == "Niclas"
-
-// (await getUserIndex(7))[0]
 
 
 

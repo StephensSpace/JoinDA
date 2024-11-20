@@ -128,9 +128,9 @@ function modalAddContactTemplate() {
                             </div>
                             
                             <div class="modal-inputfield">
-                                <input type="text" name="" id="inputName" class="person-icon" placeholder="Name">
-                                <input type="email" name="" id="inputEmail" class="check-icon" placeholder="Email">
-                                <input type="text" name="" id="inputPhone" class="phone-icon" placeholder="Phone">
+                                <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
+                                <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
+                                <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" pattern="[0-9+()-\s]*" title="Nur Zahlen, Leerzeichen und Sonderzeichen wie +, -, () erlaubt" required> 
                             </div>
 
                             <div class="modal-inputfield-buttons">
@@ -177,9 +177,9 @@ function modalEditContactTemplate(userIndex) {
                             </div>
                             
                             <div class="modal-inputfield">
-                                <input type="text" name="" id="inputName" class="person-icon" placeholder="Name">
-                                <input type="email" name="" id="inputEmail" class="check-icon" placeholder="Email">
-                                <input type="text" name="" id="inputPhone" class="phone-icon" placeholder="Phone">
+                                <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
+                                <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
+                                <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" pattern="[0-9+()-\s]*" title="Nur Zahlen, Leerzeichen und Sonderzeichen wie +, -, () erlaubt" required> 
                             </div>
 
                             <div class="modal-inputfield-buttons">
