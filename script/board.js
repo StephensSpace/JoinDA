@@ -1015,6 +1015,78 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+function displayTaskDetails(task) {
+  const taskDetailsModal = document.getElementById("taskDetailsModal");
+  const taskTypeElement = document.getElementById("taskType");
+  const taskDetailTitle = document.getElementById("taskDetailTitle");
+  const taskDetailDescription = document.getElementById(
+    "taskDetailDescription"
+  );
+  const taskDetailDueDate = document.getElementById("taskDetailDueDate");
+  const taskDetailPriority = document.getElementById("taskDetailPriority");
+  const taskAssignedTo = document.getElementById("taskAssignedTo");
+  const taskSubtasks = document.getElementById("taskSubtasks");
+
+  // Update task type
+  taskTypeElement.textContent = task.dataset.type || "Task";
+  taskTypeElement.style.backgroundColor =
+    task.dataset.type === "Technical Task" ? "#26a69a" : "#2962ff";
+
+  // Update task title and description
+  taskDetailTitle.textContent = task.dataset.title || "No title provided";
+  taskDetailDescription.textContent =
+    task.dataset.description || "No description provided";
+
+  // Update due date
+  taskDetailDueDate.textContent = task.dataset.dueDate || "No due date";
+
+  // Update priority
+  const priorityMap = {
+    Urgent:
+      '<img src="./assets/icons/urgent.png" alt="Urgent" class="priority-icon">',
+    Medium:
+      '<img src="./assets/icons/medium.png" alt="Medium" class="priority-icon">',
+    Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
+  };
+  taskDetailPriority.innerHTML = `${task.dataset.priority || "No priority"} ${
+    priorityMap[task.dataset.priority] || ""
+  }`;
+
+  // Update assigned contacts
+  const assignedContacts = task.dataset.assignedTo
+    ? task.dataset.assignedTo.split(",").map((name) => name.trim())
+    : [];
+  taskAssignedTo.innerHTML =
+    assignedContacts.map((contact) => `<li>${contact}</li>`).join("") ||
+    "<li>No contacts assigned</li>";
+
+  // Update subtasks
+  const subtasks = task.dataset.subtasks
+    ? task.dataset.subtasks.split(",").map((subtask) => subtask.trim())
+    : [];
+  taskSubtasks.innerHTML =
+    subtasks
+      .map(
+        (subtask) => `
+            <li>
+                <input type="checkbox" ${
+                  subtask.includes("✔") ? "checked" : ""
+                }>
+                ${subtask.replace("✔", "").trim()}
+            </li>
+        `
+      )
+      .join("") || "<li>No subtasks</li>";
+
+  // Show modal
+  taskDetailsModal.style.display = "block";
+}
+
+// Close modal on click
+document.querySelector(".close-button").addEventListener("click", () => {
+  document.getElementById("taskDetailsModal").style.display = "none";
+});
+
 // Subtaks
 const subtaskInputContainer = document.getElementById("subtaskSelectContainer");
 const subtaskInputField = document.createElement("input");

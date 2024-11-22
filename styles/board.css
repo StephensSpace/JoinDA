@@ -386,7 +386,7 @@ main {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   padding: 20px;
   overflow-y: auto;
@@ -419,11 +419,12 @@ main {
   flex: 1;
 }
 
+/* Content Styling */
 .modal-content-task {
   background-color: white;
   width: 525px;
   height: -webkit-fill-available;
-  left: 800px;
+  left: 154px;
   border-radius: 30px;
   padding: 48px 40px;
   gap: 24px;
@@ -432,8 +433,11 @@ main {
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-around;
-  transform: translateY(-1%);
   position: fixed;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .close-button {
@@ -725,10 +729,35 @@ textarea {
   color: white;
   width: 164px;
   height: 36px;
-  border-radius: 8px;
-  padding: 4px 24px;
+  border-radius: 5px;
+  padding: 4px 8px;
   gap: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Subtasks Styling */
+#taskSubtasks li {
   display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+#taskSubtasks li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Assigned Contacts Styling */
+.assigned-to-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.assigned-to-list li:last-child {
+  margin-bottom: 0;
 }
 
 .task-info {
