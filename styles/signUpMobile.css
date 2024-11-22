@@ -53,17 +53,13 @@ a:hover {
     background: #2A3647;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
-    /* Animation hinzufügen */
     opacity: 0;
-    /* Startet unsichtbar */
-    transform: translateY(-100%);
-    /* Startposition oberhalb des Viewports */
+    position: absolute; /* Absolut positioniert */
+    top: -74px; /* Start außerhalb des Viewports */
+    transform: translateX(-50%) translateY(-100%); /* Zentrieren und außerhalb des Viewports */
     transition: opacity 0.3s ease, transform 0.3s ease;
-    /* Übergang */
+    z-index: 5;
 }
 
 #signedUp.slide-in {
@@ -79,19 +75,17 @@ a:hover {
         transform: translateY(-100%);
         opacity: 0;
     }
-
     100% {
-        transform: translateY(0);
+        transform: translateY(20vh);
         opacity: 1;
     }
 }
 
 @keyframes slideUp {
     0% {
-        transform: translateY(0);
+        transform: translateY(20vh);
         opacity: 1;
     }
-
     100% {
         transform: translateY(-100%);
         opacity: 0;
@@ -226,6 +220,13 @@ a:hover {
     width: 173px !important;
     height: 72px !important;
     white-space: nowrap;
+}
+
+.msgBox2 {
+    position: absolute;
+    top: 557px;
+    font-size: 20px;
+    color: coral;
 }
 
 @media(max-width: 396px) {

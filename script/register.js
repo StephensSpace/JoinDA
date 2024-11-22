@@ -1,7 +1,6 @@
 function SignUp(event) {
-    //document.getElementById('msgBox').innerHTML = ''
+    document.getElementById('msgBox2').classList.add('visabilityHidden');
     event.preventDefault();
-    document.getElementById('msgBox2').classList.add("dNone");
     let name = document.getElementById('name').value
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
@@ -22,7 +21,9 @@ async function checkNewUserAvailable(userRef, name, email, password) {
 }
 
 function wrongPwCheck() {
-    //document.getElementById('msgBox').innerHTML = 'Your Password does not Match';
+    document.getElementById('msgBox2').classList.remove("visabilityHidden");
+    document.getElementById('msgBox2').innerHTML = 'Password does not Match';
+    document.getElementById('submitButton').disabled = true;
     document.getElementById('pwCheck').value = '';
 }
 
@@ -35,10 +36,9 @@ async function setUserToFirebase(userRef, name, email, password) {
         });
         clearInput()
         slideIn()
-        //document.getElementById('msgBox').innerHTML = 'User successfully registered!';
     } catch (error) {
-        console.error("Error saving user to Firebase:", error);
-        //document.getElementById('msgBox').innerHTML = 'Error saving user. Please try again.';
+        document.getElementById('msgBox2').classList.remove("visabilityHidden");
+        document.getElementById('msgBox2').innerHTML = 'Username not available';
     }
 }
 
@@ -51,22 +51,21 @@ function clearInput() {
 
 function slideIn() {
     const signedUpElement = document.getElementById("signedUp");
-    signedUpElement.classList.remove("hidden");
     signedUpElement.classList.add("slide-in");
     setTimeout(() => slideOut(signedUpElement), 4000);
 }
 
 function slideOut(signedUpElement) {
     signedUpElement.classList.remove("slide-in");
-    signedUpElement.classList.add("slide-out")
+    signedUpElement.classList.add("slide-out");
     setTimeout(() => {
-        signedUpElement.classList.remove("slide-out")
-        signedUpElement.classList.add("hidden")
+        signedUpElement.classList.remove("slide-out");
     }, 4000);
 }
 
 function userInUse() {
-    document.getElementById('msgBox2').classList.remove("dNone");
+    document.getElementById('msgBox2').classList.remove("visabilityHidden");
+    document.getElementById('msgBox2').innerHTML = 'Username not available';
 }
 
 function toggleSubmitButton() {
@@ -81,23 +80,5 @@ function toggleSubmitButton() {
 function backToLogin() {
     document.getElementById('loginContainer').classList.add('login-container');
     document.getElementById('loginContainer').classList.remove('signUpContainer');
-    document.getElementById('loginContainer').innerHTML = `<h1>Log in</h1>
-        <div class="vector"></div>
-        <form onsubmit="login(); return false" method="post">
-            <div class="lockWrapper">
-                <input type="email" placeholder="Email" id="email" required>
-                <img src="./assets/icons/mail.svg" alt="" class="mail">
-            </div>
-            <div class="lockWrapper">
-                <input type="password" placeholder="Password" id="password" required>
-                <img src="./assets/icons/lock.svg" alt="" class="lock">
-            </div>
-            <message id="msgBox" class="dNone">Username or Password wrong</message>
-            <label id="rememberMe"><input type="checkbox" class="customCheckbox"> Remember me</label>
-            <div class="loginButtons">
-                <button type="submit" class="buttonLogIn"><span class="btnTextLogin">Log in</span></button>
-                <button type="button" class="buttonGuestLog"onclick="guestLogin()"><span id="guestLogText">Guest Log in</span></button>
-            </div>
-        </form>
-`;
+    document.getElementById('loginContainer').innerHTML = loginForm()
 }

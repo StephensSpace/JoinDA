@@ -84,9 +84,7 @@ form {
     padding: 0px;
     gap: 16px;
     width: 100%;
-    /* Bleibt bei 100%, passt sich an Container an */
     max-width: 364px;
-    /* Maximale Breite bleibt unverändert */
 }
 
 input[type="email"],
@@ -100,7 +98,6 @@ input[type="name"] {
     gap: 10px;
     font-size: 20px;
     width: 364px;
-    /* Standardbreite für größere Bildschirme */
     height: 48px;
     background: #FFFFFF;
     border: 1px solid #D1D1D1;
@@ -238,8 +235,7 @@ input[type="name"]::placeholder {
     width: 292px;
     height: 49px;
     left: 70px;
-    justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 160px;
 }
 
 .vector {
