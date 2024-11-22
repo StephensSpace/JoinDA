@@ -127,16 +127,18 @@ function modalAddContactTemplate() {
                                 <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
                             </div>
                             
-                            <div class="modal-inputfield">
-                                <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" pattern="[0-9+()-\s]*" title="Nur Zahlen, Leerzeichen und Sonderzeichen wie +, -, () erlaubt" required> 
-                            </div>
-
-                            <div class="modal-inputfield-buttons">
-                                <button id="cancelBtn" type="submit" onclick="closeModal()" style="background: var(--background-color-header);">Cancel <img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></button>
-                                <button id="createContactBtn" type="submit" onclick="addNewContact()" style="background: var(--background-color-nav); color: white;">Create contact <img src="./assets/icons/contacts/check.png"></button>
-                            </div>
+                            <form onsubmit="addNewContact(); return false">
+                                <div class="modal-inputfield">
+                                    <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
+                                    <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
+                                    <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" pattern="[0-9+()-\s]*" title="Nur Zahlen, Leerzeichen und Sonderzeichen wie +, -, () erlaubt" required> 
+                                </div>
+                            
+                                <div class="modal-inputfield-buttons">
+                                    <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">Cancel <img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></button>
+                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">Create contact <img src="./assets/icons/contacts/check.png"></button>
+                                </div>
+                            </form>
 
                         </div>
 
@@ -176,16 +178,18 @@ function modalEditContactTemplate(userIndex) {
                                 <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
                             </div>
                             
-                            <div class="modal-inputfield">
-                                <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" pattern="[0-9+()-\s]*" title="Nur Zahlen, Leerzeichen und Sonderzeichen wie +, -, () erlaubt" required> 
-                            </div>
-
-                            <div class="modal-inputfield-buttons">
-                                <button id="cancelBtn" type="submit" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
-                                <button id="createContactBtn" type="submit" onclick="editContactInModal(${userIndex})" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
-                            </div>
+                            <form onsubmit="editContactInModal(${userIndex}); return false">
+                                <div class="modal-inputfield">
+                                    <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
+                                    <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
+                                    <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" pattern="[0-9+()-\s]*" title="Nur Zahlen, Leerzeichen und Sonderzeichen wie +, -, () erlaubt" required> 
+                                </div>
+                            
+                                <div class="modal-inputfield-buttons">
+                                    <button id="cancelBtn" type="button" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
+                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
+                                </div>
+                            </form>
 
                         </div>
 

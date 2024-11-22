@@ -74,9 +74,9 @@ function openAddContactModal() {
 async function getUserInfos(userIndex) {
     const OBJECT = await getFirebaseData(path = "/contacts");
     const USER = Object.keys(OBJECT)[userIndex];
-    const USER_NAME = (await getFirebaseData(`contacts/${USER}`))?.name;
-    const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`))?.email;
-    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`))?.phone_number; 
+    const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
+    const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
+    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
     return {userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB}
 }
 
@@ -102,14 +102,20 @@ async function renderContactInfosInContactsTable(userIndex) {
     CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
 }
 
+// auslagerung von dem input im edit & contact modal
+function getInputfieldContactModalInfos() {
+    const inputfieldName = document.getElementById('inputName');
+    const inputfieldEmail = document.getElementById('inputEmail');
+    const inputfieldPhone = document.getElementById('inputPhone');
+    return {inputfieldName, inputfieldEmail, inputfieldPhone}
+}
+
 // Öffne das Edit-Contact Modal
 async function openEditContactModal(userIndex) {
     const CONTACT_CONTENT_REF = document.getElementsByClassName('contact-content')[0]; 
     CONTACT_CONTENT_REF.innerHTML += modalEditContactTemplate(userIndex);
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
-    const inputfieldName = document.getElementById('inputName');
-    const inputfieldEmail = document.getElementById('inputEmail');
-    const inputfieldPhone = document.getElementById('inputPhone');
+    const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();
     const userImage = document.getElementsByClassName('modal-userImg')[0];
     inputfieldName.value = USER_NAME;
     inputfieldEmail.value = USER_EMAIL;
@@ -119,12 +125,17 @@ async function openEditContactModal(userIndex) {
 }
 // Change Contact Information
 async function editContactInModal(userIndex) {
-    const inputfieldName = document.getElementById('inputName');
-    const inputfieldEmail = document.getElementById('inputEmail');
-    const inputfieldPhone = document.getElementById('inputPhone');
+    const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();
     const OBJECT = await getFirebaseData(path = "/contacts");
     const USER = Object.keys(OBJECT)[userIndex];
     const dataRef = firebase.database().ref("/contacts/" + `${USER}`);
+    editContactInModalTryCatch(userIndex, inputfieldName, inputfieldEmail, inputfieldPhone, dataRef);
+    closeModal();
+    renderContactsInToContactList();
+    renderContactInfosInContactsTable(userIndex);
+}
+
+async function editContactInModalTryCatch(userIndex, inputfieldName, inputfieldEmail, inputfieldPhone, dataRef) {
     try {
         const NAME = inputfieldName.value;
         const EMAIL = inputfieldEmail.value;
@@ -136,13 +147,10 @@ async function editContactInModal(userIndex) {
         })
         const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
         CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
-        console.log("Daten erfolgreich in Firebase geändert!");
+        console.log("Kontakt erfolgreich in Firebase geändert!");
     } catch (error) {
-        console.error("Fehler beim ändern der Daten in Firebase:", error);
+        console.error("Fehler beim ändern des Kontakts in Firebase:", error);
     }
-    closeModal();
-    renderContactsInToContactList();
-    renderContactInfosInContactsTable(userIndex);
 }
 
 // delete User Information
@@ -167,7 +175,7 @@ async function addNewContact() {
     const CHECK_INPUT_NAME = document.getElementById('inputName').value;
     const EMAIL = (document.getElementById('inputEmail').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputEmail').value.split(' ')[0].slice(1)); // make firstletter uppercase
     const PHONE_NUMB = document.getElementById('inputPhone').value;
-    if (CHECK_INPUT_NAME.includes(" ")) {
+    if (CHECK_INPUT_NAME.includes(" ")) {   // checkt ob vor- & nachname vorhanden sind
         const NAME = ((document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1)) 
         + " " + 
         (document.getElementById('inputName').value.split(' ')[1][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[1].slice(1))); // make firstname + lastname with uppercase firstletters
@@ -179,7 +187,7 @@ async function addNewContact() {
         addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
     }
 }
-// Auslagerung if/ else | check right input
+// Auslagerung if/ else | check if input not empty
 async function addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef) {
     if (NAME == '' || EMAIL == '' || PHONE_NUMB == '') {
         window.alert('Bitte Kontakt Daten eingeben! :)')
@@ -228,4 +236,5 @@ async function getUserIndex(NAME) {
 //                AUSGELAGERTE FUNKTIONEN                   //
 
 //############################################################
+
 
