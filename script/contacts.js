@@ -63,13 +63,6 @@ function openAddContactModal() {
     CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
 }
 
-
-//############################################################
-
-//                WORKING ON FUNKTIONEN                     //
-
-//############################################################
-
 // Returns the User Information of each User
 async function getUserInfos(userIndex) {
     const OBJECT = await getFirebaseData(path = "/contacts");
@@ -190,7 +183,7 @@ async function addNewContact() {
 // Auslagerung if/ else | check if input not empty
 async function addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef) {
     if (NAME == '' || EMAIL == '' || PHONE_NUMB == '') {
-        window.alert('Bitte Kontakt Daten eingeben! :)')
+        window.alert('Bitte Kontakt Daten eingeben!')
     } else {
         addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef);
         renderContactsInToContactList();
@@ -226,6 +219,13 @@ async function getUserIndex(NAME) {
     }
 }
 
+
+
+//############################################################
+
+//                WORKING ON FUNKTIONEN                     //
+
+//############################################################
 
 
 

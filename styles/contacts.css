@@ -61,7 +61,6 @@
 
 /* Alles zum Contact-Board */
 
-
 .contact-board {
     padding: 0 40px;
     width: 33%;
@@ -72,7 +71,6 @@
     overflow-y: auto;
     scroll-behavior: smooth;
 }
-
 
 .add-new-contact-background{
     filter: drop-shadow(-6px 10px 6px white);
@@ -129,3 +127,18 @@
     padding: 20px;
 }
 
+/*
+
+.user-symbole {
+    background-color: red;           muss noch weg!!! 
+    margin: 0 12px;                     muss noch angepasst werde!!! 
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+*/

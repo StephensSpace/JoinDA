@@ -21,31 +21,36 @@ function userIconTemplate(userName) {
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
     
+        // hier funktion reinn!!! zum abgleich der ersten buchstaben die funktion muss dann returnen und den farb code zurückgeben
         return `
             
-            ${getFirstLetters}
+            <p id="userImage" style="background-color: ${'red'}; width: 32px; height: 32px; 
+            border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
+
         `
 
     } else {
         let getFirstLetters = firstLetterFullName[0];                                                   // Fügt die Buchstaben zu einem String zusammen
 
+        // hier funktion reinn!!! zum abgleich der ersten buchstaben die funktion muss dann returnen und den farb code zurückgeben 
         return `
+
+            <p id="userImage" style="background-color: ${'aqua'}; width: 32px; height: 32px; 
+            border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
             
-            ${getFirstLetters}
+
         `
     }
-
 }
 
 
 // Template für gesamte User Ansicht unter "Add new contact"
 function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
-    //${(USER_NAME).split(" ")[0]} statt userIndex
     return `
         ${contactBoardFirstLetterHeadTemplate(USER_NAME)}
         <div class="user-contact" onclick="renderContactInfosInContactsTable(${userIndex})">
             <div class="user-symbole">
-                <p id="userImage${userIndex}" style="color: lightblue;">${userIconTemplate(USER_NAME)}</p>
+                ${userIconTemplate(USER_NAME)}
             </div>
             <div class="user-shortcut-info">
                 <div>
@@ -58,6 +63,48 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
         </div>
     `
 }
+
+
+
+/*
+
+
+// Erstellt das Bild Template vor dem Namen & Email des User SOWIE im contactContentTableTemplate vor dem ganzen Namen
+function userIconTemplate(userName) {
+    let firstLetterFullName = userName;
+    if (userName.includes(" ")) {        
+        let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
+        .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
+        .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
+
+        return getFirstLetters;
+    } else {
+        let getFirstLetters = firstLetterFullName[0];                                                   // Fügt die Buchstaben zu einem String zusammen
+        return getFirstLetters;
+    }
+}
+
+// Template für gesamte User Ansicht unter "Add new contact"
+function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
+    return `
+        ${contactBoardFirstLetterHeadTemplate(USER_NAME)}
+        <div class="user-contact" onclick="renderContactInfosInContactsTable(${userIndex})">
+            <div class="user-symbole">
+                <p id="userImage${userIndex}">${userIconTemplate(USER_NAME)}</p>
+            </div>
+            <div class="user-shortcut-info">
+                <div>
+                    <p class="user-shortcut-name">${USER_NAME}</p>
+                </div>
+                <div>
+                    <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
+                </div>
+            </div>
+        </div>
+    `
+}
+
+*/
 
 
 
