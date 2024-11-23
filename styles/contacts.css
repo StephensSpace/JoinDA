@@ -117,6 +117,7 @@
     align-items: center;
     gap: 12px;
     cursor: pointer;
+    overflow: auto;
 }
 
 .user-contact:hover {
