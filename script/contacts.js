@@ -229,34 +229,26 @@ async function getUserIndex(NAME) {
 
 
 let letterBackground = {
-    "AA": "green",
-    "AM": "red",
-    "AS": "blue",
-    "AA": "yellow",
-    "AM": "lightblue",
-    "AS": "brown",
-    "AA": "gray",
-    "AM": "black",
-    "AS": "gold"
+    "AM": "#FF7A00",
+    "AS": "#9327FF",
+    "BZ": "#6E52FF",
+    "DE": "#FC71FF",
+    "EF": "#FFBB2B",
+    "EM": "#1FD7C1",
+    "MB": "#462F8A",
+    "TW": "#FF4646",
+    "SM": "#00BEE8"
 }
 
 function getBackgroundForLetters(getFirstLetters) {
-    
-
-
-    
-
-    for (let i = 0; i < 8; i++) {
+    let loopLength = Object.keys(letterBackground).length;
+    for (let i = 0; i < loopLength; i++) {
         let compareLetters = Object?.entries(letterBackground)[i][0];
         if (getFirstLetters == compareLetters) {
             let back = Object.entries(letterBackground)[i][1];
 
             return back; 
-        } else {
-
-            return undefined;
-        }
-
+        } 
     }
 }
 
