@@ -228,6 +228,45 @@ async function getUserIndex(NAME) {
 //############################################################
 
 
+let letterBackground = {
+    "AA": "green",
+    "AM": "red",
+    "AS": "blue",
+    "AA": "yellow",
+    "AM": "lightblue",
+    "AS": "brown",
+    "AA": "gray",
+    "AM": "black",
+    "AS": "gold"
+}
+
+function getBackgroundForLetters(getFirstLetters) {
+    
+
+
+    
+
+    for (let i = 0; i < 8; i++) {
+        let compareLetters = Object?.entries(letterBackground)[i][0];
+        if (getFirstLetters == compareLetters) {
+            let back = Object.entries(letterBackground)[i][1];
+
+            return back; 
+        } else {
+
+            return undefined;
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -236,5 +275,4 @@ async function getUserIndex(NAME) {
 //                AUSGELAGERTE FUNKTIONEN                   //
 
 //############################################################
-
 

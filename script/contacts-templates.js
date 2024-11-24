@@ -22,9 +22,10 @@ function userIconTemplate(userName) {
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
     
         // hier funktion reinn!!! zum abgleich der ersten buchstaben die funktion muss dann returnen und den farb code zurückgeben
+        let color = getBackgroundForLetters(getFirstLetters);
         return `
             
-            <p id="userImage" style="background-color: ${'red'}; width: 32px; height: 32px; 
+            <p id="userImage" style="background-color: ${color}; width: 32px; height: 32px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
 
         `
