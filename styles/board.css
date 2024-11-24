@@ -24,7 +24,6 @@ main {
   width: 1208px;
   height: 24px;
   top: 200.5px;
-  gap: 10px;
   display: flex;
   justify-content: space-between;
 }
@@ -32,8 +31,8 @@ main {
 .headlines div {
   display: flex;
   justify-content: center; /* Wichtiger Teil für die Anordnung von Überschrift und Button */
-  align-items: baseline;
-  width: 100%;
+  width: 244px;
+  height: 24px;
 }
 
 .add-task-btn-category {
@@ -80,6 +79,8 @@ main {
 .right-section {
   display: flex;
   align-items: baseline;
+  width: 504px;
+  height: 48px;
 }
 
 .search-bar input {
@@ -90,14 +91,15 @@ main {
 }
 
 .search-bar button {
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: 12px 12px;
   background-color: #2a3647;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  width: 120px;
+  width: 160px;
+  font-size: large;
+  height: 48px;
 }
 
 .search-bar button:hover {
@@ -106,10 +108,12 @@ main {
 
 .input-container {
   position: relative;
-  margin-right: 10px; /* Abstand zwischen Input-Feld und Button */
+  margin-right: 24px;
 }
 
 .input-container input {
+  width: 312px;
+  height: 48px;
   padding-right: 50px; /* Platz für Linie und Icon */
 }
 
@@ -161,6 +165,7 @@ main {
   height: 688px;
   top: 336px;
   gap: 26px;
+  align-items: baseline;
 }
 
 .board-column {
@@ -215,7 +220,7 @@ main {
   align-items: center;
   justify-content: center;
   width: 246px;
-  height: 48px; /* Höhe der Box anpassen */
+  height: 19px;
   background-color: #f4f7f9;
   color: #b0b0b0;
   font-size: 1rem;
@@ -234,7 +239,7 @@ main {
 }
 
 .task-card {
-  width: 220px;
+  width: 252px;
   padding: 16px;
   background-color: white;
   border-radius: 12px;
@@ -358,6 +363,10 @@ main {
   overflow-y: auto;
 }
 
+#addTaskForm {
+  display: flex;
+}
+
 .add-task-modal-content {
   background-color: white;
   margin: 0 auto;
@@ -377,7 +386,7 @@ main {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   padding: 20px;
   overflow-y: auto;
@@ -386,31 +395,55 @@ main {
 /* Modal Inhalt */
 .modal-content {
   background-color: white;
-  margin: 0px;
+  margin: 0;
   padding: 40px;
   border-radius: 30px;
   width: 1116px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 125px;
+  height: 870px;
+  position: fixed; /* Ändere zu "fixed" für zentrierte Position */
+  top: 50%; /* Zentrierung vertikal */
+  left: 50%; /* Zentrierung horizontal */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Korrektur, um das Element genau zu zentrieren */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Optional: Schatten für ein schöneres Aussehen */
+  z-index: 1000; /* Stellt sicher, dass es über anderen Elementen liegt */
 }
 
+/* Form-Container für zwei Spalten */
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Content Styling */
 .modal-content-task {
   background-color: white;
+  width: 525px;
+  height: -webkit-fill-available;
+  left: 154px;
+  border-radius: 30px;
+  padding: 48px 40px;
+  gap: 24px;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  position: fixed;
   margin: 0 auto;
-  padding: 40px;
-  border-radius: 10px;
-  width: 400px;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 56px;
   font-size: 2rem;
   cursor: pointer;
 }
@@ -428,21 +461,6 @@ select {
 
 textarea {
   height: 100px;
-}
-
-.add-subtask-btn {
-  background-color: #2a3647;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.add-subtask-btn:hover {
-  background-color: #29abe2;
 }
 
 /* Basic Modal Styling */
@@ -472,6 +490,13 @@ textarea {
 .contentH2 {
   font-size: 61px;
   font-weight: 700;
+  width: 466px;
+  height: 78px;
+  top: 64px;
+  left: 74px;
+  gap: 1px;
+  position: absolute;
+  display: flex;
 }
 
 .close-button {
@@ -485,6 +510,11 @@ textarea {
 /* Divider Styling */
 .divider {
   width: 1px;
+  height: 424px;
+  top: 174px;
+  left: 562.25px;
+  border: 1px;
+  position: absolute;
   background-color: #ddd;
   margin: 0 20px; /* Abstand zwischen der Linie und den Spalten */
   align-self: stretch; /* Stellt sicher, dass die Linie die volle Höhe hat */
@@ -496,23 +526,34 @@ textarea {
   gap: 20px;
 }
 
-.form-column {
+.form-column-left {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  width: 440px;
+  height: 376px;
+  top: 174px;
+  left: 74px;
+  position: absolute;
+}
+
+.form-column-right {
+  width: 440px;
+  height: 416px;
+  top: 174px;
+  left: 610.25px;
+  position: absolute;
 }
 
 input[type="text"],
 input[type="date"],
 select,
 textarea {
-  width: 100%;
-  padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   outline: none;
+  cursor: pointer;
 }
 
 textarea {
@@ -527,17 +568,23 @@ textarea {
 /* Priority Button Styling */
 .priority {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  width: 440px;
+  height: 56px;
+  top: 120px;
 }
 
 .priority-btn {
   background-color: #f0f0f0;
   border: none;
-  padding: 10px;
+  padding: 16px 10px 16px 10px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 10px;
+  height: 56px;
+  width: 136px;
+  justify-content: center;
 }
 
 .priority-btn[data-priority="Urgent"].active {
@@ -579,15 +626,28 @@ textarea {
 /* Form Actions Styling */
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
   align-items: center;
 }
 
+.add-task-label {
+  width: 170px;
+  height: 27px;
+  position: absolute;
+  top: 779px;
+  left: 74px;
+}
+
 .addTask-buttons {
   display: flex;
-  gap: 25px;
+  gap: 4px;
+  width: 334px;
+  height: 56px;
+  top: 750px;
+  left: 716.25px;
+  position: fixed;
 }
 
 .cancel-btn {
@@ -648,17 +708,56 @@ textarea {
   background-color: white;
 }
 
-.task-header {
+.modal-content-headline {
+  width: 445px;
+  height: 36px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.task-header {
+  width: 164px;
+  height: 36px;
+  border-radius: 8px;
+  padding: 4px 24px;
+  gap: 10px;
+  display: flex;
 }
 
 .task-type {
   background-color: blue;
   color: white;
-  padding: 5px 10px;
-  border-radius: 10px;
+  width: 164px;
+  height: 36px;
+  border-radius: 5px;
+  padding: 4px 8px;
+  gap: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Subtasks Styling */
+#taskSubtasks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+#taskSubtasks li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Assigned Contacts Styling */
+.assigned-to-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.assigned-to-list li:last-child {
+  margin-bottom: 0;
 }
 
 .task-info {
@@ -671,30 +770,52 @@ textarea {
   justify-content: space-between;
 }
 
-/* Subtasks Styles */
-.subtask-select-container {
-  margin-top: 10px;
+.addTask-headlines {
+  padding: 10px 0;
 }
 
-.add-subtask-button {
+/* Subtasks Styles */
+.subtask-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.subtask-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subtask-input {
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.subtask-options {
-  display: flex;
-  gap: 5px;
+.subtask-add-button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.confirmed-subtasks {
-  margin-top: 10px;
+.subtask-add-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.subtask-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
 }
 
 .subtask-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  padding: 5px 0;
 }
 
 .subtask-item .subtask-text {
@@ -708,26 +829,46 @@ textarea {
   padding: 5px;
 }
 
-/* Assigned To Styles */
-.assigned-to-list label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.assigned-to-list input[type="checkbox"] {
-  display: none;
-}
-
-.assigned-to-list .assigned-name {
+.subtask-item-text {
+  flex-grow: 1;
   padding: 5px 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.assigned-to-list input[type="checkbox"]:checked + .assigned-name {
-  background-color: #1a237e;
-  color: white;
+.subtask-actions img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.subtask-actions img:hover {
+  filter: brightness(0.8);
+}
+
+.subtask-options-container {
+  display: none; /* Standardmäßig versteckt */
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000;
+  max-height: 150px; /* Falls viele Optionen, setze eine Maximalhöhe */
+  overflow-y: auto; /* Scrollbar bei Bedarf */
+}
+
+.subtask-options-container.show {
+  display: block; /* Sichtbar machen */
+}
+
+.subtask-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.subtask-option:hover {
+  background-color: #f0f0f0;
 }
 
 /* Due Date Error */
@@ -738,4 +879,188 @@ textarea {
 
 .error-message.hidden {
   display: none;
+}
+
+/* Container für das Dropdown */
+.assigned-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Dropdown-Styling */
+.custom-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-placeholder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.arrow:hover {
+  background-color: #d3d3d3;
+  border-radius: 55px;
+  height: 24px;
+  width: 24px;
+}
+
+.dropdown-arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.up {
+  transform: rotate(180deg);
+}
+
+.dropdown-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  background-color: white;
+  scrollbar-width: thin;
+}
+
+.hidden {
+  display: none;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: #091931;
+  color: white;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  margin-right: 10px;
+  border: 2px solid white;
+}
+
+.dropdown-item.selected {
+  background-color: #091931;
+  color: white;
+}
+
+.selected-contacts-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.selected-contacts-container .avatar {
+  margin-right: 5px;
+}
+
+/* Dropdown geschlossen/verborgen */
+.dropdown-options.hidden {
+  display: none;
+}
+
+.dropdown-item .name {
+  flex-grow: 1;
+}
+
+.dropdown-item input[type="checkbox"] {
+  display: none;
+}
+
+.dropdown-item input[type="checkbox"] + .custom-checkbox {
+  width: 20px; /* Größe des Kästchens */
+  height: 20px;
+  display: inline-block;
+  background-image: url("./assets/icons/property-default.png"); /* Pfad zur leeren Checkbox */
+  background-size: cover;
+  cursor: pointer;
+}
+
+.dropdown-item input[type="checkbox"]:checked + .custom-checkbox {
+  background-image: url("./assets/icons/property-checked.png"); /* Pfad zur gefüllten Checkbox */
+}
+
+.assigned-option {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.assigned-option:hover {
+  background-color: #f0f0f0;
+}
+
+.assigned-option.selected {
+  background-color: #e0f7fa;
+}
+
+.assigned-name {
+  flex-grow: 1;
+}
+
+.selected {
+  background-color: #d0ebff;
+}
+
+.category-label {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.selected-category-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.category-item {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
 }

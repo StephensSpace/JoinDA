@@ -2,6 +2,9 @@
 
 .contact-content {
     margin: 0 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
 }
 
 .contact-content-head {
@@ -46,11 +49,12 @@
 }
 
 .contact-content-table-usernameFullinformation a {
-    color: var(--background-color-aside)
+    
 }
 
 /* Nur für "Contact Information" */
-.contact-content-table-usernameFullinformation p {
+.contact-content-information {
+    font-size: 18px;
     padding: 36px 0;
 }
 
@@ -66,6 +70,7 @@
     filter: drop-shadow(-5px 8px 5px);
     background-color: var(--background-color-header);
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 
@@ -88,6 +93,7 @@
     border-radius: 6px;
     position: sticky; 
     top: 0;
+    cursor: pointer;
 }
 
 .add-new-contact-btn img {
@@ -100,7 +106,7 @@
 }
 
 .add-new-contact-btn:hover {
-    z-index: 99;
+    z-index: 3;
     background-color: var(--background-color-card);
     filter: drop-shadow(0 -6px 6px);
 }
@@ -121,3 +127,4 @@
     font-size: large;
     padding: 20px;
 }
+

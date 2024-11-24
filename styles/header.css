@@ -32,3 +32,8 @@ header div {
 header img:hover {
     scale: 1.075;
 }
+
+#initials {
+    width: -webkit-fill-available;
+    text-align: center;
+}

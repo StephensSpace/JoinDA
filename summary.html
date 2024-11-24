@@ -6,97 +6,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Summary</title>
     <link rel="shortcut icon" href="./assets/img/favicon-bright.png" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css" />
-</head>
-
-<body>
-    <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/color-template.css">
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/summary.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="./script/firebase-config.js"></script>
+    <script src="./script/setProfile.js" defer></script>
+    <script src="./script/summary.js"></script>
+</head>
 
-    </head>
-
-    <body>
-
-        <!-- Seitenleiste mit Logo -->
-        <nav class="sidebar">
-            <div class="logo-container static">
-                <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+<body onload="setGreeting()">
+    <nav class="sidebar">
+        <div class="logo-container static">
+            <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+        </div>
+        <ul>
+            <li><a href="./summary.html" class="active">Summary</a></li>
+            <li><a href="#">Add Task</a></li>
+            <li><a href="./board.html">Board</a></li>
+            <li><a href="./contacts.html">Contacts</a></li>
+        </ul>
+        <footer>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Legal Notice</a>
+        </footer>
+    </nav>
+    <aside>
+        <header>
+            <div>
+                <span>Kanban Project Managment Tool</span>
             </div>
-            <ul>
-                <li><a href="./summary.html" class="active">Summary</a></li>
-                <li><a href="#">Add Task</a></li>
-                <li><a href="./board.html">Board</a></li>
-                <li><a href="./contacts.html">Contacts</a></li>
-            </ul>
-            <footer>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Legal Notice</a>
-            </footer>
-        </nav>
-
-        <aside>
-
-            <!-- Header -->
-            <header>
+            <div>
                 <div>
-                    <span>Kanban Project Managment Tool</span>
+                    <img src="./assets/img/help.png" alt="./assets/img/help.png">
                 </div>
-                <div>
-                    <div>
-                        <img src="./assets/img/help.png" alt="./assets/img/help.png">
-                    </div>
-                    <div id="userProfil">
-                        <span>SM</span>
-                        <!-- Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben-->
-                    </div>
+                <div id="userProfil">
+                    <span id="initials"></span>
+                    <!-- Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben-->
                 </div>
+            </div>
 
-            </header>
-
-            <!-- Hauptinhalt -->
-            <main class="content">
-
+        </header>
+        <main class="content">
+            <div class="h1Div">
                 <h1>Join 360</h1>
-                <p>Key Metrics at a Glance</p>
-                <div class="metrics">
-                    <div class="metric-card">
-                        To-do:
-                        <span>1</span>
+                <div class="h1UnderlineDiv">
+                    <p>Key Metrics at a Glance</p>
+                </div>
+            </div>
+            <div class="greetingBox">
+                <span id="daytime">Good morning,</span>
+                <span id="userName">Guest User</span>
+            </div>
+            <div class="cardOverviewDiv">
+                <div class="toDoAndDoneDiv">
+                    <div class="toDoAndDoneCard">
+                        <img src="./assets/icons/pencilRound.png" alt="">
+                        <div id="toDoCounter">
+                            <span id="toDoCounterSpan">1</span>
+                            <span class="toDoDoneSpan">To-Do</span>
+                        </div>
                     </div>
-                    <div class="metric-card">
-                        Done:
-                        <span>1</span>
-                    </div>
-                    <div class="metric-card urgent">
-                        Urgent:
-                        <span>1</span>
-                    </div>
-                    <div class="metric-card">
-                        Upcoming Deadline:
-                        <span>October 16, 2022</span>
-                    </div>
-                    <div class="metric-card">
-                        Tasks in Board:
-                        <span>5</span>
-                    </div>
-                    <div class="metric-card">
-                        Tasks In Progress:
-                        <span>2</span>
-                    </div>
-                    <div class="metric-card">
-                        Awaiting Feedback:
-                        <span>2</span>
+                    <div class="toDoAndDoneCard">
+                        <img src="./assets/icons/checkedRound.png" alt="">
+                        <div id="doneCounter">
+                            <span id="doneCounterSpan">1</span>
+                            <span class="toDoDoneSpan">Done</span>
+                        </div>
                     </div>
                 </div>
-                <div class="welcome-message">Good morning, Guest</div>
-
-            </main>
-
-        </aside>
-
-
-    </body>
+                <div class="urgentDeadlineDiv">
+                    <div id="urgentTaskBox">
+                        <img src="./assets/icons/roundUrgent.png" alt="">
+                        <div id="amountUrgentTasksDiv">
+                            <span id="urgentAmount">1</span>
+                            <span id="urgentSpam">Urgent</span>
+                        </div>
+                    </div>
+                    <div id="vectorHorizontal"></div>
+                    <div id="deadlineDiv">
+                        <span id="deadlineDate">October 16, 2022</span>
+                        <span id="upcommingSpan">Upcoming Deadline</span>
+                    </div>
+                </div>
+                <div class="taskOverview">
+                    <div class="taskOverviewCard">
+                        <div class="taskCounterDiv">
+                            <span class="taskCount">5</span>
+                            <span class="taskCounterText">Tasks in Board</span>
+                        </div>
+                    </div>
+                    <div class="taskOverviewCard">
+                        <div class="taskCounterDiv">
+                            <span class="taskCount">2</span>
+                            <span class="taskCounterText">Tasks in Progress</span>
+                        </div>
+                    </div>
+                    <div class="taskOverviewCard">
+                        <div class="taskCounterDiv">
+                            <span class="taskCount">2</span>
+                            <span class="taskCounterText">Awaiting Feedback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </aside>
+</body>
 
 </html>

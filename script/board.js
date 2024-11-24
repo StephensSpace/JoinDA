@@ -6,6 +6,7 @@ async function getFirebaseData(path = "/") {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Variableninitialisierung
   const taskCards = document.querySelectorAll(".task-card");
   const columns = document.querySelectorAll(".board-column");
   const taskDetailsModal = document.getElementById("taskDetailsModal");
@@ -14,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const addTaskForm = document.getElementById("addTaskForm");
   const closeButton = document.querySelectorAll(".close-button");
   const cancelButton = document.getElementById("cancelButton");
-  const categoryField = document.getElementById("taskCategory");
   const addTaskButtonsByCategory = document.querySelectorAll(
     ".add-task-btn-category"
   );
@@ -28,16 +28,372 @@ document.addEventListener("DOMContentLoaded", async () => {
   const taskSubtasks = document.getElementById("taskSubtasks");
   const deleteTaskButton = document.querySelector(".delete-btn");
   const editTaskButton = document.querySelector(".edit-btn");
+  const dropdown = document.getElementById("taskAssignedDropdown");
+  const options = document.getElementById("taskAssignedOptions");
+  const arrow = document.getElementById("dropdownArrow");
+  const selectedContactsContainer = document.getElementById(
+    "selectedContactsContainer"
+  );
+  const taskCategorySelectedText = document.getElementById(
+    "taskCategorySelectedText"
+  );
+  const taskCategoryDropdown = document.getElementById("taskCategoryDropdown");
+  const taskCategoryPlaceholder = taskCategoryDropdown.querySelector(
+    ".dropdown-placeholder"
+  );
+  const taskCategoryOptions = document.getElementById("taskCategoryOptions");
+  const taskCategoryInput = document.getElementById("taskCategoryInput");
+  const taskCategoryArrow = document.getElementById("taskCategoryArrow"); // Pfeil-Icon
+
+  let users = [];
+
+  await loadAssignedToOptions();
+  await loadTasksFromFirebase();
+  updateNoTasksMessages();
 
   let draggedTask = null;
   let selectedPriority = null; // Variable zum Speichern der ausgewählten Priorität
   let currentTaskId = null; // Speichert die ID der aktuellen Aufgabe für Bearbeitung/Löschung
+
+  // **Neues Code-Fragment: Event Listener für das Eingabefeld 'taskTitle'**
+  const taskTitleInput = document.getElementById("taskTitle");
+
+  taskTitleInput.addEventListener("focus", () => {
+    taskTitleInput.value = "Contact Form & Imprint";
+  });
+
+  // **Neues Code-Fragment: Event Listener für das textarea-Feld 'taskDescription'**
+  const taskDescriptionTextarea = document.getElementById("taskDescription");
+
+  taskDescriptionTextarea.addEventListener("focus", () => {
+    taskDescriptionTextarea.value = "Create a contact form and imprint page.";
+  });
+
+  // Öffnen/Schließen des Dropdowns beim Klicken auf den Platzhalter
+  taskCategoryPlaceholder.addEventListener("click", (event) => {
+    event.stopPropagation();
+    taskCategoryOptions.classList.toggle("hidden");
+    taskCategoryArrow.classList.toggle("rotate"); // Pfeil drehen
+  });
+
+  // Auswahl einer Kategorie
+  const categoryOptions =
+    taskCategoryOptions.querySelectorAll(".dropdown-option");
+  categoryOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      taskCategorySelectedText.textContent = option.textContent;
+      taskCategoryInput.value = option.getAttribute("todo");
+      taskCategoryOptions.classList.add("hidden");
+      taskCategoryArrow.classList.remove("rotate"); // Pfeil zurückdrehen
+    });
+  });
+
+  // Schließt das Dropdown, wenn außerhalb geklickt wird
+  document.addEventListener("click", (event) => {
+    if (!taskCategoryDropdown.contains(event.target)) {
+      taskCategoryOptions.classList.add("hidden");
+      taskCategoryArrow.classList.remove("rotate"); // Pfeil zurückdrehen
+    }
+  });
+
+  // Toggle Dropdown Visibility
+  dropdown.addEventListener("click", toggleAssignedToDropdown);
+
+  function resetFormFields() {
+    const taskTitleInput = document.getElementById("taskTitle");
+    if (taskTitleInput) {
+      taskTitleInput.value = "";
+    }
+
+    // Priorität zurücksetzen
+    selectedPriority = null;
+    document
+      .querySelectorAll(".priority-btn")
+      .forEach((button) => button.classList.remove("clicked"));
+    document
+      .querySelectorAll(".priority-icon")
+      .forEach((iconElem) => (iconElem.style.filter = "none"));
+
+    // "Assigned to" Dropdown zurücksetzen
+    options.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+      checkbox.checked = false;
+      // Entferne die ausgewählte Klasse
+      const item = checkbox.closest(".dropdown-item");
+      if (item) {
+        item.classList.remove("selected");
+      }
+    });
+    updateSelectedContactsDisplay();
+
+    // Kategorie-Dropdown zurücksetzen
+    taskCategoryInput.value = "todo"; // Standardkategorie setzen
+    taskCategorySelectedText.textContent = "Select category"; // Platzhaltertext zurücksetzen
+    taskCategoryOptions.classList.add("hidden");
+    taskCategoryArrow.classList.remove("rotate");
+
+    // Subtasks zurücksetzen
+    const confirmedSubtasks = document.getElementById("confirmedSubtasks");
+    if (confirmedSubtasks) {
+      confirmedSubtasks.innerHTML = "";
+    }
+
+    // Offenstehende Dropdowns schließen
+    const assignedToOptions = document.getElementById("taskAssignedOptions");
+    assignedToOptions.classList.add("hidden");
+    arrow.classList.remove("up");
+  }
+
+  async function loadAssignedToOptions() {
+    try {
+      // Kontakte aus Firebase laden
+      const snapshot = await firebase.database().ref("contacts").once("value");
+      const data = snapshot.val();
+
+      if (!data) {
+        console.warn("Keine Benutzer in Firebase gefunden.");
+        return;
+      }
+
+      users = Object.values(data);
+
+      const optionsContainer = document.getElementById("taskAssignedOptions");
+
+      // Kontakte dynamisch hinzufügen
+      users.forEach((user) => {
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+
+        // Avatar erstellen (Initialen)
+        const avatar = document.createElement("div");
+        avatar.classList.add("avatar");
+        avatar.textContent = user.name
+          .split(" ")
+          .map((n) => n[0])
+          .join("")
+          .toUpperCase();
+
+        avatar.style.backgroundColor = user.color || getRandomColor();
+
+        // Name hinzufügen
+        const name = document.createElement("div");
+        name.classList.add("name");
+        name.textContent = user.name;
+
+        // Checkbox erstellen
+        const label = document.createElement("label");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = user.name;
+
+        const customCheckbox = document.createElement("span");
+        customCheckbox.classList.add("custom-checkbox");
+        customCheckbox.style.width = "20px";
+        customCheckbox.style.height = "20px";
+        customCheckbox.style.display = "inline-block";
+        customCheckbox.style.backgroundImage =
+          "url('./assets/icons/property-default.png')";
+        customCheckbox.style.backgroundSize = "cover";
+        customCheckbox.style.cursor = "pointer";
+
+        // Struktur zusammensetzen
+        label.appendChild(checkbox);
+        label.appendChild(customCheckbox);
+
+        // Element zusammenfügen
+        item.appendChild(avatar);
+        item.appendChild(name);
+        item.appendChild(label); // Entfernt die direkte Einfügung der Checkbox
+        optionsContainer.appendChild(item);
+
+        // Funktion zur Aktualisierung des Checkbox-Aussehens
+        function updateCheckboxAppearance() {
+          if (checkbox.checked) {
+            customCheckbox.style.backgroundImage =
+              "url('./assets/icons/property-checked.png')";
+            customCheckbox.style.filter = "brightness(0) invert(1)"; // Icon weiß färben
+          } else {
+            customCheckbox.style.backgroundImage =
+              "url('./assets/icons/property-default.png')";
+            customCheckbox.style.filter = ""; // Filter zurücksetzen
+          }
+        }
+
+        // Event Listener zum Item hinzufügen
+        item.addEventListener("click", (event) => {
+          event.stopPropagation(); // Verhindert das Schließen des Dropdowns
+          // Wenn Checkbox geklickt wird, nichts tun (um Doppeltoggeln zu vermeiden)
+          if (event.target === checkbox) {
+            return;
+          }
+          // Toggle Checkbox Zustand
+          checkbox.checked = !checkbox.checked;
+
+          // Aktualisieren des Checkbox-Aussehens
+          updateCheckboxAppearance();
+
+          // Toggle selected class for background color
+          item.classList.toggle("selected", checkbox.checked);
+
+          // Update der Auswahlanzeige
+          updateSelectedContactsDisplay();
+          updateSelectedCategoryDisplay();
+        });
+
+        // Event Listener für Checkbox
+        checkbox.addEventListener("change", () => {
+          updateCheckboxAppearance();
+          updateSelectedContactsDisplay();
+          updateSelectedCategoryDisplay();
+        });
+
+        // Event Listener für Hover-Effekte
+        item.addEventListener("mouseover", () => {
+          // Wenn die Checkbox nicht ausgewählt ist, Icon weiß färben
+          if (!checkbox.checked) {
+            customCheckbox.style.filter = "brightness(0) invert(1)";
+          }
+        });
+
+        item.addEventListener("mouseout", () => {
+          // Wenn die Checkbox nicht ausgewählt ist, Filter zurücksetzen
+          if (!checkbox.checked) {
+            customCheckbox.style.filter = "";
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
+    }
+  }
+
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // Funktion: Dropdown für "Assigned to" öffnen/schließen
+  function toggleAssignedToDropdown(event) {
+    event.stopPropagation(); // Verhindert das Schließen beim Klicken auf das Dropdown
+    const dropdownOptions = document.getElementById("taskAssignedOptions");
+
+    // Toggle "hidden" Klasse, um Dropdown zu zeigen oder zu verstecken
+    dropdownOptions.classList.toggle("hidden");
+
+    // Pfeil-Icon umdrehen
+    arrow.classList.toggle("up");
+  }
+
+  // Funktion: Schließen des Dropdowns, wenn außerhalb geklickt wird
+  function closeAssignedToDropdown(event) {
+    const dropdownContainer = document.getElementById("taskAssignedContainer");
+
+    // Prüfen, ob der Klick außerhalb des Dropdowns war
+    if (!dropdownContainer.contains(event.target)) {
+      options.classList.add("hidden");
+
+      // Stelle sicher, dass das Pfeil-Icon zurückgesetzt wird
+      arrow.classList.remove("up");
+
+      // Aktualisiere die Anzeige der ausgewählten Kontakte
+      updateSelectedContactsDisplay();
+      updateSelectedCategoryDisplay();
+    }
+  }
+
+  // Funktion zum Aktualisieren der Anzeige der ausgewählten Kontakte
+  function updateSelectedContactsDisplay() {
+    const optionsContainer = document.getElementById("taskAssignedOptions");
+    const selectedInputs = optionsContainer.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+
+    const selectedContacts = Array.from(selectedInputs).map(
+      (input) => input.value
+    );
+
+    selectedContactsContainer.innerHTML = ""; // Vorherigen Inhalt löschen
+
+    if (selectedContacts.length > 0) {
+      // Für jeden ausgewählten Kontakt ein Avatar erstellen
+      selectedContacts.forEach((name) => {
+        const user = users.find((u) => u.name === name);
+        if (user) {
+          const avatar = document.createElement("div");
+          avatar.classList.add("avatar");
+          avatar.textContent = user.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase();
+          avatar.style.backgroundColor = user.color || getRandomColor();
+
+          selectedContactsContainer.appendChild(avatar);
+        }
+      });
+      // Aktualisiere die Anzeige der ausgewählten Kategorie
+      updateSelectedCategoryDisplay();
+    }
+  }
+
+  function updateSelectedCategoryDisplay() {
+    const selectedCategoryContainer = document.getElementById(
+      "selectedCategoryContainer"
+    );
+    if (!selectedCategoryContainer) {
+      console.warn("Element 'selectedCategoryContainer' nicht gefunden.");
+      return;
+    }
+
+    const optionsContainer = document.getElementById("taskCategoryOptions");
+    if (!optionsContainer) {
+      console.warn("Element 'taskCategoryOptions' nicht gefunden.");
+      return;
+    }
+
+    const selectedInputs = optionsContainer.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+
+    const selectedCategories = Array.from(selectedInputs).map(
+      (input) => input.value
+    );
+
+    selectedCategoryContainer.innerHTML = ""; // Vorherigen Inhalt löschen
+
+    if (selectedCategories.length > 0) {
+      const categories = [
+        { name: "User Story", color: "#ff0000" },
+        { name: "Technical Task", color: "#00ff00" },
+        // Weitere Kategorien
+      ];
+
+      selectedCategories.forEach((categoryName) => {
+        const category = categories.find((c) => c.name === categoryName);
+        if (category) {
+          const categoryDiv = document.createElement("div");
+          categoryDiv.classList.add("category-item");
+          categoryDiv.textContent = category.name;
+          categoryDiv.style.backgroundColor = category.color;
+
+          selectedCategoryContainer.appendChild(categoryDiv);
+        }
+      });
+    }
+  }
+
+  // Event Listener: Klick außerhalb des Dropdowns
+  document.addEventListener("click", closeAssignedToDropdown);
 
   // Funktion zum Hinzufügen der Drag & Drop Listener zu einer Aufgabe
   function addDragAndDropListeners(task) {
     task.setAttribute("draggable", "true");
 
     task.addEventListener("dragstart", (e) => {
+      console.log("Drag gestartet:", task);
       draggedTask = task;
       e.dataTransfer.setData("text/plain", task.dataset.task);
       task.classList.add("dragging");
@@ -58,7 +414,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       taskDetailDescription.textContent =
         task.dataset.description || "No description available.";
       taskDetailDueDate.textContent = task.dataset.dueDate || "No due date";
-      taskDetailPriority.textContent = task.dataset.priority || "No priority";
+
+      const priorityIconsHTML = {
+        Urgent:
+          '<img src="./assets/icons/urgent.png" alt="Urgent" class="priority-icon">',
+        Medium:
+          '<img src="./assets/icons/medium.png" alt="Medium" class="priority-icon">',
+        Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
+      };
+
+      taskDetailPriority.innerHTML = `${task.dataset.priority} ${
+        priorityIconsHTML[task.dataset.priority] || ""
+      }`;
 
       taskAssignedTo.innerHTML = "";
       if (task.dataset.assignedTo) {
@@ -94,32 +461,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Funktion zum Hinzufügen der Drag & Drop Listener zu den Spalten
   function addColumnDragAndDropListeners(column) {
-    const tasksContainer = column.querySelector(".tasks-container");
-
-    tasksContainer.addEventListener("dragover", (e) => {
-      e.preventDefault();
+    // Dragover erlaubt das Ablegen innerhalb der Spalte
+    column.addEventListener("dragover", (e) => {
+      e.preventDefault(); // Verhindert Standardaktionen (z. B. Textauswahl)
+      column.classList.add("drag-over"); // Optional: Visuelles Feedback
     });
 
-    tasksContainer.addEventListener("drop", async (e) => {
+    // Entferne visuelles Feedback, wenn Drag endet
+    column.addEventListener("dragleave", () => {
+      column.classList.remove("drag-over");
+    });
+
+    // Drop-Event
+    column.addEventListener("drop", async (e) => {
       e.preventDefault();
+
       if (draggedTask) {
+        const tasksContainer = column.querySelector(".tasks-container");
+
+        // Füge den Task in die neue Spalte ein
         tasksContainer.appendChild(draggedTask);
+
+        // Aktualisiere die Kategorie des Tasks
         const newCategory = column.dataset.status;
         draggedTask.dataset.category = newCategory;
 
-        // Update task in Firebase
+        // Speichere die Änderungen in Firebase
         try {
           const taskId = draggedTask.dataset.id;
           const updates = { category: newCategory };
           await firebase.database().ref(`tasks/${taskId}`).update(updates);
+          console.log("Task erfolgreich aktualisiert:", taskId, updates);
         } catch (error) {
-          console.error(
-            "Fehler beim Aktualisieren der Aufgabe in Firebase:",
-            error
-          );
+          console.error("Fehler beim Aktualisieren in Firebase:", error);
         }
-        updateNoTasksMessages();
+
+        column.classList.remove("drag-over"); // Entferne visuelles Feedback
       }
+      updateNoTasksMessages();
     });
   }
 
@@ -135,11 +514,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (tasks) {
         Object.keys(tasks).forEach((taskId) => {
           const task = tasks[taskId];
-          task.id = taskId; // Speichere die ID für spätere Updates
+          task.id = taskId;
+
+          // Validierung: Überspringe Tasks ohne Titel oder Kategorie
+          if (!task.title || !task.category) {
+            console.warn(
+              `Task mit ID ${taskId} hat unvollständige Daten und wird übersprungen.`
+            );
+            return;
+          }
+
           displayTask(task, task.category);
         });
-      } else {
-        console.log("Keine Tasks in der Datenbank gefunden.");
       }
     } catch (error) {
       console.error("Fehler beim Laden der Tasks aus Firebase:", error);
@@ -148,8 +534,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Aufgabe auf dem Kanban-Board anzeigen
   function displayTask(task, category) {
+    const sanitizedCategory = category.toLowerCase().replace(/\s+/g, "");
     const targetColumn = document.querySelector(
-      `.board-column[data-status="${category}"] .tasks-container`
+      `.board-column[data-status="${sanitizedCategory}"] .tasks-container`
     );
 
     if (!targetColumn) {
@@ -158,11 +545,59 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const taskElement = document.createElement("div");
     taskElement.classList.add("task-card");
+    taskElement.classList.add(
+      task.type === "User Story" ? "user-story" : "technical-task"
+    );
+
+    const priorityIconsHTML = {
+      Urgent:
+        '<img src="./assets/icons/urgent.png" alt="Urgent" class="priority-icon">',
+      Medium:
+        '<img src="./assets/icons/medium.png" alt="Medium" class="priority-icon">',
+      Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
+    };
+
+    // Generate avatar HTML for assigned contacts
+    let avatarsHtml = "";
+    if (task.assignedTo) {
+      avatarsHtml = task.assignedTo
+        .split(",")
+        .map(
+          (name) =>
+            `<div class="avatar" style="background-color: ${getRandomColor()}">
+             ${name.trim().charAt(0)}
+           </div>`
+        )
+        .join("");
+    }
+
+    taskElement.innerHTML = `
+        <div class="tag">${task.type || "Task"}</div>
+        <h3>${task.title}</h3>
+        <p>${task.description}</p>
+        <div class="priority">
+          ${task.priority} ${priorityIconsHTML[task.priority] || ""}
+        </div>
+        <div class="avatars">
+          ${
+            task.assignedTo
+              ?.split(",")
+              .map(
+                (name) =>
+                  `<div class="avatar" style="background-color:${getRandomColor()}">
+                  ${name.trim().charAt(0)}
+                </div>`
+              )
+              .join("") || ""
+          }
+        </div>
+        <div class="icon menu-icon">&#9776;</div>
+      `;
 
     // Füge zusätzliche Klassen hinzu, z.B. 'user-story' oder 'technical-task'
-    if (task.type === "User Story") {
+    if (taskType === "User Story") {
       taskElement.classList.add("user-story");
-    } else if (task.type === "Technical Task") {
+    } else if (taskType === "Technical Task") {
       taskElement.classList.add("technical-task");
     }
 
@@ -180,117 +615,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     taskElement.dataset.type = task.type;
     taskElement.dataset.completedSubtasks = task.completedSubtasks || "0";
 
-    document
-      .getElementById("addSubtaskButton")
-      .addEventListener("click", function () {
-        document.getElementById("subtaskOptions").style.display = "block";
-      });
-
-    document
-      .getElementById("cancelSubtask")
-      .addEventListener("click", function () {
-        document.getElementById("subtaskOptions").style.display = "none";
-      });
-
-    document
-      .getElementById("confirmSubtask")
-      .addEventListener("click", function () {
-        var subtaskSelect = document.getElementById("subtaskSelect");
-        var subtaskName = subtaskSelect.value;
-        var confirmedSubtasksDiv = document.getElementById("confirmedSubtasks");
-
-        // Überprüfen, ob der Subtask bereits hinzugefügt wurde
-        var existingSubtasks =
-          confirmedSubtasksDiv.getElementsByClassName("subtask-text");
-        for (var i = 0; i < existingSubtasks.length; i++) {
-          if (existingSubtasks[i].textContent === subtaskName) {
-            alert("Dieser Subtask wurde bereits hinzugefügt.");
-            document.getElementById("subtaskOptions").style.display = "none";
-            return;
-          }
-        }
-
-        // Erstelle ein neues Subtask-Element
-        var subtaskItem = document.createElement("div");
-        subtaskItem.classList.add("subtask-item");
-
-        // Subtask-Text
-        var subtaskText = document.createElement("span");
-        subtaskText.textContent = subtaskName;
-        subtaskText.classList.add("subtask-text");
-
-        // Editier-Button
-        var editButton = document.createElement("button");
-        editButton.innerHTML = "✏️";
-        editButton.classList.add("edit-subtask-button");
-
-        // Lösch-Button
-        var deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "❌";
-        deleteButton.classList.add("delete-subtask-button");
-
-        // Zusammenfügen der Elemente
-        subtaskItem.appendChild(subtaskText);
-        subtaskItem.appendChild(editButton);
-        subtaskItem.appendChild(deleteButton);
-
-        confirmedSubtasksDiv.appendChild(subtaskItem);
-        document.getElementById("subtaskOptions").style.display = "none";
-
-        // Funktion zum Editieren
-        function handleEdit() {
-          var inputField = document.createElement("input");
-          inputField.type = "text";
-          inputField.value = subtaskText.textContent;
-          subtaskItem.replaceChild(inputField, subtaskText);
-          editButton.innerHTML = "💾";
-
-          // Speichern des neuen Textes
-          editButton.onclick = function () {
-            subtaskText.textContent = inputField.value;
-            subtaskItem.replaceChild(subtaskText, inputField);
-            editButton.innerHTML = "✏️";
-            editButton.onclick = handleEdit;
-          };
-        }
-
-        editButton.onclick = handleEdit;
-
-        // Funktion zum Löschen
-        deleteButton.addEventListener("click", function () {
-          confirmedSubtasksDiv.removeChild(subtaskItem);
-        });
-      });
-
-    let avatarsHtml = "";
-    if (task.assignedTo) {
-      avatarsHtml = `
-      <div class="avatars">
-        ${task.assignedTo
-          .split(",")
-          .map(
-            (person) => `<div class="avatar">${person.trim().charAt(0)}</div>`
-          )
-          .join("")}
-      </div>
-    `;
-    }
-
-    taskElement.innerHTML = `
-    <div class="tag">${task.type || "Task"}</div>
-    <h3>${task.title}</h3>
-    <p>${task.description}</p>
-    ${subtasksHtml}
-    ${avatarsHtml}
-    <div class="icon menu-icon">&#9776;</div>
-  `;
+    // Subtask progress calculation
+    const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
+    const completedSubtasks = parseInt(task.completedSubtasks || "0");
+    const progressPercentage =
+      totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
     // Drag & Drop Listener hinzufügen
     addDragAndDropListeners(taskElement);
 
     // Task zur Kategorie hinzufügen
     targetColumn.appendChild(taskElement);
-
     updateNoTasksMessages();
   }
 
@@ -298,6 +633,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   addTaskButtonsByCategory.forEach((btn) => {
     btn.addEventListener("click", () => {
       const category = btn.dataset.category; // Kategorie aus dem Button-Attribut
+      const categoryField = document.getElementById("taskCategoryInput");
       categoryField.value = category; // Kategorie im Modal setzen
       addTaskModal.style.display = "block";
       setTimeout(() => {
@@ -315,6 +651,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   cancelButton.addEventListener("click", () => {
+    resetFormFields();
     addTaskModal.style.right = "-100%";
     setTimeout(() => {
       addTaskModal.style.display = "none";
@@ -362,14 +699,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   addTaskForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    resetFormFields();
+
     const title = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDescription").value;
     const dueDate = document.getElementById("taskDueDate").value;
     const priority = selectedPriority || "Low";
-    const assignedTo = document.getElementById("taskAssigned").value;
+    const assignedToInputs = options.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+    const assignedTo = Array.from(assignedToInputs)
+      .map((input) => input.value)
+      .join(", ");
     const subtasksInput = document.getElementById("taskSubtasks").value;
     const subtasks = subtasksInput ? subtasksInput.split(",") : [];
-    const category = document.getElementById("taskCategory").value;
+    const category = document.getElementById("taskCategoryInput").value;
+    console.log("Ausgewählte Kategorie:", category);
+    console.log("Neuer Task:", {
+      title,
+      description,
+      dueDate,
+      priority,
+      category,
+      assignedTo,
+      subtasks,
+    });
 
     const newTask = {
       title,
@@ -380,6 +734,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       assignedTo,
       subtasks,
     };
+    console.log("Neue Aufgabe erstellt:", newTask);
 
     try {
       // Task in Firebase speichern
@@ -390,6 +745,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Aufgabe auf dem Board anzeigen
       displayTask(newTask, category);
+      resetFormFields();
 
       // Modal schließen und Formular zurücksetzen
       addTaskForm.reset();
@@ -400,6 +756,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       document
         .querySelectorAll(".priority-icon")
         .forEach((iconElem) => (iconElem.style.filter = "none"));
+
+      // Zurücksetzen der ausgewählten Kontakte
+      options.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+        checkbox.checked = false;
+        // Entferne die ausgewählte Klasse
+        const item = checkbox.closest(".dropdown-item");
+        if (item) {
+          item.classList.remove("selected");
+        }
+      });
+      updateSelectedContactsDisplay();
 
       addTaskModal.style.right = "-100%";
       setTimeout(() => {
@@ -473,7 +840,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("taskTitle").value = taskData.title;
         document.getElementById("taskDescription").value = taskData.description;
         document.getElementById("taskDueDate").value = taskData.dueDate;
-        document.getElementById("taskAssigned").value = taskData.assignedTo;
+
+        // Setze die ausgewählten Kontakte
+        const assignedToNames = taskData.assignedTo
+          ? taskData.assignedTo.split(", ")
+          : [];
+        options
+          .querySelectorAll("input[type='checkbox']")
+          .forEach((checkbox) => {
+            checkbox.checked = assignedToNames.includes(checkbox.value);
+            // Toggle selected class for background color
+            const item = checkbox.closest(".dropdown-item");
+            if (item) {
+              item.classList.toggle("selected", checkbox.checked);
+            }
+          });
+        updateSelectedContactsDisplay();
+
         document.getElementById("taskSubtasks").value = taskData.subtasks
           ? taskData.subtasks.join(",")
           : "";
@@ -514,8 +897,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Standard Submit Handler für das Hinzufügen einer neuen Aufgabe
   async function addTaskFormSubmitHandler(e) {
     e.preventDefault();
-
-    // (Inhalt wie oben, daher nicht wiederholt)
+    // Inhalt wie oben, daher nicht wiederholt
   }
 
   // Submit Handler für das Aktualisieren einer bestehenden Aufgabe
@@ -526,10 +908,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const description = document.getElementById("taskDescription").value;
     const dueDate = document.getElementById("taskDueDate").value;
     const priority = selectedPriority || "Low";
-    const assignedTo = document.getElementById("taskAssigned").value;
+    const assignedToInputs = options.querySelectorAll(
+      "input[type='checkbox']:checked"
+    );
+    const assignedTo = Array.from(assignedToInputs)
+      .map((input) => input.value)
+      .join(", ");
     const subtasksInput = document.getElementById("taskSubtasks").value;
     const subtasks = subtasksInput ? subtasksInput.split(",") : [];
-    const category = document.getElementById("taskCategory").value;
+    const category = document.getElementById("taskCategoryInput").value;
 
     const updatedTask = {
       title,
@@ -583,6 +970,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         .querySelectorAll(".priority-icon")
         .forEach((iconElem) => (iconElem.style.filter = "none"));
 
+      // Zurücksetzen der ausgewählten Kontakte
+      options.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+        checkbox.checked = false;
+        // Entferne die ausgewählte Klasse
+        const item = checkbox.closest(".dropdown-item");
+        if (item) {
+          item.classList.remove("selected");
+        }
+      });
+      updateSelectedContactsDisplay();
+
       addTaskModal.style.right = "-100%";
       setTimeout(() => {
         addTaskModal.style.display = "none";
@@ -615,8 +1013,213 @@ document.addEventListener("DOMContentLoaded", async () => {
       dueDateError.classList.add("hidden");
     }
   });
-
-  // Initialer Aufruf: Tasks aus Firebase laden
-  await loadTasksFromFirebase();
-  updateNoTasksMessages();
 });
+
+function displayTaskDetails(task) {
+  const taskDetailsModal = document.getElementById("taskDetailsModal");
+  const taskTypeElement = document.getElementById("taskType");
+  const taskDetailTitle = document.getElementById("taskDetailTitle");
+  const taskDetailDescription = document.getElementById(
+    "taskDetailDescription"
+  );
+  const taskDetailDueDate = document.getElementById("taskDetailDueDate");
+  const taskDetailPriority = document.getElementById("taskDetailPriority");
+  const taskAssignedTo = document.getElementById("taskAssignedTo");
+  const taskSubtasks = document.getElementById("taskSubtasks");
+
+  // Update task type
+  taskTypeElement.textContent = task.dataset.type || "Task";
+  taskTypeElement.style.backgroundColor =
+    task.dataset.type === "Technical Task" ? "#26a69a" : "#2962ff";
+
+  // Update task title and description
+  taskDetailTitle.textContent = task.dataset.title || "No title provided";
+  taskDetailDescription.textContent =
+    task.dataset.description || "No description provided";
+
+  // Update due date
+  taskDetailDueDate.textContent = task.dataset.dueDate || "No due date";
+
+  // Update priority
+  const priorityMap = {
+    Urgent:
+      '<img src="./assets/icons/urgent.png" alt="Urgent" class="priority-icon">',
+    Medium:
+      '<img src="./assets/icons/medium.png" alt="Medium" class="priority-icon">',
+    Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
+  };
+  taskDetailPriority.innerHTML = `${task.dataset.priority || "No priority"} ${
+    priorityMap[task.dataset.priority] || ""
+  }`;
+
+  // Update assigned contacts
+  const assignedContacts = task.dataset.assignedTo
+    ? task.dataset.assignedTo.split(",").map((name) => name.trim())
+    : [];
+  taskAssignedTo.innerHTML =
+    assignedContacts.map((contact) => `<li>${contact}</li>`).join("") ||
+    "<li>No contacts assigned</li>";
+
+  // Update subtasks
+  const subtasks = task.dataset.subtasks
+    ? task.dataset.subtasks.split(",").map((subtask) => subtask.trim())
+    : [];
+  taskSubtasks.innerHTML =
+    subtasks
+      .map(
+        (subtask) => `
+            <li>
+                <input type="checkbox" ${
+                  subtask.includes("✔") ? "checked" : ""
+                }>
+                ${subtask.replace("✔", "").trim()}
+            </li>
+        `
+      )
+      .join("") || "<li>No subtasks</li>";
+
+  // Show modal
+  taskDetailsModal.style.display = "block";
+}
+
+// Close modal on click
+document.querySelector(".close-button").addEventListener("click", () => {
+  document.getElementById("taskDetailsModal").style.display = "none";
+});
+
+// Subtaks
+const subtaskInputContainer = document.getElementById("subtaskSelectContainer");
+const subtaskInputField = document.createElement("input");
+const subtaskAddButton = document.createElement("button");
+const subtaskOptionsContainer = document.createElement("div");
+const confirmedSubtasksContainer = document.getElementById("confirmedSubtasks");
+
+subtaskOptionsContainer.innerHTML = `
+      <div class="subtask-option">Contact Form</div>
+      <div class="subtask-option">Write Legal Imprint</div>
+  `;
+
+// Initiale Werte und Klassen
+subtaskInputField.type = "text";
+subtaskInputField.placeholder = "Add new subtask";
+subtaskInputField.classList.add("subtask-input");
+subtaskAddButton.innerHTML = `<img src="./assets/icons/add_hover.png" alt="Add" />`;
+subtaskAddButton.classList.add("subtask-add-button");
+
+subtaskOptionsContainer.classList.add("subtask-options-container");
+subtaskOptionsContainer.style.display = "none";
+
+// Subtask-Optionen
+const subtaskOptions = ["Contact Form", "Write Legal Imprint"];
+let activeSubtask = "";
+
+// Füge Inputfeld und Button hinzu
+subtaskInputContainer.appendChild(subtaskInputField);
+subtaskInputContainer.appendChild(subtaskAddButton);
+
+// Klick auf das "+" Symbol
+subtaskAddButton.addEventListener("click", () => {
+  if (subtaskInputField.value.trim() !== "") {
+    confirmSubtask();
+  } else {
+    openSubtaskOptions();
+  }
+});
+
+// Funktion: Subtask-Optionen anzeigen
+function openSubtaskOptions() {
+  const subtaskOptionsContainer = document.getElementById("subtaskOptions");
+
+  // Füge die Optionen in das Dropdown ein
+  subtaskOptionsContainer.innerHTML = `
+      <div class="subtask-option">Contact Form</div>
+      <div class="subtask-option">Write Legal Imprint</div>
+  `;
+  subtaskOptionsContainer.style.display = "block";
+
+  // Füge Event Listener zu den Optionen hinzu
+  const subtaskOptions =
+    subtaskOptionsContainer.querySelectorAll(".subtask-option");
+  subtaskOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const subtaskInputField = document.querySelector(".subtask-input");
+      subtaskInputField.addEventListener("focus", openSubtaskOptions);
+
+      const subtaskAddButton = document.querySelector(".subtask-add-button");
+      subtaskAddButton.addEventListener("click", openSubtaskOptions);
+      subtaskInputField.value = option.textContent; // Setze den Text im Input-Feld
+      subtaskOptionsContainer.style.display = "none"; // Schließe das Dropdown
+    });
+
+    showConfirmationIcons(); // Icons (Häkchen und X) anzeigen
+  });
+  subtaskOptionsContainer.appendChild(optionDiv);
+  subtaskInputContainer.appendChild(subtaskOptionsContainer);
+}
+
+// Funktion: Bestätigungs- und Abbruch-Icons anzeigen
+function showConfirmationIcons() {
+  subtaskAddButton.innerHTML = `
+            <img src="./assets/icons/check_hover.png" alt="Confirm" id="confirmSubtaskIcon" />
+            <img src="./assets/icons/close_hover.png" alt="Cancel" id="cancelSubtaskIcon" />
+        `;
+
+  const confirmIcon = document.getElementById("confirmSubtaskIcon");
+  const cancelIcon = document.getElementById("cancelSubtaskIcon");
+
+  confirmIcon.addEventListener("click", confirmSubtask);
+  cancelIcon.addEventListener("click", () => {
+    subtaskInputField.value = "";
+    resetAddButton();
+  });
+}
+
+// Funktion: Subtask bestätigen
+function confirmSubtask() {
+  if (subtaskInputField.value.trim() !== "") {
+    const subtaskText = subtaskInputField.value.trim();
+    addConfirmedSubtask(subtaskText);
+    subtaskInputField.value = "";
+    resetAddButton();
+  }
+}
+
+// Funktion: Subtask hinzufügen und anzeigen
+function addConfirmedSubtask(subtaskText) {
+  const subtaskItem = document.createElement("div");
+  subtaskItem.classList.add("subtask-item");
+
+  const subtaskLabel = document.createElement("span");
+  subtaskLabel.textContent = subtaskText;
+  subtaskLabel.classList.add("subtask-text");
+
+  const editButton = document.createElement("button");
+  editButton.innerHTML = `<img src="./assets/icons/edit_hover.png" alt="Edit" />`;
+  editButton.classList.add("edit-subtask");
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = `<img src="./assets/icons/delete_hover.png" alt="Delete" />`;
+  deleteButton.classList.add("delete-subtask");
+
+  // Bearbeiten
+  editButton.addEventListener("click", () => {
+    subtaskInputField.value = subtaskText;
+    subtaskItem.remove();
+    showConfirmationIcons();
+  });
+
+  // Löschen
+  deleteButton.addEventListener("click", () => {
+    subtaskItem.remove();
+  });
+
+  subtaskItem.appendChild(subtaskLabel);
+  subtaskItem.appendChild(editButton);
+  subtaskItem.appendChild(deleteButton);
+  confirmedSubtasksContainer.appendChild(subtaskItem);
+}
+
+// Funktion: "+" Button zurücksetzen
+function resetAddButton() {
+  subtaskAddButton.innerHTML = `<img src="./assets/icons/add_hover.png" alt="Add" />`;
+}

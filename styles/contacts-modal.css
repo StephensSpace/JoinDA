@@ -1,0 +1,203 @@
+
+/* Alles zum Modal Background */
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/* Alles zum Modal für Add new Contact & Edit */
+
+.modal {
+    display: flex;
+    align-items: center;
+    z-index: 4;
+}
+
+.modal-same-height {
+    height: 270px;
+}
+
+.modal-same-padding-left {
+    padding: 32px 24px 64px 28px;
+}
+
+.modal-same-padding-right {
+    padding: 32px 28px 64px 0px;
+}
+
+
+/* Alles zum Model Right */
+
+.modal-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: var(--background-color-header);
+}
+
+
+.modal-right-top {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-right-top img {
+    cursor: pointer;
+}
+
+.modal-right-bottom {
+    display: flex;
+    align-items: center;
+}
+
+.modal-right-div {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-inputfield {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 44px;
+    padding-bottom: 32px;
+}
+
+.modal-inputfield-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.modal-inputfield-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 6px;
+    border-radius: 6px;
+    border: solid 1px;
+    cursor: pointer;
+}
+
+/* .modal-inputfield-buttons button:hover {
+    border-color: var(--background-color-aside);
+    color: var(--background-color-aside);
+    filter: drop-shadow(0 1px 1px);
+} */
+
+#cancelBtn, #createContactBtn {
+    transition: background-color 0.25s, border-color 0.25s, color 0.25s, filter 0.25s;
+}
+
+/* Für das X-Icon bei Cancel X */
+#cancelBtn:hover .cancel-icon {
+    filter: grayscale(1) sepia(1) saturate(10) hue-rotate(185deg);
+}
+
+#cancelBtn:hover {
+    border-color: var(--background-color-aside);
+    color: var(--background-color-aside);
+    filter: drop-shadow(0 1px 1px);
+}
+
+#createContactBtn:hover {
+    background-color: var(--background-color-aside) !important;
+    filter: drop-shadow(0 1px 1px black) !important;
+    border-color: var(--background-color-aside);
+}
+
+.modal-inputfield-buttons img {
+    width: 12px;
+}
+
+.modal-inputfield input {
+    cursor: pointer;
+    background-origin: content-box;
+    border-radius: 6px;
+    border: solid 1.5px lightgray;
+    height: 32px;
+    padding: 12px;
+    width: 256px;
+}
+
+
+.person-icon {
+    background: url(/assets/icons/contacts/person.png) no-repeat right;
+    background-size: 12px;
+    filter: invert(0.5);
+}
+
+.check-icon {
+    background: url(/assets/icons/contacts/mail.png) no-repeat right;
+    background-size: 12px;
+    filter: invert(0.5);
+}
+
+.phone-icon {
+    background: url(/assets/icons/contacts/call.png) no-repeat right;
+    background-size: 12px;
+    filter: invert(0.5);
+}
+
+.modal-userImg {
+    background-color: antiquewhite;
+    padding: 24px;
+    border-radius: 100%;
+    margin: 24px 56px;
+
+    filter: drop-shadow(0px 0px 2px gray);      /* MUSS NOCH ÜBERARBEITET WERDEN!!!!! */
+}
+
+.modal-userImg img {
+    width: 36px;
+    filter: invert(0.5);
+}
+
+
+/* Alles zum Modal Left */
+
+.modal-left {
+    color: white;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: var(--background-color-nav);
+}
+
+.modal-left-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-left h1 {
+    font-size: 46px;
+}
+
+.modal-left p {
+    font-size: 22px;
+}
+
+.modal-left img {
+    max-width: 48px;
+}
+
+.modal-left hr {
+    margin: 12px 0;
+    height: 2px;
+    border: 2px;
+    max-width: 4.5rem;
+    border-radius: 2px;
+    background-color: var(--background-color-aside);
+
+}

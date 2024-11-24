@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakte</title>
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
 
     <!-- Css -->
     <link rel="stylesheet" href="./styles/style.css">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/contacts.css">
+    <link rel="stylesheet" href="./styles/contacts-modal.css">
     
     <!-- Firebase SDK für die App und die Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
@@ -21,7 +23,6 @@
     <script src="./script/contacts.js"></script>
     <script src="./script/contacts-templates.js"></script>
 
-    
 </head>
 <body onload="initContacts()">
 
@@ -52,7 +53,7 @@
             </div>
             <div>
                 <div>
-                    <img src="./assets/img/help.png" alt="./assets/img/help.png">
+                    <img src="./assets/icons/help.png" alt="./assets/icons/help.png">
                 </div>
                 <div id="userProfil">
                     <span>SM</span> <!-- Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben-->
@@ -67,19 +68,20 @@
             <div class="contact-board">
 
                 <div class="add-new-contact-background">
-                    <div class="add-new-contact-btn" onclick="addContact()">
-                            <p>Add new contact</p><img src="./assets/img/person_add.png" alt="./assets/img/person_add.png">
+                    <div class="add-new-contact-btn" onclick="openAddContactModal()">
+                            <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
                     </div>
                 </div>
                 
-
-                <div id="contactInterface">
+                <div id="contactList">
                     
                 </div>
+
             </div>
 
 
             <div class="contact-content">
+
                 <div class="contact-content-head">
                     <h1 class="contentH1">Contacts</h1>
                     <hr>
@@ -88,22 +90,13 @@
 
                 <div class="contact-content-table" id="contact-content-table">
 
-
                 </div>
 
             </div>
-
-
-        
         
         
         </main>
-    
     </aside>
-
-    
-
-
 
 </body>
 </html>
