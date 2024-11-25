@@ -11,4 +11,5 @@
     --background-color-highlight: #00838F;  /* Tiefes Türkis */
     --background-color-deep: #006064;       /* Dunkles Zyan */
     --background-color-hover: #29ABE2;      /* Hover für Add new contact & Add task*/
+    --background-color-hover-contact: #F0F0F0; /* Hover für Kontakte in Kontaktliste */
   }

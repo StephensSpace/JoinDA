@@ -89,6 +89,7 @@ async function renderContactsInToContactList() {
 // Funktion zum rein rendern der Information zu jedem Kontakt ins Contacts - Board
 async function renderContactInfosInContactsTable(userIndex) {
     const OBJECT = await getFirebaseData(path = "/contacts");
+    clickedUser();
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
@@ -109,12 +110,11 @@ async function openEditContactModal(userIndex) {
     CONTACT_CONTENT_REF.innerHTML += modalEditContactTemplate(userIndex);
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
     const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();
-    const userImage = document.getElementsByClassName('modal-userImg')[0];
+    const userIconInModal = document.getElementsByClassName('modal-userImg')[0];
     inputfieldName.value = USER_NAME;
     inputfieldEmail.value = USER_EMAIL;
     inputfieldPhone.value = USER_PHONE_NUMB;
-    userImage.innerHTML = document.getElementById(`userImage${userIndex}`).innerHTML;
-
+    userIconInModal.innerHTML = document.getElementById(`userIconContactTable-${userIndex}`).innerHTML; // funzt nicht
 }
 // Change Contact Information
 async function editContactInModal(userIndex) {
@@ -253,7 +253,19 @@ function getBackgroundForLetters(getFirstLetters) {
 }
 
 
+function clickedUser() {
+  const contacts = document.getElementsByClassName('user-contact');
 
+  Array.from(contacts).forEach((contact) => {
+    contact.addEventListener('click', () => {
+      Array.from(contacts).forEach((item) => {
+        item.classList.remove('clicked-Background'); 
+      });
+
+      contact.classList.toggle('clicked-Background');
+    });
+  });
+}
 
 
 
@@ -268,3 +280,17 @@ function getBackgroundForLetters(getFirstLetters) {
 
 //############################################################
 
+
+
+//function clickedUser(userIndex) {
+//    let getTableUsername = document.getElementsByTagName('h2')[0]?.innerHTML;
+//    for (let i = 0; i < document.getElementsByClassName('user-contact').length; i++) {
+//        let getContactListUsername = document.getElementsByClassName('user-shortcut-name')[i]?.innerHTML
+//        
+//        if (getTableUsername == getContactListUsername) {
+//            let userBackground = document.getElementsByClassName('user-contact')[i];
+//            userBackground.classList.toggle('clicked-Background');
+//        }
+//
+//    }
+//}

@@ -3,6 +3,14 @@
     display: none;
 }
 
+.clicked-Background {
+    background-color: var(--background-color-nav) !important;
+    border-radius: 8px;
+    background-image: none !important;
+}
+
+
+
 .contact-content {
     margin: 0 36px;
     display: flex;
@@ -32,6 +40,10 @@
     display: flex;
     align-items: center;
     gap: 32px;
+}
+
+.contact-content-table-usernameAndIcons h2 {
+    font-size: 64px;
 }
 
 .contact-content-table-editAndDeleteIcons {
@@ -65,12 +77,13 @@
 /* Alles zum Contact-Board */
 
 .contact-board {
+    background-color: rgb(207, 178, 133);
     padding: 0 40px;
     width: 33%;
     max-height: calc(100vh - 96px);         /* 96px beträgt die Höhe der Nav-Bar */
     z-index: 2;
     filter: drop-shadow(-5px 8px 5px);
-    background-color: var(--background-color-header);
+    /* background-color: var(--background-color-header);  SPÄTER WIEDER REIN NEHMEN!!  */ 
     overflow-y: auto;
     scroll-behavior: smooth;
 }
@@ -112,7 +125,7 @@
     filter: drop-shadow(0 -6px 6px);
 }
 
-.user-contact {         
+.user-contact {       
     padding: 12px 0;
     display: flex;
     align-items: center;
@@ -120,10 +133,11 @@
     cursor: pointer;
     overflow: auto;
     padding-left: 2%;
+    color: white;
 }
 
 .user-contact:hover {
-    background-color: brown;
+    background-image: linear-gradient(to top, #F0F0F0 0%, #F9F9F9 50%);
     border-radius: 8px;
 }
 
@@ -143,33 +157,33 @@
     align-items: center;
 }
 
-.editAndDeleteBtn:hover {
-    color: var(--background-color-hover);
-}
-
-
-.editAndDeleteBtn:hover .editAndDeleteBtn-Img {
-    display: block;
-}
-
-.editAndDeleteBtn:hover .editAndDeleteBtn-Img-1 {
-    display: none;
-}
 
 
 
-/*
+/* in content table */
 
-.user-symbole {
-    background-color: red;           muss noch weg!!! 
-    margin: 0 12px;                     muss noch angepasst werde!!! 
+.userIconTable {
+    background-color: white;
     border-radius: 100%;
-    width: 32px;
-    height: 32px;
+    width: 128px;
+    height: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userIconTable p {
+    background-color: #FF7A00;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
     color: white;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    font-size: 48px;
 }
 
-*/
+
+
+

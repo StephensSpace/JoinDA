@@ -1,0 +1,15 @@
+
+/* Button Edit & Delete in Contact-Table */
+
+.editAndDeleteBtn:hover {
+    color: var(--background-color-hover);
+}
+
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img {
+    display: block;
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img-1 {
+    display: none;
+}
