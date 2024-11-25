@@ -164,6 +164,7 @@
 
 .userIconTable {
     background-color: white;
+    filter: drop-shadow(0 0 0.045rem gray);
     border-radius: 100%;
     width: 128px;
     height: 128px;

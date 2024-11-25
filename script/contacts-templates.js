@@ -184,7 +184,7 @@ function modalAddContactTemplate() {
 }
 
 // Modal Template für Edit
-function modalEditContactTemplate(userIndex) {
+function modalEditContactTemplate(userIndex, USER_NAME) {
     return `
     
     <modal onclick="closeModal()" class="modal-background" id="modal-background">
@@ -201,9 +201,11 @@ function modalEditContactTemplate(userIndex) {
                 <div class="modal-right-div modal-same-height">
                     
                     <div class="modal-right-bottom">
-
-                        <div class="modal-userImg">
-                            <img src="./assets/icons/contacts/person.png">
+                    
+                        <div class="modal-userIcon-name">
+                            <div class="modal-userIcon-name-div">
+                                ${userIconTemplateContactTable(USER_NAME, userIndex)}
+                            </div>
                         </div>
 
                         <div class="modal-inputfield-div">
