@@ -7,6 +7,7 @@ async function getFirebaseData(path = "/") {
 
 document.addEventListener("DOMContentLoaded", async () => {
   // Variableninitialisierung
+  const addTaskModalTitle = document.getElementById("addTaskModalTitle");
   const taskCards = document.querySelectorAll(".task-card");
   const columns = document.querySelectorAll(".board-column");
   const taskDetailsModal = document.getElementById("taskDetailsModal");
@@ -46,28 +47,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   const taskCategoryArrow = document.getElementById("taskCategoryArrow"); // Pfeil-Icon
 
   let users = [];
-
-  await loadAssignedToOptions();
-  await loadTasksFromFirebase();
-  updateNoTasksMessages();
-
   let draggedTask = null;
   let selectedPriority = null; // Variable zum Speichern der ausgewählten Priorität
   let currentTaskId = null; // Speichert die ID der aktuellen Aufgabe für Bearbeitung/Löschung
 
-  // **Neues Code-Fragment: Event Listener für das Eingabefeld 'taskTitle'**
-  const taskTitleInput = document.getElementById("taskTitle");
-
-  taskTitleInput.addEventListener("focus", () => {
-    taskTitleInput.value = "Contact Form & Imprint";
-  });
-
-  // **Neues Code-Fragment: Event Listener für das textarea-Feld 'taskDescription'**
-  const taskDescriptionTextarea = document.getElementById("taskDescription");
-
-  taskDescriptionTextarea.addEventListener("focus", () => {
-    taskDescriptionTextarea.value = "Create a contact form and imprint page.";
-  });
+  await loadAssignedToOptions();
+  await loadTasksFromFirebase();
+  updateNoTasksMessages();
 
   // Öffnen/Schließen des Dropdowns beim Klicken auf den Platzhalter
   taskCategoryPlaceholder.addEventListener("click", (event) => {
@@ -77,14 +63,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // Auswahl einer Kategorie
-  const categoryOptions =
-    taskCategoryOptions.querySelectorAll(".dropdown-option");
-  categoryOptions.forEach((option) => {
+  taskCategoryOptions.querySelectorAll(".dropdown-option").forEach((option) => {
     option.addEventListener("click", () => {
       taskCategorySelectedText.textContent = option.textContent;
-      taskCategoryInput.value = option.getAttribute("todo");
-      taskCategoryOptions.classList.add("hidden");
-      taskCategoryArrow.classList.remove("rotate"); // Pfeil zurückdrehen
+      taskCategoryInput.value = option.getAttribute("data-value");
+
+      const taskTypeInput = document.getElementById("taskTypeInput");
+      if (taskTypeInput) {
+        taskTypeInput.value = option.getAttribute("data-value");
+      } else {
+        console.error("Element mit ID 'taskTypeInput' nicht gefunden.");
+      }
     });
   });
 
@@ -100,9 +89,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   dropdown.addEventListener("click", toggleAssignedToDropdown);
 
   function resetFormFields() {
+    addTaskForm.reset();
+    selectedPriority = null;
     const taskTitleInput = document.getElementById("taskTitle");
-    if (taskTitleInput) {
-      taskTitleInput.value = "";
+    if (!taskTitleInput) {
+      console.error("taskTitleInput nicht gefunden.");
+      return;
+    }
+    taskTitleInput.value = ""; // Titel auf einen leeren Wert setzen
+
+    const taskDescriptionTextarea = document.getElementById("taskDescription");
+    if (taskDescriptionTextarea) {
+      taskDescriptionTextarea.value = "";
     }
 
     // Priorität zurücksetzen
@@ -195,6 +193,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         customCheckbox.style.backgroundSize = "cover";
         customCheckbox.style.cursor = "pointer";
 
+        //----------------------------------------------------------------//
+
         // Struktur zusammensetzen
         label.appendChild(checkbox);
         label.appendChild(customCheckbox);
@@ -267,30 +267,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    const colors = [
+      "#ff8a65",
+      "#4db6ac",
+      "#9575cd",
+      "#f06292",
+      "#ba68c8",
+      "#7986cb",
+      "#ffb74d",
+      "#4dd0e1",
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
   }
 
   // Funktion: Dropdown für "Assigned to" öffnen/schließen
   function toggleAssignedToDropdown(event) {
     event.stopPropagation(); // Verhindert das Schließen beim Klicken auf das Dropdown
     const dropdownOptions = document.getElementById("taskAssignedOptions");
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const dropdown = document.getElementById("taskAssignedDropdown");
-      if (dropdown) {
-        dropdown.addEventListener("click", (event) => {
-          console.log("Dropdown clicked");
-          // Weitere Aktionen hier
-        });
-      } else {
-        console.error("Element with ID 'taskAssignedDropdown' not found");
-      }
-    });
 
     // Toggle "hidden" Klasse, um Dropdown zu zeigen oder zu verstecken
     dropdownOptions.classList.toggle("hidden");
@@ -379,7 +372,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const categories = [
         { name: "User Story", color: "#ff0000" },
         { name: "Technical Task", color: "#00ff00" },
-        // Weitere Kategorien
       ];
 
       selectedCategories.forEach((categoryName) => {
@@ -395,6 +387,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
   }
+
+  // Sicherstellen, dass das Eingabe-Element vorhanden ist
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("addTaskForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault(); // Verhindert das Standard-Formularverhalten
+
+      const titleInput = document.getElementById("taskTitle");
+      if (!titleInput) {
+        console.error("Element 'taskTitle' nicht gefunden.");
+        return; // Bricht ab, wenn das Element fehlt
+      }
+
+      const title = titleInput.value.trim();
+      if (!title) {
+        console.error("Das Feld 'taskTitle' ist leer.");
+        return; // Bricht ab, wenn das Feld leer ist
+      }
+
+      console.log("Task Title:", title);
+
+      // Weiterverarbeitung des Formulars hier...
+    });
+  });
 
   // Event Listener: Klick außerhalb des Dropdowns
   document.addEventListener("click", closeAssignedToDropdown);
@@ -516,23 +532,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Tasks aus Firebase laden
   async function loadTasksFromFirebase() {
     try {
-      const tasksSnapshot = await firebase
-        .database()
-        .ref("tasks")
-        .once("value");
-      const tasks = tasksSnapshot.val();
+      const snapshot = await firebase.database().ref("tasks").once("value");
+      const tasks = snapshot.val(); // Liefert ein Objekt mit allen Tasks
 
       if (tasks) {
+        console.log("Geladene Tasks:", tasks);
         Object.keys(tasks).forEach((taskId) => {
           const task = tasks[taskId];
           task.id = taskId;
 
-          // Validierung: Überspringe Tasks ohne Titel oder Kategorie
           if (!task.title || !task.category) {
             console.warn(
-              `Task mit ID ${taskId} hat unvollständige Daten und wird übersprungen.`
+              `Task mit ID ${taskId} hat unvollständige Daten und wird übersprungen.`,
+              task
             );
             return;
+          }
+
+          // Validierung: Standardwert für subtasks setzen, falls nicht vorhanden
+          if (!Array.isArray(task.subtasks)) {
+            task.subtasks = [];
           }
 
           displayTask(task, task.category);
@@ -545,20 +564,51 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Aufgabe auf dem Kanban-Board anzeigen
   function displayTask(task, category) {
-    const sanitizedCategory = category.toLowerCase().replace(/\s+/g, "");
+    console.log("Task:", task);
+    console.log("Category:", category);
+    if (!category) {
+      console.error("Kategorie ist nicht definiert für Task:", task);
+      return;
+    }
+
+    const statusMapping = {
+      "To Do": "todo",
+      "In Progress": "in-progress",
+      "Await Feedback": "await-feedback",
+      Done: "done",
+    };
+    const sanitizedCategory =
+      statusMapping[category] || category.toLowerCase().replace(/\s+/g, "");
+    console.log("Sanitized Category:", sanitizedCategory);
     const targetColumn = document.querySelector(
       `.board-column[data-status="${sanitizedCategory}"] .tasks-container`
     );
 
     if (!targetColumn) {
+      console.warn(
+        `Kategorie "${sanitizedCategory}" hat keine passende Spalte. Task wird übersprungen.`,
+        task
+      );
       return;
     }
 
     const taskElement = document.createElement("div");
     taskElement.classList.add("task-card");
-    taskElement.classList.add(
-      task.type === "User Story" ? "user-story" : "technical-task"
-    );
+    taskElement.dataset.id = task.id;
+
+    // Inhalte des Task-Elements
+    taskElement.innerHTML = `
+    <div class="tag">${task.type || "Task"}</div>
+    <h3>${task.title}</h3>
+    <p>${task.description}</p>
+    <div class="priority">${task.priority}</div>
+    <div class="avatars"></div>
+  `;
+
+    // Validierung und Zuweisung von subtasks
+    taskElement.dataset.subtasks = Array.isArray(task.subtasks)
+      ? task.subtasks.join(", ")
+      : "";
 
     const priorityIconsHTML = {
       Urgent:
@@ -568,63 +618,72 @@ document.addEventListener("DOMContentLoaded", async () => {
       Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
     };
 
-    // Generate avatar HTML for assigned contacts
-    let avatarsHtml = "";
+    // Aktualisiere die Avatare
+    const avatarsContainer = taskElement.querySelector(".avatars");
+    avatarsContainer.innerHTML = ""; // Beispielhaft leer lassen, oder weitere Logik einfügen
     if (task.assignedTo) {
-      avatarsHtml = task.assignedTo
-        .split(",")
-        .map(
-          (name) =>
-            `<div class="avatar" style="background-color: ${getRandomColor()}">
-             ${name.trim().charAt(0)}
-           </div>`
-        )
-        .join("");
+      if (typeof task.assignedTo === "object") {
+        // Extrahiere die Namen aus `assignedTo`, falls es ein Objekt ist
+        const assignedToNames = Object.values(task.assignedTo);
+        avatarsContainer.innerHTML = assignedToNames
+          .map(
+            (name) =>
+              `<div class="avatar" style="background-color:${getRandomColor()}">
+                ${name.trim().charAt(0)}
+              </div>`
+          )
+          .join("");
+      } else if (typeof task.assignedTo === "string") {
+        // Falls es ein String ist, nutze .split(",")
+        avatarsContainer.innerHTML = task.assignedTo
+          .split(",")
+          .map(
+            (name) =>
+              `<div class="avatar" style="background-color:${getRandomColor()}">
+                ${name.trim().charAt(0)}
+              </div>`
+          )
+          .join("");
+      } else {
+        console.warn(
+          "task.assignedTo hat ein unerwartetes Format:",
+          task.assignedTo
+        );
+        avatarsContainer.innerHTML = ""; // Fallback für ungültige Werte
+      }
+    } else {
+      avatarsContainer.innerHTML = ""; // Keine Avatare anzeigen
     }
 
-    taskElement.innerHTML = `
-        <div class="tag">${task.type || "Task"}</div>
-        <h3>${task.title}</h3>
-        <p>${task.description}</p>
-        <div class="priority">
-          ${task.priority} ${priorityIconsHTML[task.priority] || ""}
-        </div>
-        <div class="avatars">
-          ${
-            task.assignedTo
-              ?.split(",")
-              .map(
-                (name) =>
-                  `<div class="avatar" style="background-color:${getRandomColor()}">
-                  ${name.trim().charAt(0)}
-                </div>`
-              )
-              .join("") || ""
-          }
-        </div>
-        <div class="icon menu-icon">&#9776;</div>
-      `;
-
     // Füge zusätzliche Klassen hinzu, z.B. 'user-story' oder 'technical-task'
-    if (taskType === "User Story") {
+    if (task.type === "User Story") {
       taskElement.classList.add("user-story");
-    } else if (taskType === "Technical Task") {
+    } else if (task.type === "Technical Task") {
       taskElement.classList.add("technical-task");
     }
 
     taskElement.setAttribute("draggable", "true");
 
     // Datenattribute setzen
-    taskElement.dataset.id = task.id; // Speichere die ID für spätere Updates
+    taskElement.dataset.id = task.id;
     taskElement.dataset.title = task.title;
     taskElement.dataset.description = task.description;
     taskElement.dataset.dueDate = task.dueDate;
     taskElement.dataset.priority = task.priority;
-    taskElement.dataset.assignedTo = task.assignedTo;
-    taskElement.dataset.subtasks = task.subtasks ? task.subtasks.join(",") : "";
+    taskElement.dataset.assignedTo = JSON.stringify(task.assignedTo); // Falls notwendig, als String speichern
+    taskElement.dataset.subtasks = Array.isArray(task.subtasks)
+      ? task.subtasks.join(", ")
+      : "";
     taskElement.dataset.category = task.category;
     taskElement.dataset.type = task.type;
-    taskElement.dataset.completedSubtasks = task.completedSubtasks || "0";
+
+    // Aktualisiere den Inhalt des Task-Elements
+    taskElement.querySelector("h3").textContent = task.title || "No Title";
+    taskElement.querySelector("p").textContent =
+      task.description || "No Description";
+    taskElement.querySelector(".priority").innerHTML = `${task.priority} ${
+      priorityIconsHTML[task.priority] || ""
+    }`;
 
     // Drag & Drop Listener hinzufügen
     addDragAndDropListeners(taskElement);
@@ -665,6 +724,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Add Task Modal
   addTaskButton.addEventListener("click", () => {
+    resetFormFields();
+    addTaskModalTitle.textContent = "Add Task";
     addTaskModal.style.display = "block";
     setTimeout(() => {
       addTaskModal.style.right = "0";
@@ -704,49 +765,50 @@ document.addEventListener("DOMContentLoaded", async () => {
   addTaskForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    resetFormFields();
-
-    const title = document.getElementById("taskTitle").value;
+    const title = document.getElementById("taskTitle").value.trim();
     const description = document.getElementById("taskDescription").value;
     const dueDate = document.getElementById("taskDueDate").value;
-    const priority = selectedPriority || "Low";
+    const priority = selectedPriority || "Medium";
     const assignedToInputs = options.querySelectorAll(
       "input[type='checkbox']:checked"
     );
     const assignedTo = Array.from(assignedToInputs)
       .map((input) => input.value)
       .join(", ");
-    const subtasksInput = document.getElementById("taskSubtasks").value;
-    const subtasks = subtasksInput ? subtasksInput.split(",") : [];
-    const category = document.getElementById("taskCategoryInput").value;
-    console.log("Ausgewählte Kategorie:", category);
-    console.log("Neuer Task:", {
-      title,
-      description,
-      dueDate,
-      priority,
-      category,
-      assignedTo,
-      subtasks,
-    });
-
-    const newTask = {
-      title,
-      description,
-      dueDate,
-      priority,
-      category,
-      assignedTo,
-      subtasks,
-    };
-    console.log("Neue Aufgabe erstellt:", newTask);
+    const subtaskElements = document.querySelectorAll(
+      "#subtaskList .subtask-text"
+    );
+    const subtasks = Array.from(subtaskElements).map((elem) =>
+      elem.textContent.trim()
+    );
+    const category = document.getElementById("taskCategoryInput").value.trim();
+    const taskType = document.getElementById("taskTypeInput").value.trim();
 
     try {
-      // Task in Firebase speichern
       const taskRef = firebase.database().ref("tasks");
       const newTaskRef = taskRef.push();
-      await newTaskRef.set(newTask);
-      newTask.id = newTaskRef.key; // Speichere die ID
+      await newTaskRef.set({
+        title,
+        description,
+        dueDate,
+        priority,
+        category,
+        taskType,
+        assignedTo,
+        subtasks: [],
+      });
+
+      const newTask = {
+        id: newTaskRef.key,
+        title,
+        description,
+        dueDate,
+        priority,
+        category,
+        taskType,
+        assignedTo,
+        subtasks: [],
+      };
 
       // Aufgabe auf dem Board anzeigen
       displayTask(newTask, category);
@@ -835,26 +897,41 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Event Listener für das Bearbeiten einer Aufgabe
   editTaskButton.addEventListener("click", async () => {
     if (currentTaskId) {
+      // Schließe das Task-Detail-Modal
+      taskDetailsModal.style.display = "none";
+
+      // Setze den Modaltitel auf 'Edit Task'
+      addTaskModalTitle.textContent = "Edit Task";
+
       // Fülle das Add Task Modal mit den aktuellen Task-Daten
       const taskRef = firebase.database().ref(`tasks/${currentTaskId}`);
       try {
         const snapshot = await taskRef.once("value");
         const taskData = snapshot.val();
 
+        if (!taskData) {
+          console.error(`Keine Daten für Task-ID ${currentTaskId} gefunden.`);
+          return;
+        }
+
         // Setze die Werte im Formular
-        document.getElementById("taskTitle").value = taskData.title;
-        document.getElementById("taskDescription").value = taskData.description;
-        document.getElementById("taskDueDate").value = taskData.dueDate;
+        document.getElementById("taskTitle").value = taskData.title || "";
+        document.getElementById("taskDescription").value =
+          taskData.description || "";
+        document.getElementById("taskDueDate").value = taskData.dueDate || "";
+        document.getElementById("taskCategoryInput").value =
+          taskData.category || "todo";
+        document.getElementById("taskCategorySelectedText").textContent =
+          taskData.type || "Select category";
 
         // Setze die ausgewählten Kontakte
         const assignedToNames = taskData.assignedTo
-          ? taskData.assignedTo.split(", ")
+          ? taskData.assignedTo.split(", ").map((name) => name.trim())
           : [];
         options
           .querySelectorAll("input[type='checkbox']")
           .forEach((checkbox) => {
             checkbox.checked = assignedToNames.includes(checkbox.value);
-            // Toggle selected class for background color
             const item = checkbox.closest(".dropdown-item");
             if (item) {
               item.classList.toggle("selected", checkbox.checked);
@@ -862,16 +939,20 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
         updateSelectedContactsDisplay();
 
-        document.getElementById("taskSubtasks").value = taskData.subtasks
-          ? taskData.subtasks.join(",")
-          : "";
-        document.getElementById("taskCategory").value = taskData.category;
+        // Subtasks setzen
+        const subtaskList = document.getElementById("subtaskList");
+        subtaskList.innerHTML = "";
+        if (taskData.subtasks) {
+          taskData.subtasks.forEach((subtask) => {
+            addSubtask(subtask.replace("✔", "").trim());
+          });
+        }
 
         // Priorität setzen
         selectedPriority = taskData.priority;
-        document
-          .querySelectorAll(".priority-btn")
-          .forEach((button) => button.classList.remove("clicked"));
+        document.querySelectorAll(".priority-btn").forEach((button) => {
+          button.classList.remove("clicked", "urgent", "medium", "low");
+        });
         document
           .querySelectorAll(".priority-icon")
           .forEach((iconElem) => (iconElem.style.filter = "none"));
@@ -880,7 +961,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           handleButtonClick(urgentBtn, document.getElementById("urgentIcon"));
         } else if (selectedPriority === "Medium") {
           handleButtonClick(mediumBtn, document.getElementById("mediumIcon"));
-        } else {
+        } else if (selectedPriority === "Low") {
           handleButtonClick(lowBtn, document.getElementById("lowIcon"));
         }
 
@@ -909,19 +990,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function updateTaskHandler(e) {
     e.preventDefault();
 
-    const title = document.getElementById("taskTitle").value;
-    const description = document.getElementById("taskDescription").value;
+    const title = document.getElementById("taskTitle").value.trim();
+    const description = document.getElementById("taskDescription").value.trim();
     const dueDate = document.getElementById("taskDueDate").value;
-    const priority = selectedPriority || "Low";
+    const priority = selectedPriority || "Medium";
     const assignedToInputs = options.querySelectorAll(
       "input[type='checkbox']:checked"
     );
     const assignedTo = Array.from(assignedToInputs)
       .map((input) => input.value)
       .join(", ");
-    const subtasksInput = document.getElementById("taskSubtasks").value;
-    const subtasks = subtasksInput ? subtasksInput.split(",") : [];
-    const category = document.getElementById("taskCategoryInput").value;
+    const subtaskElements = document.querySelectorAll(
+      "#subtaskList .subtask-text"
+    );
+    const subtasks = Array.from(subtaskElements).map((elem) =>
+      elem.textContent.trim()
+    );
+    const category = document.getElementById("taskCategoryInput").value.trim();
+    const type = document.getElementById(
+      "taskCategorySelectedText"
+    ).textContent;
+
+    // Validierung
+    if (!title || !category) {
+      alert("Bitte fülle alle erforderlichen Felder aus.");
+      return;
+    }
 
     const updatedTask = {
       title,
@@ -929,6 +1023,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       dueDate,
       priority,
       category,
+      type,
       assignedTo,
       subtasks,
     };
@@ -940,30 +1035,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         .ref(`tasks/${currentTaskId}`)
         .update(updatedTask);
 
-      // Aktualisiere die Aufgabe auf dem Board
-      const taskElement = document.querySelector(
+      // Entferne die alte Task-Element
+      const oldTaskElement = document.querySelector(
         `.task-card[data-id="${currentTaskId}"]`
       );
-      if (taskElement) {
-        // Entferne die Aufgabe aus der alten Kategorie
-        taskElement.remove();
-        // Aktualisiere die Datenattribute
-        taskElement.dataset.title = updatedTask.title;
-        taskElement.dataset.description = updatedTask.description;
-        taskElement.dataset.dueDate = updatedTask.dueDate;
-        taskElement.dataset.priority = updatedTask.priority;
-        taskElement.dataset.assignedTo = updatedTask.assignedTo;
-        taskElement.dataset.subtasks = updatedTask.subtasks
-          ? updatedTask.subtasks.join(",")
-          : "";
-        taskElement.dataset.category = updatedTask.category;
-
-        // Aktualisiere den Textinhalt
-        taskElement.textContent = updatedTask.title;
-
-        // Füge die Aufgabe in der neuen Kategorie hinzu
-        displayTask(updatedTask, updatedTask.category);
+      if (oldTaskElement) {
+        oldTaskElement.remove();
       }
+
+      // Zeige die aktualisierte Aufgabe auf dem Board
+      updatedTask.id = currentTaskId; // Füge die ID hinzu
+      displayTask(updatedTask, updatedTask.category);
 
       // Modal schließen und Formular zurücksetzen
       addTaskForm.reset();
@@ -1020,7 +1102,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-function displayTaskDetails(task) {
+// Funktion zum Anzeigen der Task-Details im Modal
+function displayTaskDetails(taskElement) {
+  currentTaskId = taskElement.dataset.id;
+
   const taskDetailsModal = document.getElementById("taskDetailsModal");
   const taskTypeElement = document.getElementById("taskType");
   const taskDetailTitle = document.getElementById("taskDetailTitle");
@@ -1032,18 +1117,35 @@ function displayTaskDetails(task) {
   const taskAssignedTo = document.getElementById("taskAssignedTo");
   const taskSubtasks = document.getElementById("taskSubtasks");
 
-  // Update task type
-  taskTypeElement.textContent = task.dataset.type || "Task";
+  if (
+    !taskTypeElement ||
+    !taskDetailTitle ||
+    !taskDetailDescription ||
+    !taskDetailDueDate ||
+    !taskDetailPriority ||
+    !taskAssignedTo ||
+    !taskSubtasks
+  ) {
+    console.error(
+      "Ein oder mehrere Elemente für die Task-Details wurden nicht gefunden."
+    );
+    return;
+  }
+
+  // Aktualisiere die Task-Details
+  taskTypeElement.textContent = taskElement.dataset.type || "Task";
   taskTypeElement.style.backgroundColor =
-    task.dataset.type === "Technical Task" ? "#26a69a" : "#2962ff";
-
-  // Update task title and description
-  taskDetailTitle.textContent = task.dataset.title || "No title provided";
+    taskElement.dataset.type === "Technical Task" ? "#26a69a" : "#2962ff";
+  taskDetailTitle.textContent =
+    taskElement.dataset.title || "No title provided";
   taskDetailDescription.textContent =
-    task.dataset.description || "No description provided";
+    taskElement.dataset.description || "No description provided";
+  taskDetailDueDate.textContent = taskElement.dataset.dueDate || "No due date";
 
-  // Update due date
-  taskDetailDueDate.textContent = task.dataset.dueDate || "No due date";
+  // Priorität
+  taskDetailPriority.innerHTML = `${
+    taskElement.dataset.priority
+  } ${getPriorityIcon(taskElement.dataset.priority)}`;
 
   // Update priority
   const priorityMap = {
@@ -1057,49 +1159,59 @@ function displayTaskDetails(task) {
     priorityMap[task.dataset.priority] || ""
   }`;
 
-  // Update assigned contacts
-  const assignedContacts = task.dataset.assignedTo
-    ? task.dataset.assignedTo.split(",").map((name) => name.trim())
-    : [];
-  taskAssignedTo.innerHTML =
-    assignedContacts.map((contact) => `<li>${contact}</li>`).join("") ||
-    "<li>No contacts assigned</li>";
+  // Assigned To
+  taskAssignedTo.innerHTML = "";
+  if (taskElement.dataset.assignedTo) {
+    const assignedContacts = taskElement.dataset.assignedTo
+      .split(",")
+      .map((name) => name.trim());
+    taskAssignedTo.innerHTML = assignedContacts
+      .map((contact) => `<li>${contact}</li>`)
+      .join("");
+  }
 
-  // Update subtasks
-  const subtasks = task.dataset.subtasks
-    ? task.dataset.subtasks.split(",").map((subtask) => subtask.trim())
-    : [];
-  taskSubtasks.innerHTML =
-    subtasks
-      .map(
-        (subtask) => `
-            <li>
-                <input type="checkbox" ${
-                  subtask.includes("✔") ? "checked" : ""
-                }>
-                ${subtask.replace("✔", "").trim()}
-            </li>
-        `
-      )
-      .join("") || "<li>No subtasks</li>";
+  // Subtasks
+  taskSubtasks.innerHTML = "";
+  if (taskElement.dataset.subtasks) {
+    const subtasks = taskElement.dataset.subtasks
+      .split(",")
+      .map((subtask) => subtask.trim());
+    subtasks.forEach((subtask) => {
+      const listItem = document.createElement("li");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = subtask.startsWith("✔");
+      listItem.appendChild(checkbox);
+      listItem.appendChild(
+        document.createTextNode(subtask.replace("✔", "").trim())
+      );
+      taskSubtasks.appendChild(listItem);
+    });
+  } else {
+    taskSubtasks.innerHTML = "<li>No subtasks</li>";
+  }
 
-  // Show modal
+  // Anzeigen des Modals
   taskDetailsModal.style.display = "block";
 }
 
 // Close modal on click
-document.querySelector(".close-button").addEventListener("click", () => {
-  document.getElementById("taskDetailsModal").style.display = "none";
+document.addEventListener("DOMContentLoaded", () => {
+  const closeButton = document.querySelector(".close-button");
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      document.getElementById("taskDetailsModal").style.display = "none";
+    });
+  }
 });
 
-// Subtaks
+// Event Listener: Subtasks hinzufügen
 document.addEventListener("DOMContentLoaded", () => {
   const subtaskAddButton = document.querySelector(".subtask-add-button");
-
   if (subtaskAddButton) {
     subtaskAddButton.addEventListener("click", () => {
-      const subtaskInput = document.querySelector(".subtask-input");
-      const subtaskText = subtaskInput.value.trim();
+      const subtaskInput = document.getElementById("subtaskInput");
+      const subtaskText = subtaskInput ? subtaskInput.value.trim() : "";
 
       if (subtaskText) {
         addSubtask(subtaskText);
@@ -1107,22 +1219,31 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   } else {
-    console.error(
-      "Element mit der Klasse 'subtask-add-button' nicht gefunden."
-    );
+    console.warn("Element '.subtask-add-button' wurde nicht gefunden.");
   }
 });
 
-// Funktion: Subtask hinzufügen
+// Funktion zum Hinzufügen eines Subtasks
 function addSubtask(text) {
+  const subtaskList = document.getElementById("subtaskList");
+  if (!subtaskList) {
+    console.error('Element mit ID "subtaskList" nicht gefunden.');
+    return;
+  }
+
   // Subtask-Container erstellen
-  const subtaskItem = document.createElement("div");
+  const subtaskItem = document.createElement("li");
   subtaskItem.classList.add("subtask-item");
 
-  // Subtask-Label hinzufügen
-  const subtaskLabel = document.createElement("span");
-  subtaskLabel.textContent = text;
-  subtaskLabel.classList.add("subtask-text");
+  // Checkbox hinzufügen
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("subtask-checkbox");
+
+  // Subtask-Text
+  const subtaskText = document.createElement("span");
+  subtaskText.textContent = text;
+  subtaskText.classList.add("subtask-text");
 
   // Bearbeiten-Button hinzufügen
   const editButton = document.createElement("button");
@@ -1134,22 +1255,51 @@ function addSubtask(text) {
   deleteButton.classList.add("delete-subtask");
   deleteButton.innerHTML = `<img src="./assets/icons/delete_hover.png" alt="Delete" />`;
 
-  // Event: Subtask bearbeiten
+  // Event Listener für Bearbeiten
   editButton.addEventListener("click", () => {
-    subtaskInput.value = text; // Fülle das Eingabefeld mit dem aktuellen Subtask
-    subtaskItem.remove(); // Entferne den aktuellen Subtask
+    const newText = prompt("Edit subtask:", subtaskText.textContent);
+    if (newText !== null) {
+      subtaskText.textContent = newText.trim() || subtaskText.textContent;
+      updateSubtasksInFirebase();
+    }
   });
 
-  // Event: Subtask löschen
+  // Event Listener für Löschen
   deleteButton.addEventListener("click", () => {
-    subtaskItem.remove(); // Entferne den Subtask
+    if (confirm("Möchtest du diesen Subtask wirklich löschen?")) {
+      subtaskList.removeChild(subtaskItem);
+      updateSubtasksInFirebase();
+    }
   });
 
-  // Subtask-Elemente zusammenfügen
-  subtaskItem.appendChild(subtaskLabel);
+  // Struktur zusammensetzen
+  subtaskItem.appendChild(checkbox);
+  subtaskItem.appendChild(subtaskText);
   subtaskItem.appendChild(editButton);
   subtaskItem.appendChild(deleteButton);
 
   // Subtask zur Liste hinzufügen
   subtaskList.appendChild(subtaskItem);
+
+  // Aktualisiere die Subtasks in Firebase
+  updateSubtasksInFirebase();
+}
+
+// Funktion zum Aktualisieren der Subtasks in Firebase
+function updateSubtasksInFirebase() {
+  if (!currentTaskId) {
+    console.error(
+      "currentTaskId ist nicht gesetzt. Subtasks können nicht aktualisiert werden."
+    );
+    return; // Brich die Funktion ab
+  }
+  const subtaskList = document.getElementById("subtaskList");
+  if (!subtaskList) return;
+
+  const subtasks = Array.from(subtaskList.children).map((li) => {
+    const text = li.querySelector(".subtask-text").textContent.trim();
+    const isCompleted = li.querySelector(".subtask-checkbox").checked;
+    return isCompleted ? `✔ ${text}` : text;
+  });
+  firebase.database().ref(`tasks/${currentTaskId}/subtasks`).set(subtasks);
 }

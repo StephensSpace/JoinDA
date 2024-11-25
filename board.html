@@ -17,12 +17,15 @@
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/main.css" />
 
-    <!-- Firebase SDK für die App und die Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0/firebase-database.js"></script>
+
+    <!-- Firebase-Konfiguration -->
     <script src="./script/firebase-config.js"></script>
+
+    <!-- Haupt-JavaScript -->
     <script src="./script/board.js"></script>
-    <script src="./script/boardTemplate.js"></script>
   </head>
   <body class="body">
     <!-- Seitenleiste mit Logo -->
@@ -159,53 +162,7 @@
           <div class="board-column" data-status="await-feedback">
             <div class="no-tasks">No tasks Await Feedback</div>
             <div class="tasks-container">
-              <div
-                class="task-card technical-task"
-                data-id="task2"
-                data-category="await-feedback"
-                data-title="HTML Base Template Creation"
-                data-description="Create reusable HTML base templates..."
-                data-due-date="2023-10-22"
-                data-priority="High"
-                data-assigned-to="DE,BZ,AS"
-                data-subtasks="Setup project,Define templates"
-                data-type="Technical Task"
-                data-completed-subtasks="0"
-              >
-                <div class="tag">Technical Task</div>
-                <h3>HTML Base Template Creation</h3>
-                <p>Create reusable HTML base templates...</p>
-                <div class="avatars">
-                  <div class="avatar" style="background-color: #f06292">DE</div>
-                  <div class="avatar" style="background-color: #ba68c8">BZ</div>
-                  <div class="avatar" style="background-color: #7986cb">AS</div>
-                </div>
-                <div class="icon arrow-icon">&#9660;</div>
-              </div>
-
-              <div
-                class="task-card user-story"
-                data-id="task3"
-                data-category="await-feedback"
-                data-title="Daily Kochwelt Recipe"
-                data-description="Implement daily recipe and portion calculator..."
-                data-due-date="2023-10-25"
-                data-priority="Low"
-                data-assigned-to="EF,AS,TW"
-                data-subtasks="Design UI,Develop logic"
-                data-type="User Story"
-                data-completed-subtasks="0"
-              >
-                <div class="tag">User Story</div>
-                <h3>Daily Kochwelt Recipe</h3>
-                <p>Implement daily recipe and portion calculator...</p>
-                <div class="avatars">
-                  <div class="avatar" style="background-color: #ffb74d">EF</div>
-                  <div class="avatar" style="background-color: #f06292">AS</div>
-                  <div class="avatar" style="background-color: #ef5350">TW</div>
-                </div>
-                <div class="icon menu-icon">&#9776;</div>
-              </div>
+              
             </div>
           </div>
 
@@ -213,33 +170,7 @@
           <div class="board-column" data-status="done">
             <div class="no-tasks">No tasks Done</div>
             <div class="tasks-container">
-              <div
-                class="task-card technical-task"
-                data-id="task4"
-                data-category="done"
-                data-title="CSS Architecture Planning"
-                data-description="Define CSS naming conventions and structure..."
-                data-due-date="2023-10-30"
-                data-priority="Medium"
-                data-assigned-to="SM,BZ"
-                data-subtasks="Research best practices,Document guidelines"
-                data-type="Technical Task"
-                data-completed-subtasks="2"
-              >
-                <div class="tag">Technical Task</div>
-                <h3>CSS Architecture Planning</h3>
-                <p>Define CSS naming conventions and structure...</p>
-                <div class="progress">
-                  <div class="progress-bar full"></div>
-                  <span>2/2 Subtasks</span>
-                </div>
-                <div class="avatars">
-                  <div class="avatar" style="background-color: #4dd0e1">SM</div>
-                  <div class="avatar" style="background-color: #ba68c8">BZ</div>
-                </div>
-                <div class="icon arrow-icon">&#9650;</div>
-              </div>
-            </div>
+              
           </div>
         </div>
       </main>
@@ -249,7 +180,7 @@
         <div class="modal-content-task">
           <div class="modal-content-headline">
             <div class="task-type" id="taskType"></div>
-            <span class="close-button">&times;</span>
+            <div class="close-button">&times;</div>
           </div>
           <div class="task-header">
             <h2 id="taskDetailTitle"></h2>
@@ -287,10 +218,11 @@
       <!-- Add Task Modal -->
       <div id="addTaskModal" class="modal">
         <div class="modal-content">
-          <h2 class="contentH2">Add Task</h2>
+          <h2 id="addTaskModalTitle" class="contentH2">Add Task</h2>
           <form id="addTaskForm">
-            <span class="close-button">&times;</span>
+            <div class="close-button">&times;</div>
             <div class="form-container">
+
               <!-- Linke Spalte -->
               <div class="form-column-left">
                 <div class="addTask-headlines">
@@ -301,16 +233,17 @@
                 <input
                   type="text"
                   id="taskTitle"
-                  placeholder="Enter a title"
+                  name="taskTitle"
                   required
+                  placeholder="Enter task title"
                 />
                 <div class="addTask-headlines">
                   <label for="taskDescription">Description</label>
                 </div>
                 <textarea
                   id="taskDescription"
-                  placeholder="Enter a Description"
-                  required
+                  name="taskDescription"
+                  placeholder="Enter task description"
                 ></textarea>
 
                 <div class="addTask-headlines">
@@ -353,8 +286,8 @@
             <div class="divider"></div>
 
             <!-- Rechte Spalte -->
-            <!-- Due Date -->
             <div class="form-column-right">
+              <!-- Due Date -->
               <div class="addTask-headlines">
                 <label for="taskDueDate"
                   >Due Date <span class="required">*</span></label
@@ -451,25 +384,27 @@
                   value="todo"
                   required
                 />
+                <div id="selectedCategoryContainer"></div>
+                <input type="hidden" id="taskTypeInput" value="">
               </div>
 
               <!-- Subtasks -->
               <div class="addTask-headlines">
                 <label for="taskSubtasks">Subtasks</label>
               </div>
-              <div id="subtaskContainer">
-                <div class="subtask-row">
-                  <input
-                    type="text"
-                    class="subtask-input"
-                    placeholder="Add new subtask"
-                  />
-                  <button class="subtask-add-button">
-                    <img src="./assets/icons/add_hover.png" alt="Add" />
-                  </button>
-                </div>
-                <div id="subtaskList"></div>
+              <div class="subtask-row">
+                <input
+                  type="text"
+                  id="subtaskInput"
+                  class="subtask-input"
+                  placeholder="Add new subtask"
+                />
+                <button type="button" class="subtask-add-button">
+                  <img src="./assets/icons/add_hover.png" alt="Add" />
+                </button>
               </div>
+              <ul id="subtaskList"></ul>
+            </div>
 
             <div class="form-actions">
               <!-- Actions -->

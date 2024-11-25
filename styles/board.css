@@ -571,6 +571,10 @@ textarea {
   justify-content: center;
 }
 
+.priority-btn.clicked {
+  color: #ffffff; /* Textfarbe, wenn aktiv */
+}
+
 .priority-btn[data-priority="Urgent"].active {
   background-color: #ff4d4d;
   color: white;
@@ -866,6 +870,7 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  list-style-type: none;
 }
 
 /* Subtask Item */
@@ -879,9 +884,13 @@ textarea {
   background-color: #fff;
 }
 
+.subtask-checkbox {
+  margin-right: 10px;
+}
+
 /* Subtask Label */
 .subtask-text {
-  flex: 1;
+  flex-grow: 1;
   font-size: 14px;
   color: #333;
 }
@@ -891,6 +900,20 @@ textarea {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.edit-subtask,
+.delete-subtask {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.edit-subtask img,
+.delete-subtask img {
+  width: 16px;
+  height: 16px;
 }
 
 .subtask-item-text {
