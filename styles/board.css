@@ -1,6 +1,5 @@
 /* Grundlegendes Styling */
 .body {
-  font-family: Arial, sans-serif;
   background-color: #f4f7f9;
   margin: 0;
   padding: 0;
@@ -320,16 +319,15 @@ main {
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
+  display: inline-flex;
   justify-content: center;
-  color: white;
-  font-size: 0.8rem;
+  align-items: center;
+  color: #fff; /* Heller Text für dunkle Farben */
   font-weight: bold;
-  margin-right: 4px;
+  margin-right: 8px;
 }
 
 .icon {
@@ -365,6 +363,7 @@ main {
 
 #addTaskForm {
   display: flex;
+  flex-direction: row-reverse;
 }
 
 .add-task-modal-content {
@@ -388,8 +387,7 @@ main {
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  padding: 20px;
-  overflow-y: auto;
+  gap: 24px;
 }
 
 /* Modal Inhalt */
@@ -423,21 +421,15 @@ main {
 .modal-content-task {
   background-color: white;
   width: 525px;
-  height: -webkit-fill-available;
+  height: 838px;
   left: 154px;
   border-radius: 30px;
   padding: 48px 40px;
   gap: 24px;
   display: flex;
-  align-items: stretch;
-  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: space-around;
-  position: fixed;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  align-items: flex-start;
+  position: absolute;
 }
 
 .close-button {
@@ -497,14 +489,6 @@ textarea {
   gap: 1px;
   position: absolute;
   display: flex;
-}
-
-.close-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  font-size: 24px;
 }
 
 /* Divider Styling */
@@ -716,23 +700,33 @@ textarea {
 }
 
 .task-header {
-  width: 164px;
-  height: 36px;
-  border-radius: 8px;
-  padding: 4px 24px;
-  gap: 10px;
-  display: flex;
+  width: 445px;
+  height: 219px;
+}
+
+#taskDetailTitle {
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+#taskDetailDescription {
+  width: 445px;
+  height: 24px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .task-type {
   background-color: blue;
-  color: white;
   width: 164px;
   height: 36px;
   border-radius: 5px;
   padding: 4px 8px;
   gap: 10px;
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 10px;
 }
 
@@ -749,25 +743,75 @@ textarea {
 }
 
 /* Assigned Contacts Styling */
-.assigned-to-list li {
+.assignedTo {
+  width: 445px;
+  height: 208px;
+  gap: 8px;
   display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-  font-size: 14px;
+  flex-direction: column;
 }
 
-.assigned-to-list li:last-child {
-  margin-bottom: 0;
+/* Subtask Container */
+#subtaskContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  gap: 10px;
 }
 
-.task-info {
-  margin-top: 20px;
+.taskInfoDueDate {
+  width: 445px;
+  height: 24px;
+  gap: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskInfoPriority {
+  width: 445px;
+  height: 32px;
+  gap: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 .task-actions {
-  margin-top: 20px;
+  width: 159px;
+  height: 24px;
+  gap: 8px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  left: 310px;
+  position: relative;
+}
+
+.task-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+.task-actions button img {
+  width: 20px;
+  height: 20px;
+}
+
+.task-actions button:hover {
+  opacity: 0.8;
+}
+
+.taskInfoDivider {
+  width: 1px;
+  height: 24px;
+  left: 79px;
+  border: 1px;
+  position: absolute;
+  background-color: #d1d1d1;
 }
 
 .addTask-headlines {
@@ -781,23 +825,35 @@ textarea {
   margin-top: 20px;
 }
 
-.subtask-input-container {
+/* Input Row */
+.subtask-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
+/* Input Field */
 .subtask-input {
-  width: 100%;
+  flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  outline: none;
 }
 
+/* Add Button */
 .subtask-add-button {
   background: none;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .subtask-add-button img {
@@ -805,28 +861,36 @@ textarea {
   height: 24px;
 }
 
-.subtask-list {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
+/* Subtask List */
+#subtaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
+/* Subtask Item */
 .subtask-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 5px 0;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
 }
 
-.subtask-item .subtask-text {
-  flex-grow: 1;
+/* Subtask Label */
+.subtask-text {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
 }
 
+/* Subtask Action Buttons */
 .subtask-item button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
 }
 
 .subtask-item-text {
@@ -836,13 +900,16 @@ textarea {
   border-radius: 5px;
 }
 
-.subtask-actions img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+.subtask-item button img {
+  width: 15px;
+  height: 15px;
 }
 
-.subtask-actions img:hover {
+.subtask-item button.edit-subtask:hover {
+  filter: brightness(0.8);
+}
+
+.subtask-item button.delete-subtask:hover {
   filter: brightness(0.8);
 }
 
@@ -948,6 +1015,18 @@ textarea {
   display: none;
 }
 
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -1038,6 +1117,12 @@ textarea {
 
 .assigned-name {
   flex-grow: 1;
+}
+
+.assigned-user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
 .selected {

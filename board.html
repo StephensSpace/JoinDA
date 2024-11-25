@@ -22,6 +22,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
     <script src="./script/firebase-config.js"></script>
     <script src="./script/board.js"></script>
+    <script src="./script/boardTemplate.js"></script>
   </head>
   <body class="body">
     <!-- Seitenleiste mit Logo -->
@@ -247,23 +248,24 @@
       <div class="modal" id="taskDetailsModal">
         <div class="modal-content-task">
           <div class="modal-content-headline">
-            <div class="task-type" id="taskType">
-              <span class="close-button">&times;</span>
-            </div>
+            <div class="task-type" id="taskType"></div>
+            <span class="close-button">&times;</span>
           </div>
           <div class="task-header">
             <h2 id="taskDetailTitle"></h2>
           </div>
           <p id="taskDetailDescription"></p>
-          <div class="task-info">
+          <div class="taskInfoDueDate">
+            <p>Due date: <span id="taskDetailDueDate"></span></p>
+          </div>
+          <div class="taskInfoPriority">
             <p>
-              <strong>Due date:</strong> <span id="taskDetailDueDate"></span>
-            </p>
-            <p>
-              <strong>Priority:</strong> <span id="taskDetailPriority"></span>
+              Priority: <span id="taskDetailPriority"></span>
               <span class="priority-icon" id="taskDetailPriorityIcon"></span>
             </p>
-            <p><strong>Assigned to:</strong></p>
+          </div>
+          <div class="assignedTo">
+            <p>Assigned to:</p>
             <ul id="taskAssignedTo" class="assigned-to-list"></ul>
           </div>
           <div class="subtasks">
@@ -271,8 +273,13 @@
             <ul id="taskSubtasks"></ul>
           </div>
           <div class="task-actions">
-            <button class="delete-btn">&#128465; Delete</button>
-            <button class="edit-btn">&#9998; Edit</button>
+            <button class="delete-btn">
+              <img src="./assets/icons/delete.png" alt="" />Delete
+            </button>
+            <div class="taskInfoDivider"></div>
+            <button class="edit-btn">
+              <img src="./assets/icons/edit.png" alt="" />Edit
+            </button>
           </div>
         </div>
       </div>
@@ -280,9 +287,9 @@
       <!-- Add Task Modal -->
       <div id="addTaskModal" class="modal">
         <div class="modal-content">
-          <span class="close-button">&times;</span>
           <h2 class="contentH2">Add Task</h2>
           <form id="addTaskForm">
+            <span class="close-button">&times;</span>
             <div class="form-container">
               <!-- Linke Spalte -->
               <div class="form-column-left">
@@ -310,7 +317,10 @@
                   <label for="taskAssigned">Assigned to</label>
                 </div>
                 <div id="taskAssignedContainer" class="assigned-container">
-                  <div id="taskAssignedDropdown" class="custom-dropdown">
+                  <div
+                    id="taskAssignedDropdown"
+                    class="custom-dropdown dropdown"
+                  >
                     <div class="dropdown-placeholder">
                       Select contacts
                       <div class="arrow">
@@ -447,24 +457,19 @@
               <div class="addTask-headlines">
                 <label for="taskSubtasks">Subtasks</label>
               </div>
-              <div
-                id="subtaskSelectContainer"
-                class="subtask-select-container"
-              ></div>
-              <div class="subtask-input-container">
-                <input
-                  type="text"
-                  id="subtaskInput"
-                  class="subtask-input"
-                  placeholder="Add new subtask"
-                />
-                <button id="addSubtaskButton" class="subtask-add-button">
-                  <img src="./assets/icons/add_hover.png" alt="Add" />
-                </button>
+              <div id="subtaskContainer">
+                <div class="subtask-row">
+                  <input
+                    type="text"
+                    class="subtask-input"
+                    placeholder="Add new subtask"
+                  />
+                  <button class="subtask-add-button">
+                    <img src="./assets/icons/add_hover.png" alt="Add" />
+                  </button>
+                </div>
+                <div id="subtaskList"></div>
               </div>
-              <div id="confirmedSubtasks" class="confirmed-subtasks"></div>
-              <ul id="subtaskList" class="subtask-list"></ul>
-            </div>
 
             <div class="form-actions">
               <!-- Actions -->
