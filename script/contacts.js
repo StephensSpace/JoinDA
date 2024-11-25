@@ -110,11 +110,9 @@ async function openEditContactModal(userIndex) {
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
     CONTACT_CONTENT_REF.innerHTML += modalEditContactTemplate(userIndex, USER_NAME);
     const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();
-    //const userIconInModal = document.getElementsByClassName('modal-userImg')[0];
     inputfieldName.value = USER_NAME;
     inputfieldEmail.value = USER_EMAIL;
     inputfieldPhone.value = USER_PHONE_NUMB;
-    //userIconInModal.innerHTML = document.getElementById(`userIconContactTable-${userIndex}`).innerHTML; // fügt den namen in schrift hinzu (rausnehmen!)
 }
 // Change Contact Information
 async function editContactInModal(userIndex) {
