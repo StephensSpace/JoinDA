@@ -280,15 +280,3 @@ function clickedUser() {
 
 
 
-//function clickedUser(userIndex) {
-//    let getTableUsername = document.getElementsByTagName('h2')[0]?.innerHTML;
-//    for (let i = 0; i < document.getElementsByClassName('user-contact').length; i++) {
-//        let getContactListUsername = document.getElementsByClassName('user-shortcut-name')[i]?.innerHTML
-//        
-//        if (getTableUsername == getContactListUsername) {
-//            let userBackground = document.getElementsByClassName('user-contact')[i];
-//            userBackground.classList.toggle('clicked-Background');
-//        }
-//
-//    }
-//}
