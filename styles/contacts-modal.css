@@ -107,8 +107,8 @@
 }
 
 #cancelBtn:hover {
-    border-color: var(--background-color-aside);
-    color: var(--background-color-aside);
+    border-color: var(--background-color-hover);
+    color: var(--background-color-hover);
     filter: drop-shadow(0 1px 1px);
 }
 

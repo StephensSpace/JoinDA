@@ -1,4 +1,7 @@
 /* Alles zum  Contact-Content */
+.hidden {
+    display: none;
+}
 
 .contact-content {
     margin: 0 36px;
@@ -116,16 +119,44 @@
     gap: 12px;
     cursor: pointer;
     overflow: auto;
+    padding-left: 2%;
 }
 
 .user-contact:hover {
-    background-color: aliceblue;
+    background-color: brown;
+    border-radius: 8px;
 }
 
 .headLetter {
     font-size: large;
     padding: 20px;
 }
+
+
+.user-symbole {
+    background-color: white;
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editAndDeleteBtn:hover {
+    color: var(--background-color-hover);
+}
+
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img {
+    display: block;
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img-1 {
+    display: none;
+}
+
+
 
 /*
 

@@ -5,7 +5,10 @@ function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     return `
     <div class="headLetterDiv" id="headLetterDiv">
 
-        <div class="headLetter" id="headLetter">${getFirstnameLetter(USER_NAME)}</div>
+        <div class="headLetter" id="headLetter">
+            ${getFirstnameLetter(USER_NAME)}
+        </div>
+
         <hr style="width: -webkit-fill-available;">
 
     </div>
@@ -21,7 +24,6 @@ function userIconTemplate(userName) {
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
     
-        // hier funktion reinn!!! zum abgleich der ersten buchstaben die funktion muss dann returnen und den farb code zurückgeben
         let color = getBackgroundForLetters(getFirstLetters);
         return `
             
@@ -29,17 +31,14 @@ function userIconTemplate(userName) {
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
 
         `
-
     } else {
-        let getFirstLetters = firstLetterFullName[0];                                                   // Fügt die Buchstaben zu einem String zusammen
 
-        // hier funktion reinn!!! zum abgleich der ersten buchstaben die funktion muss dann returnen und den farb code zurückgeben 
+        let getFirstLetters = firstLetterFullName[0]; 
         return `
 
             <p id="userImage" style="background-color: ${'aqua'}; width: 32px; height: 32px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
             
-
         `
     }
 }
@@ -118,12 +117,14 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
             <div>
                 <h2>${USER_NAME}</h2>
                 <div class="contact-content-table-editAndDeleteIcons">
-                    <div onclick="openEditContactModal(${userIndex})">
-                        <img src="./assets/icons/edit.png" alt="./assets/icons/edit.png"> 
+                    <div class="editAndDeleteBtn" onclick="openEditContactModal(${userIndex})">
+                        <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/edit.png" alt="./assets/icons/edit.png"> 
+                        <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/edit-hover.png" alt="./assets/icons/edit.png">
                         <p>Edit</p>
                     </div>
-                    <div onclick="deleteContact(${userIndex})">
-                        <img src="./assets/icons/delete.png" alt="./assets/icons/delete.png"> 
+                    <div class="editAndDeleteBtn" onclick="deleteContact(${userIndex})">
+                        <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/delete.png" alt="./assets/icons/delete.png"> 
+                        <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/delete-hover.png" alt="./assets/icons/delete.png"> 
                         <p>Delete</p>
                     </div>
                 </div>
