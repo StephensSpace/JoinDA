@@ -226,6 +226,7 @@ async function getUserIndex(NAME) {
 //############################################################
 
 
+// für definierte User
 let letterBackground = {
     "AM": "#FF7A00",
     "AS": "#9327FF",
@@ -238,18 +239,44 @@ let letterBackground = {
     "SM": "#00BEE8"
 }
 
-function getBackgroundForLetters(getFirstLetters) {
-    let loopLength = Object.keys(letterBackground).length;
+// für nicht definierte User
+let letterBackgroundRandom = {
+    "AA": "#F0F0F0",
+    "HS": "#462F8A",
+}
+
+// für undefinierte User
+function getBackgroundForLettersUndefined(getFirstLetters) {
+    let loopLength = Object.keys(letterBackgroundRandom).length;
     for (let i = 0; i < loopLength; i++) {
         let compareLetters = Object?.entries(letterBackground)[i][0];
         if (getFirstLetters == compareLetters) {
             let back = Object.entries(letterBackground)[i][1];
-
             return back; 
-        } 
+        }
     }
 }
 
+// für definierte User
+function getBackgroundForLetters(getFirstLetters) {
+    let loopLength = Object.keys(letterBackground).length;
+
+    for (let i = 0; i < loopLength; i++) {
+        let compareLetters = Object.entries(letterBackground)[i][0];
+
+        if (getFirstLetters === compareLetters) {
+            return Object.entries(letterBackground)[i][1];
+        }
+    }
+    // Wenn kein passendes Element in der Schleife gefunden wurde
+    let randomIndex = Math.floor(Math.random() * Object.keys(letterBackgroundRandom).length);
+    return Object.entries(letterBackgroundRandom)[randomIndex][1];
+}
+
+function math(params) {
+    return math.PI
+    
+}
 
 function clickedUser() {
   const contacts = document.getElementsByClassName('user-contact');
