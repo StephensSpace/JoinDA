@@ -273,11 +273,6 @@ function getBackgroundForLetters(getFirstLetters) {
     return Object.entries(letterBackgroundRandom)[randomIndex][1];
 }
 
-function math(params) {
-    return math.PI
-    
-}
-
 function clickedUser() {
   const contacts = document.getElementsByClassName('user-contact');
 
