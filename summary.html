@@ -46,12 +46,10 @@
                 </div>
                 <div id="userProfil">
                     <span id="initials"></span>
-                    <!-- Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben-->
                 </div>
             </div>
-
         </header>
-        <main class="content">
+        <main>
             <div class="h1Div">
                 <h1>Join 360</h1>
                 <div class="h1UnderlineDiv">
@@ -67,14 +65,14 @@
                     <div class="toDoAndDoneCard">
                         <img src="./assets/icons/pencilRound.png" alt="">
                         <div id="toDoCounter">
-                            <span id="toDoCounterSpan">1</span>
+                            <span id="toDoCounterSpan"></span>
                             <span class="toDoDoneSpan">To-Do</span>
                         </div>
                     </div>
                     <div class="toDoAndDoneCard">
                         <img src="./assets/icons/checkedRound.png" alt="">
                         <div id="doneCounter">
-                            <span id="doneCounterSpan">1</span>
+                            <span id="doneCounterSpan"></span>
                             <span class="toDoDoneSpan">Done</span>
                         </div>
                     </div>
@@ -96,19 +94,19 @@
                 <div class="taskOverview">
                     <div class="taskOverviewCard">
                         <div class="taskCounterDiv">
-                            <span class="taskCount">5</span>
+                            <span class="taskCount" id="totalCount"></span>
                             <span class="taskCounterText">Tasks in Board</span>
                         </div>
                     </div>
                     <div class="taskOverviewCard">
                         <div class="taskCounterDiv">
-                            <span class="taskCount">2</span>
+                            <span class="taskCount" id="inProgress"></span>
                             <span class="taskCounterText">Tasks in Progress</span>
                         </div>
                     </div>
                     <div class="taskOverviewCard">
                         <div class="taskCounterDiv">
-                            <span class="taskCount">2</span>
+                            <span class="taskCount" id="awaitReview"></span>
                             <span class="taskCounterText">Awaiting Feedback</span>
                         </div>
                     </div>

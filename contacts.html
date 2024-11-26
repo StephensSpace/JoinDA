@@ -26,7 +26,6 @@
 </head>
 <body onload="initContacts()">
 
-    <!-- Seitenleiste mit Logo -->
     <nav class="sidebar">
         <div class="logo-container static">
             <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
@@ -42,11 +41,7 @@
             <a href="#">Legal Notice</a>
         </footer>
     </nav>
-
-
     <aside>
-
-        <!-- Header -->
         <header>
             <div>
                 <span style="font-weight: normal;">Kanban Project Managment Tool</span>
@@ -56,45 +51,29 @@
                     <img src="./assets/icons/help.png" alt="./assets/icons/help.png">
                 </div>
                 <div id="userProfil">
-                    <span>SM</span> <!-- Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben-->
+                    <span>SM</span> 
                 </div>
             </div>
-
         </header>
-
-        <!-- Hauptinhalt -->
-        <main class="content">
-            
+        <main class="content">           
             <div class="contact-board">
-
                 <div class="add-new-contact-background">
                     <div class="add-new-contact-btn" onclick="openAddContactModal()">
                             <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
                     </div>
+                </div>          
+                <div id="contactList">                
                 </div>
-                
-                <div id="contactList">
-                    
-                </div>
-
             </div>
-
-
             <div class="contact-content">
-
                 <div class="contact-content-head">
                     <h1 class="contentH1">Contacts</h1>
                     <hr>
                     <p>Better with a team</p>
                 </div>
-
                 <div class="contact-content-table" id="contact-content-table">
-
                 </div>
-
             </div>
-        
-        
         </main>
     </aside>
 

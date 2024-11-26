@@ -1,0 +1,104 @@
+h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 1px;
+    position: absolute;
+    width: 278px;
+    height: 73px;
+    left: 328px;
+    top: 206px;
+    font-size: 61px;
+}
+
+.inputDiv {
+    position: absolute;
+    width: 976.25px;
+    height: 424px;
+    left: 328px;
+    top: 327px;
+}
+
+#leftSideForm {
+    position: absolute;
+    width: 440px;
+    height: 376px;
+    top: calc(50% - 376px/2 + 3px);
+}
+
+#titleLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 440px;
+    height: 96px;
+    left: 0px;
+    top: 0px;
+}
+
+.labelSpan {
+    width: 440px;
+    height: 24px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #2A3647;
+    align-self: stretch;
+}
+
+.labelSpanReq {
+    width: 440px;
+    height: 24px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #2A3647;
+    align-self: stretch;
+}
+
+.labelSpanReq::after {
+    content: '*';
+    color: #FF8190;
+    margin-left: -5px;
+}
+
+.titleInputDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    width: 440px;
+    height: 64px;
+    align-self: stretch;
+}
+
+#titleInput {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 21px;
+    gap: 10px;
+    width: 440px;
+    height: 48px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    align-self: stretch;
+}
+
+#DescriptionLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 440px;
+    height: 168px;
+    left: 0px;
+    top: 112px;
+}

@@ -10,8 +10,17 @@ window.addEventListener("load", () => {
     }, 4000); 
 });
 
-function guestLogin() {
+async function guestLogin() {
+    
+    try {
+        const User = await fetch(UserDatabaseURL + 'Guest.json')
+        const GuestUser = await User.json();
+        sessionStorage.setItem("User", GuestUser.name); 
+    } catch (error) {
+        console.error("Fehler beim Gastlogin:", error);
+    }
     window.location.href = "summary.html";
+    
 }
 
 async function login() {

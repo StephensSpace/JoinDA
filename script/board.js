@@ -6,7 +6,6 @@ async function getFirebaseData(path = "/") {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Variableninitialisierung
   const taskCards = document.querySelectorAll(".task-card");
   const columns = document.querySelectorAll(".board-column");
   const taskDetailsModal = document.getElementById("taskDetailsModal");
@@ -280,6 +279,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     event.stopPropagation(); // Verhindert das Schließen beim Klicken auf das Dropdown
     const dropdownOptions = document.getElementById("taskAssignedOptions");
 
+    document.addEventListener("DOMContentLoaded", () => {
+      const dropdown = document.getElementById("taskAssignedDropdown");
+      if (dropdown) {
+        dropdown.addEventListener("click", (event) => {
+          console.log("Dropdown clicked");
+          // Weitere Aktionen hier
+        });
+      } else {
+        console.error("Element with ID 'taskAssignedDropdown' not found");
+      }
+    });
+
     // Toggle "hidden" Klasse, um Dropdown zu zeigen oder zu verstecken
     dropdownOptions.classList.toggle("hidden");
 
@@ -300,7 +311,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Aktualisiere die Anzeige der ausgewählten Kontakte
       updateSelectedContactsDisplay();
-      updateSelectedCategoryDisplay();
     }
   }
 
@@ -423,9 +433,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
       };
 
-      taskDetailPriority.innerHTML = `${task.dataset.priority} ${
-        priorityIconsHTML[task.dataset.priority] || ""
-      }`;
+      taskDetailPriority.innerHTML = `${task.dataset.priority} ${priorityIconsHTML[task.dataset.priority] || ""
+        }`;
 
       taskAssignedTo.innerHTML = "";
       if (task.dataset.assignedTo) {
@@ -579,17 +588,16 @@ document.addEventListener("DOMContentLoaded", async () => {
           ${task.priority} ${priorityIconsHTML[task.priority] || ""}
         </div>
         <div class="avatars">
-          ${
-            task.assignedTo
-              ?.split(",")
-              .map(
-                (name) =>
-                  `<div class="avatar" style="background-color:${getRandomColor()}">
+          ${task.assignedTo
+        ?.split(",")
+        .map(
+          (name) =>
+            `<div class="avatar" style="background-color:${getRandomColor()}">
                   ${name.trim().charAt(0)}
                 </div>`
-              )
-              .join("") || ""
-          }
+        )
+        .join("") || ""
+      }
         </div>
         <div class="icon menu-icon">&#9776;</div>
       `;
@@ -614,12 +622,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     taskElement.dataset.category = task.category;
     taskElement.dataset.type = task.type;
     taskElement.dataset.completedSubtasks = task.completedSubtasks || "0";
-
-    // Subtask progress calculation
-    const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
-    const completedSubtasks = parseInt(task.completedSubtasks || "0");
-    const progressPercentage =
-      totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
     // Drag & Drop Listener hinzufügen
     addDragAndDropListeners(taskElement);
@@ -1048,9 +1050,8 @@ function displayTaskDetails(task) {
       '<img src="./assets/icons/medium.png" alt="Medium" class="priority-icon">',
     Low: '<img src="./assets/icons/low.png" alt="Low" class="priority-icon">',
   };
-  taskDetailPriority.innerHTML = `${task.dataset.priority || "No priority"} ${
-    priorityMap[task.dataset.priority] || ""
-  }`;
+  taskDetailPriority.innerHTML = `${task.dataset.priority || "No priority"} ${priorityMap[task.dataset.priority] || ""
+    }`;
 
   // Update assigned contacts
   const assignedContacts = task.dataset.assignedTo
@@ -1069,9 +1070,8 @@ function displayTaskDetails(task) {
       .map(
         (subtask) => `
             <li>
-                <input type="checkbox" ${
-                  subtask.includes("✔") ? "checked" : ""
-                }>
+                <input type="checkbox" ${subtask.includes("✔") ? "checked" : ""
+          }>
                 ${subtask.replace("✔", "").trim()}
             </li>
         `
@@ -1088,138 +1088,63 @@ document.querySelector(".close-button").addEventListener("click", () => {
 });
 
 // Subtaks
-const subtaskInputContainer = document.getElementById("subtaskSelectContainer");
-const subtaskInputField = document.createElement("input");
-const subtaskAddButton = document.createElement("button");
-const subtaskOptionsContainer = document.createElement("div");
-const confirmedSubtasksContainer = document.getElementById("confirmedSubtasks");
+document.addEventListener("DOMContentLoaded", () => {
+  const subtaskAddButton = document.querySelector(".subtask-add-button");
 
-subtaskOptionsContainer.innerHTML = `
-      <div class="subtask-option">Contact Form</div>
-      <div class="subtask-option">Write Legal Imprint</div>
-  `;
+  if (subtaskAddButton) {
+    subtaskAddButton.addEventListener("click", () => {
+      const subtaskInput = document.querySelector(".subtask-input");
+      const subtaskText = subtaskInput.value.trim();
 
-// Initiale Werte und Klassen
-subtaskInputField.type = "text";
-subtaskInputField.placeholder = "Add new subtask";
-subtaskInputField.classList.add("subtask-input");
-subtaskAddButton.innerHTML = `<img src="./assets/icons/add_hover.png" alt="Add" />`;
-subtaskAddButton.classList.add("subtask-add-button");
-
-subtaskOptionsContainer.classList.add("subtask-options-container");
-subtaskOptionsContainer.style.display = "none";
-
-// Subtask-Optionen
-const subtaskOptions = ["Contact Form", "Write Legal Imprint"];
-let activeSubtask = "";
-
-// Füge Inputfeld und Button hinzu
-subtaskInputContainer.appendChild(subtaskInputField);
-subtaskInputContainer.appendChild(subtaskAddButton);
-
-// Klick auf das "+" Symbol
-subtaskAddButton.addEventListener("click", () => {
-  if (subtaskInputField.value.trim() !== "") {
-    confirmSubtask();
+      if (subtaskText) {
+        addSubtask(subtaskText);
+        subtaskInput.value = ""; // Eingabefeld zurücksetzen
+      }
+    });
   } else {
-    openSubtaskOptions();
+    console.error(
+      "Element mit der Klasse 'subtask-add-button' nicht gefunden."
+    );
   }
 });
 
-// Funktion: Subtask-Optionen anzeigen
-function openSubtaskOptions() {
-  const subtaskOptionsContainer = document.getElementById("subtaskOptions");
-
-  // Füge die Optionen in das Dropdown ein
-  subtaskOptionsContainer.innerHTML = `
-      <div class="subtask-option">Contact Form</div>
-      <div class="subtask-option">Write Legal Imprint</div>
-  `;
-  subtaskOptionsContainer.style.display = "block";
-
-  // Füge Event Listener zu den Optionen hinzu
-  const subtaskOptions =
-    subtaskOptionsContainer.querySelectorAll(".subtask-option");
-  subtaskOptions.forEach((option) => {
-    option.addEventListener("click", () => {
-      const subtaskInputField = document.querySelector(".subtask-input");
-      subtaskInputField.addEventListener("focus", openSubtaskOptions);
-
-      const subtaskAddButton = document.querySelector(".subtask-add-button");
-      subtaskAddButton.addEventListener("click", openSubtaskOptions);
-      subtaskInputField.value = option.textContent; // Setze den Text im Input-Feld
-      subtaskOptionsContainer.style.display = "none"; // Schließe das Dropdown
-    });
-
-    showConfirmationIcons(); // Icons (Häkchen und X) anzeigen
-  });
-  subtaskOptionsContainer.appendChild(optionDiv);
-  subtaskInputContainer.appendChild(subtaskOptionsContainer);
-}
-
-// Funktion: Bestätigungs- und Abbruch-Icons anzeigen
-function showConfirmationIcons() {
-  subtaskAddButton.innerHTML = `
-            <img src="./assets/icons/check_hover.png" alt="Confirm" id="confirmSubtaskIcon" />
-            <img src="./assets/icons/close_hover.png" alt="Cancel" id="cancelSubtaskIcon" />
-        `;
-
-  const confirmIcon = document.getElementById("confirmSubtaskIcon");
-  const cancelIcon = document.getElementById("cancelSubtaskIcon");
-
-  confirmIcon.addEventListener("click", confirmSubtask);
-  cancelIcon.addEventListener("click", () => {
-    subtaskInputField.value = "";
-    resetAddButton();
-  });
-}
-
-// Funktion: Subtask bestätigen
-function confirmSubtask() {
-  if (subtaskInputField.value.trim() !== "") {
-    const subtaskText = subtaskInputField.value.trim();
-    addConfirmedSubtask(subtaskText);
-    subtaskInputField.value = "";
-    resetAddButton();
-  }
-}
-
-// Funktion: Subtask hinzufügen und anzeigen
-function addConfirmedSubtask(subtaskText) {
+// Funktion: Subtask hinzufügen
+function addSubtask(text) {
+  // Subtask-Container erstellen
   const subtaskItem = document.createElement("div");
   subtaskItem.classList.add("subtask-item");
 
+  // Subtask-Label hinzufügen
   const subtaskLabel = document.createElement("span");
-  subtaskLabel.textContent = subtaskText;
+  subtaskLabel.textContent = text;
   subtaskLabel.classList.add("subtask-text");
 
+  // Bearbeiten-Button hinzufügen
   const editButton = document.createElement("button");
-  editButton.innerHTML = `<img src="./assets/icons/edit_hover.png" alt="Edit" />`;
   editButton.classList.add("edit-subtask");
+  editButton.innerHTML = `<img src="./assets/icons/edit_hover.png" alt="Edit" />`;
 
+  // Löschen-Button hinzufügen
   const deleteButton = document.createElement("button");
-  deleteButton.innerHTML = `<img src="./assets/icons/delete_hover.png" alt="Delete" />`;
   deleteButton.classList.add("delete-subtask");
+  deleteButton.innerHTML = `<img src="./assets/icons/delete_hover.png" alt="Delete" />`;
 
-  // Bearbeiten
+  // Event: Subtask bearbeiten
   editButton.addEventListener("click", () => {
-    subtaskInputField.value = subtaskText;
-    subtaskItem.remove();
-    showConfirmationIcons();
+    subtaskInput.value = text; // Fülle das Eingabefeld mit dem aktuellen Subtask
+    subtaskItem.remove(); // Entferne den aktuellen Subtask
   });
 
-  // Löschen
+  // Event: Subtask löschen
   deleteButton.addEventListener("click", () => {
-    subtaskItem.remove();
+    subtaskItem.remove(); // Entferne den Subtask
   });
 
+  // Subtask-Elemente zusammenfügen
   subtaskItem.appendChild(subtaskLabel);
   subtaskItem.appendChild(editButton);
   subtaskItem.appendChild(deleteButton);
-  confirmedSubtasksContainer.appendChild(subtaskItem);
-}
 
-// Funktion: "+" Button zurücksetzen
-function resetAddButton() {
-  subtaskAddButton.innerHTML = `<img src="./assets/icons/add_hover.png" alt="Add" />`;
+  // Subtask zur Liste hinzufügen
+  subtaskList.appendChild(subtaskItem);
 }
