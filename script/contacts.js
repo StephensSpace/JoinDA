@@ -242,7 +242,6 @@ let letterBackground = {
 // für nicht definierte User
 let letterBackgroundRandom = {
     "AA": "#F0F0F0",
-    "HS": "#462F8A",
 }
 
 // für undefinierte User
