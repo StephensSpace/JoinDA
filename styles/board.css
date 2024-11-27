@@ -735,15 +735,12 @@ textarea {
 }
 
 /* Subtasks Styling */
-#taskSubtasks li {
+#taskSubtasks {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
   font-size: 14px;
-}
-
-#taskSubtasks li input[type="checkbox"] {
-  margin-right: 10px;
+  list-style-type: disc;
 }
 
 /* Assigned Contacts Styling */
@@ -753,6 +750,7 @@ textarea {
   gap: 8px;
   display: flex;
   flex-direction: column;
+  padding: 14px;
 }
 
 /* Subtask Container */
