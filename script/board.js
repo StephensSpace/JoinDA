@@ -34,12 +34,32 @@ let subtasksArray = []; // Filled when adding subtasks
 let currentTaskId = null;
 let selectedCategory = "todo"; // Standardkategorie
 let isEditMode = false;
+let currentDraggedTask = null;
+let draggedTask = null;
 
 function renderTasks(tasks) {
   for (let taskId in tasks) {
     let task = tasks[taskId];
     addTaskToBoard(task);
   }
+}
+
+function renderTasksOnBoard() {
+  fetchTasks((tasks) => {
+    document.querySelectorAll(".board-column").forEach((column) => {
+      const category = column.getAttribute("data-status");
+      const tasksContainer = column.querySelector(".tasks-container");
+      tasksContainer.innerHTML = ""; // Vorherige Tasks entfernen
+
+      tasks
+        .filter((task) => task.category === category)
+        .forEach((task) => {
+          addTaskToBoard(task); // Tasks hinzufügen
+        });
+    });
+
+    setupDropZones(); // Spalten nach dem Rendern vorbereiten
+  });
 }
 
 function createAssignedAvatars(task) {
@@ -56,23 +76,9 @@ function createAssignedAvatars(task) {
   return "";
 }
 
-function getInitials(name) {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-}
-
-function getColorForMember(name) {
-  let colors = ["#ff8a65", "#4db6ac", "#9575cd", "#f06292"];
-  let index = name.charCodeAt(0) % colors.length;
-  return colors[index];
-}
-
 function updateNoTasksMessage(column) {
-  let tasksContainer = column.querySelector(".tasks-container");
-  let noTasksMessage = column.querySelector(".no-tasks");
+  const tasksContainer = column.querySelector(".tasks-container");
+  const noTasksMessage = column.querySelector(".no-tasks");
   if (tasksContainer && noTasksMessage) {
     noTasksMessage.style.display = tasksContainer.children.length
       ? "none"
@@ -114,13 +120,6 @@ function createAssignedToList(task) {
   } else {
     return "<li>No assigned members</li>";
   }
-}
-
-function createSubtasksList(task) {
-  if (task.subtasks && task.subtasks.length > 0) {
-    return task.subtasks.map((st) => `<li>${st.title}</li>`).join("");
-  }
-  return "<li>No subtasks</li>";
 }
 
 function openEditTaskModal() {
@@ -272,32 +271,6 @@ function populateContactsDropdown(contacts) {
   });
 }
 
-// Funktion zur Berechnung der Initialen
-function getInitials(name) {
-  return name
-    .split(" ") // Split into words
-    .map((n) => n[0]) // Get first letter of each word
-    .join("") // Join them together
-    .toUpperCase(); // Convert to uppercase
-}
-
-// Funktion zur Berechnung der Hintergrundfarbe basierend auf dem Namen
-function getColorForContact(name) {
-  const colors = [
-    "#FF7A00",
-    "#6E52FF",
-    "#9327FF",
-    "#FC71FF",
-    "#FFBB2B",
-    "#1FD7C1",
-    "#462F8A",
-    "#FF4646",
-    "#00BEE8",
-  ];
-  let index = name.charCodeAt(0) % colors.length; // Basierend auf dem ersten Buchstaben
-  return colors[index];
-}
-
 // Funktion zur Auswahl eines Kontakts
 function toggleContactSelection(option, initials, color, selectedContainer) {
   const isSelected = option.classList.contains("selected");
@@ -352,11 +325,10 @@ function collectFormData() {
 }
 
 function saveTaskToFirebase(task) {
-  let newTaskRef = firebase.database().ref("/tasks/").push();
-  task.id = newTaskRef.key;
+  const newTaskRef = firebase.database().ref("/tasks/").push();
+  task.id = newTaskRef.key; // Generiere Task-ID
   newTaskRef.set(task).then(() => {
-    addTaskToBoard(task);
-    enableDragAndDrop(); // Aktiviert Drag-and-Drop für die neue Task
+    addTaskToBoard(task); // Füge die Task direkt hinzu
   });
 }
 

@@ -1,41 +1,81 @@
+// Öffne Add Task Modal und setze die Kategorie
 function openAddTaskModal(category) {
-  selectedCategory = category || "todo"; // Ausgewählte Kategorie setzen
+  selectedCategory = category || "todo"; // Setze die Kategorie basierend auf Spalte
+  resetAddTaskModal(); // Modal zurücksetzen
   document.getElementById("addTaskModal").style.display = "block";
-  resetAddTaskForm();
-  // Kontakte abrufen und Dropdown füllen
   fetchContacts((contacts) => {
-    populateContactsDropdown(contacts);
+    populateContactsDropdown(contacts); // Kontakte laden
   });
 }
 
 function addTaskToBoard(task) {
-  let status = task.category || "todo";
-  let boardColumn = document.querySelector(
+  const status = task.category || "todo";
+  const boardColumn = document.querySelector(
     `.board-column[data-status="${status}"]`
   );
-  if (boardColumn) {
-    let tasksContainer = boardColumn.querySelector(".tasks-container");
-    if (tasksContainer) {
-      let taskCard = createTaskCard(task);
-      tasksContainer.appendChild(taskCard);
-      updateNoTasksMessage(boardColumn);
-    }
-  }
+  if (!boardColumn)
+    return console.error(`No column found for category: ${status}`);
+  const tasksContainer = boardColumn.querySelector(".tasks-container");
+  if (!tasksContainer) return;
+  const taskCard = createTaskCard(task); // Task-Karte erstellen
+  tasksContainer.appendChild(taskCard);
+
+  // Drag-and-Drop-Events hinzufügen
+  taskCard.addEventListener("dragstart", (e) => startDragging(e, taskCard));
+  taskCard.addEventListener("dragend", () => (currentDraggedTask = null));
+
+  updateNoTasksMessage(boardColumn); // Aktualisiere "No Tasks"-Nachricht
+}
+
+function handleTaskSubmit(e) {
+  e.preventDefault(); // Verhindert das Standardverhalten des Formulars
+
+  const task = {
+    title: document.getElementById("taskTitle").value,
+    description: document.getElementById("taskDescription").value,
+    dueDate: document.getElementById("taskDueDate").value,
+    category: selectedCategory || "todo", // Spalte (z. B. todo, in-progress)
+    type: document.getElementById("taskTypeInput").value || "Technical Task", // Typ der Task
+    priority: selectedPriority || "Medium",
+    subtasks: subtasksArray,
+    members: selectedMembers,
+  };
+
+  saveTaskToFirebase(task); // Speichere die Task
+  closeModal(); // Schließe das Modal
+  resetAddTaskModal(); // Setze die Inhalte des Modals zurück
 }
 
 function createTaskCard(task) {
-  let card = document.createElement("div");
+  const card = document.createElement("div");
   card.className = "task-card";
-  card.dataset.id = task.id;
+  card.setAttribute("draggable", "true"); // Drag-and-Drop aktivieren
+  card.dataset.id = task.id; // Task-ID für spätere Referenz
+  card.dataset.category = task.category; // Kategorie zuweisen
+
   card.innerHTML = `
-          <div class="tag">${task.type || "Task"}</div>
-          <h3>${task.title}</h3>
-          <p>${task.Description}</p>
-          ${createSubtasksProgress(task)}
-          ${createAssignedAvatars(task)}
-          <div class="icon menu-icon">&#9776;</div>
-        `;
-  card.addEventListener("click", () => showTaskDetails(task));
+        <div class="tag">${task.type || "Task"}</div>
+        <h3>${task.title}</h3>
+        <p>${task.description || "No description provided"}</p>
+        <div class="progress">
+          <span>${task.subtasks ? task.subtasks.length : 0} Subtasks</span>
+        </div>
+        <div class="avatars">${createAssignedAvatars(task)}</div>
+      `;
+
+  card.addEventListener("click", () => showTaskDetails(task)); // Details anzeigen
+
+  // Drag-and-Drop Event Listener hinzufügen
+  card.addEventListener("dragstart", (e) => {
+    startDragging(e, card);
+    draggedTask = card; // 'draggedTask' setzen
+  });
+
+  card.addEventListener("dragend", () => {
+    currentDraggedTask = null;
+    draggedTask = null;
+  });
+
   return card;
 }
 
@@ -94,3 +134,35 @@ function closeModal() {
   const addTaskModal = document.getElementById("addTaskModal");
   addTaskModal.style.display = "none";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const categoryDropdown = document.getElementById("taskCategoryDropdown");
+  const categoryOptions = document.getElementById("taskCategoryOptions");
+  const categorySelectedText = document.getElementById(
+    "taskCategorySelectedText"
+  );
+  const categoryInput = document.getElementById("taskTypeInput");
+
+  // Dropdown öffnen/schließen
+  categoryDropdown.addEventListener("click", (e) => {
+    e.stopPropagation(); // Verhindert sofortiges Schließen
+    categoryOptions.classList.toggle("hidden"); // Dropdown zeigen/verstecken
+  });
+
+  // Kategorie auswählen
+  document
+    .querySelectorAll("#taskCategoryOptions .dropdown-option")
+    .forEach((option) => {
+      option.addEventListener("click", () => {
+        const selectedCategory = option.dataset.value; // Ausgewählte Kategorie
+        categorySelectedText.textContent = selectedCategory; // Zeigt die Kategorie im Dropdown
+        categoryInput.value = selectedCategory; // Setzt den Wert im versteckten Input-Feld
+        categoryOptions.classList.add("hidden"); // Dropdown schließen
+      });
+    });
+
+  // Dropdown schließen, wenn außerhalb geklickt wird
+  document.addEventListener("click", () => {
+    categoryOptions.classList.add("hidden");
+  });
+});

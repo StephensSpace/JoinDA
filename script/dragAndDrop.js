@@ -1,7 +1,24 @@
-function enableDragAndDrop() {
-  let draggedTask = null;
+// Drag starten
+function startDragging(event, taskCard) {
+  currentDraggedTask = {
+    id: taskCard.dataset.id,
+    category: taskCard.dataset.category,
+  };
+  event.dataTransfer.setData("text/plain", taskCard.dataset.id); // Task-ID speichern
+}
 
-  // Tasks draggable machen
+function dropTask(event, newCategory) {
+  event.preventDefault();
+  const taskId = event.dataTransfer.getData("text/plain");
+  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
+  if (taskCard) {
+    const task = { ...currentDraggedTask, category: newCategory }; // Kategorie aktualisieren
+    saveTaskToFirebase(task); // Aktualisiere Firebase
+    renderTasksOnBoard(); // Aktualisiere das Board
+  }
+}
+
+function enableDragAndDrop() {
   document.querySelectorAll(".task-card").forEach((task) => {
     task.setAttribute("draggable", "true");
     task.addEventListener("dragstart", () => {
@@ -12,7 +29,6 @@ function enableDragAndDrop() {
     });
   });
 
-  // Spalten als Drop-Ziele definieren
   document.querySelectorAll(".board-column").forEach((column) => {
     const tasksContainer = column.querySelector(".tasks-container");
 
@@ -35,15 +51,17 @@ function enableDragAndDrop() {
 
         // Aktualisiere "No tasks"-Nachricht für beide Spalten
         updateNoTasksMessage(column);
+
+        const previousCategory = draggedTask.dataset.category;
         const previousColumn = document.querySelector(
-          `.board-column[data-status="${draggedTask.dataset.status}"]`
+          `.board-column[data-status="${previousCategory}"]`
         );
         if (previousColumn) {
           updateNoTasksMessage(previousColumn);
         }
 
-        // Aktualisiere den Status des Tasks
-        draggedTask.dataset.status = newCategory;
+        // Aktualisiere die Kategorie der Task
+        draggedTask.dataset.category = newCategory;
       }
     });
   });

@@ -123,15 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   addTaskCategoryButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const category = button.getAttribute("data-category");
-      openAddTaskModal(category);
+      const category = button.getAttribute("data-category"); // Kategorie aus Attribut
+      openAddTaskModal(category); // Modal öffnen und Kategorie setzen
     });
   });
 
   // Event Listener für den "Subtask hinzufügen"-Button
   const subtaskInput = document.getElementById("subtaskInput");
   const subtaskAddButton = document.querySelector(".subtask-add-button");
-  const subtaskList = document.getElementById("subtaskList");
   subtaskAddButton.addEventListener("click", () => {
     addSubtask(subtaskInput.value.trim());
   });

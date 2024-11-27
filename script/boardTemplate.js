@@ -90,3 +90,10 @@ function deleteSubtask(index) {
   subtasksArray.splice(index, 1); // Subtask entfernen
   updateSubtasksList(); // Liste aktualisieren
 }
+
+function createSubtasksList(task) {
+  if (task.subtasks && task.subtasks.length > 0) {
+    return task.subtasks.map((st) => `<li>${st.title}</li>`).join("");
+  }
+  return "<li>No subtasks</li>";
+}

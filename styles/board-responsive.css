@@ -1,0 +1,241 @@
+/* board-responsive.css */
+
+/* Grundlegende Stile für das mobile Layout */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  margin: 0;
+  padding: 10px;
+}
+
+/* Suchleiste und Überschrift */
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 10px 0;
+}
+
+.search-bar h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.search-bar .right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.search-bar button {
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+}
+
+/* Board-Container */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Spalten */
+.board-column {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Spaltenüberschriften anzeigen */
+.board-column::before {
+  content: attr(data-status);
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  padding: 0 10px;
+}
+
+/* Task-Karten */
+.task-card {
+  width: calc(100% - 20px);
+  margin: 0 10px 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.task-card h3 {
+  font-size: 18px;
+}
+
+.task-card p {
+  font-size: 14px;
+}
+
+.task-card .avatars {
+  margin-top: 10px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+/* "No Tasks" Nachricht */
+.no-tasks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  background-color: #f4f7f9;
+  color: #a8a8a8;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Anpassungen für Bildschirmbreiten bis 480px */
+@media screen and (max-width: 480px) {
+  /* Suchleiste */
+  .search-bar h1 {
+    font-size: 22px;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+    height: 36px;
+  }
+
+  .search-bar button {
+    font-size: 16px;
+    height: 44px;
+  }
+
+  /* Task-Karten */
+  .task-card h3 {
+    font-size: 16px;
+  }
+
+  .task-card p {
+    font-size: 12px;
+  }
+
+  /* Avatare */
+  .avatar {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+/* Anpassungen für Bildschirmbreiten bis 320px */
+@media screen and (max-width: 320px) {
+  /* Suchleiste */
+  .search-bar h1 {
+    font-size: 20px;
+  }
+
+  .search-bar input {
+    font-size: 12px;
+    height: 32px;
+  }
+
+  .search-bar button {
+    font-size: 14px;
+    height: 40px;
+  }
+
+  /* Task-Karten */
+  .task-card {
+    padding: 8px;
+  }
+
+  .task-card h3 {
+    font-size: 14px;
+  }
+
+  .task-card p {
+    font-size: 12px;
+  }
+
+  /* Avatare */
+  .avatar {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
+
+  /* Spaltenüberschriften */
+  .board-column::before {
+    font-size: 18px;
+  }
+}
+
+/* Navigation anpassen */
+nav.sidebar {
+  display: none; /* Seitenleiste ausblenden */
+}
+
+/* Header anpassen */
+header {
+  padding: 10px;
+  text-align: center;
+}
+
+header div span {
+  font-size: 18px;
+}
+
+/* Footer anpassen (falls vorhanden) */
+footer {
+  display: none; /* Footer ausblenden */
+}
+
+/* Modale Fenster */
+.modal {
+  padding: 0;
+}
+
+.modal-content-task {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.modal-content-task h2 {
+  font-size: 22px;
+}
+
+.modal-content-task p {
+  font-size: 14px;
+}
+
+/* Buttons in der Task-Detail-Ansicht */
+.task-actions {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-actions button {
+  width: 100%;
+  justify-content: center;
+}
