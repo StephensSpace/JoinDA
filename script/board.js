@@ -1,3 +1,5 @@
+const logedUser = sessionStorage.getItem("User");
+
 // Fetch Users
 function fetchUsers(callback) {
   firebase
@@ -189,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize the Board
   fetchTasks((tasks) => {
     renderTasks(tasks);
+    enableDragAndDrop(); // Aktiviert Drag-and-Drop für alle geladenen Tasks
   });
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
@@ -275,14 +278,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Event Listener für die Prioritätsbuttons
   const priorityButtons = document.querySelectorAll(".priority-btn");
-  if (priorityButtons.length > 0) {
-    priorityButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        selectedPriority = button.dataset.priority;
-        updatePriorityButtons();
+  priorityButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Entferne die aktive Klasse von allen Buttons
+      priorityButtons.forEach((btn) => {
+        btn.classList.remove("active");
+        const icon = btn.querySelector(".priority-icon");
+        if (icon) {
+          icon.style.filter = "none"; // Standardfarbe wiederherstellen
+        }
       });
+      button.classList.add("active");
+      const icon = button.querySelector(".priority-icon");
+      if (icon) {
+        icon.style.filter = "brightness(0) invert(1)"; // Icon in Weiß färben
+      }
     });
-  }
+  });
 
   // Event Listener für den "Delete"-Button
   const deleteButton = document.querySelector(".delete-btn");
@@ -441,7 +453,10 @@ function fetchContacts(callback) {
 
 function populateContactsDropdown(contacts) {
   const optionsContainer = document.getElementById("taskAssignedOptions");
-  optionsContainer.innerHTML = ""; // Clear existing options
+  const selectedContainer = document.getElementById(
+    "selectedContactsContainer"
+  );
+  optionsContainer.innerHTML = ""; // Bestehende Optionen leeren
 
   if (!contacts) {
     optionsContainer.innerHTML =
@@ -451,15 +466,93 @@ function populateContactsDropdown(contacts) {
 
   Object.keys(contacts).forEach((contactId) => {
     const contact = contacts[contactId];
+    const initials = getInitials(contact.name); // Initialen berechnen
+    const color = getColorForContact(contact.name); // Hintergrundfarbe berechnen
+
     const option = document.createElement("div");
     option.className = "dropdown-option";
     option.dataset.value = contact.name;
-    option.textContent = contact.name;
+
+    // Initialen und Name hinzufügen
+    option.innerHTML = `
+        <span class="contact-initials" style="background-color: ${color}">
+          ${initials}
+        </span>
+        <span>${contact.name}</span>
+      `;
+
+    // Klick-Event für Auswahl
     option.addEventListener("click", () => {
-      selectContact(contact.name);
-      optionsContainer.classList.add("hidden"); // Close dropdown after selection
+      toggleContactSelection(option, initials, color, selectedContainer);
     });
+
     optionsContainer.appendChild(option);
+  });
+}
+
+// Funktion zur Berechnung der Initialen
+function getInitials(name) {
+  return name
+    .split(" ") // Split into words
+    .map((n) => n[0]) // Get first letter of each word
+    .join("") // Join them together
+    .toUpperCase(); // Convert to uppercase
+}
+
+// Funktion zur Berechnung der Hintergrundfarbe basierend auf dem Namen
+function getColorForContact(name) {
+  const colors = [
+    "#FF7A00",
+    "#6E52FF",
+    "#9327FF",
+    "#FC71FF",
+    "#FFBB2B",
+    "#1FD7C1",
+    "#462F8A",
+    "#FF4646",
+    "#00BEE8",
+  ];
+  let index = name.charCodeAt(0) % colors.length; // Basierend auf dem ersten Buchstaben
+  return colors[index];
+}
+
+// Funktion zur Auswahl eines Kontakts
+function toggleContactSelection(option, initials, color, selectedContainer) {
+  const isSelected = option.classList.contains("selected");
+
+  if (isSelected) {
+    // Kontakt abwählen
+    option.classList.remove("selected");
+    option.style.backgroundColor = ""; // Hintergrundfarbe zurücksetzen
+    option.style.color = ""; // Textfarbe zurücksetzen
+    removeInitialFromSelected(initials, selectedContainer);
+  } else {
+    // Kontakt auswählen
+    option.classList.add("selected");
+    option.style.backgroundColor = "#091931"; // Hintergrundfarbe der ausgewählten Option
+    option.style.color = "white"; // Textfarbe ändern
+    addInitialToSelected(initials, color, selectedContainer);
+  }
+}
+
+// Initialen zum ausgewählten Bereich hinzufügen
+function addInitialToSelected(initials, color, selectedContainer) {
+  const span = document.createElement("span");
+  span.className = "selected-contact-initials";
+  span.textContent = initials;
+  span.style.backgroundColor = color; // Gleiche Farbe wie im Dropdown
+  selectedContainer.appendChild(span);
+}
+
+// Initialen aus dem ausgewählten Bereich entfernen
+function removeInitialFromSelected(initials, selectedContainer) {
+  const spans = selectedContainer.querySelectorAll(
+    ".selected-contact-initials"
+  );
+  spans.forEach((span) => {
+    if (span.textContent === initials) {
+      span.remove();
+    }
   });
 }
 
@@ -469,7 +562,7 @@ function collectFormData() {
     Description: document.getElementById("taskDescription").value,
     Date: document.getElementById("taskDueDate").value,
     Prio: selectedPriority,
-    category: selectedCategory,
+    category: document.getElementById("taskTypeInput").value,
     members: selectedMembers, // Include selected contacts here
     subtasks: subtasksArray,
     type: document.getElementById("taskCategoryInput").value || "Task",
@@ -481,6 +574,7 @@ function saveTaskToFirebase(task) {
   task.id = newTaskRef.key;
   newTaskRef.set(task).then(() => {
     addTaskToBoard(task);
+    enableDragAndDrop(); // Aktiviert Drag-and-Drop für die neue Task
   });
 }
 

@@ -24,12 +24,12 @@ main {
   height: 24px;
   top: 200.5px;
   display: flex;
-  justify-content: space-between;
+  gap: 26px;
 }
 
 .headlines div {
   display: flex;
-  justify-content: center; /* Wichtiger Teil für die Anordnung von Überschrift und Button */
+  justify-content: space-between;
   width: 244px;
   height: 24px;
 }
@@ -159,19 +159,26 @@ main {
 
 /* Container für das Board und die Spalten */
 .board-container {
-  display: flex;
   width: 1208px;
   height: 688px;
-  top: 336px;
+  top: 360px;
+  left: 200px;
   gap: 26px;
-  align-items: baseline;
+  position: fixed;
+  display: flex;
+  cursor: pointer;
 }
 
 .board-column {
-  margin-bottom: 10px;
-  border-radius: 5px;
+  width: 246px;
+  height: 688px;
+  gap: 24px;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  transition: border-color 0.3s ease;
+}
+
+.board-column.dragover {
+  border: 2px dashed #007bff;
 }
 
 .board-column .task-card:hover {
@@ -219,16 +226,17 @@ main {
   align-items: center;
   justify-content: center;
   width: 246px;
-  height: 19px;
+  height: 48px;
   background-color: #f4f7f9;
-  color: #b0b0b0;
+  color: #e7e7e7;
   font-size: 1rem;
   font-weight: bold;
-  border: 1px dashed #b0b0b0;
+  border: 1px dashed #a8a8a8;
   border-radius: 10px;
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
+  gap: 10px;
 }
 
 .task-container {
@@ -241,11 +249,17 @@ main {
   width: 252px;
   padding: 16px;
   background-color: white;
-  border-radius: 12px;
+  border-radius: 24px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
   position: relative;
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  gap: 10px;
+}
+
+.task-card:active {
+  cursor: grabbing;
+  opacity: 0.8; /* Transparenz während des Ziehens */
 }
 
 .task-card:hover {
@@ -253,12 +267,11 @@ main {
 }
 
 .tag {
-  display: inline-block;
-  padding: 4px 8px;
-  font-size: 0.8rem;
-  color: white;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  width: 113px;
+  height: 27px;
+  padding: 4px 16px 4px 16px;
+  gap: 10px;
+  border-radius: 8px 0px 0px 0px;
 }
 
 .user-story .tag {
@@ -571,6 +584,12 @@ textarea {
   justify-content: center;
 }
 
+.priority-btn img {
+  position: unset !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
 .priority-btn.clicked {
   color: #ffffff; /* Textfarbe, wenn aktiv */
 }
@@ -591,8 +610,12 @@ textarea {
 }
 
 .priority-btn .priority-icon {
-  margin-right: 5px;
-  transition: filter 0.3s;
+  width: 17px;
+  height: 12px;
+  top: 12px;
+  left: 17px;
+  position: relative;
+  transition: filter 0.3s ease;
 }
 
 /* Hover Effects for Priority Buttons */
@@ -609,6 +632,10 @@ textarea {
 .priority-btn[data-priority="Low"]:hover {
   background-color: #33cc33;
   color: white;
+}
+
+.priority-btn.active .priority-icon {
+  filter: brightness(0) invert(1); /* Icon in Weiß */
 }
 
 /* Form Actions Styling */
@@ -673,14 +700,6 @@ textarea {
 
 .edit-btn {
   cursor: pointer;
-}
-
-/* Stil für die Icons */
-.priority-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px; /* Abstand zwischen Icon und Text */
-  transition: all 0.3s ease;
 }
 
 /* Additional subtask button */
@@ -750,7 +769,6 @@ textarea {
   gap: 8px;
   display: flex;
   flex-direction: column;
-  padding: 14px;
 }
 
 /* Subtask Container */
@@ -764,17 +782,24 @@ textarea {
 .taskInfoDueDate {
   width: 445px;
   height: 24px;
-  gap: 25px;
   display: flex;
   flex-direction: column;
 }
 
-.taskInfoPriority {
-  width: 445px;
-  height: 32px;
-  gap: 25px;
+.taskInfoDueDate p {
   display: flex;
-  flex-direction: column;
+  gap: 25px;
+}
+
+.taskInfoPriority {
+  display: flex;
+  align-items: center;
+}
+
+.taskInfoPriority p {
+  display: flex;
+  gap: 38px;
+  align-items: center;
 }
 
 .task-actions {
@@ -1003,20 +1028,6 @@ textarea {
   width: 24px;
 }
 
-.dropdown-arrow {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.3s ease;
-}
-
-.dropdown-arrow.up {
-  transform: rotate(180deg);
-}
-
-.dropdown-arrow.rotate {
-  transform: rotate(180deg);
-}
-
 .dropdown-options {
   position: absolute;
   top: 100%;
@@ -1032,141 +1043,66 @@ textarea {
   scrollbar-width: thin;
 }
 
+/* Pfeil in der Standardposition */
+.dropdownarrow {
+  transform: rotate(0deg); /* Standard: nach unten */
+  transition: transform 0.3s ease; /* Sanfte Drehung */
+}
+
+/* Pfeil nach oben drehen */
+.dropdownarrow.open {
+  transform: rotate(180deg) !important;
+}
+
+/* Für Dropdown-Optionen */
 .hidden {
   display: none;
 }
 
-.avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+/* Styling für die Initialen */
+.contact-initials {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  color: #fff;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
   font-weight: bold;
-  margin-right: 8px;
+  border-radius: 50%; /* Kreisform */
+  width: 24px; /* Größe des Kreises */
+  height: 24px; /* Größe des Kreises */
+  margin-right: 10px;
+  text-transform: uppercase; /* Großbuchstaben */
 }
 
-.dropdown-item {
+.dropdown-option {
   display: flex;
   align-items: center;
   padding: 10px;
   cursor: pointer;
-  color: black;
-  border-bottom: 1px solid #333;
-  transition: background-color 0.3s;
 }
 
-.dropdown-item:hover {
-  background-color: #091931;
+.dropdown-option:hover {
+  background-color: #2a3647; /* Hover-Effekt */
   color: white;
 }
 
-.dropdown-item:last-child {
-  border-bottom: none;
+/* Styling für ausgewählte Kontakte im Dropdown */
+.dropdown-option.selected {
+  background-color: #091931; /* Hintergrundfarbe für ausgewählte Kontakte */
+  color: white; /* Textfarbe ändern */
 }
 
-.dropdown-item .avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 45px;
-  display: flex;
+/* Styling für die Initialen der ausgewählten Kontakte */
+.selected-contact-initials {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 14px;
-  margin-right: 10px;
-  border: 2px solid white;
-}
-
-.dropdown-item.selected {
-  background-color: #091931;
-  color: white;
-}
-
-.selected-contacts-container {
-  display: flex;
-  margin-top: 10px;
-}
-
-.selected-contacts-container .avatar {
-  margin-right: 5px;
-}
-
-/* Dropdown geschlossen/verborgen */
-.dropdown-options.hidden {
-  display: none;
-}
-
-.dropdown-item .name {
-  flex-grow: 1;
-}
-
-.dropdown-item input[type="checkbox"] {
-  display: none;
-}
-
-.dropdown-item input[type="checkbox"] + .custom-checkbox {
-  width: 20px; /* Größe des Kästchens */
-  height: 20px;
-  display: inline-block;
-  background-image: url("./assets/icons/property-default.png"); /* Pfad zur leeren Checkbox */
-  background-size: cover;
-  cursor: pointer;
-}
-
-.dropdown-item input[type="checkbox"]:checked + .custom-checkbox {
-  background-image: url("./assets/icons/property-checked.png"); /* Pfad zur gefüllten Checkbox */
-}
-
-.assigned-option {
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.assigned-option:hover {
-  background-color: #f0f0f0;
-}
-
-.assigned-option.selected {
-  background-color: #e0f7fa;
-}
-
-.assigned-name {
-  flex-grow: 1;
-}
-
-.assigned-user {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.selected {
-  background-color: #d0ebff;
-}
-
-.category-label {
-  background-color: #e3f2fd;
-  color: #0d6efd;
-  padding: 2px 6px;
-  border-radius: 4px;
   font-size: 12px;
-  margin-bottom: 4px;
-}
-
-.selected-category-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.category-item {
-  padding: 5px 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  font-weight: bold;
+  border-radius: 50%; /* Kreisform */
+  width: 24px; /* Größe des Kreises */
+  height: 24px; /* Größe des Kreises */
+  margin: 5px;
+  text-transform: uppercase;
 }
