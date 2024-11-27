@@ -23,11 +23,14 @@ function userIconTemplateContactList(userName, userIndex) {
         let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
-    
-        let color = getBackgroundForLetters(getFirstLetters);
+        
+        let color = getBackgroundForDefinedLetters(getFirstLetters);
+        if (color == undefined || rgbInHexa(userIndex) == color) {
+            color = getRandomeColor(color);   
+        }
         return `
             
-            <p id="userIconContactList-${userIndex}" style="background-color: ${color}; width: 32px; height: 32px; 
+            <p id="userIconContactList_${userIndex}" style="background-color: ${color}; width: 32px; height: 32px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
 
         `
@@ -36,7 +39,7 @@ function userIconTemplateContactList(userName, userIndex) {
         let getFirstLetters = firstLetterFullName[0]; 
         return `
 
-            <p id="userIconContactList-${userIndex}" style="background-color: ${'aqua'}; width: 32px; height: 32px; 
+            <p id="userIconContactList_${userIndex}" style="background-color: ${'aqua'}; width: 32px; height: 32px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
             
         `
@@ -51,7 +54,7 @@ function userIconTemplateContactTable(userName, userIndex) {
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
     
-        let color = getBackgroundForLetters(getFirstLetters);
+        let color = document.getElementById(`userIconContactList_${(userIndex)}`).style.backgroundColor;
         return `
             
             <p id="userIconContactTable-${userIndex}" style="background-color: ${color}; width: 120px; height: 120px; 
@@ -81,7 +84,7 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
             </div>
             <div class="user-shortcut-info">
                 <div>
-                    <p class="user-shortcut-name">${USER_NAME}</p>
+                    <p class="user-shortcut-name" style="color: black">${USER_NAME}</p>
                 </div>
                 <div>
                     <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>

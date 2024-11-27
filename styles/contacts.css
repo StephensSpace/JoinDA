@@ -77,7 +77,7 @@
 /* Alles zum Contact-Board */
 
 .contact-board {
-    background-color: rgb(207, 178, 133);
+    background-color: white;
     padding: 0 40px;
     width: 33%;
     max-height: calc(100vh - 96px);         /* 96px beträgt die Höhe der Nav-Bar */

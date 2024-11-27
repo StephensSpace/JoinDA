@@ -5,6 +5,8 @@
 
 //############################################################
 
+const logedUser = sessionStorage.getItem('User'); // für Stephen 
+
 // Initialisierung Schritt
 async function initContacts() {
     await renderAll();
@@ -217,6 +219,22 @@ async function getUserIndex(NAME) {
     }
 }
 
+// für den gerade angewählten User zum einblenden dessen Informationen
+function clickedUser() {
+    const contacts = document.getElementsByClassName('user-contact');
+  
+    Array.from(contacts).forEach((contact) => {
+      contact.addEventListener('click', () => {
+        Array.from(contacts).forEach((item) => {
+          item.classList.remove('clicked-Background'); 
+        });
+  
+        contact.classList.toggle('clicked-Background');
+      });
+    });
+  }
+  
+
 
 
 //############################################################
@@ -234,69 +252,70 @@ let letterBackground = {
     "DE": "#FC71FF",
     "EF": "#FFBB2B",
     "EM": "#1FD7C1",
-    "MB": "#462F8A",
+    "MB": "#462F8A", //sogar 1 extra
     "TW": "#FF4646",
     "SM": "#00BEE8"
 }
 
 // für nicht definierte User
 let letterBackgroundRandom = {
-    "AA": "#F0F0F0",
+    "0": "#FF745E",
+    "1": "#FFC701",
+    "2": "#FFE62B",
+    "3": "#FF5EB3",
+    "4": "#FFA35E",
+    "5": "#0038FF",
+    "6": "#C3FF2B",
 }
 
-// für undefinierte User
-function getBackgroundForLettersUndefined(getFirstLetters) {
-    let loopLength = Object.keys(letterBackgroundRandom).length;
-    for (let i = 0; i < loopLength; i++) {
-        let compareLetters = Object?.entries(letterBackground)[i][0];
-        if (getFirstLetters == compareLetters) {
-            let back = Object.entries(letterBackground)[i][1];
-            return back; 
-        }
-    }
-}
 
 // für definierte User
-function getBackgroundForLetters(getFirstLetters) {
+function getBackgroundForDefinedLetters(getFirstLetters) {
     let loopLength = Object.keys(letterBackground).length;
-
     for (let i = 0; i < loopLength; i++) {
         let compareLetters = Object.entries(letterBackground)[i][0];
-
         if (getFirstLetters === compareLetters) {
             return Object.entries(letterBackground)[i][1];
         }
     }
-    // Wenn kein passendes Element in der Schleife gefunden wurde
-    let randomIndex = Math.floor(Math.random() * Object.keys(letterBackgroundRandom).length);
-    return Object.entries(letterBackgroundRandom)[randomIndex][1];
+    let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
+    let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+    return getRandomColor;
 }
 
-function math(params) {
-    return math.PI
+// für undefinierte User
+function getRandomeColor(color) {
+    let colorOftheAboveIcon = color;
+
+    let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
+    let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+
+    if (colorOftheAboveIcon == getRandomColor) {
+        getRandomeColor(color);
+    } //else {
+      //  let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
+      //  let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+      //  return getRandomColor;
+   // }
+    return getRandomColor;
+}
+
+
+// konverter für rgb in hexadezimal 
+function rgbInHexa(userIndex) {
+    if (document.getElementById(`userIconContactList_${(userIndex-1)}`) !== null) {
+    let getIconFromAbove = document.getElementById(`userIconContactList_${(userIndex-1)}`).style.backgroundColor;   // auf den vorherigen UserIcon zugreifen und farbcode ziehen in rgb
+    let rgbNumb1_2 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[0]);
+    let rgbNumb3_4 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[1]);
+    let rgbNumb5_6 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[2]);
+    let hexaNumb1_2 = rgbNumb1_2.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen   
+    let hexaNumb3_4 = rgbNumb3_4.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
+    let hexaNumb5_6 = rgbNumb5_6.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
+    let hexaNumb = '#' + hexaNumb1_2 + hexaNumb3_4 + hexaNumb5_6;
+    return hexaNumb;
+    }
     
 }
-
-function clickedUser() {
-  const contacts = document.getElementsByClassName('user-contact');
-
-  Array.from(contacts).forEach((contact) => {
-    contact.addEventListener('click', () => {
-      Array.from(contacts).forEach((item) => {
-        item.classList.remove('clicked-Background'); 
-      });
-
-      contact.classList.toggle('clicked-Background');
-    });
-  });
-}
-
-
-
-
-
-
-
 
 //############################################################
 
