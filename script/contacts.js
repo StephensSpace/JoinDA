@@ -278,18 +278,37 @@ function getBackgroundForDefinedLetters(getFirstLetters) {
             return Object.entries(letterBackground)[i][1];
         }
     }
-    // Wenn kein passendes Element in der Schleife gefunden wurde
-    let randomIndex = Math.floor(Math.random() * Object.keys(letterBackgroundRandom).length);
-    return Object.entries(letterBackgroundRandom)[randomIndex][1];
+    let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
+    let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+    return getRandomColor;
+}
+
+// für undefinierte User
+function getRandomeColor(color) {
+    let colorOftheAboveIcon = color;
+    let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
+    let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+    if (colorOftheAboveIcon == getRandomColor) {
+        getRandomeColor(color);
+    } 
+    return getRandomColor;
 }
 
 
-
-
-
-
-
-
+// konverter für rgb in hexadezimal 
+function rgbInHexa(userIndex) {
+    if (document.getElementById(`userIconContactList_${(userIndex-1)}`) !== null) {
+    let getIconFromAbove = document.getElementById(`userIconContactList_${(userIndex-1)}`).style.backgroundColor;   // auf den vorherigen UserIcon zugreifen und farbcode ziehen in rgb
+    let rgbNumb1_2 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[0]);
+    let rgbNumb3_4 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[1]);
+    let rgbNumb5_6 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[2]);
+    let hexaNumb1_2 = rgbNumb1_2.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen   
+    let hexaNumb3_4 = rgbNumb3_4.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
+    let hexaNumb5_6 = rgbNumb5_6.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
+    let hexaNumb = '#' + hexaNumb1_2 + hexaNumb3_4 + hexaNumb5_6;
+    return hexaNumb;
+    }
+}
 
 //############################################################
 
