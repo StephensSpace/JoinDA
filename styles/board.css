@@ -372,6 +372,7 @@ main {
   z-index: 1000;
   padding: 20px;
   overflow-y: auto;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 #addTaskForm {
@@ -859,33 +860,46 @@ textarea {
   gap: 5px;
 }
 
-/* Input Field */
-.subtask-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  outline: none;
+/* Wrapper für Eingabe und Button */
+.subtask-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
-/* Add Button */
+/* Input-Styling */
+.subtask-input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px; /* Platz für den Button */
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Button Styling */
 .subtask-add-button {
-  background: none;
+  position: absolute;
+  right: 10px;
+  background-color: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
 }
 
 .subtask-add-button img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Button Hover-Effekt */
+.subtask-add-button:hover img {
+  filter: brightness(0.8);
 }
 
 /* Subtask List */
@@ -896,108 +910,45 @@ textarea {
   list-style-type: none;
 }
 
-/* Subtask Item */
+/* Subtask-Liste */
 .subtask-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #fff;
+  padding: 5px 10px;
+  margin-bottom: 5px;
 }
 
-.subtask-checkbox {
-  margin-right: 10px;
-}
-
-/* Subtask Label */
-.subtask-text {
-  flex-grow: 1;
+.subtask-title {
   font-size: 14px;
   color: #333;
 }
 
-/* Subtask Action Buttons */
-.subtask-item button {
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Aktionen (Bearbeiten/Löschen) */
+.subtask-actions {
+  display: flex;
+  gap: 10px;
 }
 
-.edit-subtask,
-.delete-subtask {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.edit-subtask img,
-.delete-subtask img {
+.subtask-actions img {
   width: 16px;
   height: 16px;
-}
-
-.subtask-item-text {
-  flex-grow: 1;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.subtask-item button img {
-  width: 15px;
-  height: 15px;
-}
-
-.subtask-item button.edit-subtask:hover {
-  filter: brightness(0.8);
-}
-
-.subtask-item button.delete-subtask:hover {
-  filter: brightness(0.8);
-}
-
-.subtask-options-container {
-  display: none; /* Standardmäßig versteckt */
-  position: absolute;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  z-index: 1000;
-  max-height: 150px; /* Falls viele Optionen, setze eine Maximalhöhe */
-  overflow-y: auto; /* Scrollbar bei Bedarf */
-}
-
-.subtask-options-container.show {
-  display: block; /* Sichtbar machen */
-}
-
-.subtask-option {
-  padding: 8px 12px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.2s ease;
 }
 
-.subtask-option:hover {
-  background-color: #f0f0f0;
+.subtask-actions img:hover {
+  transform: scale(1.2); /* Vergrößert das Icon beim Hover */
 }
 
-/* Due Date Error */
-.error-message {
-  color: red;
-  font-size: 0.8em;
-}
-
-.error-message.hidden {
-  display: none;
-}
-
-/* Container für das Dropdown */
-.assigned-container {
-  position: relative;
-  width: 100%;
+/* Inline-Editor */
+.subtask-edit-input {
+  flex: 1;
+  border: 1px solid #4a90e2;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  color: #333;
 }
 
 /* Dropdown-Styling */

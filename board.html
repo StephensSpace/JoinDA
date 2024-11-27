@@ -362,22 +362,24 @@
               </div>
 
               <!-- Subtasks -->
-              <div class="addTask-headlines">
-                <label for="taskSubtasks">Subtasks</label>
-              </div>
-              <div class="subtask-row">
-                <input
-                  type="text"
-                  id="subtaskInput"
-                  class="subtask-input"
-                  placeholder="Add new subtask"
-                />
-                <button type="button" class="subtask-add-button">
-                  <img src="./assets/icons/add_hover.png" alt="Add" />
-                </button>
-              </div>
-              <ul id="subtaskList"></ul>
-            </div>
+<div class="addTask-headlines">Subtasks</div>
+<div class="subtask-input-container">
+  <div class="subtask-input-wrapper">
+    <input
+      type="text"
+      id="subtaskInput"
+      class="subtask-input"
+      placeholder="Add a subtask"
+    />
+    <button type="button" class="subtask-add-button">
+      <img src="./assets/icons/add_hover.png" alt="Add" />
+    </button>
+  </div>
+</div>
+<ul id="subtaskList" class="subtask-list">
+  <!-- Subtasks werden hier dynamisch eingefügt -->
+</ul>
+
 
             <div class="form-actions">
               <!-- Actions -->
@@ -395,6 +397,9 @@
     </aside>
     <!-- Haupt-JavaScript -->
     <script src="./script/board.js"></script>
+    <script src="./script/boardTemplate.js"></script>
+    <script src="./script/eventListener.js"></script>
+    <script src="./script/addTask.js"></script>
     <script src="./script/dragAndDrop.js"></script>
     <script src="./script/category.js"></script>
   </body>

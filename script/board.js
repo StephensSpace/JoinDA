@@ -42,52 +42,6 @@ function renderTasks(tasks) {
   }
 }
 
-function addTaskToBoard(task) {
-  let status = task.category || "todo";
-  let boardColumn = document.querySelector(
-    `.board-column[data-status="${status}"]`
-  );
-  if (boardColumn) {
-    let tasksContainer = boardColumn.querySelector(".tasks-container");
-    if (tasksContainer) {
-      let taskCard = createTaskCard(task);
-      tasksContainer.appendChild(taskCard);
-      updateNoTasksMessage(boardColumn);
-    }
-  }
-}
-
-function createTaskCard(task) {
-  let card = document.createElement("div");
-  card.className = "task-card";
-  card.dataset.id = task.id;
-  card.innerHTML = `
-        <div class="tag">${task.type || "Task"}</div>
-        <h3>${task.title}</h3>
-        <p>${task.Description}</p>
-        ${createSubtasksProgress(task)}
-        ${createAssignedAvatars(task)}
-        <div class="icon menu-icon">&#9776;</div>
-      `;
-  card.addEventListener("click", () => showTaskDetails(task));
-  return card;
-}
-
-function createSubtasksProgress(task) {
-  let total = task.subtasks ? task.subtasks.length : 0;
-  if (total > 0) {
-    let completed = task.subtasks.filter((st) => st.completed).length;
-    let percent = (completed / total) * 100;
-    return `
-          <div class="progress">
-            <div class="progress-bar" style="width: ${percent}%"></div>
-            <span>${completed}/${total} Subtasks</span>
-          </div>
-        `;
-  }
-  return "";
-}
-
 function createAssignedAvatars(task) {
   if (task.members && task.members.length > 0) {
     let avatars = task.members
@@ -123,24 +77,6 @@ function updateNoTasksMessage(column) {
     noTasksMessage.style.display = tasksContainer.children.length
       ? "none"
       : "block";
-  }
-}
-
-function updatePriorityIcon(priority) {
-  const priorityIcon = document.getElementById("taskDetailPriorityIcon");
-  if (priorityIcon) {
-    // Set the icon or styling based on priority
-    if (priority === "Urgent") {
-      priorityIcon.innerHTML =
-        '<img src="./assets/icons/urgent.png" alt="Urgent">';
-    } else if (priority === "Medium") {
-      priorityIcon.innerHTML =
-        '<img src="./assets/icons/medium.png" alt="Medium">';
-    } else if (priority === "Low") {
-      priorityIcon.innerHTML = '<img src="./assets/icons/low.png" alt="Low">';
-    } else {
-      priorityIcon.innerHTML = "";
-    }
   }
 }
 
@@ -186,150 +122,6 @@ function createSubtasksList(task) {
   }
   return "<li>No subtasks</li>";
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Initialize the Board
-  fetchTasks((tasks) => {
-    renderTasks(tasks);
-    enableDragAndDrop(); // Aktiviert Drag-and-Drop für alle geladenen Tasks
-  });
-  fetchContacts((contacts) => {
-    populateContactsDropdown(contacts);
-  });
-
-  // Event Listener für den "Edit"-Button im Task-Detail-Modal
-  const editButton = document.querySelector(".edit-btn");
-  if (editButton) {
-    editButton.addEventListener("click", () => {
-      openEditTaskModal();
-    });
-  }
-
-  // Schließen des Task-Detail-Modals
-  const taskDetailsCloseBtn = document.querySelector(
-    "#taskDetailsModal .close-button"
-  );
-  if (taskDetailsCloseBtn) {
-    taskDetailsCloseBtn.addEventListener("click", () => {
-      document.getElementById("taskDetailsModal").style.display = "none";
-    });
-  }
-
-  // "Add Task"-Button
-  const addTaskButton = document.getElementById("addTaskButton");
-  if (addTaskButton) {
-    addTaskButton.addEventListener("click", () => {
-      document.getElementById("addTaskModal").style.display = "block";
-      resetAddTaskForm();
-      // Fetch contacts and populate dropdown
-      fetchContacts((contacts) => {
-        populateContactsDropdown(contacts);
-      });
-    });
-  }
-
-  // Schließen des "Add Task"-Modals
-  const addTaskCloseBtn = document.querySelector("#addTaskModal .close-button");
-  if (addTaskCloseBtn) {
-    addTaskCloseBtn.addEventListener("click", () => {
-      document.getElementById("addTaskModal").style.display = "none";
-    });
-  }
-
-  // Event Listener for Dropdown Toggle
-  const taskAssignedDropdown = document.getElementById("taskAssignedDropdown");
-  if (taskAssignedDropdown) {
-    taskAssignedDropdown.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const optionsContainer = document.getElementById("taskAssignedOptions");
-      optionsContainer.classList.toggle("hidden");
-    });
-  }
-
-  // Close Dropdown When Clicking Outside
-  document.addEventListener("click", () => {
-    const optionsContainer = document.getElementById("taskAssignedOptions");
-    optionsContainer.classList.add("hidden");
-  });
-
-  // "Add Task"-Formularübermittlung
-  const addTaskForm = document.getElementById("addTaskForm");
-  if (addTaskForm) {
-    addTaskForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      let taskData = collectFormData();
-      if (isEditMode) {
-        updateTaskInFirebase(currentTask.id, taskData);
-      } else {
-        saveTaskToFirebase(taskData);
-      }
-      document.getElementById("addTaskModal").style.display = "none";
-      resetAddTaskForm();
-    });
-  }
-
-  // Event Listener für den "Cancel"-Button im "Add Task"-Modal
-  const cancelButton = document.getElementById("cancelButton");
-  if (cancelButton) {
-    cancelButton.addEventListener("click", () => {
-      document.getElementById("addTaskModal").style.display = "none";
-    });
-  }
-
-  // Event Listener für die Prioritätsbuttons
-  const priorityButtons = document.querySelectorAll(".priority-btn");
-  priorityButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // Entferne die aktive Klasse von allen Buttons
-      priorityButtons.forEach((btn) => {
-        btn.classList.remove("active");
-        const icon = btn.querySelector(".priority-icon");
-        if (icon) {
-          icon.style.filter = "none"; // Standardfarbe wiederherstellen
-        }
-      });
-      button.classList.add("active");
-      const icon = button.querySelector(".priority-icon");
-      if (icon) {
-        icon.style.filter = "brightness(0) invert(1)"; // Icon in Weiß färben
-      }
-    });
-  });
-
-  // Event Listener für den "Delete"-Button
-  const deleteButton = document.querySelector(".delete-btn");
-  if (deleteButton) {
-    deleteButton.addEventListener("click", () => {
-      deleteCurrentTask();
-    });
-  }
-
-  // Event Listener für die "+"-Buttons in den Spalten
-  const addTaskCategoryButtons = document.querySelectorAll(
-    ".add-task-btn-category"
-  );
-  addTaskCategoryButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const category = button.getAttribute("data-category");
-      openAddTaskModal(category);
-    });
-  });
-
-  // Event Listener für den "Subtask hinzufügen"-Button
-  const subtaskAddButton = document.querySelector(".subtask-add-button");
-  if (subtaskAddButton) {
-    subtaskAddButton.addEventListener("click", () => {
-      let input = document.getElementById("subtaskInput");
-      if (input.value.trim()) {
-        subtasksArray.push({ title: input.value.trim(), completed: false });
-        updateSubtasksList();
-        input.value = "";
-      }
-    });
-  }
-
-  // Weitere Event Listener und Initialisierungscode hier...
-});
 
 function openEditTaskModal() {
   if (currentTask) {
@@ -384,16 +176,6 @@ function populateEditTaskForm(task) {
 
   subtasksArray = task.subtasks || [];
   updateSubtasksList();
-}
-
-function openAddTaskModal(category) {
-  selectedCategory = category || "todo"; // Ausgewählte Kategorie setzen
-  document.getElementById("addTaskModal").style.display = "block";
-  resetAddTaskForm();
-  // Kontakte abrufen und Dropdown füllen
-  fetchContacts((contacts) => {
-    populateContactsDropdown(contacts);
-  });
 }
 
 function closeTaskDetailsModal() {
@@ -604,20 +386,16 @@ function selectContact(contactName) {
 
 function updateSelectedMembers() {
   const container = document.getElementById("selectedContactsContainer");
-  container.innerHTML = ""; // Clear existing selections
+  container.innerHTML = ""; // Vorherige Mitglieder entfernen
 
   selectedMembers.forEach((member) => {
-    const memberSpan = document.createElement("span");
-    memberSpan.textContent = member;
-    container.appendChild(memberSpan);
+    const span = document.createElement("span");
+    span.className = "selected-contact-initials";
+    span.textContent = getInitials(member); // Initialen anzeigen
+    container.appendChild(span);
   });
 }
 
 fetchContacts((contacts) => {
   populateContactsDropdown(Object.values(contacts));
 });
-
-function updateSubtasksList() {
-  let list = document.getElementById("subtaskList");
-  list.innerHTML = subtasksArray.map((st) => `<li>${st.title}</li>`).join("");
-}
