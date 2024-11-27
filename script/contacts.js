@@ -5,6 +5,7 @@
 
 //############################################################
 
+// Globale Variabeln
 const logedUser = sessionStorage.getItem('User'); // für Stephen 
 
 // Initialisierung Schritt
@@ -207,7 +208,6 @@ async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
     }
 }
 
-
 // get position (userIndex) of user in contacts
 async function getUserIndex(NAME) {
     const OBJECT = await getFirebaseData(path = "/contacts");
@@ -235,14 +235,7 @@ function clickedUser() {
   }
   
 
-
-
-//############################################################
-
-//                WORKING ON FUNKTIONEN                     //
-
-//############################################################
-
+// Alles zum User Icon 
 
 // für definierte User
 let letterBackground = {
@@ -267,7 +260,6 @@ let letterBackgroundRandom = {
     "5": "#0038FF",
     "6": "#C3FF2B",
 }
-
 
 // für definierte User
 function getBackgroundForDefinedLetters(getFirstLetters) {
@@ -294,7 +286,6 @@ function getRandomeColor(color) {
     return getRandomColor;
 }
 
-
 // konverter für rgb in hexadezimal 
 function rgbInHexa(userIndex) {
     if (document.getElementById(`userIconContactList_${(userIndex-1)}`) !== null) {
@@ -309,6 +300,18 @@ function rgbInHexa(userIndex) {
     return hexaNumb;
     }
 }
+
+// Alles zum User Icon 
+
+
+//############################################################
+
+//                WORKING ON FUNKTIONEN                     //
+
+//############################################################
+
+
+
 
 //############################################################
 
