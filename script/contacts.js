@@ -62,7 +62,7 @@ function closeModal() {
 
 // Fügt das Modal in "Conctact-Content" ein, legt sich jedoch durch Z-Index über alles andere!
 function openAddContactModal() {
-    const CONTACT_CONTENT_REF = document.getElementsByClassName('contact-content')[0];
+    const CONTACT_CONTENT_REF = document.getElementsByClassName('content')[0];
     CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
 }
 
@@ -109,7 +109,7 @@ function getInputfieldContactModalInfos() {
 
 // Öffne das Edit-Contact Modal
 async function openEditContactModal(userIndex) {
-    const CONTACT_CONTENT_REF = document.getElementsByClassName('contact-content')[0]; 
+    const CONTACT_CONTENT_REF = document.getElementsByClassName('content')[0]; 
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
     CONTACT_CONTENT_REF.innerHTML += modalEditContactTemplate(userIndex, USER_NAME);
     const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();

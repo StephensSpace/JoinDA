@@ -14,16 +14,27 @@
 
 
 .contact-content {
-    margin: 0 36px;
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
+
 }
 
 .contact-content-head {
-    display: flex;
-    padding-top: 64px;
-    gap: 12px;
+    /* Frame 40 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+/* justify-content: flex-end; */
+align-items: center;
+padding: 0px;
+gap: 30px;
+
+position: absolute;
+width: 569px;
+height: 73px;
+left: 743px;
+top: 206px;
+
+
 }
 
 .contact-content-head p {
@@ -38,14 +49,31 @@
     border-radius: 1px;
 }
 
+
+.contact-content-table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 21px;
+    position: absolute;
+    width: 461px;
+    height: 364px;
+    left: 750px;
+    top: 311px;
+}
+
+
+
 .contact-content-table-usernameAndIcons {
     display: flex;
     align-items: center;
     gap: 32px;
+    max-height: 120px;
 }
 
-.contact-content-table-usernameAndIcons h2 {
-    font-size: 64px;
+.contact-content-table-usernameAndIcons span {
+    font-size: 47px;
 }
 
 .contact-content-table-editAndDeleteIcons {
@@ -88,6 +116,20 @@
     /* background-color: var(--background-color-header);  SPÄTER WIEDER REIN NEHMEN!!  */ 
     overflow-y: auto;
     scroll-behavior: smooth;
+
+    /* Frame 97 */
+
+position: absolute;
+width: 456px;
+height: 928px;
+left: 232px;
+top: 96px;
+overflow-y: scroll;
+
+/* white */
+background: #FFFFFF;
+box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
+
 }
 
 .add-new-contact-background{
@@ -190,3 +232,24 @@
 
 
 
+
+.userIconTableNameDiv {
+/* Frame 104 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 287px;
+height: 88px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+}
