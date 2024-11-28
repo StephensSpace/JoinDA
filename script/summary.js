@@ -1,8 +1,8 @@
 const database = firebase.database();
 const logedUser = sessionStorage.getItem('User');
-const userBoardRef = database.ref(`User/${logedUser}/currentBoard`);
+const userBoardRef = database.ref(`tasks`);
+const date = new Date().toISOString().split('T')[0];
 const currentDate = new Date();
-const date = currentDate.toLocaleDateString('de-DE');
 
 function setGreeting() {
     selectGreeting();
@@ -13,11 +13,11 @@ function setGreeting() {
 function selectGreeting() {
     hour = currentDate.getHours();
     let greetingBox = document.getElementById('daytime');
-    if(hour <= 11 || hour == 0){
+    if (hour < 12) {  // Good morning
         greetingBox.innerHTML = 'Good morning,';
-    } if(hour >= 12 && hour < 18) {
+    } else if (hour >= 12 && hour < 18) {  // Good afternoon
         greetingBox.innerHTML = 'Good afternoon,';
-    } else {
+    } else {  // Good evening
         greetingBox.innerHTML = "Good evening,";
     };
 }
@@ -26,43 +26,82 @@ function setUsername() {
     document.getElementById('userName').innerHTML = logedUser
 }
 
-async function fireOrSessionStorage() {
-    let counterValues = sessionStorage.getItem("Counter");
-    if (counterValues) {
-        counterValues = JSON.parse(counterValues);
-    } else {
-        counterValues = await fetchCurrentBoard();
-    }
-    renderBoardSummary(currentBoard);
-}
-
 async function fetchCurrentBoard() {
     try {
         const UserBoard = await fetch(userBoardRef + '.json');
         const currentBoard = await UserBoard.json();
-        setBoardToStorage(currentBoard);
-        return currentBoard.Counter 
+        let deadline = getDueDates(currentBoard);
+        countTasks(currentBoard, deadline);
     } catch (error) {
         console.error("Fehler beim Laden der Daten von Firebase:", error);
     }
 }
 
-function setBoardToStorage(currentBoard) {
-    sessionStorage.setItem("Tasks", JSON.stringify(currentBoard.tasks));
-    sessionStorage.setItem("Counter", JSON.stringify(currentBoard.counter));
+function getDueDates(currentBoard) {
+    const dueDates = Object.values(currentBoard).map((obj) => obj.Date);
+    return findNearestDate(dueDates)
 }
 
-function renderBoardSummary(currentBoard) {
-    let toDo = currentBoard.counter.toDo;
-    let done = currentBoard.counter.Done;
-    let review = currentBoard.counter.Review;
-    let total = currentBoard.counter.Total;
-    let urgent = currentBoard.counter.Urgent;
-    let inProgress = currentBoard.counter.inProgress;
-    document.getElementById('toDoCounterSpan').innerHTML = `${toDo}`;
-    document.getElementById('doneCounterSpan').innerHTML =  `${done}`;
-    document.getElementById('totalCount').innerHTML = `${total}`;
-    document.getElementById('awaitReview').innerHTML = `${review}`;
-    document.getElementById('urgentAmount').innerHTML = `${urgent}`;
-    document.getElementById('inProgress').innerHTML = `${inProgress}`;
+function findNearestDate(dueDates) {
+    const currentTime = new Date(currentDate).getTime();
+    const nearestDate = dueDates.reduce((closest, current) => {
+        const currentDiff = Math.abs(new Date(current).getTime() - currentTime);
+        const closestDiff = Math.abs(new Date(closest).getTime() - currentTime);
+        return currentDiff < closestDiff ? current : closest;
+    });
+
+    return nearestDate;
+}
+
+function countTasks(currentBoard, deadline) {
+    const types = Object.values(currentBoard).map((obj) => obj.type);
+    const counter = {
+        toDo: 0,
+        done: 0,
+        review: 0,
+        urgent: 0,
+        inProgress: 0,
+        total: types.length
+    };
+
+    forLoopCount(counter, types, deadline);
+}
+
+function forLoopCount(counter, types, deadline) {
+    for (let index = 0; index < types.length; index++) {
+        const type = types[index];
+        if (type === "todo") {
+            counter.toDo++;
+            counter.inProgress++;
+        } else if (type === "done") {
+            counter.done++;
+        } else if (type === "urgent") {
+            counter.urgent++;
+            counter.inProgress++;
+        } else if (type === "review") {
+            counter.review++;
+            counter.inProgress++;
+        }
+    }
+    formatDate(deadline, counter)
+}
+
+function formatDate(deadline, counter) {
+    const deadlineDate = new Date(deadline);
+    let formatedDeadline = deadlineDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    renderBoardSummary(counter, formatedDeadline)
+  }
+
+function renderBoardSummary(counter, formatedDeadline) {
+    document.getElementById('toDoCounterSpan').innerHTML = counter.toDo;
+    document.getElementById('doneCounterSpan').innerHTML = counter.done;
+    document.getElementById('totalCount').innerHTML = counter.total;
+    document.getElementById('awaitReview').innerHTML = counter.review;
+    document.getElementById('urgentAmount').innerHTML = counter.urgent;
+    document.getElementById('inProgress').innerHTML = counter.inProgress;
+    document.getElementById('deadlineDate').innerHTML = formatedDeadline;
 }

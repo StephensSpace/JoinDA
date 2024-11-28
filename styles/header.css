@@ -50,4 +50,5 @@ header img:hover {
 #initials {
     width: -webkit-fill-available;
     text-align: center;
+    color: white;
 }
