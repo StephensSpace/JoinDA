@@ -27,6 +27,23 @@ body {
 
 /* Hauptinhalt */
 .content {
-    padding: 40px;
-    flex: 1;
+  padding: 40px;
+  flex: 1;
+}
+
+
+
+
+/* HIER RICHTIG??? */
+
+aside {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
+
+
+main {
+  display: flex;
+  padding: 0 !important;
 }
