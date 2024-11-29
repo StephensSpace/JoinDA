@@ -5,8 +5,8 @@ const date = new Date().toISOString().split('T')[0];
 const currentDate = new Date();
 
 function setGreeting() {
-    selectGreeting();
-    setUsername();
+    //selectGreeting();
+    //setUsername();
     fetchCurrentBoard();
 }
 

@@ -1,14 +1,15 @@
 function checkViewport() {
-    // Wenn die Viewport-Breite <= 450px, leite zur mobilen Version weiter
+    const currentPage = window.location.pathname.split('/').pop();
+    const isMobilePage = currentPage.includes('Mobile.html');
+    const mobilePage = isMobilePage ? currentPage : currentPage.replace('.html', 'Mobile.html');
+    const desktopPage = isMobilePage ? currentPage.replace('Mobile.html', '.html') : currentPage;
     if (window.innerWidth <= 660) {
-        // Prüfe, ob die mobile Version noch nicht geladen wurde
-        if (!window.location.href.includes('loginMobile.html')) {
-            window.location.href = "loginMobile.html";
+        if (!window.location.href.includes(mobilePage)) {
+            window.location.href = mobilePage;
         }
     } else {
-        // Wenn die Viewport-Breite > 450px, leite zur Desktop-Version weiter
-        if (!window.location.href.includes('login.html')) {
-            window.location.href = "login.html";
+        if (!window.location.href.includes(desktopPage)) {
+            window.location.href = desktopPage;
         }
     }
 }

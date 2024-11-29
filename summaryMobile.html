@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JoinMobile</title>
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/color-template.css">
+    <link rel="stylesheet" href="./styles/headerMobile.css">
+    <link rel="stylesheet" href="./styles/summaryMobile.css">
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <script src="./script/firebase-config.js"></script>
+    <script src="./script/summary.js"></script>
+
+</head>
+
+<body onload="setGreeting()">
+    <header>
+        <img src="./assets/img/logo.png" id="logo">
+        <div>
+            <div id="userProfil">
+                <span id="initials">SM</span>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="cardOverviewDiv">
+        <div class="toDoAndDoneDiv">
+            <div class="toDoAndDoneCard">
+                <img src="./assets/icons/pencil40.png" alt="">
+                <div id="toDoCounter">
+                    <span id="toDoCounterSpan"></span>
+                    <span class="toDoDoneSpan">To-Do</span>
+                </div>
+            </div>
+            <div class="toDoAndDoneCard">
+                <img src="./assets/icons/check40.png" alt="">
+                <div id="doneCounter">
+                    <span id="doneCounterSpan"></span>
+                    <span class="toDoDoneSpan">Done</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="urgentTaskBox">
+            <img src="./assets/icons/roundUrgent40.png" alt="">
+            <div id="amountUrgentTasksDiv">
+                <span id="urgentAmount">1</span>
+                <span id="urgentSpam">Urgent</span>
+            </div>
+            <div id="vectorHorizontal"></div>
+            <div id="deadlineDiv">
+                <span id="deadlineDate">October 16, 2022</span>
+                <span id="upcommingSpan">Upcoming Deadline</span>
+            </div>
+        </div>
+
+        <div class="taskOverview">
+            <div class="taskOverviewCard">
+                <div class="taskCounterDiv">
+                    <span class="taskCount" id="totalCount"></span>
+                    <span class="taskCounterText">Tasks in Board</span>
+                </div>
+            </div>
+            <div class="taskOverviewCard">
+                <div class="taskCounterDiv">
+                    <span class="taskCount" id="inProgress"></span>
+                    <span class="taskCounterText">Tasks in Progress</span>
+                </div>
+            </div>
+            <div class="taskOverviewCard">
+                <div class="taskCounterDiv">
+                    <span class="taskCount" id="awaitReview"></span>
+                    <span class="taskCounterText">Awaiting Feedback</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <!--Jungs hier die klasse activ setzen bei eurer Seite -->
+        <div class="outerButtonDiv activ">
+            <div class="innerMenuButton">
+                <img src="./assets/icons/summary24.png" alt="">
+                <span class="mobileMenuBtns">Summary</span>
+            </div>
+        </div>
+        <div class="outerButtonDiv">
+            <div class="innerMenuButton">
+                <img src="./assets/icons/board24.png" alt="">
+                <span class="mobileMenuBtns">Board</span>
+            </div>
+        </div>
+        <div class="outerButtonDiv">
+            <div class="innerMenuButton">
+                <img src="./assets/icons/addTask24.png" alt="">
+                <span class="mobileMenuBtns">Add Task</span>
+            </div>
+        </div>
+        <div class="outerButtonDiv">
+            <div class="innerMenuButton">
+                <img src="./assets/icons/contacts24.png" alt="">
+                <span class="mobileMenuBtns">Contacts</span>
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>
