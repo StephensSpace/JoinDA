@@ -1,5 +1,4 @@
 
-
 header {
     display: flex;
     flex-direction: row;
@@ -8,7 +7,8 @@ header {
     padding: 20px 40px 20px 348px;
     gap: 34px;
     position: absolute;
-    width: 1440px;
+    max-width: 1920px;
+    width: 100%;
     height: 96px;
     left: 0px;
     top: 0px;
