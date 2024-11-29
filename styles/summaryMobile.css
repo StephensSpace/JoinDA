@@ -6,7 +6,7 @@
     position: absolute;
     width: 223px;
     height: 104px;
-    padding-left: calc(16px + (100vw - 428px) / 2); /* Padding wächst ab 428px */
+    padding-left: calc(16px + (100vw - 428px) / 2);
     top: 128px;
 }
 
@@ -15,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 0px;
+    padding: 0px 10px;
     gap: 8px;
     width: 223px;
     height: 88px;
@@ -33,6 +33,7 @@
     width: 90px;
     height: 0px;
     border: 2px solid #29ABE2;
+    margin-left: 10px;
 }
 
 .h1UnderlineDiv {
@@ -47,9 +48,9 @@
 
 .cardOverviewDiv {
     position: absolute;
-    width: 396px;
+    max-width: 396px;
     height: 384px;
-    left: calc(50% - 396px/2);
+    left: calc(max(0px, 50% - 396px / 2));
     top: calc(50% - 384px/2 + 1px);
     /* Eigene Idee, die Box als Flexbox */
     display: flex;
@@ -61,7 +62,8 @@
 .toDoAndDoneDiv {
     display: flex;
     justify-content: space-between;
-    width: 396px;
+    max-width: 396px;
+    width: 100%;
     height: 110px;
 }
 
@@ -72,26 +74,15 @@
     align-items: center;
     padding: 38px 58px;
     gap: 10px;
-    width: 186px;
+    max-width: 186px;
     height: 110px;
+    width: 100%;
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }
 
-.urgentDeadlineDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 28px 48px;
-    gap: 61px;
-    width: 560px;
-    height: 168px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-}
+
 
 #urgentTaskBox {
     display: flex;
@@ -100,11 +91,9 @@
     align-items: center;
     padding: 28px 0px;
     gap: 20px;
-    position: absolute;
-    width: 396px;
+    max-width: 396px;
+    width: 100%;
     height: 110px;
-    left: calc(50% - 396px/2);
-    top: calc(50% - 110px/2 + 3px);
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -117,8 +106,10 @@
     align-items: center;
     padding: 0px;
     gap: 18px;
-    width: 108px;
+    max-width: 108px;
+    width: 100%;
     height: 73px;
+    justify-content: end;
 }
 
 #urgentAmount {
@@ -146,7 +137,8 @@
     align-items: flex-start;
     padding: 0px;
     gap: 8px;
-    width: 135px;
+    max-width: 135px;
+    width: 100%;
     height: 44px;
 }
 
@@ -183,6 +175,7 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
+    box-sizing: border-box;
 }
 
 .taskCounterDiv {
@@ -246,6 +239,7 @@
     padding: 0px;
     width: 63px;
     height: 101px;
+    justify-content: center;
 }
 
 #doneCounter {
@@ -281,4 +275,58 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 396px) {
+    .cardOverviewDiv {
+        max-width: 100%;
+        /* Maximal die komplette Breite des Viewports */
+        padding: 10px;
+        /* Anpassung des Innenabstands für kleinere Bildschirmgrößen */
+    }
+
+    .taskOverview {
+        justify-content: center;
+        padding: 0 10px;
+    }
+
+    #urgentTaskBox {
+        gap: 10px;
+    }
+
+    .toDoAndDoneDiv {
+        justify-content: center;
+    }
+
+    .toDoAndDoneCard {
+        width: 50%;
+        /* Karten teilen sich den Platz gleichmäßig */
+        max-width: 186px;
+        /* Maximale Breite bei großen Bildschirmen */
+    }
+}
+
+@media(max-width: 368px) {
+    .taskOverview {
+        max-width: 396px;
+        width: 100%;
+        padding: 0px;
+    }
+
+    .taskOverviewCard {
+        width: 33.3%;
+    }
+
+    #urgentTaskBox {
+        padding-left: 6px;
+        gap: 5px;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 344px) {
+    #deadlineDate {
+        white-space: wrap;
+    }
 }
