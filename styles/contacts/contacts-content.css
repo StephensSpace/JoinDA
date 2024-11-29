@@ -1,0 +1,242 @@
+
+/* 
+███████╗██████╗░░██████╗████████╗███████╗      ██████╗░██╗██╗░░░██╗
+██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔════╝      ██╔══██╗██║██║░░░██║
+█████╗░░██████╔╝╚█████╗░░░░██║░░░█████╗░░      ██║░░██║██║╚██╗░██╔╝
+██╔══╝░░██╔══██╗░╚═══██╗░░░██║░░░██╔══╝░░      ██║░░██║██║░╚████╔╝░
+███████╗██║░░██║██████╔╝░░░██║░░░███████╗      ██████╔╝██║░░╚██╔╝░░
+╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░╚══════╝      ╚═════╝░╚═╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".content" */
+
+.contact-content {
+
+}
+
+/* 
+███████╗░██╗░░░░░░░██╗███████╗██╗████████╗███████╗      ██████╗░██╗██╗░░░██╗
+╚════██║░██║░░██╗░░██║██╔════╝██║╚══██╔══╝██╔════╝      ██╔══██╗██║██║░░░██║
+░░███╔═╝░╚██╗████╗██╔╝█████╗░░██║░░░██║░░░█████╗░░      ██║░░██║██║╚██╗░██╔╝
+██╔══╝░░░░████╔═████║░██╔══╝░░██║░░░██║░░░██╔══╝░░      ██║░░██║██║░╚████╔╝░
+███████╗░░╚██╔╝░╚██╔╝░███████╗██║░░░██║░░░███████╗      ██████╔╝██║░░╚██╔╝░░
+╚══════╝░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░░╚═╝░░░╚══════╝      ╚═════╝░╚═╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content" */
+
+.contact-content-head {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-end; */
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
+    position: absolute;
+    width: 569px;
+    height: 73px;
+    left: 743px;
+    top: 206px;
+}
+
+
+/* &&&&&&&&&&&&&&&&&&&& */
+
+
+.contact-content-table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 21px;
+    position: absolute;
+    width: 461px;
+    height: 364px;
+    left: 750px;
+    top: 311px;
+}
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content-head" */
+
+.contact-content-head h1 {
+    width: max-content;
+    height: 73px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 120%;
+    color: #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.contact-content-head hr {
+    width: 0px;
+    height: 59px;
+    border: 3px solid #29ABE2;
+    flex: none;
+    /* order: 1; */
+    flex-grow: 0;
+}
+
+.contact-content-head p {
+    width: 235px;
+    height: 32px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 120%;
+    color: #2A3647;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+
+/* UNTERGEORDNET ".contact-content-table" */
+
+.contact-content-table-usernameAndIcons {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    max-height: 120px;
+}
+
+.contact-content-table-usernameAndIcons span {
+    font-size: 47px;
+}
+
+
+/* &&&&&&&&&&&&&&&&&&&& */
+
+
+.contact-content-table-usernameFullinformation {
+
+}
+
+.contact-content-table-usernameFullinformation div p {
+    padding: 20px 0;
+}
+
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content-table-usernameAndIcons" */
+
+.userIconTable {
+    background-color: white;
+    filter: drop-shadow(0 0 0.045rem gray);
+    border-radius: 100%;
+    width: 128px;
+    height: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userIconTable p {
+    background-color: #FF7A00;
+    width: 120px;
+    height: 122px;
+    border-radius: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+}
+
+
+/* &&&&&&&&&&&&&&&&&&&& */
+
+
+.userIconTableNameDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 287px;
+    height: 88px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    justify-content: center;
+}
+
+.userIconTableNameDiv Div {
+    width: max-content;
+}
+
+
+/* UNTERGEORDNET ".contact-content-table-usernameFullinformation" */
+
+.contact-content-information {
+    font-size: 18px;
+    padding: 36px 0;
+}
+
+
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".userIconTableNameDiv" */
+
+.contact-content-table-editAndDeleteIcons {
+    display: flex;
+    gap: 16px;
+}
+
+.contact-content-table-editAndDeleteIcons div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content-table-editAndDeleteIcons" */
+
+.editAndDeleteBtn:hover {
+    color: var(--background-color-hover);
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img {
+    display: block;
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img-1 {
+    display: none;
+}
+
+.hidden {
+    display: none;
+  }

@@ -102,7 +102,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
                 ${userIconTemplateContactTable(USER_NAME, userIndex)}
             </div>
             <div class="userIconTableNameDiv">
-                <span style="font-weight: 500;">${USER_NAME}</span>
+                <div> <span style="font-weight: 500;">${USER_NAME}</span> </div>
                 <div class="contact-content-table-editAndDeleteIcons">
                     <div class="editAndDeleteBtn" onclick="openEditContactModal(${userIndex})">
                         <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/edit.png" alt="./assets/icons/edit.png"> 
@@ -143,8 +143,10 @@ function modalAddContactTemplate() {
             <div class="modal-left modal-same-padding-left">
                 <div class="modal-left-div modal-same-height">
                     <img src="./assets/img/logo-2.png">
-                    <h1>Add contact</h1>
-                    <p>Tasks are better with a team!</p>
+                    <div>
+                        <h1>Add contact</h1>
+                        <p>Tasks are better with a team!</p>
+                    </div>
                     <hr>
                 </div>
             </div>

@@ -11,18 +11,19 @@
     <link rel="stylesheet" href="./styles/color-template.css">
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/main.css">
-    <link rel="stylesheet" href="./styles/contacts.css">
-    <link rel="stylesheet" href="./styles/contacts-modal.css">
-    <link rel="stylesheet" href="./styles/button.css">
     
+    <link rel="stylesheet" href="./styles/contacts/contacts-modal.css">
+    <link rel="stylesheet" href="./styles/contacts/contacts-contactBoard.css">
+    <link rel="stylesheet" href="./styles/contacts/contacts-content.css">
+
     <!-- Firebase SDK für die App und die Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
 
     <!-- Js -->
     <script src="./script/firebase-config.js"></script>
-    <script src="./script/contacts.js"></script>
-    <script src="./script/contacts-templates.js"></script>
+    <script src="./script/contacts/contacts.js"></script>
+    <script src="./script/contacts/contacts-templates.js"></script>
 
 </head>
 <body onload="initContacts()">
@@ -84,7 +85,7 @@
             <div class="contact-content">
 
                 <div class="contact-content-head">
-                    <h1 class="contentH1">Contacts</h1>
+                    <h1>Contacts</h1>
                     <hr>
                     <p>Better with a team</p>
                 </div>

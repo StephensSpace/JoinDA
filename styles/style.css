@@ -12,6 +12,10 @@ body {
   min-height: 100vh;
   background-color: #f4f4f4;
   font-family: 'Inter';
+  font-style: normal;
+  color: #000000;
+  line-height: 120%;
+  overflow-x: hidden;
 }
 
 /* Statisches Logo in der Seitenleiste (summary.html und board.html) */
@@ -35,7 +39,7 @@ body {
   gap: 103px;
   position: absolute;
   width: 232px;
-  height: 1024px;
+  height: 100vh;
   left: 0px;
   top: 0px;
   background: #2A3647;
