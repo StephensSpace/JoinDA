@@ -1,37 +1,49 @@
 .h1Div {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    gap: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
     position: absolute;
-    width: 625px;
-    height: 73px;
-    left: 328px;
-    top: 206px;
+    width: 223px;
+    height: 104px;
+    padding-left: calc(16px + (100vw - 428px) / 2); /* Padding wächst ab 428px */
+    top: 128px;
+}
+
+#joinKeyMetrics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 223px;
+    height: 88px;
 }
 
 .h1Div h1 {
+    width: 203px;
+    height: 56px;
     font-weight: 700;
-    font-size: 61px;
-    line-height: 120%;
+    font-size: 47px;
     color: #000000;
 }
 
-.h1UnderlineDiv {
-    height: 65px;
-    width: 332.5px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-left: solid #29ABE2;
+#devidingVector {
+    width: 90px;
+    height: 0px;
+    border: 2px solid #29ABE2;
 }
 
-.h1UnderlineDiv p {
+.h1UnderlineDiv {
+    width: 223px;
+    height: 24px;
     font-weight: 400;
-    font-size: 27px;
+    font-size: 20px;
+    line-height: 120%;
+    color: #2A3647;
 }
+
 
 .cardOverviewDiv {
     position: absolute;

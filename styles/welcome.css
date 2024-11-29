@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ermöglicht eine vollständige Bildschirmhöhe */
+    background-color: #f4f4f4;
+    margin: 0; /* Entfernt Standard-Margins */
+}
+
+.greetingBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    gap: 3px;
+    width: 100%; /* Für responsive Breite */
+    max-width: 650px; /* Begrenzung der Breite */
+    height: auto; /* Höhe wird durch Inhalte definiert */
+    white-space: nowrap;
+    opacity: 1;
+    animation: fadeOut 1.75s forwards; /* Animation */
+}
+
+/* Animation */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    57% { /* nach der 1 Sekunde sichtbare Zeit */
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#daytime {
+    width: auto; /* Automatische Breite, um den Text zu berücksichtigen */
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 120%;
+    color: #2A3647;
+    text-align: center; /* Zentriert den Text */
+}
+
+#userName {
+    width: auto; /* Automatische Breite, um den Text zu berücksichtigen */
+    font-weight: 700;
+    font-size: 47px;
+    line-height: 120%;
+    color: #29ABE2;
+    text-align: center; /* Zentriert den Text */
+}
