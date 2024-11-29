@@ -1,10 +1,11 @@
 
 
 aside {
-  display: flex;
-  flex-direction: column;
-  width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
 }
+
 
 main {
     display: flex;
@@ -17,3 +18,4 @@ main {
     font-size: xxx-large !important;
     margin: 0 !important;
 }
+

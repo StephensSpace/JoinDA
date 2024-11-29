@@ -743,15 +743,13 @@ textarea {
 }
 
 .task-type {
-  background-color: blue;
-  width: 164px;
-  height: 36px;
-  border-radius: 5px;
+  display: inline-block;
   padding: 4px 8px;
-  gap: 10px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px; /* Nur die oberen Ecken abgerundet */
+  margin-bottom: 8px;
+  color: white; /* Textfarbe */
 }
 
 /* Subtasks Styling */

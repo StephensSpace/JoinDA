@@ -1,6 +1,6 @@
 // Öffne Add Task Modal und setze die Kategorie
-function openAddTaskModal(category) {
-  selectedCategory = category || "todo"; // Setze die Kategorie basierend auf Spalte
+function openAddTaskModal(type) {
+  selectedType = type || "todo"; // Setze die Kategorie basierend auf Spalte
   resetAddTaskModal(); // Modal zurücksetzen
   document.getElementById("addTaskModal").style.display = "block";
   fetchContacts((contacts) => {
@@ -9,12 +9,11 @@ function openAddTaskModal(category) {
 }
 
 function addTaskToBoard(task) {
-  const status = task.category || "todo";
+  const status = task.type || "todo";
   const boardColumn = document.querySelector(
     `.board-column[data-status="${status}"]`
   );
-  if (!boardColumn)
-    return console.error(`No column found for category: ${status}`);
+  if (!boardColumn) return console.error(`No column found for type: ${status}`);
   const tasksContainer = boardColumn.querySelector(".tasks-container");
   if (!tasksContainer) return;
   const taskCard = createTaskCard(task); // Task-Karte erstellen
@@ -29,21 +28,41 @@ function addTaskToBoard(task) {
 
 function handleTaskSubmit(e) {
   e.preventDefault(); // Verhindert das Standardverhalten des Formulars
+  try {
+    console.log("handleTaskSubmit aufgerufen, selectedType:", selectedType);
+    if (checkCategory()) {
+      const typeInput = document.getElementById("taskTypeInput"); // Hole das Element hier
+      const task = {
+        title: document.getElementById("taskTitle").value,
+        description: document.getElementById("taskDescription").value,
+        dueDate: document.getElementById("taskDueDate").value,
+        type: selectedType || "todo", // Spalte (z. B. todo, in-progress)
+        category: typeInput.value, // Kategorie der Aufgabe
+        priority: selectedPriority || "Medium",
+        subtasks: subtasksArray,
+        members: selectedMembers,
+      };
+      saveTaskToFirebase(task); // Speichere die Task
+      closeModal(); // Schließe das Modal
+      resetAddTaskModal(); // Setze die Inhalte des Modals zurück
+    } else {
+      console.log("Kategorie nicht ausgewählt");
+      document.getElementById("taskCategoryDropdown").focus();
+    }
+  } catch (error) {
+    console.error("Fehler in handleTaskSubmit:", error);
+  }
+}
 
-  const task = {
-    title: document.getElementById("taskTitle").value,
-    description: document.getElementById("taskDescription").value,
-    dueDate: document.getElementById("taskDueDate").value,
-    category: selectedCategory || "todo", // Spalte (z. B. todo, in-progress)
-    type: document.getElementById("taskTypeInput").value || "Technical Task", // Typ der Task
-    priority: selectedPriority || "Medium",
-    subtasks: subtasksArray,
-    members: selectedMembers,
-  };
-
-  saveTaskToFirebase(task); // Speichere die Task
-  closeModal(); // Schließe das Modal
-  resetAddTaskModal(); // Setze die Inhalte des Modals zurück
+function checkCategory() {
+  const typeInput = document.getElementById("taskTypeInput");
+  if (!typeInput.value) {
+    document.getElementById("msg-box").classList.remove("hidden");
+    return false; // Gibt false zurück, wenn keine Kategorie ausgewählt ist
+  } else {
+    document.getElementById("msg-box").classList.add("hidden");
+    return true; // Gibt true zurück, wenn eine Kategorie ausgewählt ist
+  }
 }
 
 function createTaskCard(task) {
@@ -51,31 +70,29 @@ function createTaskCard(task) {
   card.className = "task-card";
   card.setAttribute("draggable", "true"); // Drag-and-Drop aktivieren
   card.dataset.id = task.id; // Task-ID für spätere Referenz
-  card.dataset.category = task.category; // Kategorie zuweisen
-
+  card.dataset.type = task.type; // Kategorie zuweisen
+  const categoryText =
+    task.category === "User Story" ? "User Story" : "Technical Task";
+  const categoryColor = task.category === "User Story" ? "#0038FF" : "#1FD7C1";
   card.innerHTML = `
-        <div class="tag">${task.type || "Task"}</div>
-        <h3>${task.title}</h3>
-        <p>${task.description || "No description provided"}</p>
-        <div class="progress">
-          <span>${task.subtasks ? task.subtasks.length : 0} Subtasks</span>
-        </div>
-        <div class="avatars">${createAssignedAvatars(task)}</div>
-      `;
-
+    <div class="task-category" style="background-color: ${categoryColor}; color: white;">
+      ${categoryText}
+    </div>
+    <h3>${task.title}</h3>
+    <p>${task.description || "No description provided"}</p>
+    ${createSubtasksProgress(task)}
+    ${createAssignedAvatars(task)}
+    <div class="icon menu-icon">&#9776;</div>
+  `;
   card.addEventListener("click", () => showTaskDetails(task)); // Details anzeigen
-
-  // Drag-and-Drop Event Listener hinzufügen
   card.addEventListener("dragstart", (e) => {
     startDragging(e, card);
     draggedTask = card; // 'draggedTask' setzen
   });
-
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
-
   return card;
 }
 
@@ -124,7 +141,7 @@ function resetAddTaskModal() {
     .forEach((btn) => btn.classList.remove("active")); // Prioritäten zurücksetzen
   document.getElementById("taskCategorySelectedText").textContent =
     "Select task category"; // Kategorie-Text zurücksetzen
-  document.getElementById("taskTypeInput").value = "todo"; // Standardkategorie
+  document.getElementById("taskTypeInput").value = ""; // Standardkategorie
   selectedMembers = []; // Ausgewählte Mitglieder leeren
   updateSelectedMembers(); // Mitgliederanzeige zurücksetzen
 }
@@ -141,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const categorySelectedText = document.getElementById(
     "taskCategorySelectedText"
   );
-  const categoryInput = document.getElementById("taskTypeInput");
+  const typeInput = document.getElementById("taskTypeInput");
 
   // Dropdown öffnen/schließen
   categoryDropdown.addEventListener("click", (e) => {
@@ -156,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
       option.addEventListener("click", () => {
         const selectedCategory = option.dataset.value; // Ausgewählte Kategorie
         categorySelectedText.textContent = selectedCategory; // Zeigt die Kategorie im Dropdown
-        categoryInput.value = selectedCategory; // Setzt den Wert im versteckten Input-Feld
+        typeInput.value = selectedCategory; // Setzt den Wert im versteckten Input-Feld
         categoryOptions.classList.add("hidden"); // Dropdown schließen
       });
     });

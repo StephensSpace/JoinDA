@@ -32,10 +32,11 @@ let selectedPriority = "Medium"; // Default priority
 let selectedMembers = []; // Globales Array für ausgewählte Kontakte
 let subtasksArray = []; // Filled when adding subtasks
 let currentTaskId = null;
-let selectedCategory = "todo"; // Standardkategorie
+let selectedCategory = ""; // Standardkategorie
 let isEditMode = false;
 let currentDraggedTask = null;
 let draggedTask = null;
+let selectedType = "todo"; // Standardwert
 
 function renderTasks(tasks) {
   for (let taskId in tasks) {
@@ -310,6 +311,28 @@ function removeInitialFromSelected(initials, selectedContainer) {
     }
   });
 }
+
+function filterTasks() {
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    document.querySelectorAll(".task-card").forEach((task) => {
+      const title = task.querySelector("h3").textContent.toLowerCase();
+      task.style.display = title.includes(searchTerm) ? "block" : "none";
+    });
+    document.querySelectorAll(".board-column").forEach((column) => {
+      const tasksContainer = column.querySelector(".tasks-container");
+      const noTasksMessage = column.querySelector(".no-tasks");
+      const visibleTasks = tasksContainer.querySelectorAll(
+        ".task-card:not([style*='display: none'])"
+      );
+      noTasksMessage.style.display = visibleTasks.length ? "none" : "block";
+    });
+  });
+}
+
+// Aufrufen der Funktion
+filterTasks();
 
 function collectFormData() {
   return {

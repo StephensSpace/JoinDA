@@ -26,12 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Event Listener für den "Create Task"-Button im "Add Task"-Modal
+  const createTaskButton = document.getElementById("createTaskButton");
+  if (createTaskButton) {
+    createTaskButton.addEventListener("click", handleTaskSubmit);
+  }
+
   // "Add Task"-Button
   const addTaskButton = document.getElementById("addTaskButton");
   if (addTaskButton) {
     addTaskButton.addEventListener("click", () => {
-      document.getElementById("addTaskModal").style.display = "block";
-      resetAddTaskForm();
+      openAddTaskModal("todo"); // Oder den gewünschten Standardtyp
       // Fetch contacts and populate dropdown
       fetchContacts((contacts) => {
         populateContactsDropdown(contacts);
@@ -63,21 +68,21 @@ document.addEventListener("DOMContentLoaded", () => {
     optionsContainer.classList.add("hidden");
   });
 
-  // "Add Task"-Formularübermittlung
-  const addTaskForm = document.getElementById("addTaskForm");
-  if (addTaskForm) {
-    addTaskForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      let taskData = collectFormData();
-      if (isEditMode) {
-        updateTaskInFirebase(currentTask.id, taskData);
-      } else {
-        saveTaskToFirebase(taskData);
-      }
-      document.getElementById("addTaskModal").style.display = "none";
-      resetAddTaskForm();
-    });
-  }
+  //   // "Add Task"-Formularübermittlung
+  //   const addTaskForm = document.getElementById("addTaskForm");
+  //   if (addTaskForm) {
+  //     addTaskForm.addEventListener("submit", function (event) {
+  //       event.preventDefault();
+  //       let taskData = collectFormData();
+  //       if (isEditMode) {
+  //         updateTaskInFirebase(currentTask.id, taskData);
+  //       } else {
+  //         saveTaskToFirebase(taskData);
+  //       }
+  //       document.getElementById("addTaskModal").style.display = "none";
+  //       resetAddTaskForm();
+  //     });
+  //   }
 
   // Event Listener für den "Cancel"-Button im "Add Task"-Modal
   const cancelButton = document.getElementById("cancelButton");
@@ -118,13 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Event Listener für die "+"-Buttons in den Spalten
-  const addTaskCategoryButtons = document.querySelectorAll(
+  const addTaskTypeButtons = document.querySelectorAll(
     ".add-task-btn-category"
   );
-  addTaskCategoryButtons.forEach((button) => {
+  addTaskTypeButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const category = button.getAttribute("data-category"); // Kategorie aus Attribut
-      openAddTaskModal(category); // Modal öffnen und Kategorie setzen
+      const type = button.getAttribute("data-type"); // Typ aus Attribut
+      console.log("Button geklickt in Spalte mit Typ:", type);
+      openAddTaskModal(type); // Modal öffnen und Typ setzen
     });
   });
 

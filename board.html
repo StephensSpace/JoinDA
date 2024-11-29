@@ -89,13 +89,13 @@
         <div class="headlines">
           <div class="card">
             <h2>To do</h2>
-            <button class="add-task-btn-category" data-category="todo">
+            <button class="add-task-btn-category" data-type="todo">
               +
             </button>
           </div>
           <div class="card">
             <h2>In progress</h2>
-            <button class="add-task-btn-category" data-category="in-progress">
+            <button class="add-task-btn-category" data-type="in-progress">
               +
             </button>
           </div>
@@ -103,7 +103,7 @@
             <h2>Await feedback</h2>
             <button
               class="add-task-btn-category"
-              data-category="await-feedback"
+              data-type="await-feedback"
             >
               +
             </button>
@@ -354,9 +354,10 @@
                   type="hidden"
                   id="taskCategoryInput"
                   name="taskCategory"
-                  value="todo"
+                  value=""
                   required
                 />
+                <span id="msg-box" class="hidden">Bitte wählen Sie eine Category aus</span>
                 <div id="selectedCategoryContainer"></div>
                 <input type="hidden" id="taskTypeInput" value="" />
               </div>
@@ -385,7 +386,7 @@
               <!-- Actions -->
               <div class="addTask-buttons">
                 <button class="cancel-btn" id="cancelButton">Cancel x</button>
-                <button type="submit" class="create-task-btn">
+                <button type="submit" id="createTaskButton" class="create-task-btn">
                   Create Task ✓
                 </button>
               </div>
