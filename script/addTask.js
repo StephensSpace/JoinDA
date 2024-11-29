@@ -30,8 +30,14 @@ function handleTaskSubmit(e) {
   e.preventDefault(); // Verhindert das Standardverhalten des Formulars
   try {
     console.log("handleTaskSubmit aufgerufen, selectedType:", selectedType);
-    if (checkCategory()) {
-      const typeInput = document.getElementById("taskTypeInput"); // Hole das Element hier
+
+    // Überprüfe, ob alle Pflichtfelder ausgefüllt sind
+    const isCategoryValid = checkCategory();
+    const isTitleValid = checkTitle();
+    const isDateValid = checkDueDate();
+
+    if (isCategoryValid && isTitleValid && isDateValid) {
+      const typeInput = document.getElementById("taskTypeInput");
       const task = {
         title: document.getElementById("taskTitle").value,
         description: document.getElementById("taskDescription").value,
@@ -42,79 +48,60 @@ function handleTaskSubmit(e) {
         subtasks: subtasksArray,
         members: selectedMembers,
       };
+
       saveTaskToFirebase(task); // Speichere die Task
       closeModal(); // Schließe das Modal
       resetAddTaskModal(); // Setze die Inhalte des Modals zurück
-    } else {
-      console.log("Kategorie nicht ausgewählt");
-      document.getElementById("taskCategoryDropdown").focus();
     }
   } catch (error) {
     console.error("Fehler in handleTaskSubmit:", error);
   }
 }
 
+function checkTitle() {
+  const titleInput = document.getElementById("taskTitle");
+  const titleError = document.getElementById("titleError");
+
+  if (!titleInput.value.trim()) {
+    titleError.classList.remove("hidden");
+    titleInput.focus();
+    return false;
+  } else {
+    titleError.classList.add("hidden");
+    return true;
+  }
+}
+
+function checkDueDate() {
+  const dateInput = document.getElementById("taskDueDate");
+  const dateError = document.getElementById("dueDateError");
+
+  if (!dateInput.value) {
+    dateError.classList.remove("hidden");
+    dateInput.focus();
+    return false;
+  } else {
+    dateError.classList.add("hidden");
+    return true;
+  }
+}
+
 function checkCategory() {
   const typeInput = document.getElementById("taskTypeInput");
+  const categoryError = document.getElementById("msg-box");
+
   if (!typeInput.value) {
-    document.getElementById("msg-box").classList.remove("hidden");
-    return false; // Gibt false zurück, wenn keine Kategorie ausgewählt ist
+    categoryError.classList.remove("hidden");
+    return false;
   } else {
-    document.getElementById("msg-box").classList.add("hidden");
-    return true; // Gibt true zurück, wenn eine Kategorie ausgewählt ist
+    categoryError.classList.add("hidden");
+    return true;
   }
-}
-
-function createTaskCard(task) {
-  const card = document.createElement("div");
-  card.className = "task-card";
-  card.setAttribute("draggable", "true"); // Drag-and-Drop aktivieren
-  card.dataset.id = task.id; // Task-ID für spätere Referenz
-  card.dataset.type = task.type; // Kategorie zuweisen
-  const categoryText =
-    task.category === "User Story" ? "User Story" : "Technical Task";
-  const categoryColor = task.category === "User Story" ? "#0038FF" : "#1FD7C1";
-  card.innerHTML = `
-    <div class="task-category" style="background-color: ${categoryColor}; color: white;">
-      ${categoryText}
-    </div>
-    <h3>${task.title}</h3>
-    <p>${task.description || "No description provided"}</p>
-    ${createSubtasksProgress(task)}
-    ${createAssignedAvatars(task)}
-    <div class="icon menu-icon">&#9776;</div>
-  `;
-  card.addEventListener("click", () => showTaskDetails(task)); // Details anzeigen
-  card.addEventListener("dragstart", (e) => {
-    startDragging(e, card);
-    draggedTask = card; // 'draggedTask' setzen
-  });
-  card.addEventListener("dragend", () => {
-    currentDraggedTask = null;
-    draggedTask = null;
-  });
-  return card;
-}
-
-function createSubtasksProgress(task) {
-  let total = task.subtasks ? task.subtasks.length : 0;
-  if (total > 0) {
-    let completed = task.subtasks.filter((st) => st.completed).length;
-    let percent = (completed / total) * 100;
-    return `
-            <div class="progress">
-              <div class="progress-bar" style="width: ${percent}%"></div>
-              <span>${completed}/${total} Subtasks</span>
-            </div>
-          `;
-  }
-  return "";
 }
 
 function updatePriorityIcon(priority) {
   const priorityIcon = document.getElementById("taskDetailPriorityIcon");
   if (priorityIcon) {
-    // Set the icon or styling based on priority
     if (priority === "Urgent") {
       priorityIcon.innerHTML =
         '<img src="./assets/icons/urgent.png" alt="Urgent">';
@@ -124,7 +111,7 @@ function updatePriorityIcon(priority) {
     } else if (priority === "Low") {
       priorityIcon.innerHTML = '<img src="./assets/icons/low.png" alt="Low">';
     } else {
-      priorityIcon.innerHTML = "";
+      priorityIcon.innerHTML = ""; // Keine Priorität
     }
   }
 }
@@ -144,6 +131,18 @@ function resetAddTaskModal() {
   document.getElementById("taskTypeInput").value = ""; // Standardkategorie
   selectedMembers = []; // Ausgewählte Mitglieder leeren
   updateSelectedMembers(); // Mitgliederanzeige zurücksetzen
+
+  hideErrorMessages(); // Fehlermeldungen ausblenden
+}
+
+function hideErrorMessages() {
+  const titleError = document.getElementById("titleError");
+  const dateError = document.getElementById("dueDateError");
+  const categoryError = document.getElementById("msg-box");
+
+  if (titleError) titleError.classList.add("hidden");
+  if (dateError) dateError.classList.add("hidden");
+  if (categoryError) categoryError.classList.add("hidden");
 }
 
 // Funktion zum Schließen des Modals

@@ -79,3 +79,118 @@ function updateTaskCategoryInFirebase(taskId, newCategory) {
       console.error("Fehler beim Aktualisieren der Kategorie:", error);
     });
 }
+
+function handleSubtaskProgressUpdate() {
+  document
+    .getElementById("taskSubtasks")
+    .addEventListener("change", (event) => {
+      if (event.target.type === "checkbox") {
+        const subtaskIndex = [
+          ...event.target.parentElement.parentElement.children,
+        ].indexOf(event.target.parentElement);
+        currentTask.subtasks[subtaskIndex].completed = event.target.checked;
+
+        updateTaskProgressOnBoard(currentTaskId, currentTask);
+      }
+    });
+}
+
+function updateTaskProgressOnBoard(taskId, task) {
+  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
+  if (taskCard) {
+    const totalSubtasks = task.subtasks.length;
+    const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
+    const progressBar = taskCard.querySelector(".progress-bar");
+    const progressText = taskCard.querySelector(".progress span");
+
+    if (progressBar) {
+      progressBar.style.width = `${(completedSubtasks / totalSubtasks) * 100}%`;
+    }
+    if (progressText) {
+      progressText.innerText = `${completedSubtasks}/${totalSubtasks} Subtasks`;
+    }
+  }
+}
+
+function updateSubtaskProgress(taskId) {
+  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
+  if (!taskCard) {
+    console.error("Task card not found for ID:", taskId);
+    return;
+  }
+
+  const progressBarInner = taskCard.querySelector(".progress-bar-inner");
+  const progressText = taskCard.querySelector(".progress span");
+
+  // Calculate progress based on subtasks
+  const totalSubtasks = currentTask.subtasks.length;
+  const completedSubtasks = currentTask.subtasks.filter(
+    (st) => st.completed
+  ).length;
+  const progressPercent =
+    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  if (progressBarInner) {
+    progressBarInner.style.width = `${progressPercent}%`; // Fill the bar based on progress
+    console.log("Progress bar inner updated:", progressPercent + "%");
+  }
+
+  if (progressText) {
+    progressText.innerText = `${completedSubtasks}/${totalSubtasks} Subtasks`;
+    console.log(
+      "Progress text updated:",
+      `${completedSubtasks}/${totalSubtasks}`
+    );
+  }
+}
+
+function attachSubtaskProgressListener(task) {
+  document
+    .getElementById("taskSubtasks")
+    .addEventListener("change", (event) => {
+      if (event.target.type === "checkbox") {
+        const subtaskIndex = event.target.dataset.index;
+        task.subtasks[subtaskIndex].completed = event.target.checked;
+
+        // Update the progress on the board card
+        const taskCard = document.querySelector(
+          `.task-card[data-id="${task.id}"]`
+        );
+        if (taskCard) {
+          const totalSubtasks = task.subtasks.length;
+          const completedSubtasks = task.subtasks.filter(
+            (st) => st.completed
+          ).length;
+          const progressBar = taskCard.querySelector(".progress-bar");
+          const progressText = taskCard.querySelector(".progress span");
+
+          if (progressBar) {
+            progressBar.style.width = `${
+              (completedSubtasks / totalSubtasks) * 100
+            }%`;
+          }
+          if (progressText) {
+            progressText.innerText = `${completedSubtasks}/${totalSubtasks} Subtasks`;
+          }
+        }
+      }
+    });
+}
+
+function setupSubtaskCheckboxListener() {
+  const subtaskContainer = document.getElementById("taskSubtasks");
+  subtaskContainer.addEventListener("change", (event) => {
+    if (event.target.type === "checkbox") {
+      const subtaskIndex = [
+        ...event.target.parentElement.parentElement.children,
+      ].indexOf(event.target.parentElement);
+      currentTask.subtasks[subtaskIndex].completed = event.target.checked;
+
+      // Update progress bar for the task
+      updateSubtaskProgress(currentTask.id);
+
+      // Optionally save changes to the backend (e.g., Firebase)
+      saveTaskToFirebase(currentTask);
+    }
+  });
+}

@@ -210,6 +210,9 @@
                   required
                   placeholder="Enter task title"
                 />
+                <div id="titleError" class="error-message hidden">
+                    Bitte füge ein Title ein.
+                </div>
                 <div class="addTask-headlines">
                   <label for="taskDescription">Description</label>
                 </div>
@@ -268,8 +271,9 @@
               </div>
               <input type="date" id="taskDueDate" required />
               <div id="dueDateError" class="error-message hidden">
-                This field is required
+                Bitte wähle ein Datum aus.
               </div>
+              
 
               <!-- Priority -->
               <div class="addTask-headlines">

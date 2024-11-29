@@ -87,28 +87,16 @@ function updateNoTasksMessage(column) {
   }
 }
 
-function showTaskDetails(task) {
-  currentTask = task; // Speichere die aktuelle Aufgabe
-  currentTaskId = task.id; // Speichere die Task-ID
-  document.getElementById("taskType").innerText = task.type || "Task";
-  document.getElementById("taskDetailTitle").innerText = task.title;
-  document.getElementById("taskDetailDescription").innerText = task.Description;
-  document.getElementById("taskDetailDueDate").innerText = task.Date;
-  document.getElementById("taskDetailPriority").innerText = task.Prio;
-  document.getElementById("taskAssignedTo").innerHTML =
-    createAssignedToList(task);
-  document.getElementById("taskSubtasks").innerHTML = createSubtasksList(task);
-  document.getElementById("taskDetailsModal").style.display = "block";
-  updatePriorityIcon(task.Prio);
-}
-
 function updateTaskDetailsModal(task) {
   document.getElementById("taskType").innerText = task.type || "Task";
   document.getElementById("taskDetailTitle").innerText = task.title;
-  document.getElementById("taskDetailDescription").innerText = task.Description;
-  document.getElementById("taskDetailDueDate").innerText = task.Date;
-  document.getElementById("taskDetailPriority").innerText = task.Prio;
-  updatePriorityIcon(task.Prio);
+  document.getElementById("taskDetailDescription").innerText =
+    task.description || "No description provided";
+  document.getElementById("taskDetailDueDate").innerText =
+    task.dueDate || "No due date";
+  document.getElementById("taskDetailPriority").innerText =
+    task.priority || "None";
+  updatePriorityIcon(task.priority);
   document.getElementById("taskAssignedTo").innerHTML =
     createAssignedToList(task);
   document.getElementById("taskSubtasks").innerHTML = createSubtasksList(task);
@@ -116,11 +104,14 @@ function updateTaskDetailsModal(task) {
 
 function createAssignedToList(task) {
   const members = task.members || [];
-  if (members.length > 0) {
-    return members.map((member) => `<li>${member}</li>`).join("");
-  } else {
-    return "<li>No assigned members</li>";
-  }
+  return members
+    .map(
+      (member) =>
+        `<div class="avatar" style="background-color: ${getColorForContact(
+          member
+        )};">${getInitials(member)}</div>`
+    )
+    .join("");
 }
 
 function openEditTaskModal() {

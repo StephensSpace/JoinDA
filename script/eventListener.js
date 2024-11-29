@@ -68,22 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
     optionsContainer.classList.add("hidden");
   });
 
-  //   // "Add Task"-Formularübermittlung
-  //   const addTaskForm = document.getElementById("addTaskForm");
-  //   if (addTaskForm) {
-  //     addTaskForm.addEventListener("submit", function (event) {
-  //       event.preventDefault();
-  //       let taskData = collectFormData();
-  //       if (isEditMode) {
-  //         updateTaskInFirebase(currentTask.id, taskData);
-  //       } else {
-  //         saveTaskToFirebase(taskData);
-  //       }
-  //       document.getElementById("addTaskModal").style.display = "none";
-  //       resetAddTaskForm();
-  //     });
-  //   }
-
   // Event Listener für den "Cancel"-Button im "Add Task"-Modal
   const cancelButton = document.getElementById("cancelButton");
   if (cancelButton) {

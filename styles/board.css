@@ -3,6 +3,7 @@
   background-color: #f4f7f9;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 main {
@@ -22,9 +23,11 @@ main {
 .headlines {
   width: 1208px;
   height: 24px;
-  top: 200.5px;
+  top: 326.5px;
   display: flex;
   gap: 26px;
+  position: relative;
+  left: 230px;
 }
 
 .headlines div {
@@ -73,6 +76,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
 }
 
 .right-section {
@@ -162,7 +166,7 @@ main {
   width: 1208px;
   height: 688px;
   top: 360px;
-  left: 200px;
+  left: 284px;
   gap: 26px;
   position: absolute;
   display: flex;
@@ -242,7 +246,11 @@ main {
 .tasks-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  width: 252px;
+  height: 263px;
+  padding: 16px 0px 0px 0px;
+  gap: 10px;
+  border-radius: 24px 0px 0px 0px;
 }
 
 .task-card {
@@ -254,7 +262,22 @@ main {
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.3s ease;
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-category {
+  width: 125px;
+  height: 27px;
+  padding: 4px 16px;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 8px;
+  padding: 4px 8px;
   gap: 10px;
+  line-height: 19.2px;
+  font: inter;
 }
 
 .task-card:active {
@@ -262,24 +285,10 @@ main {
   opacity: 0.8; /* Transparenz während des Ziehens */
 }
 
+/* Hover-Effekt für Task Card */
 .task-card:hover {
   background-color: #e0e0e0;
-}
-
-.tag {
-  width: 113px;
-  height: 27px;
-  padding: 4px 16px 4px 16px;
-  gap: 10px;
-  border-radius: 8px 0px 0px 0px;
-}
-
-.user-story .tag {
-  background-color: #2962ff;
-}
-
-.technical-task .tag {
-  background-color: #26a69a;
+  transform: scale(1.02); /* Leichte Vergrößerung beim Hover */
 }
 
 .task-card h3 {
@@ -294,55 +303,79 @@ main {
   margin: 0 0 12px;
 }
 
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
 .progress {
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
-  color: #757575;
-  margin-bottom: 12px;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #555;
 }
 
 .progress-bar {
-  flex-grow: 1;
-  height: 4px;
+  height: 6px;
   background-color: #e0e0e0;
-  border-radius: 2px;
+  border-radius: 3px;
+  flex-grow: 1;
+  overflow: hidden;
   position: relative;
-  margin-right: 8px;
 }
 
 .progress-bar::before {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 100%;
-  background-color: #2979ff;
-  width: 50%; /* Adjust for progress */
-  border-radius: 2px;
+  background-color: #2979ff; /* Blue color for progress */
+  display: block;
+  transition: width 0.3s ease;
+  width: 0%; /* Will be dynamically set */
 }
 
-.full.progress-bar::before {
-  width: 100%;
+.progress-bar-inner {
+  height: 100%;
+  width: 0%; /* Start with no fill */
+  background-color: #0038ff; /* Blue fill color */
+  transition: width 0.3s ease; /* Smooth transition */
 }
 
 .avatars {
   display: flex;
-  margin-bottom: 12px;
+  align-items: center;
+  position: relative;
 }
 
 .avatar {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff; /* Heller Text für dunkle Farben */
+  color: white;
   font-weight: bold;
-  margin-right: 8px;
+  font-size: 14px;
+  margin-right: -10px; /* Negative Margin für Überlappung */
+  text-transform: uppercase;
+  z-index: 1; /* Sicherstellen, dass sie korrekt übereinander liegen */
+  border: 2px solid white; /* Optional: weißer Rand für besseres Aussehen */
+  background-color: #6e52ff; /* Standardfarbe, kann überschrieben werden */
 }
 
+/* Optional: Hover-Effekt */
+.avatars .avatar:hover {
+  transform: scale(1.1); /* Vergrößert den Avatar beim Hover */
+  z-index: 10; /* Bringt den Avatar in den Vordergrund */
+}
+
+.priority-icon {
+  width: 24px;
+  height: 24px;
+}
 .icon {
   font-size: 1.5rem;
   color: #ff9800;
@@ -404,6 +437,38 @@ main {
   gap: 24px;
 }
 
+#taskDetailsModal .avatar-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+#taskDetailsModal .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+#taskDetailsModal .subtask-item {
+  display: flex;
+  align-items: center;
+}
+
+#taskDetailsModal .subtask-item input {
+  margin-right: 10px;
+}
+
+ul {
+  list-style-type: none; /* Entfernt das ::marker */
+}
+
 /* Modal Inhalt */
 .modal-content {
   background-color: white;
@@ -411,16 +476,23 @@ main {
   padding: 40px;
   border-radius: 30px;
   width: 1116px;
-  height: 870px;
-  position: fixed; /* Ändere zu "fixed" für zentrierte Position */
-  top: 50%; /* Zentrierung vertikal */
-  left: 50%; /* Zentrierung horizontal */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Korrektur, um das Element genau zu zentrieren */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Optional: Schatten für ein schöneres Aussehen */
-  z-index: 1000; /* Stellt sicher, dass es über anderen Elementen liegt */
+  height: 838px;
+  position: fixed;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+#msg-box {
+  color: red;
 }
 
 /* Form-Container für zwei Spalten */
@@ -456,9 +528,7 @@ main {
 
 /* Input styling */
 input,
-textarea,
-select {
-  width: 100%;
+textarea {
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
@@ -491,6 +561,13 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.contentH1 {
+  font-size: xxx-large !important;
+  margin: 0 !important;
+  position: relative;
+  left: 64px;
 }
 
 .contentH2 {
@@ -552,6 +629,7 @@ textarea {
   border-radius: 10px;
   outline: none;
   cursor: pointer;
+  width: 100%;
 }
 
 textarea {
@@ -743,22 +821,30 @@ textarea {
 }
 
 .task-type {
-  display: inline-block;
+  display: unset;
   padding: 4px 8px;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 4px; /* Nur die oberen Ecken abgerundet */
-  margin-bottom: 8px;
-  color: white; /* Textfarbe */
+  font-size: 23px;
+  font-weight: 400;
+  border-radius: 8px;
+  color: white;
+  height: 36px;
+  gap: 10px;
+  size: 23px;
+  line-height: 27.6px;
 }
 
 /* Subtasks Styling */
 #taskSubtasks {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  font-size: 14px;
-  list-style-type: disc;
+  gap: 8px;
+  height: 100px;
+  align-items: flex-start;
+}
+
+#taskDetailsPrority {
+  display: flex;
+  align-items: center;
 }
 
 /* Assigned Contacts Styling */
