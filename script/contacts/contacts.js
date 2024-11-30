@@ -200,8 +200,7 @@ async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
             phone_number: PHONE_NUMB,
         })
         const userIndex = await getUserIndex(NAME); // get userIndex of Firebase 
-        const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
-        CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
+        await renderContactTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB); // rendert User Information in Content-Table 
         console.log("Kontakt erfolgreich in Firebase angelegt!");
     } catch (error) {
         console.error("Fehler beim anlegen eines neuen Kontaktes in Firebase:", error);
@@ -219,6 +218,31 @@ async function getUserIndex(NAME) {
     }
 }
 
+// Abfrage wann "user-contact" fertig geladen ist um userIconTemplateContactTable die Color durchzugeben
+async function renderContactTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB) {
+    const checkContactsLoaded = setInterval(async () => {
+        const contactsLoaded = document.getElementsByClassName('user-contact').length;
+        const contactsExpected = await getContactsLength();
+        if (contactsLoaded === contactsExpected) {
+            clearInterval(checkContactsLoaded); // Stop checking
+            const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
+            CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
+        }
+    }, 100); // Check every 100ms
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // für den gerade angewählten User zum einblenden dessen Informationen
 function clickedUser() {
     const contacts = document.getElementsByClassName('user-contact');
@@ -234,6 +258,37 @@ function clickedUser() {
     });
   }
   
+
+
+
+// NICHT EINGEBUNDEN, ABER ÜBERLEGE ES SO UMZUSCHREIBEN!!!!!
+// NICHT EINGEBUNDEN, ABER ÜBERLEGE ES SO UMZUSCHREIBEN!!!!!
+const BACKGROUND_COLORS_LETTERS = {
+    "defined":{
+    "AM": "#FF7A00",
+    "AS": "#9327FF",
+    "BZ": "#6E52FF",
+    "DE": "#FC71FF",
+    "EF": "#FFBB2B",
+    "EM": "#1FD7C1",
+    "MB": "#462F8A", //sogar 1 extra
+    "TW": "#FF4646",
+    "SM": "#00BEE8",
+    },
+    "undefined":{
+    "0": "#FF745E",
+    "1": "#FFC701",
+    "2": "#FFE62B",
+    "3": "#FF5EB3",
+    "4": "#FFA35E",
+    "5": "#0038FF",
+    "6": "#C3FF2B",
+    }
+}
+// NICHT EINGEBUNDEN, ABER ÜBERLEGE ES SO UMZUSCHREIBEN!!!!!
+// NICHT EINGEBUNDEN, ABER ÜBERLEGE ES SO UMZUSCHREIBEN!!!!!
+// NICHT EINGEBUNDEN, ABER ÜBERLEGE ES SO UMZUSCHREIBEN!!!!!
+
 
 // Alles zum User Icon 
 
@@ -301,7 +356,7 @@ function rgbInHexa(userIndex) {
     }
 }
 
-// Alles zum User Icon 
+
 
 
 //############################################################

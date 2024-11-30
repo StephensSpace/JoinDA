@@ -95,9 +95,9 @@
 /* HOVER EFFEKTE */
 
 .add-new-contact-btn:hover {
-    z-index: 3;
-    background-color: var(--background-color-card);
-    filter: drop-shadow(0 -6px 6px);
+    border-color: #29ABE2;
+    background: #29ABE2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* 

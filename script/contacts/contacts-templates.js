@@ -54,7 +54,7 @@ function userIconTemplateContactTable(userName, userIndex) {
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
     
-        let color = document.getElementById(`userIconContactList_${(userIndex)}`).style.backgroundColor;
+        let color = document.getElementById(`userIconContactList_${(userIndex)}`)?.style.backgroundColor;
         return `
             
             <p id="userIconContactTable-${userIndex}" style="background-color: ${color}; width: 120px; height: 120px; 
@@ -157,7 +157,7 @@ function modalAddContactTemplate() {
                     <div class="modal-right-bottom">
 
                         <div class="modal-userImg">
-                            <img src="./assets/icons/contacts/person.png">
+                            <img src="./assets/icons/contacts/person-addNewContact.png">
                         </div>
 
                         <div class="modal-inputfield-div">

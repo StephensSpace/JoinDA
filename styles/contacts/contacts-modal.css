@@ -136,33 +136,31 @@
 .person-icon {
     background: url(/assets/icons/contacts/person.png) no-repeat right;
     background-size: 12px;
-    filter: invert(0.5);
+    
 }
 
 .check-icon {
     background: url(/assets/icons/contacts/mail.png) no-repeat right;
     background-size: 12px;
-    filter: invert(0.5);
+    
 }
 
 .phone-icon {
     background: url(/assets/icons/contacts/call.png) no-repeat right;
     background-size: 12px;
-    filter: invert(0.5);
+    
 }
 
 .modal-userImg {
-    background-color: antiquewhite;
+    background-color: #D1D1D1;
     padding: 24px;
     border-radius: 100%;
     margin: 24px 56px;
-
     filter: drop-shadow(0px 0px 2px gray);      /* MUSS NOCH ÜBERARBEITET WERDEN!!!!! */
 }
 
 .modal-userImg img {
     width: 36px;
-    filter: invert(0.5);
 }
 
 
