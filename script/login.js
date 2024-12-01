@@ -20,7 +20,6 @@ async function guestLogin() {
         console.error("Fehler beim Gastlogin:", error);
     }
     window.location.href = "summary.html";
-    
 }
 
 async function login() {

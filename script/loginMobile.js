@@ -19,8 +19,16 @@ window.addEventListener("load", () => {
     }, 3200);
 });
 
-function guestLogin() {
-    window.location.href = "summary.html";
+async function guestLogin() {
+    
+    try {
+        const User = await fetch(UserDatabaseURL + 'Guest.json')
+        const GuestUser = await User.json();
+        sessionStorage.setItem("User", GuestUser.name); 
+    } catch (error) {
+        console.error("Fehler beim Gastlogin:", error);
+    }
+    window.location.href = "welcome.html";
 }
 
 async function login() {
@@ -40,7 +48,8 @@ async function login() {
 function checkPw(mail, password, data) {
     let fittingUser = Object.values(data).find(user => user.email == mail.value && user.password == password.value)
     if (fittingUser) {
-        window.location.href = "summary.html";
+        sessionStorage.setItem("User", fittingUser.name);
+        window.location.href = "welcome.html";
     }
     else {
         document.getElementById('msgBox').classList.remove('dNone');

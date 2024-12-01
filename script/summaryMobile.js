@@ -4,26 +4,8 @@ const userBoardRef = database.ref(`tasks`);
 const date = new Date().toISOString().split('T')[0];
 const currentDate = new Date();
 
-function setGreeting() {
-    selectGreeting();
-    setUsername();
+function loadSummary() {
     fetchCurrentBoard();
-}
-
-function selectGreeting() {
-    hour = currentDate.getHours();
-    let greetingBox = document.getElementById('daytime');
-    if (hour < 12) {  // Good morning
-        greetingBox.innerHTML = 'Good morning,';
-    } else if (hour >= 12 && hour < 18) {  // Good afternoon
-        greetingBox.innerHTML = 'Good afternoon,';
-    } else {  // Good evening
-        greetingBox.innerHTML = "Good evening,";
-    };
-}
-
-function setUsername() {
-    document.getElementById('userName').innerHTML = logedUser
 }
 
 async function fetchCurrentBoard() {
@@ -78,7 +60,7 @@ function forLoopCount(counter, types, deadline) {
             counter.urgent++;
         } else if (type === "review") {
             counter.review++;
-        } else if (type === "inprogress") {
+        } else if (type === "inProgress") {
             counter.inProgress++
         }   }
     formatDate(deadline, counter)
@@ -87,12 +69,12 @@ function forLoopCount(counter, types, deadline) {
 function formatDate(deadline, counter) {
     const deadlineDate = new Date(deadline);
     let formatedDeadline = deadlineDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
     renderBoardSummary(counter, formatedDeadline)
-  }
+}
 
 function renderBoardSummary(counter, formatedDeadline) {
     document.getElementById('toDoCounterSpan').innerHTML = counter.toDo;

@@ -3,17 +3,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter';
+  font-style: normal;
+  color: #000000;
+  line-height: 120%;
 }
 
 body {
   display: flex;
   min-height: 100vh;
   background-color: #f4f4f4;
-  font-family: 'Inter';
-  font-style: normal;
-  color: #000000;
-  line-height: 120%;
   overflow-x: hidden;
 }
 

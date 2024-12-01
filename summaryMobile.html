@@ -12,19 +12,42 @@
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
     <script src="./script/firebase-config.js"></script>
-    <script src="./script/summary.js"></script>
+    <script src="./script/setProfile.js" defer></script>
+    <script src="./script/checkMaxWidth.js"></script>
+    <script src="./script/summaryMobile.js"></script>
 
 </head>
 
-<body onload="setGreeting()">
+<body onload="loadSummary()">
     <header>
         <img src="./assets/img/logo.png" id="logo">
         <div>
-            <div id="userProfil">
-                <span id="initials">SM</span>
+            <div id="userProfil" onclick="openUserMenu()">
+                <span id="initials" >SM</span>
             </div>
         </div>
-
+        <div class="userMenu dNone" id="userMenu">
+            <div class="userMenuButton">
+                <span class="userMenuBtnSpan">
+                    Help
+                </span>
+            </div>
+            <div class="userMenuButton">
+                <span class="userMenuBtnSpan">
+                    Legal Notice
+                </span>
+            </div>
+            <div class="userMenuButton">
+                <span class="userMenuBtnSpan">
+                    Privacy Policy
+                </span>
+            </div>
+            <div class="userMenuButton">
+                <span class="userMenuBtnSpan">
+                    Log out
+                </span>
+            </div>
+        </div>
     </header>
 
     <div class="h1Div">

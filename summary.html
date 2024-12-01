@@ -16,6 +16,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="./script/firebase-config.js"></script>
     <script src="./script/setProfile.js" defer></script>
+    <script src="./script/checkMaxWidth.js"></script>
     <script src="./script/summary.js"></script>
 </head>
 
@@ -37,6 +38,7 @@
     </nav>
     <aside>
         <header>
+            
             <div>
                 <span>Kanban Project Managment Tool</span>
             </div>
@@ -44,11 +46,29 @@
                 <div>
                     <img src="./assets/img/help.png" alt="./assets/img/help.png">
                 </div>
-                <div id="userProfil">
+                <div id="userProfil" onclick="openUserMenu()">
                     <span id="initials"></span>
                 </div>
             </div>
+            <div class="userMenu dNone" id="userMenu">
+                <div class="userMenuButton">
+                    <span class="userMenuBtnSpan">
+                        Legal Notice
+                    </span>
+                </div>
+                <div class="userMenuButton">
+                    <span class="userMenuBtnSpan">
+                        Privacy Policy
+                    </span>
+                </div>
+                <div class="userMenuButton">
+                    <span class="userMenuBtnSpan">
+                        Log out
+                    </span>
+                </div>
+            </div>
         </header>
+        
         <main>
             <div class="h1Div">
                 <h1>Join 360</h1>
