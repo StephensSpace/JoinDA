@@ -176,8 +176,22 @@ function modalAddContactTemplate() {
                                 </div>
                             
                                 <div class="modal-inputfield-buttons">
-                                    <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);"><p>Cancel</p> <div><img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></div></button>
-                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;"><p>Create contact</p> <div><img class="create-icon" src="./assets/icons/contacts/check.png"></div></button>
+                                    <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">
+                                        <p>Cancel</p> 
+
+                                        <div>
+                                            <img id="cancel-icon" class="cancel-icon hidden" src="./assets/icons/contacts/Vector-X-blue.png">
+                                            <img id="cancel-icon1" class="cancel-icon" src="./assets/icons/contacts/Vector-X.png">
+                                        </div>
+                                    </button>
+                                    
+                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">
+                                        <p>Create contact</p>
+                                        
+                                        <div>
+                                            <img class="create-icon" src="./assets/icons/contacts/check.png">
+                                        </div>
+                                    </button>
                                 </div>
                             </form>
 
