@@ -311,36 +311,25 @@ main {
 }
 
 .progress {
+  width: 100%;
+  background-color: #f3f3f3; /* Hintergrund für den Fortschrittsbereich */
+  border-radius: 5px;
+  overflow: hidden;
+  height: 10px; /* Höhe des Fortschrittsbalkens */
+  margin-top: 5px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  color: #555;
 }
 
 .progress-bar {
-  height: 6px;
-  background-color: #e0e0e0;
-  border-radius: 3px;
-  flex-grow: 1;
-  overflow: hidden;
-  position: relative;
+  height: 100%; /* Passt sich der Höhe von `.progress` an */
+  background-color: #1e90ff; /* Blau für den Fortschrittsbalken */
+  transition: width 0.3s ease; /* Weicher Übergang bei Änderungen */
 }
 
-.progress-bar::before {
-  content: "";
-  height: 100%;
-  background-color: #2979ff; /* Blue color for progress */
-  display: block;
-  transition: width 0.3s ease;
-  width: 0%; /* Will be dynamically set */
-}
-
-.progress-bar-inner {
-  height: 100%;
-  width: 0%; /* Start with no fill */
-  background-color: #0038ff; /* Blue fill color */
-  transition: width 0.3s ease; /* Smooth transition */
+.progress-text {
+  display: flex;
 }
 
 .avatars {

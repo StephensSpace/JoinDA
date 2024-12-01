@@ -82,18 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const priorityButtons = document.querySelectorAll(".priority-btn");
   priorityButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      // Entferne die aktive Klasse von allen Buttons
       priorityButtons.forEach((btn) => {
         btn.classList.remove("active");
         const icon = btn.querySelector(".priority-icon");
         if (icon) {
-          icon.style.filter = "none"; // Standardfarbe wiederherstellen
+          icon.style.filter = "none";
         }
       });
       button.classList.add("active");
+      selectedPriority = button.dataset.priority;
       const icon = button.querySelector(".priority-icon");
       if (icon) {
-        icon.style.filter = "brightness(0) invert(1)"; // Icon in Weiß färben
+        icon.style.filter = "brightness(0) invert(1)";
       }
     });
   });

@@ -21,7 +21,7 @@ function fetchTasks(callback) {
       let tasks = snapshot.val();
       for (let key in tasks) {
         if (!Array.isArray(tasks[key].members)) {
-          tasks[key].members = [];
+          tasks[key].members = []; // Sicherstellen, dass `members` ein Array ist
         }
       }
       callback(tasks);
@@ -273,12 +273,19 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
     option.style.backgroundColor = ""; // Hintergrundfarbe zurücksetzen
     option.style.color = ""; // Textfarbe zurücksetzen
     removeInitialFromSelected(initials, selectedContainer);
+    const contactName = option.dataset.value;
+    selectedMembers = selectedMembers.filter(
+      (member) => member !== contactName
+    );
   } else {
-    // Kontakt auswählen
     option.classList.add("selected");
     option.style.backgroundColor = "#091931"; // Hintergrundfarbe der ausgewählten Option
     option.style.color = "white"; // Textfarbe ändern
     addInitialToSelected(initials, color, selectedContainer);
+    const contactName = option.dataset.value;
+    if (!selectedMembers.includes(contactName)) {
+      selectedMembers.push(contactName);
+    }
   }
 }
 
@@ -339,11 +346,17 @@ function collectFormData() {
 }
 
 function saveTaskToFirebase(task) {
+  console.log("Ausgewählte Mitglieder:", selectedMembers);
   const newTaskRef = firebase.database().ref("/tasks/").push();
-  task.id = newTaskRef.key; // Generiere Task-ID
-  newTaskRef.set(task).then(() => {
-    addTaskToBoard(task); // Füge die Task direkt hinzu
-  });
+  task.id = newTaskRef.key; // Generiere eine eindeutige ID für die Task
+  newTaskRef
+    .set(task)
+    .then(() => {
+      addTaskToBoard(task); // Zeige die Task direkt auf dem Board
+    })
+    .catch((error) => {
+      console.error("Fehler beim Speichern der Aufgabe in Firebase:", error);
+    });
 }
 
 function updatePriorityButtons() {

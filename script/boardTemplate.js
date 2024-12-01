@@ -56,6 +56,7 @@ function createTaskCard(task) {
 
 // Funktion zur Berechnung der Initialen
 function getInitials(name) {
+  if (!name) return "?"; // Fallback für leere Namen
   return name
     .split(" ")
     .map((n) => n[0])
@@ -88,8 +89,11 @@ function createSubtasksProgress(task) {
     return `
               <div class="progress">
                 <div class="progress-bar" style="width: ${percent}%"></div>
+                <div class="progress-text">
                 <span>${completed}/${total} Subtasks</span>
+                </div>
               </div>
+              
             `;
   }
   return "";
