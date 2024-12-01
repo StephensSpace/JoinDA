@@ -18,32 +18,37 @@
 
 .modal {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     z-index: 4;
 }
 
 .modal-same-height {
-    height: 270px;
+    /* height: 270px; */
 }
 
 .modal-same-padding-left {
-    padding: 32px 24px 64px 28px;
+    /* padding: 32px 0px 64px 28px;        rechts 0 */
 }
 
 .modal-same-padding-right {
-    padding: 32px 28px 64px 0px;
+    /* padding: 32px 28px 64px 0px;         links 0 */
 }
 
+.modal-same-padding {
+    padding-bottom: 104px;
+}
 
 /* Alles zum Model Right */
 
 .modal-right {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
     background-color: var(--background-color-header);
+    justify-content: center;
+    height: 594px;
+    width: 745px;
 }
 
 
@@ -56,6 +61,14 @@
     cursor: pointer;
 }
 
+.modal-right-top div {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
 .modal-right-bottom {
     display: flex;
     align-items: center;
@@ -65,28 +78,33 @@
     display: flex;
     gap: 24px;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .modal-inputfield {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding-top: 44px;
-    padding-bottom: 32px;
+    gap: 32px;
+    width: 422px;
+    height: 215px;
+    /* padding-top: 44px; */
+    /* padding-bottom: 32px; */
 }
 
 .modal-inputfield-buttons {
     display: flex;
+    justify-content: space-between;
     gap: 16px;
+    width: 367px;
+    height: 57px;
 }
 
 .modal-inputfield-buttons button {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 10px 6px;
-    border-radius: 6px;
+    gap: 4px;
+    padding: 16px;
+    border-radius: 10px;
     border: solid 1px;
     cursor: pointer;
 }
@@ -100,6 +118,35 @@
 #cancelBtn, #createContactBtn {
     transition: background-color 0.25s, border-color 0.25s, color 0.25s, filter 0.25s;
 }
+
+#cancelBtn {
+    width: 126px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+#cancelBtn Div {
+    width: 24px;
+    height: 24px;
+}
+
+#createContactBtn {
+    width: 214px;
+    height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+#createContactBtn Div {
+    width: 24px;
+    height: 24px;
+}
+
 
 /* Für das X-Icon bei Cancel X */
 #cancelBtn:hover .cancel-icon {
@@ -118,44 +165,58 @@
     border-color: var(--background-color-aside);
 }
 
-.modal-inputfield-buttons img {
-    width: 12px;
+.cancel-icon {
+    width: 10.5px;
+    height: 10.5px;
+}
+
+.create-icon {
+    width: 15.5px;
+    height: 11.2px;
 }
 
 .modal-inputfield input {
+    font-size: 20px;
+    font-weight: 400;
+    padding-left: 40px;
     cursor: pointer;
     background-origin: content-box;
-    border-radius: 6px;
+    border-radius: 10px;
     border: solid 1.5px lightgray;
-    height: 32px;
-    padding: 12px;
-    width: 256px;
+    height: 50px;
+    width: 420px;
+    padding: 24px;
 }
 
 
 .person-icon {
     background: url(/assets/icons/contacts/person.png) no-repeat right;
-    background-size: 12px;
+    background-size: 16px;
     
 }
 
 .check-icon {
     background: url(/assets/icons/contacts/mail.png) no-repeat right;
-    background-size: 12px;
+    background-size: 16px;
     
 }
 
 .phone-icon {
     background: url(/assets/icons/contacts/call.png) no-repeat right;
-    background-size: 12px;
+    background-size: 16px;
     
 }
 
 .modal-userImg {
+    margin: 76px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #D1D1D1;
-    padding: 24px;
     border-radius: 100%;
-    margin: 24px 56px;
+
     filter: drop-shadow(0px 0px 2px gray);      /* MUSS NOCH ÜBERARBEITET WERDEN!!!!! */
 }
 
@@ -183,9 +244,15 @@
 /* Alles zum Modal Left */
 
 .modal-left {
+    display: flex;
+    height: 594px;
+    /* align-items: center; */
+    width: 467px;
+    justify-content: center;
+
     color: white;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 32px;
     background-color: var(--background-color-nav);
 }
 
@@ -193,26 +260,48 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    line-height: normal !important;
 }
 
 .modal-left h1 {
-    font-size: 46px;
+    font-size: 61px;
+    font-weight: 700;
+    padding: 12px 0;
 }
 
 .modal-left p {
-    font-size: 22px;
+    font-size: 27px;
+    font-weight: 400;
 }
 
 .modal-left img {
-    max-width: 48px;
+    width: 100%;
+    height: 100%;
+    max-width: 56px;
+    max-height: 67px;
 }
 
 .modal-left hr {
-    margin: 12px 0;
-    height: 2px;
-    border: 2px;
-    max-width: 4.5rem;
+    margin-top: 12px;
+    height: 3px;
+    border: #29ABE2;
+    max-width: 90px;
     border-radius: 2px;
-    background-color: var(--background-color-aside);
+    background: #29ABE2;
+    width: 100%;
+}
 
+
+/* Alles zum gesamten Modal */
+
+.modal-inputfield-div {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+.modal-inputfield-div form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }

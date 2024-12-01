@@ -1,3 +1,21 @@
 
+aside {
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+}
+
+
+main {
+    display: flex;
+    padding: 0 !important;
+}
+
+
+/* Für das H1 - Elements jeder Seite */
+.contentH1 {
+    font-size: xxx-large !important;
+    margin: 0 !important;
+}
 
 

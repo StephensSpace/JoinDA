@@ -141,18 +141,18 @@ function modalAddContactTemplate() {
     <modal onclick="closeModal()" class="modal-background" id="modal-background">
         <modal onclick="eventBubbling(event)" class="modal" id="modal">
             <div class="modal-left modal-same-padding-left">
-                <div class="modal-left-div modal-same-height">
+                <div class="modal-left-div modal-same-padding">
+                    
                     <img src="./assets/img/logo-2.png">
-                    <div>
-                        <h1>Add contact</h1>
-                        <p>Tasks are better with a team!</p>
-                    </div>
+                    <h1>Add contact</h1>
+                    <p>Tasks are better with a team!</p>
+                    
                     <hr>
                 </div>
             </div>
 
             <div class="modal-right modal-same-padding-right">
-                <div class="modal-right-div modal-same-height">
+                <div class="modal-right-div modal-same-padding">
                     
                     <div class="modal-right-bottom">
 
@@ -162,7 +162,9 @@ function modalAddContactTemplate() {
 
                         <div class="modal-inputfield-div">
                             <div class="modal-right-top">
-                                <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                                <div>
+                                    <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                                </div>
                             </div>
                             
                             <form onsubmit="addNewContact(); return false">
@@ -173,8 +175,8 @@ function modalAddContactTemplate() {
                                 </div>
                             
                                 <div class="modal-inputfield-buttons">
-                                    <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">Cancel <img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></button>
-                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">Create contact <img src="./assets/icons/contacts/check.png"></button>
+                                    <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);"><p>Cancel</p> <div><img class="cancel-icon" src="./assets/icons/contacts/Vector-X.png"></div></button>
+                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;"><p>Create contact</p> <div><img class="create-icon" src="./assets/icons/contacts/check.png"></div></button>
                                 </div>
                             </form>
 
@@ -195,7 +197,7 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
     <modal onclick="closeModal()" class="modal-background" id="modal-background">
         <modal onclick="eventBubbling(event)" class="modal" id="modal">
             <div class="modal-left modal-same-padding-left">
-                <div class="modal-left-div modal-same-height">
+                <div class="modal-left-div modal-same-padding">
                     <img src="./assets/img/logo-2.png">
                     <h1>Edit contact</h1>
                     <hr>
@@ -203,7 +205,7 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
             </div>
 
             <div class="modal-right modal-same-padding-right">
-                <div class="modal-right-div modal-same-height">
+                <div class="modal-right-div modal-same-padding">
                     
                     <div class="modal-right-bottom">
                     
