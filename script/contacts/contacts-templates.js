@@ -155,9 +155,10 @@ function modalAddContactTemplate() {
                 <div class="modal-right-div modal-same-padding">
                     
                     <div class="modal-right-bottom">
-
-                        <div class="modal-userImg">
-                            <img src="./assets/icons/contacts/person-addNewContact.png">
+                        <div class="modal-userImg-Background">
+                            <div class="modal-userImg">
+                                <img src="./assets/icons/contacts/person-addNewContact.png">
+                            </div>
                         </div>
 
                         <div class="modal-inputfield-div">
