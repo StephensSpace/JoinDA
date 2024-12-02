@@ -2,16 +2,14 @@ function createTaskCard(task) {
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
-  card.dataset.id = task.id; // Task-ID for reference
-
-  // Calculate progress
+  card.dataset.id = task.id;
+  const category = task.category ? task.category.toLowerCase() : "unknown";
   const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
   const completedSubtasks = task.subtasks
     ? task.subtasks.filter((st) => st.completed).length
     : 0;
   const progressPercent =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
-
   card.innerHTML = `
       <div class="task-category" style="background-color: ${
         task.category === "User Story" ? "#0038FF" : "#1FD7C1"
@@ -20,20 +18,24 @@ function createTaskCard(task) {
       </div>
       <h3>${task.title}</h3>
       <p>${task.description || "No description provided"}</p>
-      <div class="progress">
-        <div class="progress-bar" style="width: ${progressPercent}%;"></div>
-        <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+      <div class="progress-container">
+        <div class="progress">
+          <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+        </div>
+        <div class="progress-text">
+          <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+        </div>
       </div>
       <div class="task-footer">
         <div class="avatars">
           ${task.members
             .map(
               (name) => `
-              <div class="avatar" style="background-color: ${getColorForContact(
-                name
-              )};">
-                ${getInitials(name)}
-              </div>`
+            <div class="avatar" style="background-color: ${getColorForContact(
+              name
+            )};">
+              ${getInitials(name)}
+            </div>`
             )
             .join("")}
         </div>
@@ -42,15 +44,12 @@ function createTaskCard(task) {
   }" class="priority-icon" />
       </div>
     `;
-
-  // Add Event Listeners for Dragging and Details
   card.addEventListener("dragstart", (e) => startDragging(e, card));
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
   card.addEventListener("click", () => showTaskDetails(task));
-
   return card;
 }
 
@@ -82,55 +81,51 @@ function getColorForContact(name) {
 }
 
 function createSubtasksProgress(task) {
-  let total = task.subtasks ? task.subtasks.length : 0;
+  const total = task.subtasks ? task.subtasks.length : 0;
+  const completed = task.subtasks
+    ? task.subtasks.filter((st) => st.completed).length
+    : 0;
+  const percent = total > 0 ? (completed / total) * 100 : 0;
+
   if (total > 0) {
-    let completed = task.subtasks.filter((st) => st.completed).length;
-    let percent = (completed / total) * 100;
     return `
-              <div class="progress">
-                <div class="progress-bar" style="width: ${percent}%"></div>
-                <div class="progress-text">
-                <span>${completed}/${total} Subtasks</span>
-                </div>
-              </div>
-              
-            `;
+        <div class="progress-container">
+          <div class="progress">
+            <div class="progress-bar" style="width: ${percent}%;"></div>
+          </div>
+          <span class="progress-text">${completed}/${total} Subtasks</span>
+        </div>
+      `;
   }
-  return "";
+  return "<span>No Subtasks</span>";
 }
 
 function showTaskDetails(task) {
   currentTask = task;
   currentTaskId = task.id;
-
-  // Display Task Type with its Color
   document.getElementById("taskType").innerHTML = `
       <div style="background-color: ${
         task.category === "User Story" ? "#0038FF" : "#1FD7C1"
       }; color: white; padding: 5px 10px; border-radius: 5px;">
         ${task.category || "Technical Task"}
       </div>`;
-
   document.getElementById("taskDetailTitle").innerText = task.title;
   document.getElementById("taskDetailDescription").innerText =
     task.description || "No description provided";
   document.getElementById("taskDetailDueDate").innerText =
     task.dueDate || "N/A";
+  renderTaskSubtasks(task);
 
-  // Priority Display with Icon
   const priorityIcon =
     task.priority === "Urgent"
       ? "./assets/icons/urgent.png"
       : task.priority === "Medium"
       ? "./assets/icons/medium.png"
       : "./assets/icons/low.png";
-
   document.getElementById("taskDetailPriority").innerHTML = `
       ${task.priority || "Medium"} 
       <img src="${priorityIcon}" alt="${task.priority}" class="priority-icon" />
     `;
-
-  // Display Assigned Contacts with Colors
   document.getElementById("taskAssignedTo").innerHTML = task.members
     ? task.members
         .map(
@@ -146,32 +141,38 @@ function showTaskDetails(task) {
     : "<p>No members assigned</p>";
 
   // Display Subtasks with Checkbox
-  document.getElementById("taskSubtasks").innerHTML = task.subtasks
-    ? task.subtasks
+  function renderTaskSubtasks(task) {
+    const subtasksContainer = document.getElementById("taskSubtasks");
+    if (!subtasksContainer) {
+      console.error("Subtasks container element not found.");
+      return;
+    }
+    if (task.subtasks && task.subtasks.length > 0) {
+      subtasksContainer.innerHTML = task.subtasks
         .map(
           (st, index) => `
             <div class="subtask-item">
-              <input type="checkbox" ${
+              <input type="checkbox" class="subtask-checkbox" ${
                 st.completed ? "checked" : ""
               } data-index="${index}" />
               <span>${st.title}</span>
             </div>`
         )
-        .join("")
-    : "<p>No subtasks</p>";
-
+        .join("");
+    } else {
+      subtasksContainer.innerHTML = "<p>No subtasks</p>";
+    }
+    attachSubtaskProgressListener(task);
+  }
   document.getElementById("taskDetailsModal").style.display = "block";
-
-  // Attach Event Listener for Subtasks Progress
   attachSubtaskProgressListener(task);
 }
 
-// Funktion zum Hinzufügen einer Subtask
 function addSubtask(title) {
   if (title) {
     subtasksArray.push({ title, completed: false });
-    updateSubtasksList(); // Liste aktualisieren
-    subtaskInput.value = ""; // Eingabefeld leeren
+    updateSubtasksList();
+    subtaskInput.value = "";
   }
 }
 
@@ -245,18 +246,16 @@ function editSubtask(index) {
   input.addEventListener("blur", save);
 }
 
-// Speichert die bearbeitete Subtask
 function saveEditedSubtask(index, newTitle) {
   if (newTitle) {
-    subtasksArray[index].title = newTitle; // Aktualisiere die Subtask
+    subtasksArray[index].title = newTitle;
   }
-  updateSubtasksList(); // Liste aktualisieren
+  updateSubtasksList();
 }
 
-// Löschen einer Subtask
 function deleteSubtask(index) {
-  subtasksArray.splice(index, 1); // Subtask entfernen
-  updateSubtasksList(); // Liste aktualisieren
+  subtasksArray.splice(index, 1);
+  updateSubtasksList();
 }
 
 function createSubtasksList(task) {
@@ -275,4 +274,93 @@ function createSubtasksList(task) {
       .join("");
   }
   return "<li>No subtasks</li>";
+}
+
+function updateTaskDetailsModal(task) {
+  document.getElementById("taskType").innerHTML = `
+          <div style="background-color: ${
+            task.category === "User Story" ? "#0038FF" : "#1FD7C1"
+          }; color: white; padding: 5px 10px; border-radius: 5px;">
+            ${task.category || "Technical Task"}
+          </div>`;
+  document.getElementById("taskDetailTitle").innerText = task.title;
+  document.getElementById("taskDetailDescription").innerText =
+    task.description || "No description provided";
+  document.getElementById("taskDetailDueDate").innerText =
+    task.dueDate || "N/A";
+  // Stelle sicher, dass das Prio-Icon zurückgesetzt wird
+  const priorityContainer = document.getElementById("taskDetailPriority");
+  priorityContainer.innerHTML = ""; // Zurücksetzen
+  const priorityIcon =
+    task.priority === "Urgent"
+      ? "./assets/icons/urgent.png"
+      : task.priority === "Medium"
+      ? "./assets/icons/medium.png"
+      : "./assets/icons/low.png";
+  priorityContainer.innerHTML = `
+          ${task.priority || "Medium"} 
+          <img src="${priorityIcon}" alt="${
+    task.priority
+  }" class="priority-icon" />
+      `;
+  document.getElementById("taskAssignedTo").innerHTML = task.members
+    ? task.members
+        .map(
+          (name) => `
+                <div class="avatar-container">
+                  <div class="avatar" style="background-color: ${getColorForContact(
+                    name
+                  )};">${getInitials(name)}</div>
+                  <span>${name}</span>
+                </div>`
+        )
+        .join("")
+    : "<p>No members assigned</p>";
+}
+
+function createAssignedAvatars(task) {
+  if (task.members && task.members.length > 0) {
+    let avatars = task.members
+      .map((member) => {
+        let initials = getInitials(member);
+        let color = getColorForMember(member);
+        return `<div class="avatar" style="background-color: ${color}">${initials}</div>`;
+      })
+      .join("");
+    return `<div class="avatars">${avatars}</div>`;
+  }
+  return "";
+}
+
+function populateContactsDropdown(contacts) {
+  const optionsContainer = document.getElementById("taskAssignedOptions");
+  const selectedContainer = document.getElementById(
+    "selectedContactsContainer"
+  );
+  optionsContainer.innerHTML = "";
+  if (!contacts) {
+    optionsContainer.innerHTML =
+      '<div class="no-contacts">No contacts available</div>';
+    return;
+  }
+  Object.keys(contacts).forEach((contactId) => {
+    const contact = contacts[contactId];
+    const initials = getInitials(contact.name);
+    const color = getColorForContact(contact.name);
+    const option = document.createElement("div");
+    option.className = "dropdown-option";
+    option.dataset.value = contact.name;
+    option.innerHTML = `
+          <span class="contact-initials" style="background-color: ${color}">
+            ${initials}
+          </span>
+          <span>${contact.name}</span>
+          <img class="select-icon" src="./assets/icons/property-default.png" alt="Select Icon">
+      <img class="selected-icon" src="./assets/icons/property-checked.png" alt="Selected Icon">
+        `;
+    option.addEventListener("click", () => {
+      toggleContactSelection(option, initials, color, selectedContainer);
+    });
+    optionsContainer.appendChild(option);
+  });
 }

@@ -1,10 +1,10 @@
 // Öffne Add Task Modal und setze die Kategorie
 function openAddTaskModal(type) {
-  selectedType = type || "todo"; // Setze die Kategorie basierend auf Spalte
-  resetAddTaskModal(); // Modal zurücksetzen
+  resetAddTaskModal();
+  selectedType = type || "";
   document.getElementById("addTaskModal").style.display = "block";
   fetchContacts((contacts) => {
-    populateContactsDropdown(contacts); // Kontakte laden
+    populateContactsDropdown(contacts);
   });
 }
 
@@ -13,55 +13,50 @@ function addTaskToBoard(task) {
   const boardColumn = document.querySelector(
     `.board-column[data-status="${status}"]`
   );
-  if (!boardColumn) return console.error(`No column found for type: ${status}`);
+  if (!boardColumn) return;
   const tasksContainer = boardColumn.querySelector(".tasks-container");
   if (!tasksContainer) return;
-  const taskCard = createTaskCard(task); // Task-Karte erstellen
+  const taskCard = createTaskCard(task);
   tasksContainer.appendChild(taskCard);
-
-  // Drag-and-Drop-Events hinzufügen
-  taskCard.addEventListener("dragstart", (e) => startDragging(e, taskCard));
-  taskCard.addEventListener("dragend", () => (currentDraggedTask = null));
-
-  updateNoTasksMessage(boardColumn); // Aktualisiere "No Tasks"-Nachricht
+  taskCard.addEventListener("dragstart", () => {
+    draggedTask = taskCard;
+  });
+  taskCard.addEventListener("dragend", () => {
+    draggedTask = null;
+  });
+  updateNoTasksMessage(boardColumn);
 }
 
 function handleTaskSubmit(e) {
-  e.preventDefault(); // Verhindert das Standardverhalten des Formulars
-  try {
-    console.log("handleTaskSubmit aufgerufen, selectedType:", selectedType);
-
-    // Überprüfe, ob alle Pflichtfelder ausgefüllt sind
-    const isCategoryValid = checkCategory();
-    const isTitleValid = checkTitle();
-    const isDateValid = checkDueDate();
-
-    if (isCategoryValid && isTitleValid && isDateValid) {
-      const typeInput = document.getElementById("taskTypeInput");
-      const task = {
-        title: document.getElementById("taskTitle").value,
-        description: document.getElementById("taskDescription").value,
-        dueDate: document.getElementById("taskDueDate").value,
-        type: selectedType || "todo", // Spalte (z. B. todo, in-progress)
-        category: typeInput.value, // Kategorie der Aufgabe
-        priority: selectedPriority || "Medium",
-        subtasks: subtasksArray,
-        members: selectedMembers,
-      };
-
-      saveTaskToFirebase(task); // Speichere die Task
-      closeModal(); // Schließe das Modal
-      resetAddTaskModal(); // Setze die Inhalte des Modals zurück
+  e.preventDefault();
+  const isCategoryValid = checkCategory();
+  const isTitleValid = checkTitle();
+  const isDateValid = checkDueDate();
+  if (isCategoryValid && isTitleValid && isDateValid) {
+    const typeInput = document.getElementById("taskTypeInput");
+    const task = {
+      title: document.getElementById("taskTitle").value,
+      description: document.getElementById("taskDescription").value,
+      dueDate: document.getElementById("taskDueDate").value,
+      type: selectedType || "todo",
+      category: typeInput.value,
+      priority: selectedPriority || "Medium",
+      subtasks: subtasksArray,
+      members: selectedMembers,
+    };
+    if (isEditMode) {
+      updateTaskInFirebase(currentTaskId, task);
+    } else {
+      saveTaskToFirebase(task);
     }
-  } catch (error) {
-    console.error("Fehler in handleTaskSubmit:", error);
+    closeModal();
+    resetAddTaskModal();
   }
 }
 
 function checkTitle() {
   const titleInput = document.getElementById("taskTitle");
   const titleError = document.getElementById("titleError");
-
   if (!titleInput.value.trim()) {
     titleError.classList.remove("hidden");
     titleInput.focus();
@@ -75,7 +70,6 @@ function checkTitle() {
 function checkDueDate() {
   const dateInput = document.getElementById("taskDueDate");
   const dateError = document.getElementById("dueDateError");
-
   if (!dateInput.value) {
     dateError.classList.remove("hidden");
     dateInput.focus();
@@ -89,7 +83,6 @@ function checkDueDate() {
 function checkCategory() {
   const typeInput = document.getElementById("taskTypeInput");
   const categoryError = document.getElementById("msg-box");
-
   if (!typeInput.value) {
     categoryError.classList.remove("hidden");
     return false;
@@ -111,44 +104,45 @@ function updatePriorityIcon(priority) {
     } else if (priority === "Low") {
       priorityIcon.innerHTML = '<img src="./assets/icons/low.png" alt="Low">';
     } else {
-      priorityIcon.innerHTML = ""; // Keine Priorität
+      priorityIcon.innerHTML = "";
     }
   }
 }
 
 function resetAddTaskModal() {
-  document.getElementById("taskTitle").value = ""; // Titel leeren
-  document.getElementById("taskDescription").value = ""; // Beschreibung leeren
-  document.getElementById("taskDueDate").value = ""; // Datum leeren
-  document.getElementById("subtaskInput").value = ""; // Subtask-Eingabe leeren
-  subtasksArray = []; // Subtasks zurücksetzen
-  updateSubtasksList(); // Subtask-Liste aktualisieren
+  document.getElementById("taskTitle").value = "";
+  document.getElementById("taskDescription").value = "";
+  document.getElementById("taskDueDate").value = "";
+  document.getElementById("subtaskInput").value = "";
+  subtasksArray = [];
+  updateSubtasksList();
   document
     .querySelectorAll(".priority-btn")
-    .forEach((btn) => btn.classList.remove("active")); // Prioritäten zurücksetzen
-  document.getElementById("taskCategorySelectedText").textContent =
-    "Select task category"; // Kategorie-Text zurücksetzen
-  document.getElementById("taskTypeInput").value = ""; // Standardkategorie
-  selectedMembers = []; // Ausgewählte Mitglieder leeren
-  updateSelectedMembers(); // Mitgliederanzeige zurücksetzen
-
-  hideErrorMessages(); // Fehlermeldungen ausblenden
+    .forEach((btn) => btn.classList.remove("active"));
+  selectedMembers = [];
+  updateSelectedMembers();
+  selectedPriority = "Medium";
+  selectedCategory = "";
+  document.getElementById("taskTypeInput").value = "";
+  const actionButton = document.getElementById("createTaskButton");
+  actionButton.textContent = "Create Task";
+  hideErrorMessages();
 }
 
 function hideErrorMessages() {
   const titleError = document.getElementById("titleError");
   const dateError = document.getElementById("dueDateError");
   const categoryError = document.getElementById("msg-box");
-
   if (titleError) titleError.classList.add("hidden");
   if (dateError) dateError.classList.add("hidden");
   if (categoryError) categoryError.classList.add("hidden");
 }
 
-// Funktion zum Schließen des Modals
 function closeModal() {
   const addTaskModal = document.getElementById("addTaskModal");
   addTaskModal.style.display = "none";
+  isEditMode = false;
+  currentTaskId = null;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -158,26 +152,22 @@ document.addEventListener("DOMContentLoaded", () => {
     "taskCategorySelectedText"
   );
   const typeInput = document.getElementById("taskTypeInput");
-
-  // Dropdown öffnen/schließen
   categoryDropdown.addEventListener("click", (e) => {
-    e.stopPropagation(); // Verhindert sofortiges Schließen
-    categoryOptions.classList.toggle("hidden"); // Dropdown zeigen/verstecken
+    e.stopPropagation();
+    categoryOptions.classList.toggle("hidden");
   });
 
-  // Kategorie auswählen
   document
     .querySelectorAll("#taskCategoryOptions .dropdown-option")
     .forEach((option) => {
       option.addEventListener("click", () => {
-        const selectedCategory = option.dataset.value; // Ausgewählte Kategorie
-        categorySelectedText.textContent = selectedCategory; // Zeigt die Kategorie im Dropdown
-        typeInput.value = selectedCategory; // Setzt den Wert im versteckten Input-Feld
-        categoryOptions.classList.add("hidden"); // Dropdown schließen
+        const selectedCategory = option.dataset.value;
+        categorySelectedText.textContent = selectedCategory;
+        typeInput.value = selectedCategory;
+        categoryOptions.classList.add("hidden");
       });
     });
 
-  // Dropdown schließen, wenn außerhalb geklickt wird
   document.addEventListener("click", () => {
     categoryOptions.classList.add("hidden");
   });

@@ -310,16 +310,18 @@ main {
   margin-top: 8px;
 }
 
-.progress {
-  width: 100%;
-  background-color: #f3f3f3; /* Hintergrund für den Fortschrittsbereich */
-  border-radius: 5px;
-  overflow: hidden;
-  height: 10px; /* Höhe des Fortschrittsbalkens */
-  margin-top: 5px;
+.progress-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Align bar and text vertically */
+  gap: 10px; /* Add space between the bar and text */
+}
+
+.progress {
+  flex-grow: 1; /* Bar stretches to fill remaining space */
+  height: 8px;
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 4px;
+  overflow: hidden; /* Ensure inner bar stays inside */
 }
 
 .progress-bar {
@@ -329,7 +331,9 @@ main {
 }
 
 .progress-text {
-  display: flex;
+  font-size: 0.9rem;
+  color: #757575; /* Neutral text color */
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .avatars {
@@ -508,11 +512,14 @@ ul {
 }
 
 .close-button {
-  width: 32px;
-  height: 32px;
-  border-radius: 56px;
   font-size: 2rem;
   cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #29abe2;
+  border-radius: 50px;
+  color: white;
 }
 
 /* Input styling */
@@ -747,6 +754,11 @@ textarea {
   background-color: white;
 }
 
+.cancel-btn:hover {
+  border: 1px solid #29abe2;
+  color: #29abe2;
+}
+
 .create-task-btn {
   background-color: #2a3647;
   width: 183px;
@@ -762,12 +774,20 @@ textarea {
   gap: 4px;
 }
 
+.create-task-btn:hover {
+  background-color: #29abe2;
+}
+
 .delete-btn {
   cursor: pointer;
 }
 
 .edit-btn {
   cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #29abe2;
 }
 
 /* Additional subtask button */
@@ -785,9 +805,9 @@ textarea {
 
 .modal-content-headline {
   width: 445px;
-  height: 36px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .task-header {
@@ -831,7 +851,7 @@ textarea {
   align-items: flex-start;
 }
 
-#taskDetailsPrority {
+#taskDetailPriority {
   display: flex;
   align-items: center;
 }
@@ -1065,17 +1085,31 @@ textarea {
   z-index: 1000;
   background-color: white;
   scrollbar-width: thin;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-search {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
 }
 
 /* Pfeil in der Standardposition */
 .dropdownarrow {
-  transform: rotate(0deg); /* Standard: nach unten */
-  transition: transform 0.3s ease; /* Sanfte Drehung */
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
 }
 
 /* Pfeil nach oben drehen */
-.dropdownarrow.open {
-  transform: rotate(180deg) !important;
+.dropdown.open .dropdownarrow {
+  transform: rotate(180deg); /* Pfeil nach oben drehen */
+}
+
+.dropdown.open .dropdown-options {
+  display: block;
 }
 
 /* Für Dropdown-Optionen */
@@ -1098,6 +1132,31 @@ textarea {
   text-transform: uppercase; /* Großbuchstaben */
 }
 
+.select-icon,
+.selected-icon {
+  width: 20px; /* Passe die Größe nach Bedarf an */
+  height: 20px;
+  filter: brightness(0) invert(1);
+  right: 10px;
+  position: absolute;
+}
+
+.selected-icon {
+  display: none;
+}
+
+.dropdown-option.selected .select-icon {
+  display: none;
+}
+
+.dropdown-option.selected .selected-icon {
+  display: inline;
+}
+
+.dropdown-option:not(.selected):hover .select-icon {
+  filter: brightness(0) invert(1); /* Macht das Icon weiß */
+}
+
 .dropdown-option {
   display: flex;
   align-items: center;
@@ -1111,7 +1170,7 @@ textarea {
 }
 
 /* Styling für ausgewählte Kontakte im Dropdown */
-.dropdown-option.selected {
+.dropdown-option.selected .select-icon .selected-icon {
   background-color: #091931; /* Hintergrundfarbe für ausgewählte Kontakte */
   color: white; /* Textfarbe ändern */
 }

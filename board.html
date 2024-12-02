@@ -231,7 +231,7 @@
                     class="custom-dropdown dropdown"
                   >
                     <div class="dropdown-placeholder">
-                      Select contacts
+                        Select contacts
                       <div class="arrow">
                         <img
                           id="dropdownArrow"
@@ -244,7 +244,14 @@
                     <div
                       id="taskAssignedOptions"
                       class="dropdown-options hidden"
-                    ></div>
+                    >
+                    <input
+            type="text"
+            id="taskSearchInput"
+            class="dropdown-search"
+            placeholder="Search contacts..."
+        />
+            </div>
                   </div>
                   <div
                     id="selectedContactsContainer"
@@ -391,7 +398,7 @@
               <div class="addTask-buttons">
                 <button class="cancel-btn" id="cancelButton">Cancel x</button>
                 <button type="submit" id="createTaskButton" class="create-task-btn">
-                  Create Task ✓
+                    Create Task ✓
                 </button>
               </div>
             </div>

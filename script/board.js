@@ -1,6 +1,18 @@
 const logedUser = sessionStorage.getItem("User");
+let selectedPriority = "Medium";
+let selectedMembers = [];
+let subtasksArray = [];
+let currentTaskId = null;
+let selectedCategory = "";
+let isEditMode = false;
+let currentDraggedTask = null;
+let draggedTask = null;
+let selectedType = "todo";
+let tasksMap = {};
+fetchTasks((tasks) => {
+  tasksMap = tasks;
+});
 
-// Fetch Users
 function fetchUsers(callback) {
   firebase
     .database()
@@ -11,37 +23,33 @@ function fetchUsers(callback) {
     });
 }
 
-// Fetch Tasks
 function fetchTasks(callback) {
   firebase
     .database()
     .ref("/tasks/")
     .once("value")
     .then((snapshot) => {
-      let tasks = snapshot.val();
-      for (let key in tasks) {
-        if (!Array.isArray(tasks[key].members)) {
-          tasks[key].members = []; // Sicherstellen, dass `members` ein Array ist
-        }
-      }
+      const tasks = snapshot.val() || {};
+      Object.keys(tasks).forEach((key) => {
+        tasks[key] = {
+          ...tasks[key],
+          category: tasks[key].category || "Technical Task",
+          title: tasks[key].title || "Untitled Task",
+          description: tasks[key].description || "No description provided",
+        };
+      });
       callback(tasks);
-    });
+    })
+    .catch((error) =>
+      console.error("Fehler beim Abrufen der Aufgaben:", error)
+    );
 }
-
-let selectedPriority = "Medium"; // Default priority
-let selectedMembers = []; // Globales Array für ausgewählte Kontakte
-let subtasksArray = []; // Filled when adding subtasks
-let currentTaskId = null;
-let selectedCategory = ""; // Standardkategorie
-let isEditMode = false;
-let currentDraggedTask = null;
-let draggedTask = null;
-let selectedType = "todo"; // Standardwert
 
 function renderTasks(tasks) {
   for (let taskId in tasks) {
     let task = tasks[taskId];
     addTaskToBoard(task);
+    enableDragAndDrop();
   }
 }
 
@@ -50,31 +58,17 @@ function renderTasksOnBoard() {
     document.querySelectorAll(".board-column").forEach((column) => {
       const category = column.getAttribute("data-status");
       const tasksContainer = column.querySelector(".tasks-container");
-      tasksContainer.innerHTML = ""; // Vorherige Tasks entfernen
-
-      tasks
+      tasksContainer.innerHTML = "";
+      Object.values(tasks)
         .filter((task) => task.category === category)
         .forEach((task) => {
-          addTaskToBoard(task); // Tasks hinzufügen
+          addTaskToBoard(task);
         });
+      updateNoTasksMessage(column);
     });
 
-    setupDropZones(); // Spalten nach dem Rendern vorbereiten
+    enableDragAndDrop();
   });
-}
-
-function createAssignedAvatars(task) {
-  if (task.members && task.members.length > 0) {
-    let avatars = task.members
-      .map((member) => {
-        let initials = getInitials(member);
-        let color = getColorForMember(member);
-        return `<div class="avatar" style="background-color: ${color}">${initials}</div>`;
-      })
-      .join("");
-    return `<div class="avatars">${avatars}</div>`;
-  }
-  return "";
 }
 
 function updateNoTasksMessage(column) {
@@ -85,21 +79,6 @@ function updateNoTasksMessage(column) {
       ? "none"
       : "block";
   }
-}
-
-function updateTaskDetailsModal(task) {
-  document.getElementById("taskType").innerText = task.type || "Task";
-  document.getElementById("taskDetailTitle").innerText = task.title;
-  document.getElementById("taskDetailDescription").innerText =
-    task.description || "No description provided";
-  document.getElementById("taskDetailDueDate").innerText =
-    task.dueDate || "No due date";
-  document.getElementById("taskDetailPriority").innerText =
-    task.priority || "None";
-  updatePriorityIcon(task.priority);
-  document.getElementById("taskAssignedTo").innerHTML =
-    createAssignedToList(task);
-  document.getElementById("taskSubtasks").innerHTML = createSubtasksList(task);
 }
 
 function createAssignedToList(task) {
@@ -116,57 +95,50 @@ function createAssignedToList(task) {
 
 function openEditTaskModal() {
   if (currentTask) {
-    isEditMode = true; // Bearbeitungsmodus aktivieren
-    document.getElementById("addTaskModalTitle").textContent = "Edit Task";
-    document.getElementById("addTaskModal").style.display = "block";
+    isEditMode = true;
+    currentTaskId = currentTask.id;
     populateEditTaskForm(currentTask);
+    document.getElementById("addTaskModal").style.display = "block";
   }
 }
 
 function updateTaskInFirebase(taskId, taskData) {
   firebase
     .database()
-    .ref("/tasks/" + taskId)
+    .ref(`/tasks/${taskId}`)
     .update(taskData)
     .then(() => {
       updateTaskOnBoard(taskId, taskData);
-
-      // Update the currentTask variable
       if (currentTask && currentTask.id === taskId) {
-        // Merge the updated data into currentTask
         currentTask = { ...currentTask, ...taskData };
         updateTaskDetailsModal(currentTask);
       }
     })
     .catch((error) => {
-      console.error("Error updating task:", error);
+      console.error("Fehler beim Aktualisieren der Aufgabe:", error);
     });
 }
 
 function updateTaskOnBoard(taskId, taskData) {
-  // Entferne die alte Task-Karte vom Board
   removeTaskFromBoard(taskId);
-  // Füge die aktualisierte Aufgabe dem Board hinzu
-  taskData.id = taskId; // Stelle sicher, dass die ID gesetzt ist
+  taskData.id = taskId;
   addTaskToBoard(taskData);
 }
 
 function populateEditTaskForm(task) {
-  document.getElementById("taskTitle").value = task.title;
-  document.getElementById("taskDescription").value = task.Description;
-  document.getElementById("taskDueDate").value = task.Date;
-
-  selectedPriority = task.Prio;
+  document.getElementById("taskTitle").value = task.title || "";
+  document.getElementById("taskDescription").value = task.description || "";
+  document.getElementById("taskDueDate").value = task.dueDate || "";
+  selectedPriority = task.priority || "Medium";
   updatePriorityButtons();
-
   selectedCategory = task.category;
-  document.getElementById("taskTypeInput").value = task.category;
-
+  document.getElementById("taskTypeInput").value = task.category || "";
   selectedMembers = task.members || [];
   updateSelectedMembers();
-
   subtasksArray = task.subtasks || [];
   updateSubtasksList();
+  const actionButton = document.getElementById("createTaskButton");
+  actionButton.textContent = "Edit Task";
 }
 
 function closeTaskDetailsModal() {
@@ -202,12 +174,10 @@ function removeTaskFromBoard(taskId) {
   }
 }
 
-// Reset Add Task Form
 function resetAddTaskForm() {
   document.getElementById("addTaskForm").reset();
   selectedMembers = [];
   updateSelectedMembers();
-  // Reset other form elements if necessary
 }
 
 function fetchContacts(callback) {
@@ -224,81 +194,74 @@ function fetchContacts(callback) {
     });
 }
 
-function populateContactsDropdown(contacts) {
+function setupDropdownSearchInline() {
+  const dropdown = document.getElementById("taskAssignedDropdown");
   const optionsContainer = document.getElementById("taskAssignedOptions");
-  const selectedContainer = document.getElementById(
-    "selectedContactsContainer"
-  );
-  optionsContainer.innerHTML = ""; // Bestehende Optionen leeren
-
-  if (!contacts) {
-    optionsContainer.innerHTML =
-      '<div class="no-contacts">No contacts available</div>';
+  const searchInput = document.getElementById("taskSearchInput");
+  if (!dropdown || !optionsContainer || !searchInput) {
+    console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");
     return;
   }
-
-  Object.keys(contacts).forEach((contactId) => {
-    const contact = contacts[contactId];
-    const initials = getInitials(contact.name); // Initialen berechnen
-    const color = getColorForContact(contact.name); // Hintergrundfarbe berechnen
-
-    const option = document.createElement("div");
-    option.className = "dropdown-option";
-    option.dataset.value = contact.name;
-
-    // Initialen und Name hinzufügen
-    option.innerHTML = `
-        <span class="contact-initials" style="background-color: ${color}">
-          ${initials}
-        </span>
-        <span>${contact.name}</span>
-      `;
-
-    // Klick-Event für Auswahl
-    option.addEventListener("click", () => {
-      toggleContactSelection(option, initials, color, selectedContainer);
+  dropdown.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const isOpen = dropdown.classList.toggle("open");
+    optionsContainer.classList.toggle("hidden", !isOpen);
+  });
+  document.addEventListener("click", () => {
+    optionsContainer.classList.add("hidden");
+    dropdown.classList.toggle("open");
+  });
+  fetchContacts((contacts) => {
+    populateContactsDropdown(contacts);
+  });
+  searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const options = optionsContainer.querySelectorAll(".dropdown-option");
+    options.forEach((option) => {
+      const contactName = option.dataset.value.toLowerCase();
+      option.style.display = contactName.includes(searchTerm)
+        ? "block"
+        : "none";
     });
-
-    optionsContainer.appendChild(option);
   });
 }
 
-// Funktion zur Auswahl eines Kontakts
 function toggleContactSelection(option, initials, color, selectedContainer) {
+  const contactName = option.dataset.value;
   const isSelected = option.classList.contains("selected");
-
+  const selectIcon = option.querySelector(".select-icon");
+  const selectedIcon = option.querySelector(".selected-icon");
   if (isSelected) {
-    // Kontakt abwählen
     option.classList.remove("selected");
-    option.style.backgroundColor = ""; // Hintergrundfarbe zurücksetzen
-    option.style.color = ""; // Textfarbe zurücksetzen
+    option.style.backgroundColor = "";
+    option.style.color = "";
     removeInitialFromSelected(initials, selectedContainer);
-    const contactName = option.dataset.value;
     selectedMembers = selectedMembers.filter(
       (member) => member !== contactName
     );
   } else {
     option.classList.add("selected");
-    option.style.backgroundColor = "#091931"; // Hintergrundfarbe der ausgewählten Option
-    option.style.color = "white"; // Textfarbe ändern
+    option.style.backgroundColor = "#091931";
+    option.style.color = "white";
     addInitialToSelected(initials, color, selectedContainer);
-    const contactName = option.dataset.value;
     if (!selectedMembers.includes(contactName)) {
       selectedMembers.push(contactName);
     }
+    selectIcon.classList.remove("icon-visible");
+    selectIcon.classList.add("icon-hidden");
+    selectedIcon.classList.remove("icon-hidden");
+    selectedIcon.classList.add("icon-visible");
   }
 }
 
-// Initialen zum ausgewählten Bereich hinzufügen
 function addInitialToSelected(initials, color, selectedContainer) {
   const span = document.createElement("span");
   span.className = "selected-contact-initials";
   span.textContent = initials;
-  span.style.backgroundColor = color; // Gleiche Farbe wie im Dropdown
+  span.style.backgroundColor = color;
   selectedContainer.appendChild(span);
 }
 
-// Initialen aus dem ausgewählten Bereich entfernen
 function removeInitialFromSelected(initials, selectedContainer) {
   const spans = selectedContainer.querySelectorAll(
     ".selected-contact-initials"
@@ -329,7 +292,6 @@ function filterTasks() {
   });
 }
 
-// Aufrufen der Funktion
 filterTasks();
 
 function collectFormData() {
@@ -339,20 +301,21 @@ function collectFormData() {
     Date: document.getElementById("taskDueDate").value,
     Prio: selectedPriority,
     category: document.getElementById("taskTypeInput").value,
-    members: selectedMembers, // Include selected contacts here
+    members: selectedMembers,
     subtasks: subtasksArray,
     type: document.getElementById("taskCategoryInput").value || "Task",
   };
 }
 
 function saveTaskToFirebase(task) {
-  console.log("Ausgewählte Mitglieder:", selectedMembers);
   const newTaskRef = firebase.database().ref("/tasks/").push();
-  task.id = newTaskRef.key; // Generiere eine eindeutige ID für die Task
+  task.id = newTaskRef.key;
+
   newTaskRef
     .set(task)
     .then(() => {
-      addTaskToBoard(task); // Zeige die Task direkt auf dem Board
+      addTaskToBoard(task);
+      enableDragAndDrop();
     })
     .catch((error) => {
       console.error("Fehler beim Speichern der Aufgabe in Firebase:", error);
@@ -362,6 +325,13 @@ function saveTaskToFirebase(task) {
 function updatePriorityButtons() {
   document.querySelectorAll(".priority-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.priority === selectedPriority);
+    const icon = btn.querySelector(".priority-icon");
+    if (icon) {
+      icon.style.filter =
+        btn.dataset.priority === selectedPriority
+          ? "brightness(0) invert(1)"
+          : "none";
+    }
   });
 }
 
@@ -385,12 +355,12 @@ function selectContact(contactName) {
 
 function updateSelectedMembers() {
   const container = document.getElementById("selectedContactsContainer");
-  container.innerHTML = ""; // Vorherige Mitglieder entfernen
-
+  container.innerHTML = "";
   selectedMembers.forEach((member) => {
     const span = document.createElement("span");
     span.className = "selected-contact-initials";
-    span.textContent = getInitials(member); // Initialen anzeigen
+    span.textContent = getInitials(member);
+    span.style.backgroundColor = getColorForContact(member);
     container.appendChild(span);
   });
 }
