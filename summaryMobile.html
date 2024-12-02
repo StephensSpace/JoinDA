@@ -15,34 +15,33 @@
     <script src="./script/setProfile.js" defer></script>
     <script src="./script/checkMaxWidth.js"></script>
     <script src="./script/summaryMobile.js"></script>
-
 </head>
 
 <body onload="loadSummary()">
     <header>
         <img src="./assets/img/logo.png" id="logo">
         <div>
-            <div id="userProfil" onclick="openUserMenu()">
+            <div id="userProfil">
                 <span id="initials" >SM</span>
             </div>
         </div>
         <div class="userMenu dNone" id="userMenu">
-            <div class="userMenuButton">
+            <div class="userMenuButton" onclick="helpBtn()">
                 <span class="userMenuBtnSpan">
                     Help
                 </span>
             </div>
-            <div class="userMenuButton">
+            <div class="userMenuButton" onclick="menuLegalBtn()">
                 <span class="userMenuBtnSpan">
                     Legal Notice
                 </span>
             </div>
-            <div class="userMenuButton">
+            <div class="userMenuButton" onclick="menuPrivacyBtn()">
                 <span class="userMenuBtnSpan">
                     Privacy Policy
                 </span>
             </div>
-            <div class="userMenuButton">
+            <div class="userMenuButton" onclick="logOutBtn()">
                 <span class="userMenuBtnSpan">
                     Log out
                 </span>

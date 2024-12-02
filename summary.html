@@ -16,8 +16,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="./script/firebase-config.js"></script>
     <script src="./script/setProfile.js" defer></script>
+    <script src="./script/userMenu.js" defer></script>
     <script src="./script/checkMaxWidth.js"></script>
     <script src="./script/summary.js"></script>
+    
 </head>
 
 <body onload="setGreeting()">
@@ -44,24 +46,24 @@
             </div>
             <div>
                 <div>
-                    <img src="./assets/img/help.png" alt="./assets/img/help.png">
+                    <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()" style="cursor: pointer;">
                 </div>
                 <div id="userProfil" onclick="openUserMenu()">
                     <span id="initials"></span>
                 </div>
             </div>
             <div class="userMenu dNone" id="userMenu">
-                <div class="userMenuButton">
+                <div class="userMenuButton" onclick="menuLegalBtn()">
                     <span class="userMenuBtnSpan">
                         Legal Notice
                     </span>
                 </div>
-                <div class="userMenuButton">
+                <div class="userMenuButton" id="privacyBtn" onclick="menuPrivacyBtn()">
                     <span class="userMenuBtnSpan">
                         Privacy Policy
                     </span>
                 </div>
-                <div class="userMenuButton">
+                <div class="userMenuButton" id="logOutBtn" onclick="logOutBtn()">
                     <span class="userMenuBtnSpan">
                         Log out
                     </span>

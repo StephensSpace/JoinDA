@@ -281,9 +281,7 @@
 @media (max-width: 396px) {
     .cardOverviewDiv {
         max-width: 100%;
-        /* Maximal die komplette Breite des Viewports */
         padding: 10px;
-        /* Anpassung des Innenabstands für kleinere Bildschirmgrößen */
     }
 
     .taskOverview {
@@ -301,9 +299,7 @@
 
     .toDoAndDoneCard {
         width: 50%;
-        /* Karten teilen sich den Platz gleichmäßig */
         max-width: 186px;
-        /* Maximale Breite bei großen Bildschirmen */
     }
 }
 

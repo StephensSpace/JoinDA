@@ -11,7 +11,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
     <script src="./script/firebase-config.js"></script>
-
+    <script src="./script/setProfile.js" defer></script>
+    <script src="./script/userMenu.js" defer></script>
+    <script src="./script/checkMaxWidth.js"></script>
 </head>
 
 <body onload="initContacts()">
@@ -20,7 +22,29 @@
         <img src="./assets/img/logo.png" id="logo">
         <div>
             <div id="userProfil">
-                <span id="initials">SM</span>
+                <span id="initials" >SM</span>
+            </div>
+        </div>
+        <div class="userMenu dNone" id="userMenu">
+            <div class="userMenuButton" onclick="helpBtn()">
+                <span class="userMenuBtnSpan">
+                    Help
+                </span>
+            </div>
+            <div class="userMenuButton" onclick="menuLegalBtn()">
+                <span class="userMenuBtnSpan">
+                    Legal Notice
+                </span>
+            </div>
+            <div class="userMenuButton" onclick="menuPrivacyBtn()">
+                <span class="userMenuBtnSpan">
+                    Privacy Policy
+                </span>
+            </div>
+            <div class="userMenuButton" onclick="logOutBtn()">
+                <span class="userMenuBtnSpan">
+                    Log out
+                </span>
             </div>
         </div>
     </header>

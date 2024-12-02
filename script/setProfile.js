@@ -1,3 +1,4 @@
+
 function checkLogedUser() {
     if (!logedUser || logedUser === "NaN" || logedUser.trim() === "") {
         window.location.href = "login.html";
@@ -37,25 +38,5 @@ function colorPicker(initials) {
         document.getElementById('userProfil').style.background = "#1FD7C1"
     } else { document.getElementById('userProfil').style.background = "#462F8A" }
 }
-
-
-function openUserMenu() {
-    const userMenu = document.getElementById('userMenu');
-    if (userMenu.classList.contains('dNone')) {
-        userMenu.classList.remove('dNone'); 
-        const closeMenu = function (event) {
-            if (!userMenu.contains(event.target)) {
-                userMenu.classList.add('dNone'); // Overlay schließen
-                document.removeEventListener('click', closeMenu); // Listener entfernen
-            }
-        };
-        setTimeout(() => {
-            document.addEventListener('click', closeMenu);
-        }, 0); // Verzögerung, um den initialen Klick zu ignorieren
-    } else {
-        userMenu.classList.add('dNone'); // Overlay schließen
-    }
-}
-
 
 checkLogedUser();
