@@ -1,5 +1,6 @@
 const logedUser = sessionStorage.getItem("User");
 let selectedPriority = "Medium";
+let enableDragCounter = 0;
 let selectedMembers = [];
 let subtasksArray = [];
 let currentTaskId = null;
@@ -16,7 +17,7 @@ fetchTasks((tasks) => {
 function fetchUsers(callback) {
   firebase
     .database()
-    .ref("/User/")
+    .ref("/contacts/")
     .once("value")
     .then((snapshot) => {
       callback(snapshot.val());
@@ -29,27 +30,29 @@ function fetchTasks(callback) {
     .ref("/tasks/")
     .once("value")
     .then((snapshot) => {
-      const tasks = snapshot.val() || {};
-      Object.keys(tasks).forEach((key) => {
-        tasks[key] = {
-          ...tasks[key],
-          category: tasks[key].category || "Technical Task",
-          title: tasks[key].title || "Untitled Task",
-          description: tasks[key].description || "No description provided",
-        };
-      });
+      const tasks = snapshot.val();
+      if (!tasks) {
+        return;
+      }
+
       callback(tasks);
     })
-    .catch((error) =>
-      console.error("Fehler beim Abrufen der Aufgaben:", error)
-    );
+    .catch((error) => {
+      console.error("Fehler beim Abrufen der Aufgaben:", error);
+    });
 }
 
 function renderTasks(tasks) {
   for (let taskId in tasks) {
-    let task = tasks[taskId];
+    const task = tasks[taskId];
+
+    // Validierung: Überspringe ungültige Einträge
+    if (!task || typeof task !== "object" || !task.title) {
+      console.warn(`Ungültige Aufgabe für ID ${taskId}:`, task);
+      continue; // Ignoriere diesen Eintrag
+    }
+
     addTaskToBoard(task);
-    enableDragAndDrop();
   }
 }
 
@@ -59,26 +62,28 @@ function renderTasksOnBoard() {
       const category = column.getAttribute("data-status");
       const tasksContainer = column.querySelector(".tasks-container");
       tasksContainer.innerHTML = "";
-      Object.values(tasks)
+
+      tasks
         .filter((task) => task.category === category)
         .forEach((task) => {
-          addTaskToBoard(task);
+          const taskCard = createTaskCard(task);
+          tasksContainer.appendChild(taskCard);
         });
-      updateNoTasksMessage(column);
     });
 
-    enableDragAndDrop();
+    enableDragAndDrop(); // Nur einmal aufrufen
   });
 }
 
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
-  if (tasksContainer && noTasksMessage) {
-    noTasksMessage.style.display = tasksContainer.children.length
-      ? "none"
-      : "block";
+  if (!tasksContainer || !noTasksMessage) {
+    console.error("tasksContainer oder noTasksMessage nicht gefunden.");
+    return;
   }
+  const hasTasks = tasksContainer.children.length > 0;
+  noTasksMessage.style.display = hasTasks ? "none" : "block";
 }
 
 function createAssignedToList(task) {
@@ -133,6 +138,8 @@ function populateEditTaskForm(task) {
   updatePriorityButtons();
   selectedCategory = task.category;
   document.getElementById("taskTypeInput").value = task.category || "";
+  document.getElementById("secondDropdownSelectedText").textContent =
+    task.category || "Select a category";
   selectedMembers = task.members || [];
   updateSelectedMembers();
   subtasksArray = task.subtasks || [];
@@ -198,22 +205,32 @@ function setupDropdownSearchInline() {
   const dropdown = document.getElementById("taskAssignedDropdown");
   const optionsContainer = document.getElementById("taskAssignedOptions");
   const searchInput = document.getElementById("taskSearchInput");
+  const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder"); // Specific trigger for toggling
+
   if (!dropdown || !optionsContainer || !searchInput) {
     console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");
     return;
   }
-  dropdown.addEventListener("click", (event) => {
-    event.stopPropagation();
+
+  // Toggle dropdown visibility when clicking on the trigger
+  dropdownTrigger.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevents the click from propagating to the document
     const isOpen = dropdown.classList.toggle("open");
     optionsContainer.classList.toggle("hidden", !isOpen);
   });
+
+  // Close dropdown when clicking outside
   document.addEventListener("click", () => {
     optionsContainer.classList.add("hidden");
-    dropdown.classList.toggle("open");
+    dropdown.classList.remove("open");
   });
+
+  // Fetch and populate contacts
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
   });
+
+  // Filter options based on search input
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
     const options = optionsContainer.querySelectorAll(".dropdown-option");
@@ -291,7 +308,6 @@ function filterTasks() {
     });
   });
 }
-
 filterTasks();
 
 function collectFormData() {
@@ -310,6 +326,13 @@ function collectFormData() {
 function saveTaskToFirebase(task) {
   const newTaskRef = firebase.database().ref("/tasks/").push();
   task.id = newTaskRef.key;
+
+  if (!task.category || task.category.trim() === "") {
+    console.error(
+      "Kategorie nicht gesetzt. Aufgabe kann nicht gespeichert werden."
+    );
+    return;
+  }
 
   newTaskRef
     .set(task)
@@ -354,14 +377,21 @@ function selectContact(contactName) {
 }
 
 function updateSelectedMembers() {
-  const container = document.getElementById("selectedContactsContainer");
-  container.innerHTML = "";
+  const selectedContainer = document.getElementById(
+    "selectedContactsContainer"
+  );
+  selectedContainer.innerHTML = ""; // Vorherige Mitglieder entfernen
+
   selectedMembers.forEach((member) => {
+    const initials = getInitials(member);
+    const color = getColorForContact(member);
+
     const span = document.createElement("span");
     span.className = "selected-contact-initials";
-    span.textContent = getInitials(member);
-    span.style.backgroundColor = getColorForContact(member);
-    container.appendChild(span);
+    span.textContent = initials;
+    span.style.backgroundColor = color;
+
+    selectedContainer.appendChild(span);
   });
 }
 

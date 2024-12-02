@@ -1,4 +1,3 @@
-// Öffne Add Task Modal und setze die Kategorie
 function openAddTaskModal(type) {
   resetAddTaskModal();
   selectedType = type || "";
@@ -145,30 +144,55 @@ function closeModal() {
   currentTaskId = null;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const categoryDropdown = document.getElementById("taskCategoryDropdown");
-  const categoryOptions = document.getElementById("taskCategoryOptions");
-  const categorySelectedText = document.getElementById(
-    "taskCategorySelectedText"
+function setupSecondDropdown() {
+  const secondDropdown = document.getElementById("secondDropdown");
+  const secondOptionsContainer = document.getElementById(
+    "secondOptionsContainer"
   );
+  const secondArrow = document.getElementById("secondDropdownArrow");
+  const secondSelectedText = document.getElementById(
+    "secondDropdownSelectedText"
+  );
+  const categoryInput = document.getElementById("taskCategoryInput"); // Hidden input für die Kategorie
   const typeInput = document.getElementById("taskTypeInput");
-  categoryDropdown.addEventListener("click", (e) => {
-    e.stopPropagation();
-    categoryOptions.classList.toggle("hidden");
+  // Toggle dropdown visibility and arrow rotation
+  secondDropdown.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const isOpen = secondDropdown.classList.toggle("open");
+    secondOptionsContainer.classList.toggle("hidden", !isOpen);
+    secondArrow.classList.toggle("open", isOpen);
   });
 
-  document
-    .querySelectorAll("#taskCategoryOptions .dropdown-option")
-    .forEach((option) => {
-      option.addEventListener("click", () => {
-        const selectedCategory = option.dataset.value;
-        categorySelectedText.textContent = selectedCategory;
-        typeInput.value = selectedCategory;
-        categoryOptions.classList.add("hidden");
-      });
-    });
+  // Handle option selection
+  secondOptionsContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("second-dropdown-option")) {
+      const selectedCategory = event.target.dataset.value;
 
-  document.addEventListener("click", () => {
-    categoryOptions.classList.add("hidden");
+      // Update placeholder text and hidden input value
+      secondSelectedText.textContent = selectedCategory;
+      typeInput.value = selectedCategory;
+
+      // Highlight the selected option
+      secondOptionsContainer
+        .querySelectorAll(".second-dropdown-option")
+        .forEach((option) => {
+          option.classList.remove("selected");
+        });
+      event.target.classList.add("selected");
+
+      // Close dropdown
+      secondDropdown.classList.remove("open");
+      secondOptionsContainer.classList.add("hidden");
+      secondArrow.classList.remove("open");
+    }
   });
-});
+
+  // Close the dropdown when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!secondDropdown.contains(event.target)) {
+      secondDropdown.classList.remove("open");
+      secondOptionsContainer.classList.add("hidden");
+      secondArrow.classList.remove("open");
+    }
+  });
+}

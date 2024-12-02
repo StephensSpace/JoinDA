@@ -1,4 +1,9 @@
 function createTaskCard(task) {
+  if (!task || typeof task !== "object") {
+    console.error("Ungültige Aufgabe übergeben:", task);
+    return null; // Verhindert weitere Verarbeitung
+  }
+  const members = Array.isArray(task.members) ? task.members : [];
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
@@ -143,6 +148,7 @@ function showTaskDetails(task) {
   // Display Subtasks with Checkbox
   function renderTaskSubtasks(task) {
     const subtasksContainer = document.getElementById("taskSubtasks");
+    subtasksContainer.innerHTML = createSubtasksList(task);
     if (!subtasksContainer) {
       console.error("Subtasks container element not found.");
       return;
@@ -163,6 +169,7 @@ function showTaskDetails(task) {
       subtasksContainer.innerHTML = "<p>No subtasks</p>";
     }
     attachSubtaskProgressListener(task);
+    setupSubtaskIconClickListeners(task);
   }
   document.getElementById("taskDetailsModal").style.display = "block";
   attachSubtaskProgressListener(task);
@@ -262,18 +269,58 @@ function createSubtasksList(task) {
   if (task.subtasks && task.subtasks.length > 0) {
     return task.subtasks
       .map(
-        (subtask) => `
-          <li>
-            <input type="checkbox" ${
-              subtask.completed ? "checked" : ""
-            } data-id="${subtask.id}">
-            <span>${subtask.title}</span>
-          </li>
-        `
+        (subtask, index) => `
+            <li class="subtask-item" data-id="${subtask.id}">
+              <div class="subtask-checkbox" data-index="${index}">
+                <img 
+                  src="./assets/icons/${
+                    subtask.completed ? "checked" : "unchecked"
+                  }.png" 
+                  alt="${subtask.completed ? "Completed" : "Incomplete"}" 
+                  class="subtask-icon" 
+                  data-completed="${subtask.completed}" 
+                  data-index="${index}"
+                />
+              </div>
+              <span>${subtask.title}</span>
+            </li>
+          `
       )
       .join("");
   }
   return "<li>No subtasks</li>";
+}
+
+// Event Listener for Subtask Icons
+function setupSubtaskIconClickListeners(task) {
+  const subtasks = document.querySelectorAll(".subtask-item .subtask-icon");
+
+  subtasks.forEach((icon) => {
+    icon.addEventListener("click", (event) => {
+      const index = parseInt(event.target.dataset.index, 10);
+      if (index < 0 || index >= task.subtasks.length) {
+        console.error("Ungültiger Subtask-Index:", index);
+        return;
+      }
+
+      const subtask = task.subtasks[index];
+
+      // Toggle den Status der Subtask
+      subtask.completed = !subtask.completed;
+
+      // Aktualisiere das Icon basierend auf dem Status
+      event.target.src = `./assets/icons/${
+        subtask.completed ? "checked" : "unchecked"
+      }.png`;
+      event.target.alt = subtask.completed ? "Completed" : "Incomplete";
+
+      // Fortschrittsanzeige aktualisieren
+      updateTaskProgress(task);
+
+      // Speichere die Änderungen
+      saveTaskToFirebase(task);
+    });
+  });
 }
 
 function updateTaskDetailsModal(task) {

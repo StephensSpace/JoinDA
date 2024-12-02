@@ -1,54 +1,138 @@
 header {
-    background-color: var(--background-color-header);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px 20px 348px;
-    gap: 34px;
-    position: absolute;
-    height: 96px;
-    left: 0px;
-    top: 0px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1920px;
-    z-index: 1;
+  background-color: var(--background-color-header);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px 20px 348px;
+  gap: 34px;
+  position: absolute;
+  height: 96px;
+  left: 0px;
+  top: 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1920px;
+  z-index: 1;
 }
 
 #managmentTool {
-    margin: 0 auto;
-    width: 319px;
-    height: 24px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 120%;
-    color: #000000;
+  margin: 0 auto;
+  width: 319px;
+  height: 24px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #000000;
 }
 
 header div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #userProfil {
-    border: solid 2px black;
-    border-radius: 100%;
-    padding: 8px;
-    width: 48px;
-    height: 48px;
-    color: var(--background-color-aside);
+  border: solid 2px black;
+  border-radius: 100%;
+  padding: 8px;
+  width: 48px;
+  height: 48px;
+  color: var(--background-color-aside);
+  cursor: pointer;
 }
 
 header img:hover {
-    scale: 1.075;
+  scale: 1.075;
 }
 
 #initials {
-    width: -webkit-fill-available;
-    text-align: center;
-    color: white;
+  width: -webkit-fill-available;
+  text-align: center;
+  color: white;
+}
+
+.userMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  position: absolute;
+  top: 96px;
+  right: 20px;
+  width: 150px;
+  height: 158px;
+  background: #2a3647;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 0px 20px 20px;
+}
+
+.userMenuButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 130px;
+  height: 46px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.userMenuButton:hover {
+  background: #2a3d59;
+  transform: scale(1.05);
+}
+
+.userMenuBtnSpan {
+  font-weight: 400;
+  font-size: 16px;
+  color: #cdcdcd;
+  white-space: nowrap;
+}
+.userMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  position: absolute;
+  top: 96px;
+  right: 20px;
+  width: 150px;
+  height: 158px;
+  background: #2a3647;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 0px 20px 20px;
+}
+
+.userMenuButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 130px;
+  height: 46px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.userMenuButton:hover {
+  background: #2a3d59;
+  width: 131px;
+  height: 47px;
+}
+
+.userMenuBtnSpan {
+  font-weight: 400;
+  font-size: 16px;
+  color: #cdcdcd;
+  white-space: nowrap;
+}
+
+.dNone {
+  display: none;
 }

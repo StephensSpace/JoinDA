@@ -21,3 +21,11 @@ function getColorForContact(name) {
   const index = name.charCodeAt(0) % colors.length;
   return colors[index];
 }
+
+function updateTaskStatusInFirebase(taskId, newStatus) {
+  firebase
+    .database()
+    .ref(`/tasks/${taskId}`)
+    .update({ type: newStatus })
+    .then(() => {});
+}

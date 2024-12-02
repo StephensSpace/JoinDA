@@ -6,63 +6,110 @@ function startDragging(event, taskCard) {
   event.dataTransfer.setData("text/plain", taskCard.dataset.id);
 }
 
-function dropTask(event, newCategory) {
-  event.preventDefault();
+function dropTask(event, newStatus) {
   const taskId = event.dataTransfer.getData("text/plain");
+  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
+  if (taskCard) {
+    const oldStatus = taskCard.dataset.status;
+    taskCard.dataset.status = newStatus;
 
-  if (taskId) {
-    updateTaskCategoryInFirebase(taskId, newCategory);
+    const newColumn = document.querySelector(
+      `.board-column[data-status="${newStatus}"] .tasks-container`
+    );
+    if (newColumn) {
+      newColumn.appendChild(taskCard);
+      updateTaskStatusInFirebase(taskId, newStatus);
+
+      updateNoTasksMessage(
+        document.querySelector(`.board-column[data-status="${oldStatus}"]`)
+      );
+      updateNoTasksMessage(
+        document.querySelector(`.board-column[data-status="${newStatus}"]`)
+      );
+    } else {
+      console.error(`Spalte für Status ${newStatus} nicht gefunden.`);
+    }
   }
 }
 
 function enableDragAndDrop() {
-  document.querySelectorAll(".task-card").forEach((task) => {
-    task.setAttribute("draggable", "true");
-    task.addEventListener("dragstart", () => {
-      draggedTask = task;
-      document.querySelectorAll(".board-column").forEach((column) => {
-        const tasksContainer = column.querySelector(".tasks-container");
-        column.addEventListener("dragover", (e) => e.preventDefault());
-        column.addEventListener("dragenter", () =>
-          column.classList.add("dragover")
-        );
-        column.addEventListener("dragleave", () =>
-          column.classList.remove("dragover")
-        );
-        column.addEventListener("drop", () => {
-          column.classList.remove("dragover");
-          if (draggedTask && tasksContainer) {
-            tasksContainer.appendChild(draggedTask);
-            const newCategory = column.getAttribute("data-status");
-            const taskId = draggedTask.dataset.id;
-            updateTaskCategoryInFirebase(taskId, newCategory);
-            updateNoTasksMessage(column);
-            const previousCategory = draggedTask.dataset.category;
-            const previousColumn = document.querySelector(
-              `.board-column[data-status="${previousCategory}"]`
-            );
-            if (previousColumn) {
-              updateNoTasksMessage(previousColumn);
-            }
-            draggedTask.dataset.category = newCategory;
-          }
-        });
-      });
+  const taskCards = document.querySelectorAll(".task-card");
+  const dropZones = document.querySelectorAll(".board-column");
+  taskCards.forEach((card) => {
+    card.setAttribute("draggable", "true");
+    card.addEventListener("dragstart", (event) => {
+      event.dataTransfer.setData("text/plain", card.dataset.id);
+      currentDraggedTask = card;
+      console.log("Task gestartet:", card.dataset.id);
+    });
+    card.addEventListener("dragend", () => {
+      currentDraggedTask = null;
+      console.log("Drag beendet.");
+    });
+  });
+  dropZones.forEach((zone) => {
+    zone.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      zone.classList.add("drag-over");
+    });
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("drag-over");
+    });
+    zone.addEventListener("drop", (event) => {
+      event.preventDefault();
+      zone.classList.remove("drag-over");
+      handleDrop(event, zone);
     });
   });
 }
 
-function updateTaskCategoryInFirebase(taskId, newCategory) {
-  firebase
-    .database()
-    .ref(`/tasks/${taskId}`)
-    .update({ category: newCategory })
-    .then(() => {
-      console.log(`Task ${taskId} erfolgreich in ${newCategory} verschoben.`);
-    })
-    .catch((error) => {
-      console.error("Fehler beim Aktualisieren der Kategorie:", error);
-    });
+function handleDragStart(event) {
+  console.log("Drag gestartet: ", event.target.dataset.id);
+  event.dataTransfer.setData("text/plain", event.target.dataset.id);
+  currentDraggedTask = event.target;
+}
+
+function handleDragEnd() {
+  currentDraggedTask = null;
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function handleDrop(event, zone) {
+  event.preventDefault();
+  const draggedTaskId = event.dataTransfer.getData("text/plain");
+  const newStatus = zone.getAttribute("data-status");
+
+  if (!draggedTaskId) {
+    console.error("Keine gültige Aufgabe wird gezogen.");
+    return;
+  }
+
+  const draggedTask = document.querySelector(
+    `.task-card[data-id="${draggedTaskId}"]`
+  );
+  if (!draggedTask) {
+    console.error("Zugezogene Aufgabe konnte nicht gefunden werden.");
+    return;
+  }
+
+  // Aktualisiere die neue Position der Aufgabe
+  zone.querySelector(".tasks-container").appendChild(draggedTask);
+
+  // Aktualisiere den Status der Aufgabe in Firebase
+  if (typeof updateTaskStatusInFirebase === "function") {
+    updateTaskStatusInFirebase(draggedTaskId, newStatus);
+  }
+
+  // Überprüfe, ob alle Spalten korrekt aktualisiert wurden
+  checkAllColumnsForTasks();
+}
+
+function checkAllColumnsForTasks() {
+  const columns = document.querySelectorAll(".board-column");
+  columns.forEach((column) => updateNoTasksMessage(column));
 }
 
 function handleSubtaskProgressUpdate() {

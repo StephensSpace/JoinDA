@@ -3,7 +3,6 @@
   background-color: #f4f7f9;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 main {
@@ -117,31 +116,32 @@ main {
 .input-container input {
   width: 312px;
   height: 48px;
-  padding-right: 50px; /* Platz für Linie und Icon */
+  padding-right: 50px;
 }
 
 .input-container::before {
   content: "";
   position: absolute;
   top: 50%;
-  right: 36px; /* Position der vertikalen Linie */
+  right: 36px;
   transform: translateY(-50%);
   width: 1px;
   height: 20px;
-  background-color: #000; /* Farbe der Linie */
+  background-color: #000;
 }
 
 .input-container::after {
   content: "";
   position: absolute;
   top: 50%;
-  right: 3.5px; /* Position des Such-Icons */
+  right: 3.5px;
   transform: translateY(-50%);
   background-image: url("/assets/icons/search.png");
-  background-size: 32px 32px; /* Größe des Icons */
+  background-size: 32px 32px;
   background-repeat: no-repeat;
   width: 32px;
   height: 32px;
+  cursor: pointer;
 }
 
 .input-decoration {
@@ -369,6 +369,7 @@ main {
   width: 24px;
   height: 24px;
 }
+
 .icon {
   font-size: 1.5rem;
   color: #ff9800;
@@ -458,6 +459,16 @@ main {
   margin-right: 10px;
 }
 
+.subtask-checkbox img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.subtask-checkbox img:hover {
+  filter: brightness(0.8);
+}
+
 ul {
   list-style-type: none; /* Entfernt das ::marker */
 }
@@ -501,7 +512,8 @@ ul {
   background-color: white;
   width: 525px;
   height: 838px;
-  left: 154px;
+  left: 640px;
+  top: 50px;
   border-radius: 30px;
   padding: 48px 40px;
   gap: 24px;
@@ -512,14 +524,22 @@ ul {
 }
 
 .close-button {
-  font-size: 2rem;
+  font-size: 30px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
+  top: 4px;
+  left: 4px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-button:hover {
-  background-color: #29abe2;
-  border-radius: 50px;
-  color: white;
+  background-color: #e2e2e2;
+  border-radius: 20px;
+  color: #2a3647;
 }
 
 /* Input styling */
@@ -782,12 +802,32 @@ textarea {
   cursor: pointer;
 }
 
+.delete-btn:hover {
+  color: #29abe2;
+}
+
+.delete-btn:hover .delete-1 {
+  display: block;
+}
+
+.delete-btn:hover .delete {
+  display: none;
+}
+
 .edit-btn {
   cursor: pointer;
 }
 
 .edit-btn:hover {
-  background-color: #29abe2;
+  color: #29abe2;
+}
+
+.edit-btn:hover .edit-1 {
+  display: block;
+}
+
+.edit-btn:hover .edit {
+  display: none;
 }
 
 /* Additional subtask button */
@@ -922,10 +962,6 @@ textarea {
   height: 20px;
 }
 
-.task-actions button:hover {
-  opacity: 0.8;
-}
-
 .taskInfoDivider {
   width: 1px;
   height: 24px;
@@ -1010,6 +1046,10 @@ textarea {
   align-items: center;
   padding: 5px 10px;
   margin-bottom: 5px;
+}
+
+.subtask-item span {
+  flex-grow: 1;
 }
 
 .subtask-title {
@@ -1097,27 +1137,78 @@ textarea {
   border: 1px solid #ccc;
 }
 
-/* Pfeil in der Standardposition */
 .dropdownarrow {
   transform: rotate(0deg);
   transition: transform 0.3s ease;
 }
 
-/* Pfeil nach oben drehen */
 .dropdown.open .dropdownarrow {
-  transform: rotate(180deg); /* Pfeil nach oben drehen */
+  transform: rotate(180deg);
 }
 
 .dropdown.open .dropdown-options {
   display: block;
 }
 
-/* Für Dropdown-Optionen */
+/* Base styling for the second dropdown */
+.custom-second-dropdown {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.second-dropdown-placeholder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.second-dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.second-dropdown-options.hidden {
+  display: none;
+}
+
+.second-dropdown-option {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.second-dropdown-option:hover {
+  background-color: #2a3647; /* Hover-Effekt */
+  color: white;
+}
+
+/* Arrow rotation */
+.second-dropdown-arrow {
+  transition: transform 0.3s ease;
+}
+
+.second-dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
 .hidden {
   display: none;
 }
 
-/* Styling für die Initialen */
 .contact-initials {
   display: inline-flex;
   align-items: center;

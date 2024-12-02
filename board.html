@@ -12,10 +12,11 @@
     />
 
     <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/board/board.css" />
     <link rel="stylesheet" href="./styles/color-template.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./assets/font/Inter-VariableFont_opsz,wght.ttf">
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.0/firebase-app.js"></script>
@@ -27,35 +28,31 @@
   <body class="body">
     <!-- Seitenleiste mit Logo -->
     <nav class="sidebar">
-      <div class="logo-container static">
-        <img src="./assets/img/logo-2.png" alt="Logo" class="logo" />
-      </div>
-      <ul>
-        <li>
-          <a href="./summary.html"
-            ><img src="./assets/icons/summary.png" alt="" />Summary</a
-          >
-        </li>
-        <li>
-          <a href="./addTask.html"
-            ><img src="./assets/icons/add_task.png" alt="" />Add Task</a
-          >
-        </li>
-        <li>
-          <a href="./board.html" class="active"
-            ><img src="./assets/icons/board.png" alt="" />Board</a
-          >
-        </li>
-        <li>
-          <a href="./contacts.html"
-            ><img src="./assets/icons/contacts.png" alt="" />Contacts</a
-          >
-        </li>
-      </ul>
-      <footer>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Legal Notice</a>
-      </footer>
+        <div class="logo-container static">
+            <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+        </div>
+        <div class="navBarBtnsDiv">
+            <div class="navBarBtns ">
+                <img src="./assets/icons/summary.png" alt="">
+                <span>Summary</span>
+            </div>
+            <div class="navBarBtns">
+                <img src="./assets/icons/add_task.png" alt="">
+                <span>Add Task</span>
+            </div>
+            <div class="navBarBtns active">
+                <img src="./assets/icons/board.png" alt="">
+                <span>Board</span>
+            </div>
+            <div class="navBarBtns">
+                <img src="./assets/icons/contacts.png" alt="">
+                <span>Contacts</span>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Legal Notice</a>
+        </div>
     </nav>
 
     <aside>
@@ -66,10 +63,27 @@
         </div>
         <div>
             <div>
-                <img src="./assets/img/help.png" alt="./assets/img/help.png">
+                <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()" style="cursor: pointer;">
             </div>
-            <div id="userProfil">
+            <div id="userProfil" onclick="openUserMenu()">
                 <span id="initials"></span>
+            </div>
+        </div>
+        <div class="userMenu dNone" id="userMenu">
+            <div class="userMenuButton" onclick="menuLegalBtn()">
+                <span class="userMenuBtnSpan">
+                    Legal Notice
+                </span>
+            </div>
+            <div class="userMenuButton" id="privacyBtn" onclick="menuPrivacyBtn()">
+                <span class="userMenuBtnSpan">
+                    Privacy Policy
+                </span>
+            </div>
+            <div class="userMenuButton" id="logOutBtn" onclick="logOutBtn()">
+                <span class="userMenuBtnSpan">
+                    Log out
+                </span>
             </div>
         </div>
     </header>
@@ -177,11 +191,13 @@
           </div>
           <div class="task-actions">
             <button class="delete-btn">
-              <img src="./assets/icons/delete.png" alt="" />Delete
+                <img class="delete-1 hidden" src="./assets/icons/delete-hover.png" alt="">
+              <img class="delete" src="./assets/icons/delete.png" alt="" /><p>Delete</p>
             </button>
             <div class="taskInfoDivider"></div>
             <button class="edit-btn">
-              <img src="./assets/icons/edit.png" alt="" />Edit
+                <img class="edit-1 hidden" src="./assets/icons/edit-hover.png" alt="">
+              <img class="edit" src="./assets/icons/edit.png" alt="" /><p>Edit</p>
             </button>
           </div>
         </div>
@@ -276,7 +292,7 @@
                   >Due Date <span class="required">*</span></label
                 >
               </div>
-              <input type="date" id="taskDueDate" required />
+              <input type="date" id="taskDueDate" onclick="this.showPicker()" required />
               <div id="dueDateError" class="error-message hidden">
                 Bitte wähle ein Datum aus.
               </div>
@@ -338,25 +354,25 @@
                 >
               </div>
               <div id="taskCategoryContainer" class="assigned-container">
-                <div id="taskCategoryDropdown" class="custom-dropdown">
-                  <div class="dropdown-placeholder">
-                    <span id="taskCategorySelectedText"
+                <div id="secondDropdown" class="custom-second-dropdown">
+                  <div class="second-dropdown-placeholder">
+                    <span id="secondDropdownSelectedText"
                       >Select task category</span
                     >
-                    <div class="arrow">
+                    <div class="second-arrow">
                       <img
-                        id="taskCategoryArrow"
-                        class="dropdownarrow"
+                        id="secondDropdownArrow"
+                        class="second-dropdown-arrow"
                         src="./assets/icons/arrow_drop_down.png"
                         alt="Dropdown arrow"
                       />
                     </div>
                   </div>
-                  <div id="taskCategoryOptions" class="dropdown-options hidden">
-                    <div class="dropdown-option" data-value="Technical Task">
+                  <div id="secondOptionsContainer" class="second-dropdown-options hidden">
+                    <div class="second-dropdown-option" data-value="Technical Task">
                       Technical Task
                     </div>
-                    <div class="dropdown-option" data-value="User Story">
+                    <div class="second-dropdown-option" data-value="User Story">
                       User Story
                     </div>
                   </div>
@@ -405,14 +421,17 @@
           </form>
         </div>
       </div>
-    
     </aside>
     <!-- Haupt-JavaScript -->
-    <script src="./script/board.js"></script>
-    <script src="./script/utils.js"></script>
-    <script src="./script/boardTemplate.js"></script>
-    <script src="./script/addTask.js"></script>
-    <script src="./script/dragAndDrop.js"></script>
-    <script src="./script/eventListener.js"></script>
+    <script src="./script/board/board.js"></script>
+    <script src="./script/board/utils.js"></script>
+    <script src="./script/board/boardTemplate.js"></script>
+    <script src="./script/board/addTask.js"></script>
+    <script src="./script/board/dragAndDrop.js"></script>
+    <script src="./script/board/eventListener.js"></script>
+    <script src="./script/board/defaultTask.js"></script>
+    <script src="./script/checkMaxWidth.js"></script>
+    <!-- <script src="./script/userMenu.js" defer></script>
+    <script src="./script/setProfile.js" defer></script> -->
   </body>
 </html>
