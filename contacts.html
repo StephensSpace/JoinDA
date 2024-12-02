@@ -25,6 +25,7 @@
     <script src="./script/firebase-config.js"></script>
     <script src="./script/contacts/contacts.js"></script>
     <script src="./script/contacts/contacts-templates.js"></script>
+    <script src="./script/checkMaxWidth.js"></script>
 
 </head>
 <body onload="initContacts()">
@@ -51,6 +52,37 @@
         <!-- Header -->
         <header>
             <div>
+                <span>Kanban Project Managment Tool</span>
+            </div>
+            <div>
+                <div>
+                    <img src="./assets/icons/help.png" alt="./assets/icons/help.png" onclick="helpBtn()" style="cursor: pointer;">
+                </div>
+                <div id="userProfil" onclick="openUserMenu()">
+                    <span id="initials"></span>
+                </div>
+            </div>
+            <div class="userMenu dNone" id="userMenu">
+                <div class="userMenuButton" onclick="menuLegalBtn()">
+                    <span class="userMenuBtnSpan">
+                        Legal Notice
+                    </span>
+                </div>
+                <div class="userMenuButton" id="privacyBtn" onclick="menuPrivacyBtn()">
+                    <span class="userMenuBtnSpan">
+                        Privacy Policy
+                    </span>
+                </div>
+                <div class="userMenuButton" id="logOutBtn" onclick="logOutBtn()">
+                    <span class="userMenuBtnSpan">
+                        Log out
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- <header>
+            <div>
                 <span style="font-weight: normal;">Kanban Project Managment Tool</span>
             </div>
             <div>
@@ -58,10 +90,13 @@
                     <img src="./assets/icons/help.png" alt="./assets/icons/help.png">
                 </div>
                 <div id="userProfil">
-                    <span>SM</span> <!-- Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben-->
+                    <span>SM</span>  Das hier wird Js benötigen um Anfangsbuchstaben vom Vornamen und Nachnamen reinzugeben
                 </div>
             </div>
-        </header>
+        </header> 
+        
+        MEIN HEADER der oben ist von Stephen
+        --> 
 
         <!-- Hauptinhalt -->
         <main class="content">

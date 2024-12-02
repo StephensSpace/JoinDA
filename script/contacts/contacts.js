@@ -191,6 +191,18 @@ async function addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef) {
         closeModal();
     }
 }
+
+// get position (userIndex) of user in contacts
+async function getUserIndex(NAME) {
+    const OBJECT = await getFirebaseData(path = "/contacts");
+    for (let i = 0; i < await getContactsLength(); i++) {
+        const USER = Object.entries(OBJECT)[i][0];
+        if (USER == NAME) {
+            return i;
+        } 
+    }
+}
+
 // Auslagerung try catch
 async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
     try {
@@ -207,17 +219,6 @@ async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
     }
 }
 
-// get position (userIndex) of user in contacts
-async function getUserIndex(NAME) {
-    const OBJECT = await getFirebaseData(path = "/contacts");
-    for (let i = 0; i < await getContactsLength(); i++) {
-        const USER = Object.entries(OBJECT)[i][0];
-        if (USER == NAME) {
-            return i;
-        } 
-    }
-}
-
 // Abfrage wann "user-contact" fertig geladen ist um userIconTemplateContactTable die Color durchzugeben
 async function renderContactTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB) {
     const checkContactsLoaded = setInterval(async () => {
@@ -226,6 +227,7 @@ async function renderContactTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB) {
         if (contactsLoaded === contactsExpected) {
             clearInterval(checkContactsLoaded); // Stop checking
             const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
+            CONTACT_CONTENT_TABLE.innerHTML = "";
             CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
         }
     }, 100); // Check every 100ms

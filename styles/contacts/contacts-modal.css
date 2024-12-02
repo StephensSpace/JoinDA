@@ -224,7 +224,7 @@
 }
 
 .modal-userImg-Background {
-    margin: 76px;
+    margin: 80px 76px 76px 76px;
     background-color: white;
     filter: drop-shadow(0 0 0.045rem gray);
     border-radius: 100%;
