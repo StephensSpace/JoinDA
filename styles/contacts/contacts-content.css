@@ -10,10 +10,12 @@
 /* UNTERGEORDNET ".content" */
 
 .contact-content {
-    margin: 0 36px;
+    position: absolute;
+    left: 743px;
+    top: 206px;
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 40px;
 }
 
 /* 
@@ -34,10 +36,10 @@
     gap: 30px;
     width: 569px;
     height: 73px;
-    
+/*     
     position: absolute;
     left: 743px;
-    top: 206px;
+    top: 206px; */
 }
 
 
@@ -50,10 +52,10 @@
     align-items: flex-start;
     padding: 0px;
     gap: 21px;
-
+/* 
     position: absolute;
     left: 743px;
-    top: 311px;
+    top: 311px; */
 }
 
 /* 

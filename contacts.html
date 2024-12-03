@@ -7,8 +7,8 @@
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
 
     <!-- Css -->
-    <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/color-template.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/main.css">
     
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./styles/contacts/contacts-modal.css">
     <link rel="stylesheet" href="./styles/contacts/contacts-contactBoard.css">
     <link rel="stylesheet" href="./styles/contacts/contacts-content.css">
+    <link rel="stylesheet" href="./styles/contacts/mediaQueryDesktop.css">
 
     <!-- Firebase SDK für die App und die Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
@@ -35,6 +36,34 @@
         <div class="logo-container static">
             <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
         </div>
+        <div class="navBarBtnsDiv">
+            <div class="navBarBtns active" onclick="summaryBtn()">
+                <img src="./assets/icons/summary.png">
+                <span>Summary</span>
+            </div> <div class="navBarBtns" onclick="addTaskBtn()">
+                <img src="./assets/icons/add_task.png" alt="">
+                <span>Add Task</span>
+            </div>
+            <div class="navBarBtns" onclick="boardBtn()">
+                <img src="./assets/icons/board.png" alt="">
+                <span>Board</span>
+            </div>
+            <div class="navBarBtns" onclick="contactsBtn()">
+                <img src="./assets/icons/contacts.png" alt="">
+                <span>Contacts</span>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="privacy_policy.html">Privacy Policy</a>
+            <a href="legal_notice.html">Legal Notice</a>
+        </div>
+    </nav>
+
+<!-- 
+    <nav class="sidebar">
+        <div class="logo-container static">
+            <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+        </div>
         <ul>
             <li><a href="./summary.html">Summary</a></li>
             <li><a href="#">Add Task</a></li>
@@ -45,7 +74,7 @@
             <a href="#">Privacy Policy</a>
             <a href="#">Legal Notice</a>
         </footer>
-    </nav>
+    </nav> mein header stephens ist oben -->
 
     <aside>
 
