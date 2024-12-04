@@ -81,12 +81,10 @@ function handleDrop(event, zone) {
   event.preventDefault();
   const draggedTaskId = event.dataTransfer.getData("text/plain");
   const newStatus = zone.getAttribute("data-status");
-
   if (!draggedTaskId) {
     console.error("Keine gültige Aufgabe wird gezogen.");
     return;
   }
-
   const draggedTask = document.querySelector(
     `.task-card[data-id="${draggedTaskId}"]`
   );
@@ -94,16 +92,10 @@ function handleDrop(event, zone) {
     console.error("Zugezogene Aufgabe konnte nicht gefunden werden.");
     return;
   }
-
-  // Aktualisiere die neue Position der Aufgabe
   zone.querySelector(".tasks-container").appendChild(draggedTask);
-
-  // Aktualisiere den Status der Aufgabe in Firebase
   if (typeof updateTaskStatusInFirebase === "function") {
     updateTaskStatusInFirebase(draggedTaskId, newStatus);
   }
-
-  // Überprüfe, ob alle Spalten korrekt aktualisiert wurden
   checkAllColumnsForTasks();
 }
 
@@ -144,20 +136,21 @@ function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
   }
 }
 
-function updateTaskProgressOnBoard(taskId, task) {
-  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
-  if (taskCard) {
-    const totalSubtasks = task.subtasks.length;
-    const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
-    const progressBar = taskCard.querySelector(".progress-bar");
-    const progressText = taskCard.querySelector(".progress span");
-    if (progressBar) {
-      progressBar.style.width = `${(completedSubtasks / totalSubtasks) * 100}%`;
-    }
-    if (progressText) {
-      progressText.innerText = `${completedSubtasks}/${totalSubtasks} Subtasks`;
-    }
-  }
+function updateTaskProgress(task) {
+  const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
+  if (!taskCard) return;
+
+  const totalSubtasks = task.subtasks.length;
+  const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
+  const progressPercent =
+    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  const progressBar = taskCard.querySelector(".progress-bar");
+  const progressText = taskCard.querySelector(".progress-container span");
+
+  if (progressBar) progressBar.style.width = `${progressPercent}%`;
+  if (progressText)
+    progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
 }
 
 function updateSubtaskProgress(task) {
@@ -221,30 +214,4 @@ function setupSubtaskCheckboxListener() {
       saveTaskToFirebase(currentTask);
     }
   });
-}
-
-function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
-  if (!taskId || subtaskIndex === undefined || completed === undefined) {
-    console.error("Ungültige Parameter für Subtask-Update:", {
-      taskId,
-      subtaskIndex,
-      completed,
-    });
-    return;
-  }
-  firebase
-    .database()
-    .ref(`/tasks/${taskId}/subtasks/${subtaskIndex}`)
-    .update({ completed })
-    .then(() => {
-      console.log(
-        `Subtask ${subtaskIndex} von Task ${taskId} erfolgreich aktualisiert.`
-      );
-    })
-    .catch((error) => {
-      console.error(
-        "Fehler beim Aktualisieren der Subtask in Firebase:",
-        error
-      );
-    });
 }

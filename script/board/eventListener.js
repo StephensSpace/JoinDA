@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   setupDropdownSearchInline();
+  setupSubtaskIconClickListeners();
   setupSecondDropdown();
   enableDragAndDrop();
   saveDefaultTasks();
@@ -83,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Event Listener für die "+"-Buttons in den Spalten
   const addTaskTypeButtons = document.querySelectorAll(
     ".add-task-btn-category"
   );
@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Event Listener für den "Subtask hinzufügen"-Button
   const subtaskInput = document.getElementById("subtaskInput");
   const subtaskAddButton = document.querySelector(".subtask-add-button");
   subtaskAddButton.addEventListener("click", () => {
@@ -107,33 +106,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-function setupSubtaskIconClickListeners(task) {
-  const icons = document.querySelectorAll(".subtask-icon");
-  icons.forEach((icon) => {
-    icon.addEventListener("click", (event) => {
-      const subtaskIndex = parseInt(
-        event.target.parentElement.dataset.index,
-        10
-      );
-      const subtask = task.subtasks[subtaskIndex];
-
-      if (subtask) {
-        // Toggle completed state
-        subtask.completed = !subtask.completed;
-
-        // Update icon
-        event.target.src = `./assets/icons/${
-          subtask.completed ? "checked" : "unchecked"
-        }.png`;
-        event.target.alt = subtask.completed ? "Completed" : "Incomplete";
-
-        // Sync with Firebase
-        updateSubtaskInFirebase(task.id, subtaskIndex, subtask.completed);
-
-        // Update progress
-        updateSubtaskProgress(task);
-      }
-    });
-  });
-}

@@ -8,6 +8,11 @@
   margin: 0;
   padding: 0;
   font-family: "Inter-VariableFont_opsz,wght";
+  overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 main {
@@ -877,6 +882,12 @@ textarea {
   align-items: flex-start;
 }
 
+#taskSubtasks li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 #taskDetailPriority {
   display: flex;
   align-items: center;
@@ -969,6 +980,13 @@ textarea {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.subtask-icon {
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .subtask-input-wrapper {

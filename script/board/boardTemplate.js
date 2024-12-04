@@ -3,59 +3,73 @@ function createTaskCard(task) {
     console.error("Ungültige Aufgabe übergeben:", task);
     return null; // Verhindert weitere Verarbeitung
   }
+
   const members = Array.isArray(task.members) ? task.members : [];
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
   card.dataset.id = task.id;
-  const category = task.category ? task.category.toLowerCase() : "unknown";
+
   const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
   const completedSubtasks = task.subtasks
     ? task.subtasks.filter((st) => st.completed).length
     : 0;
   const progressPercent =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
   card.innerHTML = `
-      <div class="task-category" style="background-color: ${
-        task.category === "User Story" ? "#0038FF" : "#1FD7C1"
-      }; color: white;">
-        ${task.category || "Technical Task"}
-      </div>
-      <h3>${task.title}</h3>
-      <p>${task.description || "No description provided"}</p>
-      <div class="progress-container">
-        <div class="progress">
-          <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+        <div class="task-category" style="background-color: ${
+          task.category === "User Story" ? "#0038FF" : "#1FD7C1"
+        }; color: white;">
+          ${task.category || "Technical Task"}
         </div>
-        <div class="progress-text">
-          <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+        <h3>${task.title}</h3>
+        <p>${task.description || "No description provided"}</p>
+        <div class="progress-container">
+          <div class="progress">
+            <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+          </div>
+          <div class="progress-text">
+            <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+          </div>
         </div>
-      </div>
-      <div class="task-footer">
-        <div class="avatars">
-          ${task.members
-            .map(
-              (name) => `
-            <div class="avatar" style="background-color: ${getColorForContact(
-              name
-            )};">
-              ${getInitials(name)}
-            </div>`
-            )
-            .join("")}
-        </div>
-        <img src="./assets/icons/${task.priority.toLowerCase()}.png" alt="${
+        <div class="task-footer">
+          <div class="avatars">
+            ${task.members
+              .map(
+                (name) => `
+              <div class="avatar" style="background-color: ${getColorForContact(
+                name
+              )};">
+                ${getInitials(name)}
+              </div>`
+              )
+              .join("")}
+          </div>
+          <img src="./assets/icons/${task.priority.toLowerCase()}.png" alt="${
     task.priority
   }" class="priority-icon" />
-      </div>
-    `;
+        </div>
+      `;
+
+  // Event-Listener für Drag-and-Drop
   card.addEventListener("dragstart", (e) => startDragging(e, card));
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
+
+  // Event-Listener für Task-Details
   card.addEventListener("click", () => showTaskDetails(task));
+
   return card;
+}
+
+function renderSubtaskUI(subtaskElement, subtask) {
+  subtaskElement.src = `./assets/icons/${
+    subtask.completed ? "checked" : "unchecked"
+  }.png`;
+  subtaskElement.dataset.completed = subtask.completed;
 }
 
 // Funktion zur Berechnung der Initialen
@@ -106,6 +120,7 @@ function createSubtasksProgress(task) {
 }
 
 function showTaskDetails(task) {
+  renderTaskSubtasks(task);
   currentTask = task;
   currentTaskId = task.id;
   document.getElementById("taskType").innerHTML = `
@@ -144,35 +159,73 @@ function showTaskDetails(task) {
         )
         .join("")
     : "<p>No members assigned</p>";
-
-  // Display Subtasks with Checkbox
-  function renderTaskSubtasks(task) {
-    const subtasksContainer = document.getElementById("taskSubtasks");
-    subtasksContainer.innerHTML = createSubtasksList(task);
-    if (!subtasksContainer) {
-      console.error("Subtasks container element not found.");
-      return;
-    }
-    if (task.subtasks && task.subtasks.length > 0) {
-      subtasksContainer.innerHTML = task.subtasks
-        .map(
-          (st, index) => `
-            <div class="subtask-item">
-              <input type="checkbox" class="subtask-checkbox" ${
-                st.completed ? "checked" : ""
-              } data-index="${index}" />
-              <span>${st.title}</span>
-            </div>`
-        )
-        .join("");
-    } else {
-      subtasksContainer.innerHTML = "<p>No subtasks</p>";
-    }
-    attachSubtaskProgressListener(task);
-    setupSubtaskIconClickListeners(task);
-  }
   document.getElementById("taskDetailsModal").style.display = "block";
-  attachSubtaskProgressListener(task);
+}
+
+function renderTaskSubtasks(task) {
+  const subtasksContainer = document.getElementById("taskSubtasks");
+  if (!subtasksContainer) {
+    console.error("Subtasks container element not found.");
+    return;
+  }
+  if (task.subtasks && task.subtasks.length > 0) {
+    subtasksContainer.innerHTML = task.subtasks
+      .map(
+        (subtask, index) => `
+                <li data-id="${index}">
+                  <img 
+                    src="./assets/icons/${
+                      subtask.completed ? "checked" : "unchecked"
+                    }.png" 
+                    class="subtask-icon" 
+                    alt="${subtask.title}" 
+                    data-completed="${subtask.completed}" 
+                    data-task-id="${task.id}" 
+                  />
+                  <span>${subtask.title}</span>
+                </li>`
+      )
+      .join("");
+  } else {
+    subtasksContainer.innerHTML = "<p>No subtasks</p>";
+  }
+
+  // Event-Listener für Subtask-Klicks hinzufügen
+  setupSubtaskIconClickListeners(task);
+}
+
+function setupSubtaskIconClickListeners(task) {
+  const subtasksContainer = document.getElementById("taskSubtasks");
+  if (!subtasksContainer) {
+    console.error("Subtasks container nicht gefunden.");
+    return;
+  }
+  subtasksContainer.querySelectorAll(".subtask-icon").forEach((icon) => {
+    icon.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const subtaskIndex = parseInt(icon.parentElement.dataset.id);
+      if (isNaN(subtaskIndex)) {
+        console.error("Ungültiger Subtask-Index:", subtaskIndex);
+        return;
+      }
+      if (!task.subtasks || !task.subtasks[subtaskIndex]) {
+        console.error("Subtask nicht gefunden:", task.subtasks, subtaskIndex);
+        return;
+      }
+      const completed = icon.dataset.completed === "true";
+      task.subtasks[subtaskIndex].completed = !completed;
+      updateSubtaskInFirebase(
+        task.id,
+        subtaskIndex,
+        task.subtasks[subtaskIndex].completed
+      );
+      icon.dataset.completed = String(task.subtasks[subtaskIndex].completed);
+      icon.src = `./assets/icons/${
+        task.subtasks[subtaskIndex].completed ? "checked" : "unchecked"
+      }.png`;
+      updateTaskProgress(task);
+    });
+  });
 }
 
 function addSubtask(title) {
@@ -183,10 +236,9 @@ function addSubtask(title) {
   }
 }
 
-// Funktion zum Aktualisieren der Subtasks-Liste
 function updateSubtasksList() {
   const subtaskList = document.getElementById("subtaskList");
-  subtaskList.innerHTML = ""; // Liste leeren
+  subtaskList.innerHTML = "";
 
   subtasksArray.forEach((subtask, index) => {
     const li = document.createElement("li");
@@ -291,34 +343,27 @@ function createSubtasksList(task) {
   return "<li>No subtasks</li>";
 }
 
-// Event Listener for Subtask Icons
-function setupSubtaskIconClickListeners(task) {
-  const subtasks = document.querySelectorAll(".subtask-item .subtask-icon");
-
-  subtasks.forEach((icon) => {
-    icon.addEventListener("click", (event) => {
-      const index = parseInt(event.target.dataset.index, 10);
-      if (index < 0 || index >= task.subtasks.length) {
-        console.error("Ungültiger Subtask-Index:", index);
+function initializeSubtaskListeners(taskCard, task) {
+  taskCard.querySelectorAll(".subtask-icon").forEach((icon) => {
+    icon.addEventListener("click", () => {
+      const subtaskIndex = parseInt(icon.parentElement.dataset.id);
+      if (isNaN(subtaskIndex)) {
+        console.error("Ungültiger Subtask-Index:", subtaskIndex);
         return;
       }
-
-      const subtask = task.subtasks[index];
-
-      // Toggle den Status der Subtask
-      subtask.completed = !subtask.completed;
-
-      // Aktualisiere das Icon basierend auf dem Status
-      event.target.src = `./assets/icons/${
-        subtask.completed ? "checked" : "unchecked"
+      const taskId = task.id;
+      const completed = icon.dataset.completed === "true";
+      task.subtasks[subtaskIndex].completed = !completed;
+      updateSubtaskInFirebase(
+        taskId,
+        subtaskIndex,
+        task.subtasks[subtaskIndex].completed
+      );
+      icon.dataset.completed = String(task.subtasks[subtaskIndex].completed);
+      icon.src = `./assets/icons/${
+        task.subtasks[subtaskIndex].completed ? "checked" : "unchecked"
       }.png`;
-      event.target.alt = subtask.completed ? "Completed" : "Incomplete";
-
-      // Fortschrittsanzeige aktualisieren
       updateTaskProgress(task);
-
-      // Speichere die Änderungen
-      saveTaskToFirebase(task);
     });
   });
 }
@@ -335,9 +380,8 @@ function updateTaskDetailsModal(task) {
     task.description || "No description provided";
   document.getElementById("taskDetailDueDate").innerText =
     task.dueDate || "N/A";
-  // Stelle sicher, dass das Prio-Icon zurückgesetzt wird
   const priorityContainer = document.getElementById("taskDetailPriority");
-  priorityContainer.innerHTML = ""; // Zurücksetzen
+  priorityContainer.innerHTML = "";
   const priorityIcon =
     task.priority === "Urgent"
       ? "./assets/icons/urgent.png"

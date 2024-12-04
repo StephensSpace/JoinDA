@@ -22,10 +22,18 @@ function getColorForContact(name) {
   return colors[index];
 }
 
-function updateTaskStatusInFirebase(taskId, newStatus) {
+function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
   firebase
     .database()
-    .ref(`/tasks/${taskId}`)
-    .update({ type: newStatus })
-    .then(() => {});
+    .ref(`/tasks/${taskId}/subtasks/${subtaskIndex}`)
+    .update({ completed })
+    .then(() => {
+      console.log("Subtask erfolgreich aktualisiert.");
+    })
+    .catch((error) => {
+      console.error(
+        "Fehler beim Aktualisieren der Subtask in Firebase:",
+        error
+      );
+    });
 }

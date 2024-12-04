@@ -1,14 +1,8 @@
 function createTaskCard(task) {
-  if (!task || typeof task !== "object") {
-    console.error("Ungültige Aufgabe übergeben:", task);
-    return null; // Verhindert weitere Verarbeitung
-  }
-  const members = Array.isArray(task.members) ? task.members : [];
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
   card.dataset.id = task.id;
-  const category = task.category ? task.category.toLowerCase() : "unknown";
   const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
   const completedSubtasks = task.subtasks
     ? task.subtasks.filter((st) => st.completed).length
@@ -16,44 +10,65 @@ function createTaskCard(task) {
   const progressPercent =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   card.innerHTML = `
-      <div class="task-category" style="background-color: ${
-        task.category === "User Story" ? "#0038FF" : "#1FD7C1"
-      }; color: white;">
-        ${task.category || "Technical Task"}
-      </div>
-      <h3>${task.title}</h3>
-      <p>${task.description || "No description provided"}</p>
-      <div class="progress-container">
-        <div class="progress">
-          <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+        <div class="task-category" style="background-color: ${
+          task.category === "User Story" ? "#0038FF" : "#1FD7C1"
+        }; color: white;">
+          ${task.category || "Technical Task"}
         </div>
-        <div class="progress-text">
-          <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+        <h3>${task.title}</h3>
+        <p>${task.description || "No description provided"}</p>
+        <div class="progress-container">
+          <div class="progress">
+            <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+          </div>
+          <div class="progress-text">
+            <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+          </div>
         </div>
-      </div>
-      <div class="task-footer">
-        <div class="avatars">
-          ${task.members
+        <ul class="subtasks-list">
+          ${task.subtasks
             .map(
-              (name) => `
-            <div class="avatar" style="background-color: ${getColorForContact(
-              name
-            )};">
-              ${getInitials(name)}
-            </div>`
+              (subtask, index) => `
+            <li class="subtask-item" data-id="${subtask.id}">
+              <div class="subtask-checkbox" data-index="${index}">
+                <img 
+                  src="./assets/icons/${
+                    subtask.completed ? "checked" : "unchecked"
+                  }.png" 
+                  alt="${subtask.completed ? "Completed" : "Incomplete"}" 
+                  class="subtask-icon" 
+                  data-completed="${subtask.completed}" 
+                />
+              </div>
+              <span>${subtask.title}</span>
+            </li>`
             )
             .join("")}
-        </div>
-        <img src="./assets/icons/${task.priority.toLowerCase()}.png" alt="${
+        </ul>
+        <div class="task-footer">
+          <div class="avatars">
+            ${task.members
+              .map(
+                (name) => `
+                <div class="avatar" style="background-color: ${getColorForContact(
+                  name
+                )};">
+                  ${getInitials(name)}
+                </div>`
+              )
+              .join("")}
+          </div>
+          <img src="./assets/icons/${task.priority.toLowerCase()}.png" alt="${
     task.priority
   }" class="priority-icon" />
-      </div>
-    `;
+        </div>
+      `;
   card.addEventListener("dragstart", (e) => startDragging(e, card));
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
+  setupSubtaskIconClickListeners(task);
   card.addEventListener("click", () => showTaskDetails(task));
   return card;
 }
@@ -293,32 +308,40 @@ function createSubtasksList(task) {
 
 // Event Listener for Subtask Icons
 function setupSubtaskIconClickListeners(task) {
-  const subtasks = document.querySelectorAll(".subtask-item .subtask-icon");
+  const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
+  if (!taskCard) {
+    console.error(`Task card with ID ${task.id} not found.`);
+    return;
+  }
 
-  subtasks.forEach((icon) => {
-    icon.addEventListener("click", (event) => {
-      const index = parseInt(event.target.dataset.index, 10);
-      if (index < 0 || index >= task.subtasks.length) {
-        console.error("Ungültiger Subtask-Index:", index);
+  const subtaskItems = taskCard.querySelectorAll(".subtask-item");
+
+  subtaskItems.forEach((item) => {
+    const checkbox = item.querySelector(".subtask-checkbox img");
+
+    if (!checkbox) {
+      console.error("Subtask icon not found.");
+      return;
+    }
+
+    checkbox.addEventListener("click", () => {
+      const subtaskIndex = parseInt(item.dataset.index, 10);
+      if (isNaN(subtaskIndex) || !task.subtasks[subtaskIndex]) {
+        console.error("Invalid subtask index.");
         return;
       }
 
-      const subtask = task.subtasks[index];
-
-      // Toggle den Status der Subtask
+      // Toggle the subtask's completion state
+      const subtask = task.subtasks[subtaskIndex];
       subtask.completed = !subtask.completed;
 
-      // Aktualisiere das Icon basierend auf dem Status
-      event.target.src = `./assets/icons/${
+      // Update the icon
+      checkbox.src = `./assets/icons/${
         subtask.completed ? "checked" : "unchecked"
       }.png`;
-      event.target.alt = subtask.completed ? "Completed" : "Incomplete";
 
-      // Fortschrittsanzeige aktualisieren
+      // Update progress bar and text
       updateTaskProgress(task);
-
-      // Speichere die Änderungen
-      saveTaskToFirebase(task);
     });
   });
 }

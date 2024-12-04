@@ -38,7 +38,7 @@ const defaultTasks = [
     members: ["Alex Johnson", "Chris Lee"],
     subtasks: [
       { title: "Setup Test Framework", completed: true },
-      { title: "Write Tests for Login", completed: false },
+      { title: "Write Tests for Login", completed: true },
       { title: "Write Tests for Registration", completed: true },
     ],
   },
