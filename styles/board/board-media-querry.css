@@ -1,0 +1,284 @@
+@media screen and (max-width: 1360px) {
+  .search-bar {
+    width: 1010px;
+  }
+
+  .headlines {
+    width: 1010px;
+    left: 195px;
+  }
+
+  .headlines div {
+    width: 235px;
+  }
+
+  .board-container {
+    left: 245px;
+    gap: 16px;
+  }
+
+  .no-tasks {
+    width: 185px;
+  }
+
+  .task-card {
+    width: 185px;
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  .search-bar {
+    width: 815px;
+  }
+
+  .headlines {
+    width: 720px;
+    left: 190px;
+  }
+
+  .headlines div {
+    width: 235px;
+  }
+
+  .board-container {
+    left: 245px;
+    gap: 16px;
+  }
+
+  .board-column {
+    width: 170px;
+  }
+
+  .no-tasks {
+    width: 185px;
+  }
+
+  .task-card {
+    width: 185px;
+  }
+
+  .modal-content-task {
+    left: 330px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .search-bar {
+    width: 815px;
+  }
+
+  .right-section {
+    display: flex;
+    width: 310px;
+    height: 48px;
+    align-items: center;
+  }
+
+  .input-container {
+    position: absolute;
+    top: 145px;
+    left: 60px;
+    width: 605px;
+  }
+
+  .headlines {
+    display: flex;
+    width: 640px;
+    flex-direction: column;
+    gap: 340px;
+    left: 230px;
+  }
+
+  .headlines div {
+    width: 600px;
+  }
+
+  .board-container {
+    display: flex;
+    gap: 80px;
+    flex-direction: column;
+    top: 335px;
+  }
+
+  .tasks-container {
+    flex-direction: row;
+  }
+
+  .board-column {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  .no-tasks {
+    width: 600px;
+    margin-left: 49px;
+    margin-top: 20px;
+  }
+
+  .task-card {
+    flex: 1 1 100%;
+    gap: 0;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .search-bar {
+    width: 640px;
+  }
+
+  .search-bar button {
+    width: 40px;
+    height: 40px;
+    font-size: xxx-large;
+    border-radius: 10px;
+  }
+
+  .right-section {
+    display: flex;
+    width: 310px;
+    height: 48px;
+    align-items: center;
+  }
+
+  .input-container {
+    position: absolute;
+    top: 145px;
+    left: 60px;
+    width: 370px;
+  }
+
+  .headlines {
+    display: flex;
+    width: 640px;
+    flex-direction: column;
+    gap: 340px;
+    left: 230px;
+  }
+
+  .headlines div {
+    width: 370px;
+  }
+
+  .board-container {
+    display: flex;
+    gap: 80px;
+    flex-direction: column;
+    top: 335px;
+  }
+
+  .tasks-container {
+    flex-direction: row;
+  }
+
+  .board-column {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  .no-tasks {
+    width: 370px;
+    margin-left: 25px;
+  }
+
+  .task-card {
+    flex: 1 1 100%;
+    gap: 0;
+  }
+
+  .modal-content-task {
+    left: 80px;
+  }
+
+  .add-Task-Button {
+    background: url(../../assets/buttons/addTaskButtonMobile.svg) no-repeat
+      center;
+  }
+
+  .add-Task-Button:hover {
+    background: url(../../assets/buttons/addTaskButtonMobileHover.svg) no-repeat
+      center;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .search-bar {
+    width: 640px;
+  }
+
+  .search-bar button {
+    width: 40px;
+    height: 40px;
+    font-size: xxx-large;
+    border-radius: 10px;
+  }
+
+  .right-section {
+    display: flex;
+    width: 310px;
+    height: 48px;
+    align-items: center;
+  }
+
+  .input-container {
+    position: absolute;
+    top: 75px;
+    left: 60px;
+    width: 370px;
+  }
+
+  .headlines {
+    display: flex;
+    width: 370px;
+    flex-direction: column;
+    gap: 285px;
+    left: 95px;
+    top: 245px;
+  }
+
+  .headlines div {
+    width: 370px;
+  }
+
+  .board-container {
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+    top: 280px;
+    left: 150px;
+    height: 1230px;
+    width: 380px;
+  }
+
+  .tasks-container {
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    gap: 5px;
+    margin-top: -45px;
+  }
+
+  .board-column {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 250px;
+  }
+
+  .no-tasks {
+    width: 370px;
+    left: -25px;
+    position: absolute;
+    margin-top: -50px;
+  }
+
+  .task-card {
+    flex: 1 1 100%;
+    gap: 0;
+  }
+
+  .modal-content-task {
+    height: 780px;
+  }
+}

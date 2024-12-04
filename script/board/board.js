@@ -205,7 +205,7 @@ function setupDropdownSearchInline() {
   const dropdown = document.getElementById("taskAssignedDropdown");
   const optionsContainer = document.getElementById("taskAssignedOptions");
   const searchInput = document.getElementById("taskSearchInput");
-  const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder"); // Specific trigger for toggling
+  const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
 
   if (!dropdown || !optionsContainer || !searchInput) {
     console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");

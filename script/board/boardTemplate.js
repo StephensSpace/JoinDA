@@ -189,8 +189,6 @@ function renderTaskSubtasks(task) {
   } else {
     subtasksContainer.innerHTML = "<p>No subtasks</p>";
   }
-
-  // Event-Listener für Subtask-Klicks hinzufügen
   setupSubtaskIconClickListeners(task);
 }
 
@@ -262,24 +260,18 @@ function updateSubtasksList() {
       `;
     subtaskList.appendChild(li);
   });
-
-  setupSubtaskActions(); // Bearbeiten- und Löschen-Listener hinzufügen
+  setupSubtaskActions();
 }
 
-// Event-Listener für Bearbeiten und Löschen
 function setupSubtaskActions() {
   const editIcons = document.querySelectorAll(".subtask-edit-icon");
   const deleteIcons = document.querySelectorAll(".subtask-delete-icon");
-
-  // Bearbeiten
   editIcons.forEach((icon) => {
     icon.addEventListener("click", () => {
       const index = icon.dataset.index;
       editSubtask(index);
     });
   });
-
-  // Löschen
   deleteIcons.forEach((icon) => {
     icon.addEventListener("click", () => {
       const index = icon.dataset.index;
@@ -288,7 +280,6 @@ function setupSubtaskActions() {
   });
 }
 
-// Bearbeiten einer Subtask
 function editSubtask(index) {
   const span = document.querySelectorAll(".subtask-title")[index];
   const input = document.createElement("input");
