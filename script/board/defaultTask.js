@@ -6,7 +6,7 @@ const defaultTasks = [
     dueDate: "2024-12-01",
     priority: "Urgent",
     category: "Technical Task",
-    type: "todo",
+    type: "await-feedback",
     members: ["John Doe", "Jane Smith"],
     subtasks: [
       { title: "Install Git", completed: true },

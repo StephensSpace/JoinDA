@@ -1,8 +1,13 @@
-/* Grundlegendes Styling */
+@font-face {
+  font-family: "Intel";
+  src: url("./assets/font/Inter-VariableFont_opsz,wght.ttf") format("ttf");
+}
+
 .body {
   background-color: #f4f7f9;
   margin: 0;
   padding: 0;
+  font-family: "Inter-VariableFont_opsz,wght";
 }
 
 main {
@@ -21,7 +26,6 @@ main {
   padding-right: 420px;
 }
 
-/* Container für die Headlines und Spalten */
 .headlines {
   width: 1208px;
   height: 24px;
@@ -62,10 +66,10 @@ main {
 
 .card h2 {
   font-size: 1.2rem;
-  text-align: left; /* Überschrift nach links ausrichten */
-  flex-grow: 1; /* Damit die Überschrift den verfügbaren Platz ausfüllt */
-  display: flex; /* Macht die h2 zu einem flex-Element */
-  align-items: center; /* Zentriert den Text innerhalb von h2 */
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .right-section {
@@ -92,7 +96,6 @@ main {
   height: 32px;
 }
 
-/* Container für das Board und die Spalten */
 .board-container {
   width: 1208px;
   height: 688px;
@@ -120,7 +123,6 @@ main {
   background-color: #ccc;
 }
 
-/* Platzierung der Spaltenüberschriften und der Buttons */
 .board-column h3 {
   font-size: 1.1rem;
   text-align: left;
@@ -194,7 +196,7 @@ main {
 
 .task-card:active {
   cursor: grabbing;
-  opacity: 0.8; /* Transparenz während des Ziehens */
+  opacity: 0.8;
 }
 
 .task-card:hover {
@@ -242,16 +244,16 @@ main {
   color: white;
   font-weight: bold;
   font-size: 14px;
-  margin-right: -10px; /* Negative Margin für Überlappung */
+  margin-right: -10px;
   text-transform: uppercase;
-  z-index: 1; /* Sicherstellen, dass sie korrekt übereinander liegen */
-  border: 2px solid white; /* Optional: weißer Rand für besseres Aussehen */
-  background-color: #6e52ff; /* Standardfarbe, kann überschrieben werden */
+  z-index: 1;
+  border: 2px solid white;
+  background-color: #6e52ff;
 }
 
 .avatars .avatar:hover {
-  transform: scale(1.1); /* Vergrößert den Avatar beim Hover */
-  z-index: 10; /* Bringt den Avatar in den Vordergrund */
+  transform: scale(1.1);
+  z-index: 10;
 }
 
 .priority-icon {
@@ -286,13 +288,12 @@ main {
   margin: 0 auto;
   padding: 40px;
   border-radius: 10px;
-  width: 500px; /* Breite bleibt gleich wie vorher */
+  width: 500px;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* Modal Styling */
 #taskDetailsModal {
   display: none;
   position: fixed;
@@ -315,7 +316,6 @@ main {
   color: red;
 }
 
-/* Form-Container für zwei Spalten */
 .form-container {
   display: flex;
   justify-content: space-between;
@@ -323,7 +323,6 @@ main {
   flex: 1;
 }
 
-/* Input styling */
 input,
 textarea,
 select {
@@ -350,7 +349,6 @@ textarea {
   display: flex;
 }
 
-/* Divider Styling */
 .divider {
   width: 1px;
   height: 355px;
@@ -363,7 +361,6 @@ textarea {
   align-self: stretch;
 }
 
-/* Form Layout */
 .form-row {
   display: flex;
   gap: 20px;
@@ -409,7 +406,6 @@ textarea {
   color: red;
 }
 
-/* Priority Button Styling */
 .priority {
   display: flex;
   gap: 8px;
@@ -438,7 +434,7 @@ textarea {
 }
 
 .priority-btn.clicked {
-  color: #ffffff; /* Textfarbe, wenn aktiv */
+  color: #ffffff;
 }
 
 .priority-btn[data-priority="Urgent"].active {
@@ -465,7 +461,6 @@ textarea {
   transition: filter 0.3s ease;
 }
 
-/* Hover Effects for Priority Buttons */
 .priority-btn[data-priority="Urgent"]:hover {
   background-color: #ff4d4d;
   color: white;
@@ -482,10 +477,9 @@ textarea {
 }
 
 .priority-btn.active .priority-icon {
-  filter: brightness(0) invert(1); /* Icon in Weiß */
+  filter: brightness(0) invert(1);
 }
 
-/* Form Actions Styling */
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -557,7 +551,6 @@ textarea {
   cursor: pointer;
 }
 
-/* Additional subtask button */
 .add-subtask-btn {
   background-color: white;
   border: 1px solid #29abe2;
@@ -602,7 +595,6 @@ textarea {
   line-height: 27.6px;
 }
 
-/* Subtasks Styling */
 #taskSubtasks {
   display: flex;
   flex-direction: column;
@@ -616,7 +608,6 @@ textarea {
   align-items: center;
 }
 
-/* Assigned Contacts Styling */
 .assignedTo {
   width: 445px;
   height: 208px;
@@ -625,7 +616,6 @@ textarea {
   flex-direction: column;
 }
 
-/* Subtask Container */
 #subtaskContainer {
   display: flex;
   flex-direction: column;
@@ -695,21 +685,18 @@ textarea {
   padding: 10px 0;
 }
 
-/* Subtasks Styles */
 .subtask-container {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 }
 
-/* Input Row */
 .subtask-row {
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-/* Wrapper für Eingabe und Button */
 .subtask-input-wrapper {
   position: relative;
   display: flex;
@@ -717,18 +704,16 @@ textarea {
   width: 100%;
 }
 
-/* Input-Styling */
 .subtask-input {
   width: 100%;
   padding: 10px;
-  padding-right: 40px; /* Platz für den Button */
+  padding-right: 40px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-/* Button Styling */
 .subtask-add-button {
   position: absolute;
   right: 10px;
@@ -746,12 +731,10 @@ textarea {
   height: 20px;
 }
 
-/* Button Hover-Effekt */
 .subtask-add-button:hover img {
   filter: brightness(0.8);
 }
 
-/* Subtask List */
 #subtaskList {
   display: flex;
   flex-direction: column;
@@ -759,7 +742,6 @@ textarea {
   list-style-type: none;
 }
 
-/* Subtask-Liste */
 .subtask-item {
   display: flex;
   justify-content: space-between;
@@ -777,7 +759,6 @@ textarea {
   color: #333;
 }
 
-/* Aktionen (Bearbeiten/Löschen) */
 .subtask-actions {
   display: flex;
   gap: 10px;
@@ -791,10 +772,9 @@ textarea {
 }
 
 .subtask-actions img:hover {
-  transform: scale(1.2); /* Vergrößert das Icon beim Hover */
+  transform: scale(1.2);
 }
 
-/* Inline-Editor */
 .subtask-edit-input {
   flex: 1;
   border: 1px solid #4a90e2;
@@ -804,10 +784,9 @@ textarea {
   color: #333;
 }
 
-/* Dropdown-Styling */
 .custom-dropdown {
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
   cursor: pointer;
   background-color: white;
@@ -882,7 +861,7 @@ textarea {
   align-items: center;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #fff;
 }
 
@@ -911,11 +890,10 @@ textarea {
 }
 
 .second-dropdown-option:hover {
-  background-color: #2a3647; /* Hover-Effekt */
+  background-color: #2a3647;
   color: white;
 }
 
-/* Arrow rotation */
 .second-dropdown-arrow {
   transition: transform 0.3s ease;
 }
@@ -924,12 +902,10 @@ textarea {
   transform: rotate(180deg);
 }
 
-/* Für Dropdown-Optionen */
 .hidden {
   display: none;
 }
 
-/* Styling für die Initialen */
 .contact-initials {
   display: inline-flex;
   align-items: center;
@@ -937,16 +913,16 @@ textarea {
   color: white;
   font-size: 12px;
   font-weight: bold;
-  border-radius: 50%; /* Kreisform */
-  width: 24px; /* Größe des Kreises */
-  height: 24px; /* Größe des Kreises */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   margin-right: 10px;
-  text-transform: uppercase; /* Großbuchstaben */
+  text-transform: uppercase;
 }
 
 .select-icon,
 .selected-icon {
-  width: 20px; /* Passe die Größe nach Bedarf an */
+  width: 20px;
   height: 20px;
   filter: brightness(0) invert(1);
   right: 10px;
@@ -966,7 +942,7 @@ textarea {
 }
 
 .dropdown-option:not(.selected):hover .select-icon {
-  filter: brightness(0) invert(1); /* Macht das Icon weiß */
+  filter: brightness(0) invert(1);
 }
 
 .dropdown-option {
@@ -977,17 +953,15 @@ textarea {
 }
 
 .dropdown-option:hover {
-  background-color: #2a3647; /* Hover-Effekt */
+  background-color: #2a3647;
   color: white;
 }
 
-/* Styling für ausgewählte Kontakte im Dropdown */
-.dropdown-option.selected .select-icon .selected-icon {
-  background-color: #091931; /* Hintergrundfarbe für ausgewählte Kontakte */
-  color: white; /* Textfarbe ändern */
+/ .dropdown-option.selected .select-icon .selected-icon {
+  background-color: #091931;
+  color: white;
 }
 
-/* Styling für die Initialen der ausgewählten Kontakte */
 .selected-contact-initials {
   display: inline-flex;
   align-items: center;
@@ -995,9 +969,9 @@ textarea {
   color: white;
   font-size: 12px;
   font-weight: bold;
-  border-radius: 50%; /* Kreisform */
-  width: 24px; /* Größe des Kreises */
-  height: 24px; /* Größe des Kreises */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   margin: 5px;
   text-transform: uppercase;
 }

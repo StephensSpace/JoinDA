@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="./styles/color-template.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/main.css" />
-    <link rel="stylesheet" href="./assets/font/Inter-VariableFont_opsz,wght.ttf">
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.0/firebase-app.js"></script>
@@ -32,26 +31,25 @@
             <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
         </div>
         <div class="navBarBtnsDiv">
-            <div class="navBarBtns ">
-                <img src="./assets/icons/summary.png" alt="">
+            <div class="navBarBtns" onclick="summaryBtn()">
+                <img src="./assets/icons/summary.png">
                 <span>Summary</span>
-            </div>
-            <div class="navBarBtns">
+            </div> <div class="navBarBtns" onclick="addTaskBtn()">
                 <img src="./assets/icons/add_task.png" alt="">
                 <span>Add Task</span>
             </div>
-            <div class="navBarBtns active">
+            <div class="navBarBtns active" onclick="boardBtn()">
                 <img src="./assets/icons/board.png" alt="">
                 <span>Board</span>
             </div>
-            <div class="navBarBtns">
+            <div class="navBarBtns" onclick="contactsBtn()">
                 <img src="./assets/icons/contacts.png" alt="">
                 <span>Contacts</span>
             </div>
         </div>
         <div class="footer">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Legal Notice</a>
+            <a href="privacy_policy.html">Privacy Policy</a>
+            <a href="legal_notice.html">Legal Notice</a>
         </div>
     </nav>
 
@@ -59,7 +57,7 @@
       <!-- Header -->
       <header>
         <div>
-            <span>Kanban Project Managment Tool</span>
+            <span id="managmentTool">Kanban Project Managment Tool</span>
         </div>
         <div>
             <div>
@@ -431,7 +429,7 @@
     <script src="./script/board/eventListener.js"></script>
     <script src="./script/board/defaultTask.js"></script>
     <script src="./script/checkMaxWidth.js"></script>
-    <!-- <script src="./script/userMenu.js" defer></script>
-    <script src="./script/setProfile.js" defer></script> -->
+    <script src="./script/userMenu.js" defer></script>
+    <!-- <script src="./script/setProfile.js" defer></script> -->
   </body>
 </html>
