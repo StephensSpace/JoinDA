@@ -85,8 +85,9 @@ async function renderContactsInToContactList() {
       getFirstnameLetter(USER_NAME);                    // Übergebe User Namen
       contactBoardFirstLetterHeadTemplate(USER_NAME);   // Übergebe User Namen
       CONTACTS_LIST.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex)
-      checkHeadLetter();                                
+      checkHeadLetter();
     }
+    addMarginOnLastUser();                                
 }
   
 // Funktion zum rein rendern der Information zu jedem Kontakt ins Contacts - Board
@@ -367,7 +368,11 @@ function rgbInHexa(userIndex) {
 
 //############################################################
 
-
+function addMarginOnLastUser() {
+    let lengthOfCurrentUsersInList = document.getElementsByClassName("user-contact").length;
+    let lastUserInList = document.getElementsByClassName("user-contact")[(lengthOfCurrentUsersInList - 1)];
+    lastUserInList.style.marginBottom = ("20px");
+}
 
 
 //############################################################

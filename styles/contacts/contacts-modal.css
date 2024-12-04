@@ -206,13 +206,13 @@
 
 
 .person-icon {
-    background: url(/assets/icons/contacts/person.png) no-repeat right;
+    background: url(/assets/icons/person.png) no-repeat right;
     background-size: 16px;
     
 }
 
 .check-icon {
-    background: url(/assets/icons/contacts/mail.png) no-repeat right;
+    background: url(/assets/icons/mail.png) no-repeat right;
     background-size: 16px;
     
 }

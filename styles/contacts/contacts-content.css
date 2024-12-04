@@ -10,12 +10,18 @@
 /* UNTERGEORDNET ".content" */
 
 .contact-content {
-    position: absolute;
-    left: 743px;
+    /* position: absolute;
+    left: 743px; */
     top: 206px;
     display: flex;
     flex-direction: column;
     gap: 40px;
+
+    position: absolute;
+    left: 688px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    padding-left: 4rem;
 }
 
 /* 
@@ -70,7 +76,7 @@
 
 .contact-content-head h1 {
     width: max-content;
-    height: 73px;
+    /* height: 73px; */
     font-weight: 700;
     font-size: 61px;
     line-height: 120%;
@@ -88,7 +94,7 @@
 }
 
 .contact-content-head p {
-    width: 235px;
+    /* width: 235px; */
     height: 32px;
     font-family: 'Inter';
     font-style: normal;

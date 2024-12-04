@@ -124,7 +124,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
             
             <div>
                 <h4>E-Mail</h4>
-                <p><a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a></p>
+                <p><a href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a></p>
             </div>
             <div>
                 <h4>Phone</h4>
