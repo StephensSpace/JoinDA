@@ -12,6 +12,7 @@
 .contact-board {
     position: absolute;
     top: 96px;
+    left: 232px;
     background-color: white;
     padding: 0 40px;
     max-width: 456px;

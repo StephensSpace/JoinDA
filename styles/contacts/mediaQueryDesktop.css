@@ -39,6 +39,40 @@
         flex-direction: column;
     }
 
+    /* Contacts Content */
+
+    .contact-content {
+        display: flex;
+        align-items: center;
+        left: 520px;
+        top: 164px;
+    }
+
+    .contact-content-head {
+        flex-direction: column;
+    }
+
+    .contact-content-head hr {
+        width: 59px;
+    }
+
+    .contact-content-table {
+        position: absolute;
+        top: 205px;
+        gap: 64px;
+    }
+
+    .contact-content-table-usernameFullinformation {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+    }
+
+    .contact-content-information {
+        display: contents;
+        font-weight: 600;
+    }
+
     /* Linkes Modal */
 
     .modal-left {
@@ -73,4 +107,18 @@
     .modal-right-top {
         display: none;
     }
+
+    /* Add New Contact Btn */
+
+    .add-new-contact-btn {
+        width: 256px;
+        left: calc(50% - 256px / 2);
+    }
+
+    /* Contact Board oder Liste */
+
+    .contact-board {
+        width: 320px;
+    }
+
 }
