@@ -1,4 +1,5 @@
 const currentDate = new Date();
+let logedUser = checkStorageForUser()
 
 function selectGreeting() {
     hour = currentDate.getHours();
@@ -13,6 +14,14 @@ function selectGreeting() {
     setUsername();
 }
 
+function checkStorageForUser() {
+    const user = sessionStorage.getItem('User') || localStorage.getItem('User');
+    if (user) {
+        return user;
+    } else {
+        window.location.href = "loginMobile.html";
+    }
+}
 function setUsername() {
     document.getElementById('userName').innerHTML = logedUser
     greetingAnimation()

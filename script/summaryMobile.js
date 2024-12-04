@@ -16,12 +16,12 @@ async function fetchCurrentBoard() {
         countTasks(currentBoard, deadline);
     } catch (error) {
         console.error("Fehler beim Laden der Daten von Firebase:", error);
-    }
+    };
 }
 
 function getDueDates(currentBoard) {
     const dueDates = Object.values(currentBoard).map((obj) => obj.dueDate);
-    return findNearestDate(dueDates)
+    return findNearestDate(dueDates);
 }
 
 function findNearestDate(dueDates) {
@@ -37,11 +37,12 @@ function findNearestDate(dueDates) {
 
 function countTasks(currentBoard, deadline) {
     const types = Object.values(currentBoard).map((obj) => obj.type);
+    const urgency = Object.values(currentBoard).filter((obj) => obj.priority === "Urgent");
     const counter = {
         toDo: 0,
         done: 0,
         review: 0,
-        urgent: 0,
+        urgent: urgency.length,
         inProgress: 0,
         total: types.length
     };
@@ -56,11 +57,9 @@ function forLoopCount(counter, types, deadline) {
             counter.toDo++;
         } else if (type === "done") {
             counter.done++;
-        } else if (type === "urgent") {
-            counter.urgent++;
         } else if (type === "review") {
             counter.review++;
-        } else if (type === "inProgress") {
+        } else if (type === "in-progress") {
             counter.inProgress++
         }   }
     formatDate(deadline, counter)
@@ -73,7 +72,7 @@ function formatDate(deadline, counter) {
         month: 'long',
         day: 'numeric'
     });
-    renderBoardSummary(counter, formatedDeadline)
+    renderBoardSummary(counter, formatedDeadline);
 }
 
 function renderBoardSummary(counter, formatedDeadline) {

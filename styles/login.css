@@ -66,6 +66,7 @@ form {
 }
 
 input[type="email"],
+input[type="text"],
 input[type="password"],
 input[type="name"] {
     box-sizing: border-box;
@@ -90,6 +91,7 @@ input[type="name"] {
 }
 
 input[type="email"]::placeholder,
+input[type="text"],
 input[type="password"]::placeholder,
 input[type="name"]::placeholder {
     font-size: 20px;

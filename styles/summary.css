@@ -65,6 +65,8 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .urgentDeadlineDiv {
@@ -79,6 +81,8 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #urgentTaskBox {
@@ -171,6 +175,8 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .taskCounterDiv {
@@ -186,7 +192,6 @@
 .taskCount {
     font-weight: 600;
     font-size: 64px;
-    line-height: 120%;
     text-align: center;
     color: #000000;
 }
@@ -194,7 +199,6 @@
 .taskCounterText {
     font-weight: 400;
     font-size: 20px;
-    line-height: 120%;
     text-align: center;
     color: #2A3647;
 }
@@ -236,6 +240,40 @@
     height: 101px;
 }
 
+
+.urgentDeadlineDiv:hover {
+
+    padding: 28px 48px;
+    gap: 61px;
+    transform: scale(1.1);
+    background: #2A3647;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+}
+
+.toDoAndDoneCard:hover {
+    padding: 38px 19px;
+    gap: 18px;
+    transform: scale(1.1);
+    background: #2A3647;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+}
+
+.taskOverviewCard:hover {
+    padding: 25px 0px;
+    gap: 13px;
+    transform: scale(1.1);
+    background: #2A3647;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.toDoAndDoneCard:hover span,
+.urgentDeadlineDiv:hover span,
+.taskOverviewCard:hover span {
+    color: #FFFFFF !important;
+}
+
 #doneCounter {
     display: flex;
     flex-direction: column;
@@ -271,4 +309,101 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+}
+
+@media(max-width: 1355px) {
+    .greetingBox {
+        left: 468px;
+        bottom: 200px !important;
+        top: unset;
+    }
+}
+
+@media(max-width: 975px) {
+    .h1Div {
+        flex-direction: column;
+        left: 328px;
+        gap: 18px;
+        width: 460px;
+    }
+
+    .greetingBox {
+        left: 328px;
+        bottom: 200px !important;
+        top: unset;
+        width: 460px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .h1Div h1 {
+        border-bottom: solid #29ABE2;
+    }
+
+    .h1UnderlineDiv {
+        border: unset;
+    }
+
+    .cardOverviewDiv {
+        max-width: 460px;
+        width: 100%;
+        top: calc(50% - 562px/2 + 1px);
+    }
+
+    .toDoAndDoneDiv {
+        width: 100%;
+        /* Container passt sich dynamisch an */
+        max-width: 460px;
+    }
+
+    .toDoAndDoneCard {
+        width: calc((100% - 10px * 3) / 2);
+    }
+
+    .urgentDeadlineDiv {
+        width: 100%;
+        padding: 28px 13px;
+        gap: 36px;
+    }
+
+    .urgentDeadlineDiv:hover {
+        padding: 28px 13px;
+    }
+    .taskOverview {
+        width: 100%;
+    }
+
+    .taskOverviewCard {
+        width: calc((100% - 20px * 2) / 3);
+    }
+}
+
+@media(max-width: 820px) {
+
+    .cardOverviewDiv,
+    .greetingBox,
+    .h1Div {
+        left: 252px;
+    }
+}
+
+@media(max-width: 730px) {
+    .cardOverviewDiv {
+        max-width: 360px;
+    }
+
+    .urgentDeadlineDiv {
+        gap: 4px;
+    }
+
+    .urgentDeadlineDiv:hover {
+        padding: unset;
+        gap: 4px
+    }
+    
+    .greetingBox,
+    .h1Div {
+        width: 360px;
+    }    
 }

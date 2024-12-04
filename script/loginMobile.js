@@ -46,7 +46,7 @@ async function login() {
 }
 
 function checkPw(mail, password, data) {
-    let fittingUser = Object.values(data).find(user => user.email == mail.value && user.password == password.value)
+    let fittingUser = Object.values(data).find(user => (user.email == mail.value || user.name == mail.value) && user.password == password.value)
     if (fittingUser) {
         sessionStorage.setItem("User", fittingUser.name);
         window.location.href = "welcome.html";

@@ -1,5 +1,5 @@
 const database = firebase.database();
-const logedUser = sessionStorage.getItem('User');
+const logedUser = checkStorageForUser();
 const userBoardRef = database.ref(`tasks`);
 const date = new Date().toISOString().split('T')[0];
 const currentDate = new Date();
@@ -20,6 +20,15 @@ function selectGreeting() {
     } else {  // Good evening
         greetingBox.innerHTML = "Good evening,";
     };
+}
+
+function checkStorageForUser() {
+    const user = sessionStorage.getItem('User') || localStorage.getItem('User');
+    if (user) {
+        return user;
+    } else {
+        window.location.href = "login.html";
+    }
 }
 
 function setUsername() {
@@ -55,11 +64,12 @@ function findNearestDate(dueDates) {
 
 function countTasks(currentBoard, deadline) {
     const types = Object.values(currentBoard).map((obj) => obj.type);
+    const urgency = Object.values(currentBoard).filter((obj) => obj.priority === "Urgent");
     const counter = {
         toDo: 0,
         done: 0,
         review: 0,
-        urgent: 0,
+        urgent: urgency.length,
         inProgress: 0,
         total: types.length
     };
@@ -74,11 +84,9 @@ function forLoopCount(counter, types, deadline) {
             counter.toDo++;
         } else if (type === "done") {
             counter.done++;
-        } else if (type === "urgent") {
-            counter.urgent++;
         } else if (type === "review") {
             counter.review++;
-        } else if (type === "inprogress") {
+        } else if (type === "in-progress") {
             counter.inProgress++
         }   }
     formatDate(deadline, counter)
