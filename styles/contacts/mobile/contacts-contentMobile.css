@@ -11,16 +11,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: var(--background-color-main);
 }
 
 
 
-/* Contact Content Head */
+/* Contact Content Head & alle darunter Divs */
 
 .contact-content-head {
     display: flex;
     justify-content: space-between;
 }
+
+.contact-content-tilte {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.contact-content-tilte hr {
+    order: 3;
+    width: 90px;
+    height: 3px;
+    background: var(--background-color-section);
+    border: var(--background-color-section);
+    border-radius: 8px;
+}
+
+
+
 
 /* Die Bearbeitungs Buttons */
 .contact-content-table-editAndDeleteIcons {
