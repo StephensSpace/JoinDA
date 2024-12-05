@@ -4,11 +4,11 @@ function loginForm() {
         <form onsubmit="login(); return false" method="post">
             <div class="lockWrapper">
                 <input type="email" placeholder="Email" id="email" required>
-                <img src="./assets/icons/mail.svg" alt="" class="mail">
+                <img src="./assets/icons/Login/mail.svg" alt="" class="mail">
             </div>
             <div class="lockWrapper">
                 <input type="password" placeholder="Password" id="password" required>
-                <img src="./assets/icons/lock.svg" alt="" class="lock">
+                <img src="./assets/icons/Login/lock.svg" alt="" class="lock">
             </div>
             <message id="msgBox" class="dNone">Username or Password wrong</message>
             <label id="rememberMe"><input type="checkbox" class="customCheckbox"> Remember me</label>
@@ -28,24 +28,24 @@ function signUpForm() {
         <form onsubmit="SignUp(event)" onchange="toggleSubmitButton()">
         <div class="lockWrapper">
             <input type="name" id="name" required placeholder="Name">
-            <img src="./assets/icons/person.svg" alt="" class="person">
+            <img src="./assets/icons/Login/person.svg" alt="" class="person">
         </div>
         <div class="lockWrapper">
             <input type="email" id="email" required placeholder="Email">
-            <img src="./assets/icons/mail.svg" alt="" class="mailSignUp">
+            <img src="./assets/icons/Login/mail.svg" alt="" class="mailSignUp">
         </div>
         <div class="lockWrapper">
             <input type="password" id="password" required placeholder="Password">
-            <img src="./assets/icons/lock.svg" alt="" class="lockSignUp">
+            <img src="./assets/icons/Login/lock.svg" alt="" class="lockSignUp">
         </div>
         <div class="lockWrapper">
             <input type="password" id="pwCheck" required placeholder="Confirm Password">
-            <img src="./assets/icons/lock.svg" alt="" class="lockSignUp2">
+            <img src="./assets/icons/Login/lock.svg" alt="" class="lockSignUp2">
         </div>
         <div class="privacyCheckbox">
             <input type="checkbox" class="customCheckbox" id="checkBox" required>
             <span id="iAccept">I accept the
-                <a href="privacy_policy.html">Privacy policy</a>
+                <a href="loginPPolicy.html">Privacy policy</a>
             </span>
         </div>
         <div class="visabilityHidden msgBox2" id="msgBox2">Wrong password</div>

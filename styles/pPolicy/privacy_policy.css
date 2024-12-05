@@ -6,3 +6,10 @@
   margin: 50px;
   gap: 20px;
 }
+
+.content {
+  padding-left: 232px;
+  padding-top: 80px;
+  z-index: 0;
+  margin-bottom: 20px;
+}

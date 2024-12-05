@@ -1,0 +1,126 @@
+.logo {
+    width: 102px;
+    height: 122px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.backBtn {
+    width: 36px;
+    height: 36px;
+    position: fixed;
+    top: 176px;
+    left: 87px;
+}
+
+.backBtn:hover {
+    background-color: lightgrey;
+    width: 38px;
+    height: 38px;
+    border-radius: 18px;
+}
+
+.backBtnLink {
+    width: 36px;
+    height: 36px;
+    position: fixed;
+    top: 176px;
+    left: 87px;
+    cursor: pointer;
+    z-index: 4;
+}
+
+
+.pp {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+    gap: 20px;
+}
+
+.content {
+    padding-left: 122px;
+    padding-top: 60px;
+    z-index: 0;
+    margin-bottom: 20px;
+}
+
+
+@media(max-width: 550px) {
+    .content {
+        padding-left: 84px;
+        padding-top: 45px;
+    }
+
+    .logo {
+        width: 82px;
+        height: 102px;
+    }
+
+    .backBtn {
+        width: 24px;
+        height: 24px;
+        top: 140px;
+        left: 76px;
+    }
+
+    .backBtnLink {
+        width: 24px;
+        height: 24px;
+        top: 140px;
+        left: 76px;
+    }
+
+
+}
+
+@media(max-width: 450px) {
+    .content {
+        padding-left: 40px;
+                padding-top: 84px;
+    }
+
+    .logo {
+        width: 62px;
+        height: 82px;
+    }
+
+    .backBtn {
+        top: 114px;
+        left: 56px;
+    }
+
+    .backBtnLink {
+        top: 114px;
+        left: 56px;
+    }
+}
+
+@media(max-width: 394px) {
+    .logo {
+        left: 0;
+    }
+
+    .content {
+        padding-left: 0px;
+        padding-top: 84px;
+    }
+
+    .pp {
+        font-size: 16px;
+        margin: 20px;
+    }
+
+    .backBtn {
+        top: 116px;
+        left: 12px;
+    }
+
+    .backBtnLink {
+        top: 116px;
+        left: 12px;
+    }
+}
