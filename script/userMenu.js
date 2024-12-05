@@ -20,7 +20,6 @@ function openUserMenu() {
 
 function menuLegalBtn() {
     const currentUrl = window.location.href;
-
     if (currentUrl.includes("Mobile")) {
         window.location.href = "legal_noticeMobile.html";
     } else {
@@ -30,7 +29,6 @@ function menuLegalBtn() {
 
 function menuPrivacyBtn() {
     const currentUrl = window.location.href;
-
     if (currentUrl.includes("Mobile")) {
         window.location.href = "privacy_policyMobile.html";
     } else {
@@ -40,7 +38,6 @@ function menuPrivacyBtn() {
 
 function logOutBtn() {
     const currentUrl = window.location.href;
-
     if (currentUrl.includes("Mobile")) {
         window.location.href = "loginMobile.html";
     } else {
@@ -62,7 +59,6 @@ function helpBtn() {
 
 function summaryBtn() {
     const currentUrl = window.location.href;
-
     if (currentUrl.includes("Mobile")) {
         window.location.href = "summaryMobile.html";
     } else {
