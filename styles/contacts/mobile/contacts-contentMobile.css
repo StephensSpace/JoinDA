@@ -4,6 +4,8 @@
 
 .content {
     top: 80px;
+    bottom: 80px;
+    overflow-y: auto;
     position: absolute;
     width: -webkit-fill-available;
     display: flex;

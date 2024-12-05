@@ -8,8 +8,8 @@
     }
 
     .contact-content {
+        top: 124px;
         left: 632px;
-        top: 206px;
         gap: 40px;
     }
 
@@ -44,8 +44,8 @@
     .contact-content {
         display: flex;
         align-items: center;
+
         left: 552px;
-        top: 164px;
         padding: 0;
     }
 
@@ -55,12 +55,13 @@
 
     .contact-content-head hr {
         width: 59px;
+        height: 0;
     }
 
     .contact-content-table {
         position: absolute;
         top: 205px;
-        gap: 64px;
+        gap: 24px;
         align-items: center;
     }
 
@@ -167,7 +168,7 @@
     }
 
     .contact-content-table {
-     
+        gap: 16px;
     }
 
     .contact-content-table-usernameAndIcons {
