@@ -23,13 +23,14 @@
 
     <!-- Js -->
     <script src="./script/firebase-config.js"></script>
+    <script src="./script/contacts/contactsMobile.js"></script>
+    <script src="./script/contacts/contacts-templatesMobile.js"></script>
     <script src="./script/contacts/contacts.js"></script>
-    <script src="./script/contacts/contacts-templates.js"></script>
     <script src="./script/checkMaxWidth.js"></script>
-    <script src="./script/firebase-config.js"></script>
+
     <!-- <script src="./script/setProfile.js" defer></script>
     <script src="./script/userMenu.js" defer></script> -->
-    <script src="./script/checkMaxWidth.js"></script>
+
 
 </head>
 
@@ -88,8 +89,8 @@
                     <p>Better with a team</p>
                 </div>
                 <div>
-                    <div>
-                        <img src="" alt="">
+                    <div class="contact-content-back" onclick="goBackToContactList()" > 
+                        <img src="./assets/icons/contacts/Vector-arrow-mobile.png" alt="./assets/icons/contacts/Vector-arrow-mobile.png">
                     </div>
                 </div>
             </div>
@@ -100,7 +101,6 @@
     </main>
     
     <nav>
-        <!--Jungs hier die klasse activ setzen bei eurer Seite -->
         <div class="outerButtonDiv">
             <div class="innerMenuButton">
                 <img src="./assets/icons/summary24.png" alt="">

@@ -14,6 +14,22 @@
 }
 
 
+
+/* Contact Content Head */
+
+.contact-content-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Die Bearbeitungs Buttons */
+.contact-content-table-editAndDeleteIcons {
+    display: none;
+}
+
+
+
+
 .contact-content {
     display: flex;
     flex-direction: column;
@@ -21,4 +37,14 @@
     gap: 32px;
     width: -webkit-fill-available;
     height: -webkit-fill-available;
+}
+
+/* Pfeil zum zurück gehen in Kontaktliste */ 
+.contact-content-back {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }

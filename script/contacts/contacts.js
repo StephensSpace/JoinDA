@@ -368,6 +368,7 @@ function rgbInHexa(userIndex) {
 
 //############################################################
 
+// last user has no padding at bottom so added
 function addMarginOnLastUser() {
     let lengthOfCurrentUsersInList = document.getElementsByClassName("user-contact").length;
     let lastUserInList = document.getElementsByClassName("user-contact")[(lengthOfCurrentUsersInList - 1)];
