@@ -51,15 +51,15 @@ main {
   border-radius: 8px;
   width: 24px;
   height: 24px;
-  font-size: 1.5rem;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   padding: 3px;
   background-color: white;
-  margin-left: 10px;
   margin: 0px;
+  font-weight: 700;
 }
 
 .add-task-btn-category:hover {

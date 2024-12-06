@@ -60,6 +60,10 @@
   .modal-content-task {
     left: 330px;
   }
+
+  .modal-content {
+    width: 1050px;
+  }
 }
 
 @media screen and (max-width: 990px) {
@@ -97,7 +101,9 @@
     display: flex;
     gap: 80px;
     flex-direction: column;
-    top: 335px;
+    top: 353px;
+    left: 265px;
+    width: 600px;
   }
 
   .tasks-container {
@@ -112,13 +118,37 @@
 
   .no-tasks {
     width: 600px;
-    margin-left: 49px;
     margin-top: 20px;
   }
 
   .task-card {
     flex: 1 1 100%;
     gap: 0;
+  }
+
+  .modal-content {
+    width: 960px;
+  }
+
+  .form-column-right {
+    width: 338px;
+    left: 565.25px;
+  }
+
+  .priority {
+    width: 336px;
+  }
+
+  .addTask-buttons {
+    width: 230px;
+  }
+
+  .form-column-left {
+    width: 336px;
+  }
+
+  .divider {
+    left: 480.25px;
   }
 }
 
@@ -164,7 +194,8 @@
     display: flex;
     gap: 80px;
     flex-direction: column;
-    top: 335px;
+    top: 352px;
+    width: 375px;
   }
 
   .tasks-container {
@@ -179,7 +210,6 @@
 
   .no-tasks {
     width: 370px;
-    margin-left: 25px;
   }
 
   .task-card {
@@ -199,6 +229,100 @@
   .add-Task-Button:hover {
     background: url(../../assets/buttons/addTaskButtonMobileHover.svg) no-repeat
       center;
+  }
+
+  .modal-content {
+    width: 835px;
+  }
+
+  .form-column-right {
+    width: 338px;
+    left: 470.25px;
+  }
+
+  .priority {
+    width: 336px;
+  }
+
+  .addTask-buttons {
+    width: 230px;
+    left: 582.25px;
+  }
+
+  .form-column-left {
+    width: 300px;
+  }
+
+  .divider {
+    left: 415.25px;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .modal-content {
+    width: 765px;
+  }
+
+  .form-column-right {
+    width: 338px;
+    left: 415.25px;
+  }
+
+  .priority {
+    width: 336px;
+  }
+
+  .addTask-buttons {
+    width: 230px;
+    left: 524.25px;
+  }
+
+  .form-column-left {
+    width: 300px;
+  }
+
+  .divider {
+    left: 373.25px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .modal-content {
+    width: 700px;
+  }
+
+  .form-column-right {
+    width: 245px;
+    left: 375.25px;
+  }
+
+  .priority {
+    width: 245px;
+    gap: 2px;
+  }
+
+  .addTask-buttons {
+    width: 230px;
+    left: 450.25px;
+  }
+
+  .form-column-left {
+    width: 245px;
+  }
+
+  .divider {
+    left: 330.25px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .modal-content {
+    width: 660px;
+  }
+
+  .addTask-buttons {
+    width: 230px;
+    left: 405.25px;
   }
 }
 
@@ -248,7 +372,7 @@
     top: 280px;
     left: 150px;
     height: 1230px;
-    width: 380px;
+    width: 353px;
   }
 
   .tasks-container {
@@ -280,5 +404,49 @@
 
   .modal-content-task {
     height: 780px;
+    left: 4px;
+  }
+
+  .modal-content {
+    position: absolute;
+    overflow-y: scroll;
+  }
+
+  .modal-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .form-column-left {
+    left: 100px;
+    top: 61px;
+  }
+
+  .form-column-right {
+    left: 100px;
+    margin-top: 0;
+    top: 420px;
+  }
+
+  .addTask-buttons {
+    left: 195px;
+    top: 760px;
+    position: fixed;
+  }
+
+  .add-task-label {
+    padding-bottom: 0;
+    left: 110px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .contentH2 {
+    display: none;
+  }
+
+  .modal-content {
+    width: 450px;
   }
 }

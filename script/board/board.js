@@ -62,7 +62,6 @@ function renderTasksOnBoard() {
       const category = column.getAttribute("data-status");
       const tasksContainer = column.querySelector(".tasks-container");
       tasksContainer.innerHTML = "";
-
       tasks
         .filter((task) => task.category === category)
         .forEach((task) => {
@@ -70,7 +69,6 @@ function renderTasksOnBoard() {
           tasksContainer.appendChild(taskCard);
         });
     });
-
     enableDragAndDrop(); // Nur einmal aufrufen
   });
 }
@@ -211,26 +209,18 @@ function setupDropdownSearchInline() {
     console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");
     return;
   }
-
-  // Toggle dropdown visibility when clicking on the trigger
   dropdownTrigger.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevents the click from propagating to the document
+    event.stopPropagation();
     const isOpen = dropdown.classList.toggle("open");
     optionsContainer.classList.toggle("hidden", !isOpen);
   });
-
-  // Close dropdown when clicking outside
   document.addEventListener("click", () => {
     optionsContainer.classList.add("hidden");
     dropdown.classList.remove("open");
   });
-
-  // Fetch and populate contacts
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
   });
-
-  // Filter options based on search input
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
     const options = optionsContainer.querySelectorAll(".dropdown-option");
@@ -328,21 +318,12 @@ function saveTaskToFirebase(task) {
   task.id = newTaskRef.key;
 
   if (!task.category || task.category.trim() === "") {
-    console.error(
-      "Kategorie nicht gesetzt. Aufgabe kann nicht gespeichert werden."
-    );
     return;
   }
-
-  newTaskRef
-    .set(task)
-    .then(() => {
-      addTaskToBoard(task);
-      enableDragAndDrop();
-    })
-    .catch((error) => {
-      console.error("Fehler beim Speichern der Aufgabe in Firebase:", error);
-    });
+  newTaskRef.set(task).then(() => {
+    addTaskToBoard(task);
+    enableDragAndDrop();
+  });
 }
 
 function updatePriorityButtons() {

@@ -38,8 +38,15 @@ function updateSelectedMembers() {
 }
 
 // Event-Listener für Subtasks hinzufügen
-document.getElementById("subtaskAddButton").addEventListener("click", () => {
-  const subtaskInput = document.getElementById("subtaskInput");
-  addSubtask(subtaskInput.value.trim());
-  subtaskInput.value = "";
+document.addEventListener("DOMContentLoaded", () => {
+  const subtaskAddButton = document.getElementById("subtaskAddButton");
+  if (subtaskAddButton) {
+    subtaskAddButton.addEventListener("click", () => {
+      const subtaskInput = document.getElementById("subtaskInput");
+      if (subtaskInput) {
+        addSubtask(subtaskInput.value.trim());
+        subtaskInput.value = "";
+      }
+    });
+  }
 });
