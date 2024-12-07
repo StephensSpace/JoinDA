@@ -44,7 +44,7 @@ function closePopupDiv() {
 
 // Delete Button in Menu bei Contact Information
 function deleteContactMobile(userIndex) {
-    (userIndex);
+    deleteContact(userIndex);
     goBackToContactList();
     renderContactsInToContactList();
 }
@@ -240,8 +240,6 @@ async function deleteContact(userIndex) {
     } catch (error) {
         console.error("Fehler beim Löschen des Kontaktes:", error);
     }
-    document.getElementById('contact-content-table').innerHTML = "";
-    renderContactsInToContactList();
     closeModal();
 }
 

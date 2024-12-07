@@ -101,7 +101,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
             </div>
             <div class="userIconTableNameDiv">
                 <div> <span style="font-weight: 500;">${USER_NAME}</span> </div>
-                <div class="contact-content-table-editAndDeleteIcons dNone">
+                <div class="contact-content-table-editAndDeleteIcons dNone" onclick="eventBubbling(event)">
                     <div class="editAndDeleteBtn" onclick="openEditContactModal(${userIndex})">
                         <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/edit.png" alt="./assets/icons/edit.png"> 
                         <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/edit-hover.png" alt="./assets/icons/edit.png">
@@ -241,7 +241,7 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
                                 </div>
                             
                                 <div class="modal-inputfield-buttons">
-                                    <button id="cancelBtn" type="button" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
+                                    <button id="cancelBtn" type="button" onclick="deleteContactMobile(${userIndex})" style="background: var(--background-color-header);">Delete</button>
                                     <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
                                 </div>
                             </form>
