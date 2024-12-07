@@ -72,7 +72,13 @@
 
 /* Die Bearbeitungs Buttons */
 .contact-content-table-editAndDeleteIcons {
-    display: none;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: blue;
+    width: 80px;
+    height: 80px;
+    z-index: 1;
 }
 
 

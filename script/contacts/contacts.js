@@ -296,6 +296,7 @@ const BACKGROUND_COLORS_LETTERS = {
 // Alles zum User Icon 
 
 // für definierte User
+//          Object.entries(BACKGROUND_COLORS_LETTERS.defined)[0][1]
 let letterBackground = {
     "AM": "#FF7A00",
     "AS": "#9327FF",
@@ -309,6 +310,7 @@ let letterBackground = {
 }
 
 // für nicht definierte User
+//          Object.entries(BACKGROUND_COLORS_LETTERS.undefined)[1][0]
 let letterBackgroundRandom = {
     "0": "#FF745E",
     "1": "#FFC701",
@@ -321,15 +323,15 @@ let letterBackgroundRandom = {
 
 // für definierte User
 function getBackgroundForDefinedLetters(getFirstLetters) {
-    let loopLength = Object.keys(letterBackground).length;
+    let loopLength = Object.keys(BACKGROUND_COLORS_LETTERS.defined).length;
     for (let i = 0; i < loopLength; i++) {
-        let compareLetters = Object.entries(letterBackground)[i][0];
+        let compareLetters = Object.entries(BACKGROUND_COLORS_LETTERS.defined)[i][0];
         if (getFirstLetters === compareLetters) {
-            return Object.entries(letterBackground)[i][1];
+            return Object.entries(BACKGROUND_COLORS_LETTERS.defined)[i][1];
         }
     }
     let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
-    let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+    let getRandomColor = Object.entries(BACKGROUND_COLORS_LETTERS.undefined)[randomIndex][1];
     return getRandomColor;
 }
 
@@ -337,7 +339,7 @@ function getBackgroundForDefinedLetters(getFirstLetters) {
 function getRandomeColor(color) {
     let colorOftheAboveIcon = color;
     let randomIndex = Math.floor((Math.random() * 7)); // Wenn kein passendes Element in der Schleife gefunden wurde
-    let getRandomColor = Object.entries(letterBackgroundRandom)[randomIndex][1];
+    let getRandomColor = Object.entries(BACKGROUND_COLORS_LETTERS.undefined)[randomIndex][1];
     if (colorOftheAboveIcon == getRandomColor) {
         getRandomeColor(color);
     } 
@@ -347,19 +349,25 @@ function getRandomeColor(color) {
 // konverter für rgb in hexadezimal 
 function rgbInHexa(userIndex) {
     if (document.getElementById(`userIconContactList_${(userIndex-1)}`) !== null) {
-    let getIconFromAbove = document.getElementById(`userIconContactList_${(userIndex-1)}`).style.backgroundColor;   // auf den vorherigen UserIcon zugreifen und farbcode ziehen in rgb
-    let rgbNumb1_2 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[0]);
-    let rgbNumb3_4 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[1]);
-    let rgbNumb5_6 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[2]);
-    let hexaNumb1_2 = rgbNumb1_2.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen   
-    let hexaNumb3_4 = rgbNumb3_4.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
-    let hexaNumb5_6 = rgbNumb5_6.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
-    let hexaNumb = '#' + hexaNumb1_2 + hexaNumb3_4 + hexaNumb5_6;
-    return hexaNumb;
+        let getIconFromAbove = document.getElementById(`userIconContactList_${(userIndex-1)}`).style.backgroundColor;   // auf den vorherigen UserIcon zugreifen und farbcode ziehen in rgb
+        let rgbNumb1_2 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[0]);
+        let rgbNumb3_4 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[1]);
+        let rgbNumb5_6 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[2]);
+        let hexaNumb1_2 = rgbNumb1_2.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen   
+        let hexaNumb3_4 = rgbNumb3_4.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
+        let hexaNumb5_6 = rgbNumb5_6.toString(16).padStart(2, '0').toUpperCase();   // konverte die zahlen zu hexadezimal zahlen
+        let hexaNumb = '#' + hexaNumb1_2 + hexaNumb3_4 + hexaNumb5_6;
+        return hexaNumb;
     }
 }
 
 
+// last user has no padding at bottom so added
+function addMarginOnLastUser() {
+    let lengthOfCurrentUsersInList = document.getElementsByClassName("user-contact").length;
+    let lastUserInList = document.getElementsByClassName("user-contact")[(lengthOfCurrentUsersInList - 1)];
+    lastUserInList.style.marginBottom = ("20px");
+}
 
 
 //############################################################
@@ -368,12 +376,6 @@ function rgbInHexa(userIndex) {
 
 //############################################################
 
-// last user has no padding at bottom so added
-function addMarginOnLastUser() {
-    let lengthOfCurrentUsersInList = document.getElementsByClassName("user-contact").length;
-    let lastUserInList = document.getElementsByClassName("user-contact")[(lengthOfCurrentUsersInList - 1)];
-    lastUserInList.style.marginBottom = ("20px");
-}
 
 
 //############################################################

@@ -15,7 +15,6 @@ function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     ` 
 }
 
-
 // Erstellt das ICON-Template vor dem Namen & Email des User in der Kontaktliste
 function userIconTemplateContactList(userName, userIndex) {
     let firstLetterFullName = userName;
@@ -73,7 +72,6 @@ function userIconTemplateContactTable(userName, userIndex) {
     }
 }
 
-
 // Template für gesamte User Ansicht unter "Add new contact"
 function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
     return `
@@ -103,7 +101,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
             </div>
             <div class="userIconTableNameDiv">
                 <div> <span style="font-weight: 500;">${USER_NAME}</span> </div>
-                <div class="contact-content-table-editAndDeleteIcons">
+                <div class="contact-content-table-editAndDeleteIcons dNone">
                     <div class="editAndDeleteBtn" onclick="openEditContactModal(${userIndex})">
                         <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/edit.png" alt="./assets/icons/edit.png"> 
                         <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/edit-hover.png" alt="./assets/icons/edit.png">
@@ -258,9 +256,64 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
     `
 }
 
+// Add-New-Contact-Btn Template
+function addNewContactBtnTemplate() {
+    return `<div class="add-new-contact-background">
+                <div class="add-new-contact-btn" onclick="openAddContactModal()">
+                    <img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
+                </div>
+            </div>`;
+}
 
+// Edit And Delete Button in Mobile Popup Div
+function editAndDeleteBtnTemplate() {
+    return `<div class="edit-delete-btn-background" onclick="openPopupDiv()">
+                <div class="edit-delete-btn" onclick="">
+                    <img src="./assets/icons/contacts/more_vert.png" alt="./assets/icons/contacts/more_vert.png">
+                </div>
+            </div>`
+}
 
+// Kontakt Information Template
+function contactContentTemplate() {
+    return `<div class="contact-content" onclick="closePopupDiv()">
+                <div class="contact-content-head">
+                    <div class="contact-content-tilte">
+                        <h1>Contacts</h1>
+                        <hr>
+                        <p>Better with a team</p>
+                    </div>
+                    <div>
+                        <div class="contact-content-back" onclick="goBackToContactList()" > 
+                            <img src="./assets/icons/contacts/Vector-arrow-mobile.png" alt="./assets/icons/contacts/Vector-arrow-mobile.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-content-table" id="contact-content-table">
 
+                </div>
+            </div>`
+}
+
+// Popup-Div Template    MUSS DOCH WEG; UNNÖTIG???
+function editAndDeletePopUpDivTemplate() {
+    return `<div class="popupDiv" id="popupDiv" onclick="eventBubbling(event)">
+
+                <div class="contact-content-table-editAndDeleteIcons">
+                    <div class="editAndDeleteBtn" onclick="openEditContactModal(${userIndex})">
+                        <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/edit.png" alt="./assets/icons/edit.png"> 
+                        <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/edit-hover.png" alt="./assets/icons/edit.png">
+                        <p>Edit</p>
+                    </div>
+                    <div class="editAndDeleteBtn" onclick="deleteContact(${userIndex})">
+                        <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/delete.png" alt="./assets/icons/delete.png"> 
+                        <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/delete-hover.png" alt="./assets/icons/delete.png"> 
+                        <p>Delete</p>
+                    </div>
+                </div>
+
+            </div>`
+}
 
 
 

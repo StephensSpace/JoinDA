@@ -1,57 +1,43 @@
 
 // Zum zurück kommen vom Contact Table zur Contact List
-async function goBackToContactList() {
-    document.getElementsByClassName('contact-content')[0].style.display = "none";
+function goBackToContactList() {
     document.getElementsByClassName('contact-board')[0].style.display = "unset";
-
-
     document.getElementById('contact-content-table').innerHTML = "";
 
+    // entfern den edit und delete button in der Kontaktlisten Ansicht
     document.getElementsByClassName('edit-delete-btn-background')[0].remove();  
 
+    // fügt button "add new contact" hinzu 
+    document.getElementsByClassName('content')[0].innerHTML += addNewContactBtnTemplate();
 
-    document.getElementsByClassName('content')[0].innerHTML +=
-    `<div class="add-new-contact-background">
-            <div class="add-new-contact-btn" onclick="openAddContactModal()">
-                    <img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
-            </div>
-    </div>`;
+    // Entfernt das Kontakt Details Template von der HTML 
+    document.getElementsByClassName('contact-content')[0].remove()
 }
-
 
 // Funktion zum rendern der User Details ins Contact Content Table
 function renderContactInfosInContactsTableMobile(index) {
-    document.getElementsByClassName('contact-content')[0].style.display = "flex";
+    //document.getElementsByClassName('contact-content')[0].style.display = "flex";
     document.getElementsByClassName('contact-board')[0].style.display = "none";
 
+    //  fügt Kontaktinformation Template + button edit contact hinzu 
+    document.getElementsByClassName('content')[0].innerHTML += contactContentTemplate() + editAndDeleteBtnTemplate();
 
+    // Get Contact information into "contact-content-table"
     renderContactInfosInContactsTable(index);
 
-
-    document.getElementsByClassName('content')[0].innerHTML +=      
-    `<div class="edit-delete-btn-background" onclick="openPopupDiv()">
-            <div class="edit-delete-btn" onclick="">
-                <img src="./assets/icons/contacts/more_vert.png" alt="./assets/icons/contacts/more_vert.png">
-            </div>
-    </div>`;
-
-
+    // entfernt den add new contact button in der Kontakt Details Ansicht
     document.getElementsByClassName('add-new-contact-background')[0].remove();
 }
 
-
-// Get Popup-Div 
-
+// openup Popup-Div 
 function openPopupDiv() {
     if (document.getElementById('popupDiv') == null) {        // Wenn Popup doc... = true; also wenn er da ist, dann else
-        document.getElementsByClassName('content')[0].innerHTML += 
-        `<div class="popupDiv" id="popupDiv" onclick="eventBubbling(event)">
-
-            <img src="./assets/icons/contacts/more_vert.png" alt="./assets/icons/contacts/more_vert.png">
-        
-        </div>`
-    } else {
-                            // Close Popup Dialog
-        document.getElementById('popupDiv').remove()
+        //document.getElementsByClassName('content')[0].innerHTML += editAndDeletePopUpDivTemplate();
+        document.getElementsByClassName('contact-content-table-editAndDeleteIcons')[0].style.display = "unset";
     }
+}
+
+// closing Popup-Div through click on the background
+function closePopupDiv() {
+    document.getElementsByClassName('contact-content-table-editAndDeleteIcons')[0].style.display = "none";
 }
