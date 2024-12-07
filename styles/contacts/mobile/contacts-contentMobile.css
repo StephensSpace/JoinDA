@@ -75,11 +75,69 @@
     position: absolute;
     bottom: 16px;
     right: 16px;
-    background: blue;
-    width: 80px;
-    height: 80px;
+    background: var(--background-color-header);
     z-index: 1;
+    width: 116px;
+    height: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 24px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
 }
+
+.editAndDeleteBtn, 
+.editAndDeleteBtn1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 96px;
+    height: 40px;
+    padding-left: 8px;
+}
+
+.editAndDeleteBtn:hover, 
+.editAndDeleteBtn1:hover {
+    border-radius: 8px;
+    background: #EEEEEE;
+    color: var(--background-color-aside);
+}
+
+.editAndDeleteBtn:hover p, 
+.editAndDeleteBtn1:hover p {
+    font-weight: 800;
+}
+
+
+.editAndDeleteBtn p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    width: 30px;
+    height: 19px;
+}
+
+.editAndDeleteBtn-Img, 
+.editAndDeleteBtn-Img-1 {
+    width: 24px;
+    height: 24px;
+}
+
+.editAndDeleteBtn1 p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    width: 49px;
+    height: 19px;
+}
+
+
+
+
+
+
 
 
 

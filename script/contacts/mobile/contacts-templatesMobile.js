@@ -107,7 +107,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
                         <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/edit-hover.png" alt="./assets/icons/edit.png">
                         <p>Edit</p>
                     </div>
-                    <div class="editAndDeleteBtn" onclick="deleteContact(${userIndex})">
+                    <div class="editAndDeleteBtn1" onclick="deleteContactMobile(${userIndex})">
                         <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/delete.png" alt="./assets/icons/delete.png"> 
                         <img class="editAndDeleteBtn-Img hidden" src="./assets/icons/contacts/delete-hover.png" alt="./assets/icons/delete.png"> 
                         <p>Delete</p>
@@ -284,7 +284,7 @@ function contactContentTemplate() {
                         <p>Better with a team</p>
                     </div>
                     <div>
-                        <div class="contact-content-back" onclick="goBackToContactList()" > 
+                        <div class="contact-content-back" onclick="goBackToContactList(), eventBubbling(event)" > 
                             <img src="./assets/icons/contacts/Vector-arrow-mobile.png" alt="./assets/icons/contacts/Vector-arrow-mobile.png">
                         </div>
                     </div>
