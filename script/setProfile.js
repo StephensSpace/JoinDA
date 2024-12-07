@@ -1,9 +1,19 @@
 
 function checkLogedUser() {
-    if (!logedUser || logedUser === "NaN" || logedUser.trim() === "") {
-        window.location.href = "login.html";
+    if (typeof logedUser === "undefined") {
+        logedUser = checkStorageForUser();
+        selectInitials();
     } else {
         selectInitials();
+    }
+}
+
+function checkStorageForUser() {
+    const user = sessionStorage.getItem('User') || localStorage.getItem('User');
+    if (user) {
+        return user;
+    } else {
+        window.location.href = "login.html";
     }
 }
 

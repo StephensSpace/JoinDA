@@ -1,0 +1,14 @@
+.ln {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 146px 0px 0px 282px;
+  padding-bottom: 50px;
+}
+
+.ln p {
+  max-width: 1400px;
+  width: 100%;
+}

@@ -1,0 +1,104 @@
+.ln {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 100px 25px 25px 55px;
+  padding-bottom: 50px;
+}
+
+.ln p {
+  max-width: 1400px;
+  width: 100%;
+}
+
+
+.logo {
+  width: 102px;
+  height: 122px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.backBtn {
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  top: 176px;
+  left: 87px;
+}
+
+.backBtn:hover {
+  background-color: lightgrey;
+  width: 38px;
+  height: 38px;
+  border-radius: 18px;
+}
+
+.backBtnLink {
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  top: 176px;
+  left: 87px;
+  cursor: pointer;
+  z-index: 4;
+}
+
+@media(max-width: 550px) {
+
+  .logo {
+      width: 82px;
+      height: 102px;
+  }
+
+  .backBtn {
+      width: 24px;
+      height: 24px;
+      top: 140px;
+      left: 66px;
+  }
+
+  .backBtnLink {
+      width: 24px;
+      height: 24px;
+      top: 140px;
+      left: 66px;
+  }
+
+}
+
+@media(max-width: 450px) {
+
+  .logo {
+      width: 62px;
+      height: 82px;
+  }
+
+  .backBtn {
+      top: 114px;
+      left: 56px;
+  }
+
+  .backBtnLink {
+      top: 114px;
+      left: 56px;
+  }
+}
+
+@media(max-width: 394px) {
+  .logo {
+      left: 0;
+  }
+  .backBtn {
+      top: 116px;
+      left: 12px;
+  }
+
+  .backBtnLink {
+      top: 116px;
+      left: 12px;
+  }
+}

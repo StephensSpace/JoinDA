@@ -27,7 +27,7 @@ body {
     0% {
         opacity: 1;
     }
-    57% { /* nach der 1 Sekunde sichtbare Zeit */
+    57% { 
         opacity: 1;
     }
     100% {

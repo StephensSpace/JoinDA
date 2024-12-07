@@ -37,7 +37,7 @@
     text-align: center;
     flex-direction: column;
     align-items: center;
-    margin: 50px;
+    margin: 140px 50px 50px 110px;
     gap: 20px;
 }
 
@@ -74,6 +74,9 @@
         left: 76px;
     }
 
+    .pp {
+        margin: 130px 60px 60px 80px;
+    }
 
 }
 
@@ -91,6 +94,10 @@
     .backBtn {
         top: 114px;
         left: 56px;
+    }
+
+    .pp {
+        margin: 100px 50px 50px 63px
     }
 
     .backBtnLink {
@@ -111,7 +118,7 @@
 
     .pp {
         font-size: 16px;
-        margin: 20px;
+        margin: 100px 20px 50px 20px;
     }
 
     .backBtn {

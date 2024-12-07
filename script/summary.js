@@ -1,5 +1,5 @@
 const database = firebase.database();
-const logedUser = checkStorageForUser();
+let logedUser = checkStorageForUser();
 const userBoardRef = database.ref(`tasks`);
 const date = new Date().toISOString().split('T')[0];
 const currentDate = new Date();

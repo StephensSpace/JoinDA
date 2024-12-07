@@ -19,7 +19,7 @@ header {
     align-items: center;
     padding: 20px 16px;
     gap: calc(100% - 48px - 56px);
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 80px;
     max-width: 650px;
@@ -64,7 +64,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0px;
-    position: absolute;
+    position: fixed;
     width: 100%;
     max-width: 650px;
     height: 80px;
