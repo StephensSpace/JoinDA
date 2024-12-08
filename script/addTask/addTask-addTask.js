@@ -138,10 +138,13 @@ function hideErrorMessages() {
 }
 
 function closeModal() {
-  const addTaskModal = document.getElementById("addTaskModal");
-  addTaskModal.style.display = "none";
-  isEditMode = false;
-  currentTaskId = null;
+  // Gehe zurück zur vorherigen Seite
+  if (document.referrer) {
+    window.location.href = document.referrer;
+  } else {
+    // Fallback: Falls keine vorherige Seite vorhanden ist, zur board.html navigieren
+    window.location.href = "./board.html";
+  }
 }
 
 function setupSecondDropdown() {
