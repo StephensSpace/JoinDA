@@ -207,8 +207,8 @@ async function editContactInModal(userIndex) {
     const dataRef = firebase.database().ref("/contacts/" + `${USER}`);
     editContactInModalTryCatch(userIndex, inputfieldName, inputfieldEmail, inputfieldPhone, dataRef);
     closeModal();
-    renderContactsInToContactList();
-    renderContactInfosInContactsTable(userIndex);
+    await renderContactsInToContactList();
+    await renderContactInfosInContactsTable(userIndex);
 }
 
 async function editContactInModalTryCatch(userIndex, inputfieldName, inputfieldEmail, inputfieldPhone, dataRef) {

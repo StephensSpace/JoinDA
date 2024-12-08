@@ -87,7 +87,7 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
                     <p class="user-shortcut-name" style="color: black">${USER_NAME}</p>
                 </div>
                 <div>
-                    <a class="user-shortcut-email" href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a>
+                    <p class="user-shortcut-email"  style="color: #007CEE;">${USER_EMAIL}</p>
                 </div>
             </div>
         </div>

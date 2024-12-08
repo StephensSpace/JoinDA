@@ -32,6 +32,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+
 /* Popup Div */
 
 .popupDiv {
@@ -54,9 +55,14 @@
 .contact-content-tilte {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
 }
 
+.contact-content-tilte h1 {
+    font-size: 47px;
+    font-weight: 700;
+    line-height: 56.4px;
+}
 
 .contact-content-tilte hr {
     order: 3;
@@ -66,6 +72,65 @@
     border: var(--background-color-section);
     border-radius: 8px;
 }
+
+.contact-content-tilte p {
+    font-size: 20px;
+    line-height: 24px;
+}
+
+
+.contact-content-table-usernameAndIcons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.userIconTable-Background {
+    margin: 0;
+    background-color: white;
+    filter: drop-shadow(0 0 0.045rem gray);
+    border-radius: 100%;
+    width: 86px;
+    height: 86px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userIconTableNameDiv span {
+    font-weight: 700 !important;
+    font-size: 36px;
+    line-height: 43.2px;
+}
+
+.contact-content-table {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.contact-content-table-usernameFullinformation {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.contact-content-information {
+    font-size: 20px !important;
+    line-height: 24px !important;
+}
+
+.contact-content-table-usernameFullinformation h4 {
+    font-size: 16px;
+    line-height: 19.2px;
+    font-weight: 700;
+}
+
+.contact-content-table-usernameFullinformation p {
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
 
 
 
