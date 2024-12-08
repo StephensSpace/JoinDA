@@ -797,6 +797,10 @@ textarea {
   gap: 4px;
 }
 
+.create-task-btn img {
+  display: none;
+}
+
 .create-task-btn:hover {
   background-color: #29abe2;
 }

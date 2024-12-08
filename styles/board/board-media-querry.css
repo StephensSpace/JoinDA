@@ -321,12 +321,17 @@
   }
 
   .addTask-buttons {
-    width: 230px;
-    left: 405.25px;
+    width: 183px;
+    left: 435.25px;
+    top: 760px;
   }
 }
 
 @media screen and (max-width: 660px) {
+  body {
+    height: 1575px;
+  }
+
   .search-bar {
     width: 640px;
   }
@@ -410,6 +415,9 @@
   .modal-content {
     position: absolute;
     overflow-y: scroll;
+    width: 450px;
+    height: 865px;
+    top: 439px;
   }
 
   .modal-content::-webkit-scrollbar {
@@ -425,17 +433,35 @@
     left: 100px;
     margin-top: 0;
     top: 420px;
+    height: 475px;
   }
 
-  .addTask-buttons {
-    left: 195px;
-    top: 760px;
+  .cancel-btn {
+    display: none;
+  }
+
+  .create-task-btn {
+    display: none;
+  }
+
+  .bg-mobile-buttons {
+    background-color: #ffffff;
+    height: 100px;
+    width: 100%;
+    left: 3px;
     position: fixed;
+    top: 888px;
+  }
+
+  .bg-mobile-buttons img {
+    display: block;
+    left: 350px;
+    position: fixed;
+    cursor: pointer;
   }
 
   .add-task-label {
-    padding-bottom: 0;
-    left: 110px;
+    display: none;
   }
 
   .divider {
@@ -445,8 +471,75 @@
   .contentH2 {
     display: none;
   }
+}
 
+@media screen and (max-width: 530px) {
   .modal-content {
-    width: 450px;
+    width: 308px;
+  }
+
+  .form-column-left {
+    left: 35px;
+  }
+
+  .form-column-right {
+    left: 35px;
+  }
+
+  .priority-btn {
+    height: 20px;
+    width: 84px;
+  }
+
+  .bg-mobile-buttons img {
+    left: 195px;
+  }
+
+  .modal-content-task {
+    width: 308px;
+    height: 764px;
+  }
+
+  .modal-content-headline {
+    width: 238px;
+  }
+
+  .task-header {
+    width: 100%;
+  }
+
+  #taskDetailDescription {
+    width: 100%;
+    padding-bottom: 60px;
+  }
+
+  .search-bar {
+    left: -50px;
+    width: 575px;
+  }
+
+  .input-container {
+    width: 308px;
+  }
+
+  .headlines {
+    left: -50px;
+  }
+
+  .headlines div {
+    width: 300px;
+  }
+
+  .board-container {
+    left: 7px;
+    width: 280px;
+  }
+
+  #taskDetailTitle {
+    font-size: x-large;
+  }
+
+  .task-actions {
+    left: 115px;
   }
 }

@@ -275,6 +275,7 @@
 
   .addTask-buttons {
     left: 8px;
+    gap: 1px;
   }
 
   input[type="text"],
@@ -290,5 +291,9 @@
 
   .assigned-container {
     width: 300px;
+  }
+
+  .add-task-label {
+    left: 6px;
   }
 }
