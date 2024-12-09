@@ -255,6 +255,7 @@ main {
   padding: 20px;
   box-sizing: border-box;
   gap: 10px;
+  white-space: nowrap;
 }
 
 .tasks-container {

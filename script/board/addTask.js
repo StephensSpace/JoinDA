@@ -153,7 +153,7 @@ function setupSecondDropdown() {
   const secondSelectedText = document.getElementById(
     "secondDropdownSelectedText"
   );
-  const categoryInput = document.getElementById("taskCategoryInput"); // Hidden input für die Kategorie
+  const categoryInput = document.getElementById("taskCategoryInput");
   const typeInput = document.getElementById("taskTypeInput");
   // Toggle dropdown visibility and arrow rotation
   secondDropdown.addEventListener("click", (event) => {
@@ -163,31 +163,22 @@ function setupSecondDropdown() {
     secondArrow.classList.toggle("open", isOpen);
   });
 
-  // Handle option selection
   secondOptionsContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("second-dropdown-option")) {
       const selectedCategory = event.target.dataset.value;
-
-      // Update placeholder text and hidden input value
       secondSelectedText.textContent = selectedCategory;
       typeInput.value = selectedCategory;
-
-      // Highlight the selected option
       secondOptionsContainer
         .querySelectorAll(".second-dropdown-option")
         .forEach((option) => {
           option.classList.remove("selected");
         });
       event.target.classList.add("selected");
-
-      // Close dropdown
       secondDropdown.classList.remove("open");
       secondOptionsContainer.classList.add("hidden");
       secondArrow.classList.remove("open");
     }
   });
-
-  // Close the dropdown when clicking outside
   document.addEventListener("click", (event) => {
     if (!secondDropdown.contains(event.target)) {
       secondDropdown.classList.remove("open");

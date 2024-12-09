@@ -1,7 +1,6 @@
 function createTaskCard(task) {
   if (!task || typeof task !== "object") {
-    console.error("Ungültige Aufgabe übergeben:", task);
-    return null; // Verhindert weitere Verarbeitung
+    return null;
   }
 
   const members = Array.isArray(task.members) ? task.members : [];

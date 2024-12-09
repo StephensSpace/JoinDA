@@ -37,3 +37,4 @@ function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
       );
     });
 }
+

@@ -1,35 +1,32 @@
 function startDragging(event, taskCard) {
   currentDraggedTask = {
     id: taskCard.dataset.id,
-    category: taskCard.dataset.category,
+    type: taskCard.dataset.type,
   };
   event.dataTransfer.setData("text/plain", taskCard.dataset.id);
 }
 
-function dropTask(event, newStatus) {
-  const taskId = event.dataTransfer.getData("text/plain");
+function onTaskDrop(event, taskId, newType) {
+  // Verhindere das Standardverhalten
+  event.preventDefault();
+  updateTaskTypeInFirebase(taskId, newType);
   const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
-  if (taskCard) {
-    const oldStatus = taskCard.dataset.status;
-    taskCard.dataset.status = newStatus;
+  const newColumn = document.querySelector(
+    `.board-column[data-type="${newType}"] .tasks-container`
+  );
+  newColumn.appendChild(taskCard);
+}
 
-    const newColumn = document.querySelector(
-      `.board-column[data-status="${newStatus}"] .tasks-container`
-    );
-    if (newColumn) {
-      newColumn.appendChild(taskCard);
-      updateTaskStatusInFirebase(taskId, newStatus);
-
-      updateNoTasksMessage(
-        document.querySelector(`.board-column[data-status="${oldStatus}"]`)
-      );
-      updateNoTasksMessage(
-        document.querySelector(`.board-column[data-status="${newStatus}"]`)
-      );
-    } else {
-      console.error(`Spalte für Status ${newStatus} nicht gefunden.`);
-    }
-  }
+function updateTaskTypeInFirebase(taskId, newType) {
+  const taskRef = firebase.database().ref(`tasks/${taskId}`);
+  taskRef
+    .update({ type: newType })
+    .then(() => {
+      console.log(`Task ${taskId} erfolgreich auf ${newType} aktualisiert.`);
+    })
+    .catch((error) => {
+      console.error(`Fehler beim Aktualisieren des Tasks ${taskId}:`, error);
+    });
 }
 
 function enableDragAndDrop() {
@@ -82,14 +79,12 @@ function handleDrop(event, zone) {
   const draggedTaskId = event.dataTransfer.getData("text/plain");
   const newStatus = zone.getAttribute("data-status");
   if (!draggedTaskId) {
-    console.error("Keine gültige Aufgabe wird gezogen.");
     return;
   }
   const draggedTask = document.querySelector(
     `.task-card[data-id="${draggedTaskId}"]`
   );
   if (!draggedTask) {
-    console.error("Zugezogene Aufgabe konnte nicht gefunden werden.");
     return;
   }
   zone.querySelector(".tasks-container").appendChild(draggedTask);

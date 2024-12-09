@@ -105,27 +105,37 @@ function openEditTaskModal() {
   }
 }
 
-function updateTaskInFirebase(taskId, taskData) {
-  firebase
-    .database()
-    .ref(`/tasks/${taskId}`)
-    .update(taskData)
-    .then(() => {
-      updateTaskOnBoard(taskId, taskData);
-      if (currentTask && currentTask.id === taskId) {
-        currentTask = { ...currentTask, ...taskData };
-        updateTaskDetailsModal(currentTask);
-      }
-    })
-    .catch((error) => {
-      console.error("Fehler beim Aktualisieren der Aufgabe:", error);
-    });
+async function updateTaskInFirebase(task) {
+  try {
+    const taskRef = firebase.database().ref(`tasks/${task.id}`);
+    await taskRef.update({ type: task.type });
+    console.log("Task updated successfully");
+  } catch (error) {
+    console.error("Error updating task:", error);
+  }
 }
 
 function updateTaskOnBoard(taskId, taskData) {
   removeTaskFromBoard(taskId);
   taskData.id = taskId;
   addTaskToBoard(taskData);
+}
+
+function loadTasksFromFirebase() {
+  const tasksRef = firebase.database().ref("tasks");
+  tasksRef.once("value", (snapshot) => {
+    const tasks = snapshot.val();
+    Object.values(tasks).forEach((task) => {
+      const column = document.querySelector(
+        `.board-column[data-type="${task.type}"] .tasks-container`
+      );
+      if (column) {
+        const taskCard = createTaskCard(task);
+        column.appendChild(taskCard);
+      }
+    });
+    enableDragAndDrop(); // Drag-and-Drop erneut aktivieren
+  });
 }
 
 function populateEditTaskForm(task) {

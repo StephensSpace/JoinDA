@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  loadTasksFromFirebase();
   setupDropdownSearchInline();
   setupSubtaskIconClickListeners();
   setupSecondDropdown();
