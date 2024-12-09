@@ -7,12 +7,12 @@
   <title>Legal Notice</title>
   <link rel="shortcut icon" href="./assets/img/favicon-dark.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/pPolicy/legal_notice.css" />
+  <link rel="stylesheet" href="./styles/pPolicy/legal_noticeLogin.css" />
   <link rel="stylesheet" href="./styles/style.css" />
   <link rel="stylesheet" href="./styles/sidebar.css" />
   <link rel="stylesheet" href="./styles/header.css">
   <link rel="stylesheet" href="./styles/color-template.css">
-  <link rel="stylesheet" href="./styles/">
+  <link rel="stylesheet" href="./styles/header.css">
   <script src="./script/checkMaxWidth.js"></script>
 
 </head>
@@ -23,21 +23,28 @@
       <span id="managmentTool">Kanban Project Managment Tool</span>
     </div>
   </header>
-  <!-- Seitenleiste mit Logo -->
   <nav class="sidebar">
     <div class="logo-container static">
       <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
     </div>
-    
     <div class="footer">
-      <a href="privacy_policy.html">Privacy Policy</a>
-      <a href="legal_notice.html">Legal Notice</a>
+      <div class="navBarBtns" onclick="document.getElementById('pPolicy').click()">
+        <a href="loginPPolicy.html" id="pPolicy">Privacy Policy</a>
+      </div>
+      <div class="navBarBtns active" onclick="document.getElementById('lNotice').click()">
+        <a href="loginLNotice.html" id="lNotice">Legal Notice</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hauptinhalt -->
+  
+
   <main class="content">
+    
     <div class="ln">
+      <div class="arrowLeft" onclick="window.close()">
+        <img src="./assets/buttons/arrowLeft.png" id="arrowLeft">
+      </div>
       <h1>Impressum</h1>
       <p class="section-title">Angaben gemäß § 5 TMG:</p>
       <p>

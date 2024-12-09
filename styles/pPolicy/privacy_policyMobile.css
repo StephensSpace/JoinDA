@@ -13,3 +13,44 @@
   z-index: 0;
   margin-bottom: 20px;
 }
+
+#arrowLeft {
+  width: 21.33px;
+  height: 20.74px;
+}
+
+.arrowLeft {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  right: -220px;
+  top: 55px;
+  flex: none;
+  flex-grow: 0;
+  z-index: 3;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out; /* Glatte Übergänge */
+}
+
+.arrowLeft:hover {
+  background-color: lightgrey;
+  transform: scale(1.2); /* Vergrößert das Element um 20% */
+  border-radius: 18px; /* Beibehaltung des runden Effekts */
+}
+
+@media(max-width: 490px) {
+  .arrowLeft {
+    left: -190px;
+  }
+}
+
+@media(max-width: 490px) {
+  .arrowLeft {
+    left: 0;
+    right: 0;
+    top: 20px;
+  }
+}

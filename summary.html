@@ -30,7 +30,8 @@
             <div class="navBarBtns active" onclick="summaryBtn()">
                 <img src="./assets/icons/summary.png">
                 <span>Summary</span>
-            </div> <div class="navBarBtns" onclick="addTaskBtn()">
+            </div>
+            <div class="navBarBtns" onclick="addTaskBtn()">
                 <img src="./assets/icons/add_task.png" alt="">
                 <span>Add Task</span>
             </div>
@@ -44,8 +45,12 @@
             </div>
         </div>
         <div class="footer">
-            <a href="privacy_policy.html">Privacy Policy</a>
-            <a href="legal_notice.html">Legal Notice</a>
+            <div class="navBarBtns" onclick="document.getElementById('pPolicy').click()">
+                <a href="privacy_policy.html" id="pPolicy">Privacy Policy</a>
+            </div>
+            <div class="navBarBtns" onclick="document.getElementById('lNotice').click()">
+                <a href="legal_notice.html" id="lNotice">Legal Notice</a>
+            </div>
         </div>
     </nav>
     <aside>
@@ -96,14 +101,14 @@
             <div class="cardOverviewDiv">
                 <div class="toDoAndDoneDiv">
                     <div class="toDoAndDoneCard" onclick="boardBtn()">
-                        <img src="./assets/icons/pencilRound.png" alt="">
+                        <img src="./assets/icons/summary/pencilRound.png" alt="">
                         <div id="toDoCounter">
                             <span id="toDoCounterSpan"></span>
                             <span class="toDoDoneSpan">To-Do</span>
                         </div>
                     </div>
                     <div class="toDoAndDoneCard" onclick="boardBtn()">
-                        <img src="./assets/icons/checkedRound.png" alt="">
+                        <img src="./assets/icons/summary/checkedRound.png" alt="">
                         <div id="doneCounter">
                             <span id="doneCounterSpan"></span>
                             <span class="toDoDoneSpan">Done</span>
@@ -112,7 +117,7 @@
                 </div>
                 <div class="urgentDeadlineDiv" onclick="boardBtn()">
                     <div id="urgentTaskBox">
-                        <img src="./assets/icons/roundUrgent.png" alt="">
+                        <img src="./assets/icons/summary/roundUrgent.png" alt="">
                         <div id="amountUrgentTasksDiv">
                             <span id="urgentAmount">1</span>
                             <span id="urgentSpam">Urgent</span>

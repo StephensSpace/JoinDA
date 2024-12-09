@@ -10,6 +10,7 @@
     height: 73px;
     left: 328px;
     top: 206px;
+    bottom: unset;
 }
 
 .h1Div h1 {
@@ -39,6 +40,7 @@
     height: 562px;
     left: 328px;
     top: 335px;
+    bottom: unset;
     /* Eigene Idee, die Box als Flexbox */
     display: flex;
     flex-direction: column;
@@ -314,8 +316,30 @@
 @media(max-width: 1355px) {
     .greetingBox {
         left: 468px;
-        bottom: 200px !important;
         top: unset;
+        bottom: min(calc(10vh - 20px), 50px) !important;
+        align-items: flex-start
+    }
+}
+@media (max-width: 1355px) and (max-height: 1220px) {
+    .greetingBox {
+        position: absolute;
+        left: 468px;
+        top: unset;
+
+        /* Dynamische Berechnung */
+        bottom: max(10px, calc((1220px - 100vh) * 0.2)); /* Proportionale Verschiebung */
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 1355px) and (min-height: 1230px) {
+    .greetingBox {
+        position: absolute;
+        left: 468px;
+        top: unset;
+        bottom: 200px !important; /* Fester Abstand */
+        align-items: flex-start;
     }
 }
 
@@ -370,6 +394,7 @@
     .urgentDeadlineDiv:hover {
         padding: 28px 13px;
     }
+
     .taskOverview {
         width: 100%;
     }
@@ -378,6 +403,58 @@
         width: calc((100% - 20px * 2) / 3);
     }
 }
+
+@media (max-width: 975px) and (max-height: 1230px) {
+    .greetingBox {
+        position: absolute;
+        left: 328px;
+        top: unset;
+        bottom: 50px !important; /* Fester Abstand */
+        align-items: flex-start;
+    }
+
+    .h1Div {
+        top: 150px;
+    }
+}
+
+@media (max-width: 975px) and (max-height: 1060px) {
+    
+    .h1Div {
+        flex-direction: row;
+        top: 104px;
+    }
+
+    .h1Div h1 {
+        white-space: nowrap;
+        top: 50px;
+    }
+
+}
+
+@media (max-width: 732px) and (max-height: 1060px) {
+    
+    .h1Div p{
+        font-size: 20px;
+    }
+
+    .h1UnderlineDiv {
+        justify-content: unset;
+    }
+
+    .h1Div h1 {
+        font-size: 28px;
+    }
+
+    #daytime {
+        font-size: 40px;
+    }
+    #userName {
+        font-size: 50px;
+    }
+
+}
+
 
 @media(max-width: 820px) {
 
@@ -405,5 +482,14 @@
     .greetingBox,
     .h1Div {
         width: 360px;
-    }    
+    }
+
+    .greetingBox {
+        align-items: flex-start;
+    }
+    
+    #daytime {
+        white-space: nowrap;
+    }
+    
 }

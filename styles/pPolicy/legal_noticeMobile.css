@@ -6,4 +6,32 @@
   gap: 20px;
   margin: 100px 20px;
   padding-bottom: 50px;
+  overflow-y: auto;
+}
+
+#arrowLeft {
+  width: 21.33px;
+  height: 20.74px;
+}
+
+.arrowLeft {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  right: -120px;
+  top: 58px;
+  flex: none;
+  flex-grow: 0;
+  z-index: 3;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrowLeft:hover {
+  background-color: lightgrey;
+  width: 38px;
+  height: 38px;
+  border-radius: 18px;
 }
