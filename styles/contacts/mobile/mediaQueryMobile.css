@@ -15,5 +15,9 @@
     .modal-inputfield input {
         width: 306px;
     }
+
+    .contactSuccessfullyCreated {
+        width: 296px !important;
+    }
 }
 

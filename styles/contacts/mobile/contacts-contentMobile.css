@@ -5,7 +5,7 @@
 .content {
     top: 80px;
     bottom: 80px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     position: absolute;
     width: -webkit-fill-available;
     display: flex;
@@ -201,15 +201,6 @@
     height: 19px;
 }
 
-
-
-
-
-
-
-
-
-
 .contact-content {
     display: flex;
     flex-direction: column;
@@ -227,4 +218,38 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+
+/* Div mit Contact Successfully created */
+.contactSuccessfullyCreated {
+    animation: flyIn 2s ease-out; /* Animation anwenden */
+    z-index: 99;
+}
+
+@keyframes flyIn {
+    0% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        bottom: 0px;
+        transform: translateY(120px);; /* Startpunkt: Außerhalb des Containers unten */
+        opacity: 0; /* Unsichtbar */
+    }
+    50% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        transform: translateY(0); /* Endpunkt: Im Container */
+        opacity: 1; /* Sichtbar */
+    }
+    100% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        transform: translateY(160px); /* Startpunkt: Außerhalb des Containers unten */
+    }
 }

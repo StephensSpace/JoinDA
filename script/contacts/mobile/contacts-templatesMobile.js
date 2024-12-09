@@ -85,7 +85,7 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
                     <p class="user-shortcut-name" style="color: black">${USER_NAME}</p>
                 </div>
                 <div>
-                    <p class="user-shortcut-email" href="" style="color: #007CEE;">${USER_EMAIL}</p>
+                    <p class="user-shortcut-email" href="" style="color: #007CEE !important;">${USER_EMAIL}</p>
                 </div>
             </div>
         </div>
@@ -245,12 +245,20 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
 }
 
 
+function contactSuccessfullyCreatedTemplate() {
+    return `
+        <div class="contactSuccessfullyCreated" style="background: #2A3647; color: white; width: 326px; height: 74px; 
+        border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 20px; position: absolute;
+        left: 50%;
+        translate: -50%; bottom: 64px; z-index: 99;">
+            <p>
+                Contact successfully created
+            </p>
+        </div>
+    `
+}
 
 
-
-
-//
-//
 //// RAUUUS?????
 //
 //

@@ -5,9 +5,29 @@ const logedUser = sessionStorage.getItem('User'); // für Stephen
 // Für Mobile 
 
 async function addNewContactMobile() {
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "none";
+    document.getElementsByClassName('contact-board')[0].style.display = "none";
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset";
+    document.getElementsByClassName('contact-content')[0].style.display = "flex";
     await addNewContact ();
-    renderContactInfosInContactsTableMobile();
+    contactSuccessfullyCreated()
 }
+
+
+function contactSuccessfullyCreated() {
+    document.getElementsByClassName('contact-content')[0].innerHTML += contactSuccessfullyCreatedTemplate();
+
+    const element = document.getElementsByClassName('contactSuccessfullyCreated')[0];
+    const delay = 1750;
+
+    setTimeout(() => {
+        if (element) {
+            element.remove(); // Element aus dem DOM entfernen
+        }
+    }, delay);
+}
+
+
 
 // Zum zurück kommen vom Contact Table zur Contact List
 function goBackToContactList() {
@@ -24,7 +44,7 @@ function goBackToContactList() {
 }
 
 // Funktion zum rendern der User Details ins Contact Content Table
-function renderContactInfosInContactsTableMobile(index) {
+async function renderContactInfosInContactsTableMobile(index) {
     //document.getElementsByClassName('contact-content')[0].style.display = "flex";
     document.getElementsByClassName('contact-board')[0].style.display = "none";
     //  fügt Kontaktinformation Template + button edit contact hinzu 
@@ -34,7 +54,7 @@ function renderContactInfosInContactsTableMobile(index) {
     // mache sichtbar den edit und delete button in der Kontaktlisten Ansicht
     document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset";
     // Get Contact information into "contact-content-table"
-    renderContactInfosInContactsTable(index);
+    await renderContactInfosInContactsTable(index);
     // entfernt den add new contact button in der Kontakt Details Ansicht
     document.getElementsByClassName('add-new-contact-background')[0].style.display = "none";
 }
