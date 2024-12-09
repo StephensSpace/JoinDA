@@ -1,0 +1,74 @@
+h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 20px;
+    position: absolute;
+    width: 106px;
+    height: 56px;
+    left: 16px;
+    top: 128px;
+}
+
+#helpTxtBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    position: absolute;
+    left: calc(50% + 10px);
+    top: 311px;
+    transform: translateX(-50%);
+    max-width: 630px;
+    width: calc(100% - 40px);
+    height: auto;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    margin: 0 10px 0 10px
+}
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+    align-self: stretch;
+
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 27px;
+    color: #000000;
+}
+
+.list1 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 35px;
+    max-width: 1014px;
+    width: 100%;
+    height: auto;
+    align-self: stretch;
+}
+
+.listNR {
+    width: 21px;
+    height: 32px;
+    font-weight: 700;
+    font-size: 27px;
+    color: #000000;
+    white-space: nowrap;
+}
+
+.listItem {
+    display: flex;
+    flex-direction: column;
+    max-width: 958px;
+    width: 100%;
+    height: auto;
+}
