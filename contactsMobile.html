@@ -15,11 +15,9 @@
     <link rel="stylesheet" href="./styles/contacts/mobile/contacts-modalMobile.css">
     <link rel="stylesheet" href="./styles/contacts/mobile/mediaQueryMobile.css">
 
-
     <!-- Firebase SDK für die App und die Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
-    
 
     <!-- Js -->
     <script src="./script/firebase-config.js"></script>
@@ -29,8 +27,7 @@
 
     <!-- <script src="./script/setProfile.js" defer></script>
     <script src="./script/userMenu.js" defer></script> -->
-
-
+    
 </head>
 
 <body onload="initContacts()">
@@ -68,7 +65,7 @@
 
     <!-- Hauptinhalt -->
     <main class="content">
-
+        <!-- Contact Content Board/ Contactlist -->
         <div class="add-new-contact-background">
             <div class="add-new-contact-btn" onclick="openAddContactModal()">
                     <img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
@@ -80,7 +77,31 @@
 
             </div>
         </div>
+        
+        <!-- Contact Content Table -->
+        <div class="contact-content" onclick="closePopupDiv()">
+            <div class="contact-content-head">
+                <div class="contact-content-tilte">
+                    <h1>Contacts</h1>
+                    <hr>
+                    <p>Better with a team</p>
+                </div>
+                <div>
+                    <div class="contact-content-back" onclick="goBackToContactList(), eventBubbling(event)" > 
+                        <img src="./assets/icons/contacts/Vector-arrow-mobile.png" alt="./assets/icons/contacts/Vector-arrow-mobile.png">
+                    </div>
+                </div>
+            </div>
+            <div class="contact-content-table" id="contact-content-table">
 
+            </div>
+        </div>
+        <!-- Edit & Del Btn -->
+        <div class="edit-delete-btn-background" onclick="openPopupDiv()">
+            <div class="edit-delete-btn" onclick="">
+                <img src="./assets/icons/contacts/more_vert.png" alt="./assets/icons/contacts/more_vert.png">
+            </div>
+        </div>
     </main>
     
     <!-- Navigation Bar -->

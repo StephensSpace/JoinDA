@@ -1,32 +1,42 @@
 
+// Globale Variabeln
+const logedUser = sessionStorage.getItem('User'); // für Stephen 
+
+// Für Mobile 
+
+async function addNewContactMobile() {
+    await addNewContact ();
+    renderContactInfosInContactsTableMobile();
+}
+
 // Zum zurück kommen vom Contact Table zur Contact List
 function goBackToContactList() {
+    // zeige wieder die Kontaktliste an
     document.getElementsByClassName('contact-board')[0].style.display = "unset";
+    // leere den Contact Informations Bereich
     document.getElementById('contact-content-table').innerHTML = "";
-
     // entfern den edit und delete button in der Kontaktlisten Ansicht
-    document.getElementsByClassName('edit-delete-btn-background')[0].remove();  
-
-    // fügt button "add new contact" hinzu 
-    document.getElementsByClassName('content')[0].innerHTML += addNewContactBtnTemplate();
-
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "none";  
     // Entfernt das Kontakt Details Template von der HTML 
-    document.getElementsByClassName('contact-content')[0].remove()
+    document.getElementsByClassName('contact-content')[0].style.display = "none";
+    // fügt button "add new contact" hinzu 
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "unset";
 }
 
 // Funktion zum rendern der User Details ins Contact Content Table
 function renderContactInfosInContactsTableMobile(index) {
     //document.getElementsByClassName('contact-content')[0].style.display = "flex";
     document.getElementsByClassName('contact-board')[0].style.display = "none";
-
     //  fügt Kontaktinformation Template + button edit contact hinzu 
-    document.getElementsByClassName('content')[0].innerHTML += contactContentTemplate() + editAndDeleteBtnTemplate();
+    document.getElementsByClassName('contact-content')[0].style.display = "flex";
+    //contactContentTemplate() + editAndDeleteBtnTemplate();
 
+    // mache sichtbar den edit und delete button in der Kontaktlisten Ansicht
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset";
     // Get Contact information into "contact-content-table"
     renderContactInfosInContactsTable(index);
-
     // entfernt den add new contact button in der Kontakt Details Ansicht
-    document.getElementsByClassName('add-new-contact-background')[0].remove();
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "none";
 }
 
 // openup Popup-Div 
@@ -61,8 +71,9 @@ function deleteContactMobile(userIndex) {
 // ###############################################################################################
 
 
-// Globale Variabeln
-const logedUser = sessionStorage.getItem('User'); // für Stephen 
+
+
+// Allg. Funktionen Mobile angepasst.
 
 // Color Template für un- und definierte User
 const BACKGROUND_COLORS_LETTERS = {
@@ -361,7 +372,6 @@ function addMarginOnLastUser() {
     lastUserInList.style.marginBottom = ("20px");
 }
 
-
 //############################################################
 
 //                WORKING ON FUNKTIONEN                     //
@@ -384,9 +394,3 @@ function clickedUser() {
     });
   }
 
-
-//############################################################
-
-//                AUSGELAGERTE FUNKTIONEN                   //
-
-//############################################################
