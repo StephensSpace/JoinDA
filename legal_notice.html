@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="./styles/sidebar.css" />
   <link rel="stylesheet" href="./styles/header.css">
   <link rel="stylesheet" href="./styles/color-template.css">
-  <link rel="stylesheet" href="./styles/">
   <script src="./script/checkMaxWidth.js"></script>
   <script src="./script/userMenu.js" defer></script>
   <script src="./script/setProfile.js" defer></script>
@@ -74,8 +73,13 @@
       </div>
     </div>
     <div class="footer">
-      <a href="privacy_policy.html">Privacy Policy</a>
-      <a href="legal_notice.html">Legal Notice</a>
+      <div class="navBarBtns" onclick="document.getElementById('pPolicy').click()">
+        <a href="privacy_policy.html" id="pPolicy">Privacy Policy</a>
+      </div>
+      <div class="navBarBtns active" onclick="document.getElementById('lNotice').click()">
+        <a href="legal_notice.html" id="lNotice">Legal Notice</a>
+      </div>
+    </div>
     </div>
   </nav>
 
