@@ -7,7 +7,6 @@ function startDragging(event, taskCard) {
 }
 
 function onTaskDrop(event, taskId, newType) {
-  // Verhindere das Standardverhalten
   event.preventDefault();
   updateTaskTypeInFirebase(taskId, newType);
   const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
@@ -18,14 +17,19 @@ function onTaskDrop(event, taskId, newType) {
 }
 
 function updateTaskTypeInFirebase(taskId, newType) {
-  const taskRef = firebase.database().ref(`tasks/${taskId}`);
+  const taskRef = firebase.database().ref(`/tasks/${taskId}`);
   taskRef
     .update({ type: newType })
     .then(() => {
-      console.log(`Task ${taskId} erfolgreich auf ${newType} aktualisiert.`);
+      console.log(
+        `Task ${taskId} erfolgreich aktualisiert: Typ ist jetzt ${newType}.`
+      );
     })
     .catch((error) => {
-      console.error(`Fehler beim Aktualisieren des Tasks ${taskId}:`, error);
+      console.error(
+        `Fehler beim Aktualisieren des Task-Typs für ${taskId}:`,
+        error
+      );
     });
 }
 
@@ -88,8 +92,8 @@ function handleDrop(event, zone) {
     return;
   }
   zone.querySelector(".tasks-container").appendChild(draggedTask);
-  if (typeof updateTaskStatusInFirebase === "function") {
-    updateTaskStatusInFirebase(draggedTaskId, newStatus);
+  if (typeof updateTaskTypeInFirebase === "function") {
+    updateTaskTypeInFirebase(draggedTaskId, newStatus);
   }
   checkAllColumnsForTasks();
 }
