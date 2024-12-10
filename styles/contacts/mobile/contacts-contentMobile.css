@@ -1,7 +1,6 @@
 
 
 /* CONTENT */
-
 .content {
     top: 80px;
     bottom: 80px;
@@ -37,7 +36,6 @@
 }
 
 /* Popup Div */
-
 .popupDiv {
     position: absolute;
     bottom: 16px;
@@ -49,7 +47,6 @@
 
 
 /* Contact Content Head & alle darunter Divs */
-
 .contact-content-head {
     display: flex;
     justify-content: space-between;
@@ -133,9 +130,6 @@
     font-size: 16px;
     line-height: 19.2px;
 }
-
-
-
 
 
 /* Die Bearbeitungs Buttons */
@@ -237,13 +231,21 @@
         transform: translateY(120px);; /* Startpunkt: Außerhalb des Containers unten */
         opacity: 0; /* Unsichtbar */
     }
-    50% {
+    60% {
         z-index: 99;
         position: absolute;
         left: 50%;
         translate: -50%;
-        transform: translateY(0); /* Endpunkt: Im Container */
+        transform: translateY(-50px); /* Endpunkt: Im Container */
         opacity: 1; /* Sichtbar */
+    }
+    75% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        transform: translateY(-50px); /* Endpunkt: Im Container */
+        opacity: 1; 
     }
     100% {
         z-index: 99;

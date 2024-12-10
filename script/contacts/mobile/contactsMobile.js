@@ -17,10 +17,8 @@ async function addNewContactMobile() {
 // Funktion zum Rein & wieder rausnehmen der Div mit "Contact Successfully Created!"
 function contactSuccessfullyCreated() {
     document.getElementsByClassName('contact-content')[0].innerHTML += contactSuccessfullyCreatedTemplate();
-
     const element = document.getElementsByClassName('contactSuccessfullyCreated')[0];
     const delay = 1750;
-
     setTimeout(() => {
         if (element) {
             element.remove(); // Element aus dem DOM entfernen
