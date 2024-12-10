@@ -2,13 +2,11 @@
 @media (max-width: 1340px) {
 
     /* Content Table */
-
     .contact-board {
         max-width: 400px;
     }
 
     .contact-content {
-        top: 124px;
         left: 632px;
         gap: 40px;
     }
@@ -26,25 +24,19 @@
     .modal-userImg-Background {
         margin: 56px;
     }
-
-    
-
 }
 
 @media (max-width: 1240px) {
 
     /* Modal allg. */
-
     .modal {
         flex-direction: column;
     }
 
     /* Contacts Content */
-
     .contact-content {
         display: flex;
         align-items: center;
-
         left: 552px;
         padding: 0;
     }
@@ -117,14 +109,12 @@
     }
 
     /* Add New Contact Btn */
-
     .add-new-contact-btn {
         width: 256px;
         left: calc(50% - 256px / 2);
     }
 
     /* Contact Board oder Liste */
-
     .contact-board {
         width: 320px;
     }

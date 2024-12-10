@@ -168,7 +168,7 @@ function modalAddContactTemplate() {
                                 </div>
                             </div>
                             
-                            <form onsubmit="addNewContact(); return false">
+                            <form onsubmit="addNewContactFunc(); return false">
                                 <div class="modal-inputfield">
                                     <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
                                     <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
@@ -258,8 +258,18 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
     `
 }
 
-
-
+// Template für die Created Kontakt DIV
+function contactSuccessfullyCreatedTemplate() {
+    return `
+        <div class="contactSuccessfullyCreated" style="background: #2A3647; color: white; width: 326px; height: 74px; 
+        border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 20px; position: absolute;
+        bottom: 128px; z-index: 99;">
+            <p>
+                Contact successfully created
+            </p>
+        </div>
+    `
+}
 
 
 

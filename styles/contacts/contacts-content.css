@@ -15,6 +15,7 @@
     flex-direction: column;
     gap: 40px;
     overflow-y: auto;
+    overflow-x: hidden;
     position: absolute;
     left: 688px;
     width: -webkit-fill-available;
@@ -39,7 +40,7 @@
     padding: 0px;
     gap: 30px;
     width: -webkit-fill-available;
-    height: -webkit-fill-available;
+   /* height: -webkit-fill-available;*/
 /*     
     position: absolute;
     left: 743px;
@@ -243,4 +244,45 @@
 
 .hidden {
     display: none;
+}
+
+
+/* Div mit Contact Successfully created */
+.contactSuccessfullyCreated {
+    animation: flyIn 4s ease-out; /* Animation anwenden */
+    z-index: 99;
+}
+
+@keyframes flyIn {
+    0% {
+        z-index: 99;
+        position: absolute;
+        
+        bottom: 128px;
+        transform: translateX(1200px);; /* Startpunkt: Außerhalb des Containers unten */
+        opacity: 0; /* Unsichtbar */
+    }
+    60% {
+        z-index: 99;
+        position: absolute;
+        
+        bottom: 128px;
+        transform: translateX(0); /* Endpunkt: Im Container */
+        opacity: 1; /* Sichtbar */
+    }
+    75% {
+        z-index: 99;
+        position: absolute;
+        
+        bottom: 128px;
+        transform: translateX(0); /* Endpunkt: Im Container */
+        opacity: 1; /* Sichtbar */
+    }
+    100% {
+        z-index: 99;
+        position: absolute;
+        
+        bottom: 128px;
+        transform: translateX(1200px); /* Startpunkt: Außerhalb des Containers unten */
+    }
 }

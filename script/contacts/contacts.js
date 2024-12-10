@@ -185,6 +185,12 @@ async function deleteContact(userIndex) {
 
 
 // Add Contact 
+
+async function addNewContactFunc(params) {
+    await addNewContact();
+    contactSuccessfullyCreated();
+}
+
 async function addNewContact() {
     const CHECK_INPUT_NAME = document.getElementById('inputName').value;
     const EMAIL = (document.getElementById('inputEmail').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputEmail').value.split(' ')[0].slice(1)); // make firstletter uppercase
@@ -325,11 +331,18 @@ function clickedUser() {
   }
 
 
-//############################################################
 
-//                AUSGELAGERTE FUNKTIONEN                   //
+// Funktion zum Rein & wieder rausnehmen der Div mit "Contact Successfully Created!"
+function contactSuccessfullyCreated() {
+    document.getElementsByClassName('contact-content')[0].innerHTML += contactSuccessfullyCreatedTemplate();
 
-//############################################################
+    const element = document.getElementsByClassName('contactSuccessfullyCreated')[0];
+    const delay = 3750;
 
-
+    setTimeout(() => {
+        if (element) {
+            element.remove(); // Element aus dem DOM entfernen
+        }
+    }, delay);
+}
 

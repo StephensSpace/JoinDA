@@ -4,16 +4,17 @@ const logedUser = sessionStorage.getItem('User'); // für Stephen
 
 // Für Mobile 
 
+// Fügt neuen Kontakt hinzu, blendet "Contact Successfully Created!" ein && blendet Contactliste aus und den Contact Table ein!
 async function addNewContactMobile() {
     document.getElementsByClassName('add-new-contact-background')[0].style.display = "none";
     document.getElementsByClassName('contact-board')[0].style.display = "none";
     document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset";
     document.getElementsByClassName('contact-content')[0].style.display = "flex";
     await addNewContact ();
-    contactSuccessfullyCreated()
+    contactSuccessfullyCreated();
 }
 
-
+// Funktion zum Rein & wieder rausnehmen der Div mit "Contact Successfully Created!"
 function contactSuccessfullyCreated() {
     document.getElementsByClassName('contact-content')[0].innerHTML += contactSuccessfullyCreatedTemplate();
 
@@ -26,8 +27,6 @@ function contactSuccessfullyCreated() {
         }
     }, delay);
 }
-
-
 
 // Zum zurück kommen vom Contact Table zur Contact List
 function goBackToContactList() {
