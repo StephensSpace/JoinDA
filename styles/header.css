@@ -102,7 +102,7 @@ header img:hover {
     right: 20px;
     width: 150px;
     height: 158px;
-    background: #2A3647;
+    background: var(--background-color-sidebar);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px 0px 20px 20px;
 }
@@ -121,14 +121,14 @@ header img:hover {
 }
 
 .userMenuButton:hover {
-    background: #2A3D59;
+    background: var(--background-color-hover-navbar-btns);
     transform: scale(1.05);
 }
 
 .userMenuBtnSpan {
     font-weight: 400;
     font-size: 16px;
-    color: #CDCDCD;
+    color: var(--font-color-sidebar-btns);
     white-space: nowrap;
 
 }.userMenu {
@@ -141,7 +141,7 @@ header img:hover {
     right: 20px;
     width: 150px;
     height: 158px;
-    background: #2A3647;
+    background: var(--background-color-sidebar);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px 0px 20px 20px;
 }
@@ -159,7 +159,7 @@ header img:hover {
 }
 
 .userMenuButton:hover {
-    background: #2A3D59;
+    background: var(--background-color-hover-navbar-btns);
     width: 131px;
     height: 47px;
 }
@@ -167,7 +167,7 @@ header img:hover {
 .userMenuBtnSpan {
     font-weight: 400;
     font-size: 16px;
-    color: #CDCDCD;
+    color: var(--font-color-sidebar-btns);
     white-space: nowrap;
 }
 

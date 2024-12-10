@@ -14,7 +14,7 @@
 .add-new-contact-btn {
     display: flex;
     justify-content: center;
-    background: #2b3a4a;
+    background: var(--background-color-nav);
     border-radius: 100%;
     width: 56px;
     height: 56px;
@@ -28,8 +28,8 @@
 }
 
 .add-new-contact-btn:active {
-    border-color: #29ABE2;
-    background: #29ABE2;
+    border-color: var(--background-color-hover);
+    background: var(--background-color-hover);
 }
 
 .add-new-contact-background {
@@ -75,7 +75,7 @@
 }
 
 .user-contact:hover {
-    background-image: linear-gradient(to top, #F0F0F0 0%, #F9F9F9 50%);
+    background-image: linear-gradient(to top, var(--background-color-hover-contact) 0%, #F9F9F9 50%);
     border-radius: 8px;
 }
 
@@ -105,28 +105,3 @@
     font-size: large;
     padding: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

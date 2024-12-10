@@ -22,7 +22,7 @@
   top: 0px;
   width: 232px;
   height: 100vh;
-  background: #2A3647;
+  background: var(--background-color-sidebar);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 0px;
   z-index: 3;
@@ -51,7 +51,7 @@
   font-size: 16px;
   display: flex;
   align-items: center;
-  color: #A8A8A8;
+  color: var(--font-color-sidebar-a);
   white-space: nowrap;
   text-decoration: none;
 }
@@ -64,7 +64,7 @@
   line-height: 120%;
   display: flex;
   align-items: center;
-  color: #29ABE2;
+  color: var(--background-color-hover);
 }
 
 .navBarBtnsDiv {
@@ -99,19 +99,19 @@
   gap: 20px;
   width: 232px;
   height: 46px;
-  background: #2A3D59;
+  background: var(--background-color-hover-navbar-btns);
 }
 
 .navBarBtns span {
   font-weight: 400;
   font-size: 16px;
-  color: #CDCDCD;
+  color: var(--font-color-sidebar-btns);
 }
 
 .active {
   padding: 8px 56px;
   gap: 20px;
-  background: #091931;
+  background: var(--background-color-active);
   width: 232px;
   height: 46px;
 }

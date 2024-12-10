@@ -88,7 +88,7 @@
 .contact-content-head hr {
     width: 0px;
     height: 59px;
-    border: 1.5px solid #29ABE2;
+    border: 1.5px solid var(--background-color-hover);
     border-radius: 3px;
 }
 
@@ -100,7 +100,7 @@
     font-weight: 400;
     font-size: 27px;
     line-height: 120%;
-    color: #2A3647;
+    color: var(--background-color-sidebar);
     flex: none;
     order: 2;
     flex-grow: 0;

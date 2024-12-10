@@ -165,7 +165,7 @@
 
 #cancelBtn:hover {
     color: var(--background-color-hover);
-    border: 2px solid #29ABE2;
+    border: 2px solid var(--background-color-hover);
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -311,10 +311,10 @@
 .modal-left hr {
     margin-top: 12px;
     height: 3px;
-    border: #29ABE2;
+    border: var(--background-color-hover);
     max-width: 90px;
     border-radius: 2px;
-    background: #29ABE2;
+    background: var(--background-color-hover);
     width: 100%;
 }
 

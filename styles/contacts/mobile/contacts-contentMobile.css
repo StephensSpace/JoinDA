@@ -23,7 +23,7 @@
 .edit-delete-btn {
     display: flex;
     justify-content: center;
-    background: #2b3a4a;
+    background: var(--background-color-nav);
     border-radius: 100%;
     width: 56px;
     height: 56px;
@@ -32,7 +32,7 @@
 }
 
 .edit-delete-btn:active {
-    background: #29ABE2;
+    background: var(--background-color-hover);
 }
 
 /* Popup Div */

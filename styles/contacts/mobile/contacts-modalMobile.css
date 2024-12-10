@@ -56,10 +56,10 @@
 .modal-left hr {
     margin-top: 12px;
     height: 3px;
-    border: #29ABE2;
+    border: var(--background-color-hover);
     max-width: 90px;
     border-radius: 2px;
-    background: #29ABE2;
+    background: var(--background-color-hover);
     width: 100%;
 }
 

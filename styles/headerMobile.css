@@ -8,7 +8,7 @@
 body {
     display: flex;
     min-height: 100vh;
-    background-color: #f4f4f4;
+    background-color: var(--background-color-body);
     overflow-x: hidden;
 }
 
@@ -25,7 +25,7 @@ header {
     max-width: 660px;
     left: 0px;
     top: 0px;
-    background: #FFFFFF;
+    background: var(--background-color-header);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     z-index: 3;
 }
@@ -71,7 +71,7 @@ nav {
     height: 80px;
     left: 0px;
     bottom: 0px;
-    background: #2A3647;
+    background: var(--background-color-sidebar);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0px;
 }
@@ -90,7 +90,7 @@ nav {
 }
 
 .activ {
-    background: #091931;
+    background: var(--background-color-active);
 }
 
 .innerMenuButton {
@@ -110,7 +110,7 @@ nav {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    color: #FFFFFF;
+    color: var(--background-color-header);
 }
 
 .userMenu {
@@ -121,7 +121,7 @@ nav {
     position: absolute;
     width: 150px;
     height: 204px;
-    background: #2A3647;
+    background: var(--background-color-sidebar);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px 0px 20px 20px;
     z-index: 20;
@@ -143,7 +143,7 @@ nav {
 }
 
 .userMenuButton:hover {
-    background: #2A3D59;
+    background: var(--background-color-hover-navbar-btns);
     transform: scale(1.05);
 }
 
@@ -151,7 +151,7 @@ nav {
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
-    color: #CDCDCD;
+    color: var(--font-color-sidebar-btns);
     white-space: nowrap;
 }
 
