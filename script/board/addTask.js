@@ -32,17 +32,6 @@ function handleTaskSubmit(e) {
   const isTitleValid = checkTitle();
   const isDateValid = checkDueDate();
   if (isCategoryValid && isTitleValid && isDateValid) {
-    const typeInput = document.getElementById("taskTypeInput");
-    const task = {
-      title: document.getElementById("taskTitle").value,
-      description: document.getElementById("taskDescription").value,
-      dueDate: document.getElementById("taskDueDate").value,
-      type: selectedType || "todo",
-      category: typeInput.value,
-      priority: selectedPriority || "Medium",
-      subtasks: subtasksArray,
-      members: selectedMembers,
-    };
     if (isEditMode) {
       updateTaskInFirebase(currentTaskId, task);
     } else {
@@ -51,6 +40,21 @@ function handleTaskSubmit(e) {
     closeModal();
     resetAddTaskModal();
   }
+  taskList();
+}
+
+function taskList() {
+  const typeInput = document.getElementById("taskTypeInput");
+  const task = {
+    title: document.getElementById("taskTitle").value,
+    description: document.getElementById("taskDescription").value,
+    dueDate: document.getElementById("taskDueDate").value,
+    type: selectedType || "todo",
+    category: typeInput.value,
+    priority: selectedPriority || "Medium",
+    subtasks: subtasksArray,
+    members: selectedMembers,
+  };
 }
 
 function checkTitle() {

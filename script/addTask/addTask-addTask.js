@@ -32,17 +32,6 @@ function handleTaskSubmit(e) {
   const isTitleValid = checkTitle();
   const isDateValid = checkDueDate();
   if (isCategoryValid && isTitleValid && isDateValid) {
-    const typeInput = document.getElementById("taskTypeInput");
-    const task = {
-      title: document.getElementById("taskTitle").value,
-      description: document.getElementById("taskDescription").value,
-      dueDate: document.getElementById("taskDueDate").value,
-      type: selectedType || "todo",
-      category: typeInput.value,
-      priority: selectedPriority || "Medium",
-      subtasks: subtasksArray,
-      members: selectedMembers,
-    };
     if (isEditMode) {
       updateTaskInFirebase(currentTaskId, task);
     } else {
@@ -51,6 +40,21 @@ function handleTaskSubmit(e) {
     closeModal();
     resetAddTaskModal();
   }
+  taskList();
+}
+
+function taskList() {
+  const typeInput = document.getElementById("taskTypeInput");
+  const task = {
+    title: document.getElementById("taskTitle").value,
+    description: document.getElementById("taskDescription").value,
+    dueDate: document.getElementById("taskDueDate").value,
+    type: selectedType || "todo",
+    category: typeInput.value,
+    priority: selectedPriority || "Medium",
+    subtasks: subtasksArray,
+    members: selectedMembers,
+  };
 }
 
 function checkTitle() {
@@ -138,11 +142,9 @@ function hideErrorMessages() {
 }
 
 function closeModal() {
-  // Gehe zurück zur vorherigen Seite
   if (document.referrer) {
     window.location.href = document.referrer;
   } else {
-    // Fallback: Falls keine vorherige Seite vorhanden ist, zur board.html navigieren
     window.location.href = "./board.html";
   }
 }
@@ -156,41 +158,30 @@ function setupSecondDropdown() {
   const secondSelectedText = document.getElementById(
     "secondDropdownSelectedText"
   );
-  const categoryInput = document.getElementById("taskCategoryInput"); // Hidden input für die Kategorie
+  const categoryInput = document.getElementById("taskCategoryInput");
   const typeInput = document.getElementById("taskTypeInput");
-  // Toggle dropdown visibility and arrow rotation
   secondDropdown.addEventListener("click", (event) => {
     event.stopPropagation();
     const isOpen = secondDropdown.classList.toggle("open");
     secondOptionsContainer.classList.toggle("hidden", !isOpen);
     secondArrow.classList.toggle("open", isOpen);
   });
-
-  // Handle option selection
   secondOptionsContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("second-dropdown-option")) {
       const selectedCategory = event.target.dataset.value;
-
-      // Update placeholder text and hidden input value
       secondSelectedText.textContent = selectedCategory;
       typeInput.value = selectedCategory;
-
-      // Highlight the selected option
       secondOptionsContainer
         .querySelectorAll(".second-dropdown-option")
         .forEach((option) => {
           option.classList.remove("selected");
         });
       event.target.classList.add("selected");
-
-      // Close dropdown
       secondDropdown.classList.remove("open");
       secondOptionsContainer.classList.add("hidden");
       secondArrow.classList.remove("open");
     }
   });
-
-  // Close the dropdown when clicking outside
   document.addEventListener("click", (event) => {
     if (!secondDropdown.contains(event.target)) {
       secondDropdown.classList.remove("open");

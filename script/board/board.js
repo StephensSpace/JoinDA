@@ -37,21 +37,15 @@ function fetchTasks(callback) {
 
       callback(tasks);
     })
-    .catch((error) => {
-      console.error("Fehler beim Abrufen der Aufgaben:", error);
-    });
+    .catch(() => {});
 }
 
 function renderTasks(tasks) {
   for (let taskId in tasks) {
     const task = tasks[taskId];
-
-    // Validierung: Überspringe ungültige Einträge
     if (!task || typeof task !== "object" || !task.title) {
-      console.warn(`Ungültige Aufgabe für ID ${taskId}:`, task);
-      continue; // Ignoriere diesen Eintrag
+      continue;
     }
-
     addTaskToBoard(task);
   }
 }
@@ -69,7 +63,7 @@ function renderTasksOnBoard() {
           tasksContainer.appendChild(taskCard);
         });
     });
-    enableDragAndDrop(); // Nur einmal aufrufen
+    enableDragAndDrop();
   });
 }
 
@@ -77,7 +71,6 @@ function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
   if (!tasksContainer || !noTasksMessage) {
-    console.error("tasksContainer oder noTasksMessage nicht gefunden.");
     return;
   }
   const hasTasks = tasksContainer.children.length > 0;
@@ -109,10 +102,7 @@ async function updateTaskInFirebase(task) {
   try {
     const taskRef = firebase.database().ref(`tasks/${task.id}`);
     await taskRef.update({ type: task.type });
-    console.log("Task updated successfully");
-  } catch (error) {
-    console.error("Error updating task:", error);
-  }
+  } catch (error) {}
 }
 
 function updateTaskOnBoard(taskId, taskData) {
@@ -134,7 +124,7 @@ function loadTasksFromFirebase() {
         column.appendChild(taskCard);
       }
     });
-    enableDragAndDrop(); // Drag-and-Drop erneut aktivieren
+    enableDragAndDrop();
   });
 }
 
@@ -167,9 +157,7 @@ function deleteCurrentTask() {
         removeTaskFromBoard(currentTaskId);
         closeTaskDetailsModal();
       })
-      .catch((error) => {
-        console.error("Fehler beim Löschen der Aufgabe:", error);
-      });
+      .catch(() => {});
   }
 }
 
@@ -204,19 +192,14 @@ function fetchContacts(callback) {
       const contacts = snapshot.val();
       callback(contacts);
     })
-    .catch((error) => {
-      console.error("Error fetching contacts:", error);
-    });
+    .catch(() => {});
 }
 
 function setupDropdownSearchInline() {
   const dropdown = document.getElementById("taskAssignedDropdown");
   const optionsContainer = document.getElementById("taskAssignedOptions");
-  const searchInput = document.getElementById("taskSearchInput");
   const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
-
   if (!dropdown || !optionsContainer || !searchInput) {
-    console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");
     return;
   }
   dropdownTrigger.addEventListener("click", (event) => {
@@ -231,6 +214,11 @@ function setupDropdownSearchInline() {
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
   });
+  searchInput();
+}
+
+function searchInput() {
+  const searchInput = document.getElementById("taskSearchInput");
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
     const options = optionsContainer.querySelectorAll(".dropdown-option");
@@ -246,8 +234,6 @@ function setupDropdownSearchInline() {
 function toggleContactSelection(option, initials, color, selectedContainer) {
   const contactName = option.dataset.value;
   const isSelected = option.classList.contains("selected");
-  const selectIcon = option.querySelector(".select-icon");
-  const selectedIcon = option.querySelector(".selected-icon");
   if (isSelected) {
     option.classList.remove("selected");
     option.style.backgroundColor = "";
@@ -264,11 +250,17 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
     if (!selectedMembers.includes(contactName)) {
       selectedMembers.push(contactName);
     }
-    selectIcon.classList.remove("icon-visible");
-    selectIcon.classList.add("icon-hidden");
-    selectedIcon.classList.remove("icon-hidden");
-    selectedIcon.classList.add("icon-visible");
   }
+  selectIcon();
+}
+
+function selectIcon() {
+  const selectIcon = option.querySelector(".select-icon");
+  const selectedIcon = option.querySelector(".selected-icon");
+  selectIcon.classList.remove("icon-visible");
+  selectIcon.classList.add("icon-hidden");
+  selectedIcon.classList.remove("icon-hidden");
+  selectedIcon.classList.add("icon-visible");
 }
 
 function addInitialToSelected(initials, color, selectedContainer) {
@@ -371,21 +363,17 @@ function updateSelectedMembers() {
   const selectedContainer = document.getElementById(
     "selectedContactsContainer"
   );
-  selectedContainer.innerHTML = ""; // Vorherige Mitglieder entfernen
-
+  selectedContainer.innerHTML = "";
   selectedMembers.forEach((member) => {
     const initials = getInitials(member);
     const color = getColorForContact(member);
-
     const span = document.createElement("span");
     span.className = "selected-contact-initials";
     span.textContent = initials;
     span.style.backgroundColor = color;
-
     selectedContainer.appendChild(span);
   });
 }
-
 fetchContacts((contacts) => {
   populateContactsDropdown(Object.values(contacts));
 });

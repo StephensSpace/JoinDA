@@ -20,34 +20,27 @@ function updateTaskTypeInFirebase(taskId, newType) {
   const taskRef = firebase.database().ref(`/tasks/${taskId}`);
   taskRef
     .update({ type: newType })
-    .then(() => {
-      console.log(
-        `Task ${taskId} erfolgreich aktualisiert: Typ ist jetzt ${newType}.`
-      );
-    })
-    .catch((error) => {
-      console.error(
-        `Fehler beim Aktualisieren des Task-Typs für ${taskId}:`,
-        error
-      );
-    });
+    .then(() => {})
+    .catch(() => {});
 }
 
 function enableDragAndDrop() {
   const taskCards = document.querySelectorAll(".task-card");
-  const dropZones = document.querySelectorAll(".board-column");
   taskCards.forEach((card) => {
     card.setAttribute("draggable", "true");
     card.addEventListener("dragstart", (event) => {
       event.dataTransfer.setData("text/plain", card.dataset.id);
       currentDraggedTask = card;
-      console.log("Task gestartet:", card.dataset.id);
     });
     card.addEventListener("dragend", () => {
       currentDraggedTask = null;
-      console.log("Drag beendet.");
     });
   });
+  dropZones();
+}
+
+function dropZones() {
+  const dropZones = document.querySelectorAll(".board-column");
   dropZones.forEach((zone) => {
     zone.addEventListener("dragover", (event) => {
       event.preventDefault();
@@ -65,7 +58,6 @@ function enableDragAndDrop() {
 }
 
 function handleDragStart(event) {
-  console.log("Drag gestartet: ", event.target.dataset.id);
   event.dataTransfer.setData("text/plain", event.target.dataset.id);
   currentDraggedTask = event.target;
 }
@@ -123,7 +115,6 @@ function handleSubtaskProgressUpdate() {
 function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
   const task = tasksMap[taskId];
   if (!task || !Array.isArray(task.subtasks)) {
-    console.error("Task oder Subtasks nicht gefunden:", taskId);
     return;
   }
   if (task.subtasks[subtaskIndex]) {
@@ -131,22 +122,18 @@ function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
     updateSubtaskInFirebase(taskId, subtaskIndex, completed);
     updateTaskProgressOnBoard(taskId, task);
   } else {
-    console.error("Subtask nicht gefunden:", subtaskIndex);
   }
 }
 
 function updateTaskProgress(task) {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
   if (!taskCard) return;
-
   const totalSubtasks = task.subtasks.length;
   const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
   const progressPercent =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
-
   const progressBar = taskCard.querySelector(".progress-bar");
   const progressText = taskCard.querySelector(".progress-container span");
-
   if (progressBar) progressBar.style.width = `${progressPercent}%`;
   if (progressText)
     progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
@@ -162,6 +149,10 @@ function updateSubtaskProgress(task) {
   if (progressBar) progressBar.style.width = `${progressPercent}%`;
   if (progressText)
     progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
+  progressPercent();
+}
+
+function progressPercent() {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
   if (taskCard) {
     const cardProgressBar = taskCard.querySelector(".progress-bar");
@@ -178,28 +169,26 @@ function attachSubtaskProgressListener(task) {
     if (event.target.type === "checkbox") {
       const subtaskIndex = parseInt(event.target.dataset.index, 10);
       task.subtasks[subtaskIndex].completed = event.target.checked;
-      const taskCard = document.querySelector(
-        `.task-card[data-id="${task.id}"]`
-      );
-      if (taskCard) {
-        const totalSubtasks = task.subtasks.length;
-        const completedSubtasks = task.subtasks.filter(
-          (st) => st.completed
-        ).length;
-        const progressBar = taskCard.querySelector(".progress-bar");
-        const progressText = taskCard.querySelector(".progress span");
-        if (progressBar) {
-          progressBar.style.width = `${
-            (completedSubtasks / totalSubtasks) * 100
-          }%`;
-        }
-        if (progressText) {
-          progressText.innerText = `${completedSubtasks}/${totalSubtasks} Subtasks`;
-        }
-      }
       updateSubtaskProgress(task);
     }
   });
+  progressBar();
+}
+
+function progressBar() {
+  const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
+  if (taskCard) {
+    const totalSubtasks = task.subtasks.length;
+    const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
+    const progressBar = taskCard.querySelector(".progress-bar");
+    const progressText = taskCard.querySelector(".progress span");
+    if (progressBar) {
+      progressBar.style.width = `${(completedSubtasks / totalSubtasks) * 100}%`;
+    }
+    if (progressText) {
+      progressText.innerText = `${completedSubtasks}/${totalSubtasks} Subtasks`;
+    }
+  }
 }
 
 function setupSubtaskCheckboxListener() {

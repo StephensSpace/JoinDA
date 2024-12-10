@@ -2,20 +2,17 @@ function createTaskCard(task) {
   if (!task || typeof task !== "object") {
     return null;
   }
-
   const members = Array.isArray(task.members) ? task.members : [];
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
   card.dataset.id = task.id;
-
   const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
   const completedSubtasks = task.subtasks
     ? task.subtasks.filter((st) => st.completed).length
     : 0;
   const progressPercent =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
-
   card.innerHTML = `
         <div class="task-category" style="background-color: ${
           task.category === "User Story" ? "#0038FF" : "#1FD7C1"
@@ -50,17 +47,12 @@ function createTaskCard(task) {
   }" class="priority-icon" />
         </div>
       `;
-
-  // Event-Listener für Drag-and-Drop
   card.addEventListener("dragstart", (e) => startDragging(e, card));
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
-
-  // Event-Listener für Task-Details
   card.addEventListener("click", () => showTaskDetails(task));
-
   return card;
 }
 
@@ -71,9 +63,8 @@ function renderSubtaskUI(subtaskElement, subtask) {
   subtaskElement.dataset.completed = subtask.completed;
 }
 
-// Funktion zur Berechnung der Initialen
 function getInitials(name) {
-  if (!name) return "?"; // Fallback für leere Namen
+  if (!name) return "?";
   return name
     .split(" ")
     .map((n) => n[0])
@@ -81,7 +72,6 @@ function getInitials(name) {
     .toUpperCase();
 }
 
-// Funktion zur Berechnung der Hintergrundfarbe basierend auf dem Namen
 function getColorForContact(name) {
   const colors = [
     "#FF7A00",
@@ -94,7 +84,7 @@ function getColorForContact(name) {
     "#FF4646",
     "#00BEE8",
   ];
-  let index = name.charCodeAt(0) % colors.length; // Basierend auf dem ersten Buchstaben
+  let index = name.charCodeAt(0) % colors.length;
   return colors[index];
 }
 
@@ -164,7 +154,6 @@ function showTaskDetails(task) {
 function renderTaskSubtasks(task) {
   const subtasksContainer = document.getElementById("taskSubtasks");
   if (!subtasksContainer) {
-    console.error("Subtasks container element not found.");
     return;
   }
   if (task.subtasks && task.subtasks.length > 0) {
@@ -194,7 +183,6 @@ function renderTaskSubtasks(task) {
 function setupSubtaskIconClickListeners(task) {
   const subtasksContainer = document.getElementById("taskSubtasks");
   if (!subtasksContainer) {
-    console.error("Subtasks container nicht gefunden.");
     return;
   }
   subtasksContainer.querySelectorAll(".subtask-icon").forEach((icon) => {
@@ -202,11 +190,9 @@ function setupSubtaskIconClickListeners(task) {
       event.stopPropagation();
       const subtaskIndex = parseInt(icon.parentElement.dataset.id);
       if (isNaN(subtaskIndex)) {
-        console.error("Ungültiger Subtask-Index:", subtaskIndex);
         return;
       }
       if (!task.subtasks || !task.subtasks[subtaskIndex]) {
-        console.error("Subtask nicht gefunden:", task.subtasks, subtaskIndex);
         return;
       }
       const completed = icon.dataset.completed === "true";
@@ -236,7 +222,6 @@ function addSubtask(title) {
 function updateSubtasksList() {
   const subtaskList = document.getElementById("subtaskList");
   subtaskList.innerHTML = "";
-
   subtasksArray.forEach((subtask, index) => {
     const li = document.createElement("li");
     li.className = "subtask-item";
@@ -338,7 +323,6 @@ function initializeSubtaskListeners(taskCard, task) {
     icon.addEventListener("click", () => {
       const subtaskIndex = parseInt(icon.parentElement.dataset.id);
       if (isNaN(subtaskIndex)) {
-        console.error("Ungültiger Subtask-Index:", subtaskIndex);
         return;
       }
       const taskId = task.id;
