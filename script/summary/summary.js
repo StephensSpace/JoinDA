@@ -84,7 +84,7 @@ function forLoopCount(counter, types, deadline) {
             counter.toDo++;
         } else if (type === "done") {
             counter.done++;
-        } else if (type === "review") {
+        } else if (type === "await-feedback") {
             counter.review++;
         } else if (type === "in-progress") {
             counter.inProgress++

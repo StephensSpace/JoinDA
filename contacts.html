@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakte</title>
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+
+    <!-- Css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/color-template.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/header.css">
+    <link rel="stylesheet" href="./styles/sidebar.css">
+    <link rel="stylesheet" href="./styles/contacts/contacts-modal.css">
+    <link rel="stylesheet" href="./styles/contacts/contacts-contactBoard.css">
+    <link rel="stylesheet" href="./styles/contacts/contacts-content.css">
+    <link rel="stylesheet" href="./styles/contacts/mediaQueryDesktop.css">
+
+    <!-- Firebase SDK für die App und die Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+    <!-- Js -->
+    <script src="./script/firebase-config.js"></script>
+    <script src="./script/setProfile.js" defer></script>
+    <script src="./script/userMenu.js" defer></script>
+    <script src="./script/contacts/contacts.js"></script>
+    <script src="./script/contacts/contacts-templates.js"></script>
+    <script src="./script/checkMaxWidth.js"></script>
+
+</head>
+
+<body onload="initContacts()">
+
+    <!-- Seitenleiste mit Logo -->
+    <nav class="sidebar">
+        <div class="logo-container static">
+            <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+        </div>
+        <div class="navBarBtnsDiv">
+            <div class="navBarBtns" onclick="summaryBtn()">
+                <img src="./assets/icons/summary.png">
+                <span>Summary</span>
+            </div>
+            <div class="navBarBtns" onclick="addTaskBtn()">
+                <img src="./assets/icons/add_task.png" alt="">
+                <span>Add Task</span>
+            </div>
+            <div class="navBarBtns" onclick="boardBtn()">
+                <img src="./assets/icons/board.png" alt="">
+                <span>Board</span>
+            </div>
+            <div class="navBarBtns active" onclick="contactsBtn()">
+                <img src="./assets/icons/contacts.png" alt="">
+                <span>Contacts</span>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="navBarBtns" onclick="document.getElementById('pPolicy').click()">
+                <a href="privacy_policy.html" id="pPolicy">Privacy Policy</a>
+            </div>
+            <div class="navBarBtns" onclick="document.getElementById('lNotice').click()">
+                <a href="legal_notice.html" id="lNotice">Legal Notice</a>
+            </div>
+        </div>
+    </nav>
+
+    <aside>
+
+        <!-- Header -->
+        <header>
+            <div>
+                <span>Kanban Project Managment Tool</span>
+            </div>
+            <div>
+                <div>
+                    <img src="./assets/img/help.png" alt="./assets/icons/help.png" onclick="helpBtn()"
+                        style="cursor: pointer;">
+                </div>
+                <div id="userProfil" onclick="openUserMenu()">
+                    <span id="initials"></span>
+                </div>
+            </div>
+            <div class="userMenu dNone" id="userMenu">
+                <div class="userMenuButton" onclick="menuLegalBtn()">
+                    <span class="userMenuBtnSpan">
+                        Legal Notice
+                    </span>
+                </div>
+                <div class="userMenuButton" id="privacyBtn" onclick="menuPrivacyBtn()">
+                    <span class="userMenuBtnSpan">
+                        Privacy Policy
+                    </span>
+                </div>
+                <div class="userMenuButton" id="logOutBtn" onclick="logOutBtn()">
+                    <span class="userMenuBtnSpan">
+                        Log out
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hauptinhalt -->
+        <main class="content">
+
+            <div class="contact-board">
+                <div class="add-new-contact-background">
+                    <div class="add-new-contact-btn" onclick="openAddContactModal()">
+                        <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png"
+                            alt="./assets/icons/contacts/person_add.png">
+                    </div>
+                </div>
+
+                <div id="contactList">
+
+                </div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-content-head">
+                    <h1>Contacts</h1>
+                    <hr>
+                    <p>Better with a team</p>
+                </div>
+                <div class="contact-content-table" id="contact-content-table">
+                </div>
+            </div>
+
+        </main>
+
+    </aside>
+
+</body>
+
+</html>

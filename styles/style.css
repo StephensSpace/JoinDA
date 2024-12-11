@@ -4,7 +4,6 @@
   box-sizing: border-box;
   font-family: 'Inter';
   font-style: normal;
-  color: #000000;
   line-height: 120%;
 }
 
@@ -87,4 +86,13 @@ main {
   display: flex;
   padding: 0 !important;
 }
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("woff2"),
+       url("/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 

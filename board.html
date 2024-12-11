@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Board</title>
+
+  <link rel="shortcut icon" href="./assets/img/favicon-bright.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/style.css" />
+  <link rel="stylesheet" href="./styles/board/board.css" />
+  <link rel="stylesheet" href="./styles/board/board-media-querry.css" />
+  <link rel="stylesheet" href="./styles/color-template.css" />
+  <link rel="stylesheet" href="./styles/header.css" />
+  <link rel="stylesheet" href="./styles/sidebar.css" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0/firebase-database.js"></script>
+
+  <!-- Firebase-Konfiguration -->
+  <script src="./script/firebase-config.js"></script>
+</head>
+
+<body class="body">
+  <!-- Seitenleiste mit Logo -->
+  <nav class="sidebar">
+    <div class="logo-container static">
+      <img src="./assets/img/logo-2.png" alt="Logo" class="logo">
+    </div>
+    <div class="navBarBtnsDiv">
+      <div class="navBarBtns" onclick="summaryBtn()">
+        <img src="./assets/icons/summary.png">
+        <span>Summary</span>
+      </div>
+      <div class="navBarBtns" onclick="addTaskBtn()">
+        <img src="./assets/icons/add_task.png" alt="">
+        <span>Add Task</span>
+      </div>
+      <div class="navBarBtns active" onclick="boardBtn()">
+        <img src="./assets/icons/board.png" alt="">
+        <span>Board</span>
+      </div>
+      <div class="navBarBtns" onclick="contactsBtn()">
+        <img src="./assets/icons/contacts.png" alt="">
+        <span>Contacts</span>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="navBarBtns" onclick="document.getElementById('pPolicy').click()">
+        <a href="privacy_policy.html" id="pPolicy">Privacy Policy</a>
+      </div>
+      <div class="navBarBtns" onclick="document.getElementById('lNotice').click()">
+        <a href="legal_notice.html" id="lNotice">Legal Notice</a>
+      </div>
+    </div>
+  </nav>
+
+  <aside>
+    <!-- Header -->
+    <header>
+      <div>
+        <span id="managmentTool">Kanban Project Managment Tool</span>
+      </div>
+      <div>
+        <div>
+          <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()" style="cursor: pointer;">
+        </div>
+        <div id="userProfil" onclick="openUserMenu()">
+          <span id="initials"></span>
+        </div>
+      </div>
+      <div class="userMenu dNone" id="userMenu">
+        <div class="userMenuButton" onclick="menuLegalBtn()">
+          <span class="userMenuBtnSpan">
+            Legal Notice
+          </span>
+        </div>
+        <div class="userMenuButton" id="privacyBtn" onclick="menuPrivacyBtn()">
+          <span class="userMenuBtnSpan">
+            Privacy Policy
+          </span>
+        </div>
+        <div class="userMenuButton" id="logOutBtn" onclick="logOutBtn()">
+          <span class="userMenuBtnSpan">
+            Log out
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hauptinhalt -->
+    <main>
+      <div class="search-bar">
+        <h1 class="contentH1">Board</h1>
+        <div class="right-section">
+          <div class="input-container">
+            <input type="text" id="searchInput" placeholder="   Find Task" />
+          </div>
+          <div class="add-Task-Button" id="addTaskButton">
+          </div>
+        </div>
+      </div>
+
+      <div class="headlines">
+        <div class="card">
+          <h2>To do</h2>
+          <button class="add-task-btn-category" data-type="todo">
+            +
+          </button>
+        </div>
+        <div class="card">
+          <h2>In progress</h2>
+          <button class="add-task-btn-category" data-type="in-progress">
+            +
+          </button>
+        </div>
+        <div class="card">
+          <h2>Await feedback</h2>
+          <button class="add-task-btn-category" data-type="await-feedback">
+            +
+          </button>
+        </div>
+        <div class="card">
+          <h2>Done</h2>
+        </div>
+      </div>
+
+      <div class="board-container">
+        <!-- To do column -->
+        <div class="board-column" data-status="todo">
+          <div class="no-tasks">No tasks To do</div>
+          <div class="tasks-container">
+
+          </div>
+        </div>
+
+        <!-- In progress column -->
+        <div class="board-column" data-status="in-progress">
+          <div class="no-tasks">No tasks In progress</div>
+          <div class="tasks-container">
+
+          </div>
+        </div>
+
+        <!-- Await feedback column -->
+        <div class="board-column" data-status="await-feedback">
+          <div class="no-tasks">No tasks Await Feedback</div>
+          <div class="tasks-container">
+
+          </div>
+        </div>
+
+        <!-- Done column -->
+        <div class="board-column" data-status="done">
+          <div class="no-tasks">No tasks Done</div>
+          <div class="tasks-container">
+
+          </div>
+        </div>
+    </main>
+
+
+    <!-- Modal für Task-Details -->
+    <div class="modal" id="taskDetailsModal">
+      <div class="modal-content-task">
+        <div class="modal-content-headline">
+          <div class="task-type" id="taskType"></div>
+          <div class="close-button">&times;</div>
+        </div>
+        <div class="task-header">
+          <h2 id="taskDetailTitle"></h2>
+        </div>
+        <p id="taskDetailDescription"></p>
+        <div class="taskInfoDueDate">
+          <p>Due date: <span id="taskDetailDueDate"></span></p>
+        </div>
+        <div class="taskInfoPriority">
+          <p>
+            Priority: <span id="taskDetailPriority"></span></p>
+          <span class="priority-icon" id="taskDetailPriorityIcon"></span>
+        </div>
+        <div class="assignedTo">
+          <p>Assigned to:</p>
+          <ul id="taskAssignedTo" class="assigned-to-list"></ul>
+        </div>
+        <div class="subtasks">
+          <h3>Subtasks</h3>
+          <ul id="taskSubtasks"></ul>
+        </div>
+        <div class="task-actions">
+          <button class="delete-btn">
+            <img class="delete-1 hidden" src="./assets/icons/delete-hover.png" alt="">
+            <img class="delete" src="./assets/icons/delete.png" alt="" />
+            <p>Delete</p>
+          </button>
+          <div class="taskInfoDivider"></div>
+          <button class="edit-btn">
+            <img class="edit-1 hidden" src="./assets/icons/edit-hover.png" alt="">
+            <img class="edit" src="./assets/icons/edit.png" alt="" />
+            <p>Edit</p>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Add Task Modal -->
+    <div id="addTaskModal" class="modal">
+      <div class="modal-content">
+        <h2 id="addTaskModalTitle" class="contentH2">Add Task</h2>
+        <form id="addTaskForm">
+          <div class="close-button">&times;</div>
+          <div class="form-container">
+
+            <!-- Linke Spalte -->
+            <div class="form-column-left">
+              <div class="addTask-headlines">
+                <label for="taskTitle">Title <span class="required">*</span></label>
+              </div>
+              <input type="text" id="taskTitle" name="taskTitle" required placeholder="Enter task title" />
+              <div id="titleError" class="error-message hidden">
+                Bitte füge ein Title ein.
+              </div>
+              <div class="addTask-headlines">
+                <label for="taskDescription">Description</label>
+              </div>
+              <textarea id="taskDescription" name="taskDescription" placeholder="Enter task description"></textarea>
+
+              <div class="addTask-headlines">
+                <label for="taskAssigned">Assigned to</label>
+              </div>
+              <div id="taskAssignedContainer" class="assigned-container">
+                <div id="taskAssignedDropdown" class="custom-dropdown dropdown">
+                  <div class="dropdown-placeholder">
+                    Select contacts
+                    <div class="arrow">
+                      <img id="dropdownArrow" class="dropdownarrow" src="./assets/icons/arrow_drop_down.png"
+                        alt="Dropdown arrow" />
+                    </div>
+                  </div>
+                  <div id="taskAssignedOptions" class="dropdown-options hidden">
+                    <input type="text" id="taskSearchInput" class="dropdown-search" placeholder="Search contacts..." />
+                  </div>
+                </div>
+                <div id="selectedContactsContainer" class="selected-contacts-container"></div>
+              </div>
+            </div>
+            <div class="add-task-label">
+              <label for="required"><span class="required">*</span>This field is required</label>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Rechte Spalte -->
+          <div class="form-column-right">
+            <!-- Due Date -->
+            <div class="addTask-headlines">
+              <label for="taskDueDate">Due Date <span class="required">*</span></label>
+            </div>
+            <input type="date" id="taskDueDate" onclick="this.showPicker()" required />
+            <div id="dueDateError" class="error-message hidden">
+              Bitte wähle ein Datum aus.
+            </div>
+
+
+            <!-- Priority -->
+            <div class="addTask-headlines">
+              <label for="taskPriority">Prio</label>
+            </div>
+            <div class="priority">
+              <button id="urgentBtn" class="priority-btn" data-priority="Urgent" type="button">
+                <img src="./assets/icons/urgent.png" id="urgentIcon" class="priority-icon" alt="Urgent" />
+                Urgent
+              </button>
+              <button id="mediumBtn" class="priority-btn" data-priority="Medium" type="button">
+                <img src="./assets/icons/medium.png" id="mediumIcon" class="priority-icon" alt="Medium" />
+                Medium
+              </button>
+              <button id="lowBtn" class="priority-btn" data-priority="Low" type="button">
+                <img src="./assets/icons/low.png" id="lowIcon" class="priority-icon" alt="Low" />
+                Low
+              </button>
+            </div>
+
+            <!-- Kategorieauswahl -->
+            <div class="addTask-headlines">
+              <label for="taskCategoryInput">Category <span class="required">*</span></label>
+            </div>
+            <div id="taskCategoryContainer" class="assigned-container">
+              <div id="secondDropdown" class="custom-second-dropdown">
+                <div class="second-dropdown-placeholder">
+                  <span id="secondDropdownSelectedText">Select task category</span>
+                  <div class="second-arrow">
+                    <img id="secondDropdownArrow" class="second-dropdown-arrow" src="./assets/icons/arrow_drop_down.png"
+                      alt="Dropdown arrow" />
+                  </div>
+                </div>
+                <div id="secondOptionsContainer" class="second-dropdown-options hidden">
+                  <div class="second-dropdown-option" data-value="Technical Task">
+                    Technical Task
+                  </div>
+                  <div class="second-dropdown-option" data-value="User Story">
+                    User Story
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" id="taskCategoryInput" name="taskCategory" value="" required />
+              <span id="msg-box" class="hidden">Bitte wählen Sie eine Category aus</span>
+              <div id="selectedCategoryContainer"></div>
+              <input type="hidden" id="taskTypeInput" value="" />
+            </div>
+
+            <!-- Subtasks -->
+            <div class="addTask-headlines">Subtasks</div>
+            <div class="subtask-input-container">
+              <div class="subtask-input-wrapper">
+                <input type="text" id="subtaskInput" class="subtask-input" placeholder="Add a subtask" />
+                <button type="button" class="subtask-add-button">
+                  <img src="./assets/icons/add_hover.png" alt="Add" />
+                </button>
+              </div>
+            </div>
+            <ul id="subtaskList" class="subtask-list">
+              <!-- Subtasks werden hier dynamisch eingefügt -->
+            </ul>
+
+
+            <div class="form-actions">
+              <!-- Actions -->
+              <div class="addTask-buttons">
+                <button class="cancel-btn" id="cancelButton">Cancel x</button>
+                <button type="submit" id="createTaskButton" class="create-task-btn">Create Task ✓
+                </button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </aside>
+  <!-- Haupt-JavaScript -->
+  <script src="./script/board/board.js"></script>
+  <script src="./script/board/utils.js"></script>
+  <script src="./script/board/boardTemplate.js"></script>
+  <script src="./script/board/addTask.js"></script>
+  <script src="./script/board/dragAndDrop.js"></script>
+  <script src="./script/board/eventListener.js"></script>
+  <script src="./script/board/defaultTask.js"></script>
+  <script src="./script/checkMaxWidth.js"></script>
+  <script src="./script/board/responsiveAddTask.js"></script>
+  <script src="./script/userMenu.js" defer></script>
+  <script src="./script/setProfile.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,284 @@
+
+/* 
+███████╗██████╗░░██████╗████████╗███████╗      ██████╗░██╗██╗░░░██╗
+██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔════╝      ██╔══██╗██║██║░░░██║
+█████╗░░██████╔╝╚█████╗░░░░██║░░░█████╗░░      ██║░░██║██║╚██╗░██╔╝
+██╔══╝░░██╔══██╗░╚═══██╗░░░██║░░░██╔══╝░░      ██║░░██║██║░╚████╔╝░
+███████╗██║░░██║██████╔╝░░░██║░░░███████╗      ██████╔╝██║░░╚██╔╝░░
+╚══════╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░╚══════╝      ╚═════╝░╚═╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".content" */
+
+.contact-content {
+    top: 206px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    left: 688px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    padding-left: 4rem;
+}
+
+/* 
+███████╗░██╗░░░░░░░██╗███████╗██╗████████╗███████╗      ██████╗░██╗██╗░░░██╗
+╚════██║░██║░░██╗░░██║██╔════╝██║╚══██╔══╝██╔════╝      ██╔══██╗██║██║░░░██║
+░░███╔═╝░╚██╗████╗██╔╝█████╗░░██║░░░██║░░░█████╗░░      ██║░░██║██║╚██╗░██╔╝
+██╔══╝░░░░████╔═████║░██╔══╝░░██║░░░██║░░░██╔══╝░░      ██║░░██║██║░╚████╔╝░
+███████╗░░╚██╔╝░╚██╔╝░███████╗██║░░░██║░░░███████╗      ██████╔╝██║░░╚██╔╝░░
+╚══════╝░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░░╚═╝░░░╚══════╝      ╚═════╝░╚═╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content" */
+
+.contact-content-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
+    width: -webkit-fill-available;
+   /* height: -webkit-fill-available;*/
+/*     
+    position: absolute;
+    left: 743px;
+    top: 206px; */
+}
+
+
+/* &&&&&&&&&&&&&&&&&&&& */
+
+
+.contact-content-table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 21px;
+/* 
+    position: absolute;
+    left: 743px;
+    top: 311px; */
+}
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content-head" */
+
+.contact-content-head h1 {
+    width: max-content;
+    /* height: 73px; */
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 120%;
+    color: #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.contact-content-head hr {
+    width: 0px;
+    height: 59px;
+    border: 1.5px solid var(--background-color-hover);
+    border-radius: 3px;
+}
+
+.contact-content-head p {
+    /* width: 235px; */
+    height: 32px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 120%;
+    color: var(--background-color-sidebar);
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+
+/* UNTERGEORDNET ".contact-content-table" */
+
+.contact-content-table-usernameAndIcons {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    max-height: 120px;
+}
+
+.contact-content-table-usernameAndIcons span {
+    font-size: 47px;
+}
+
+
+/* &&&&&&&&&&&&&&&&&&&& */
+
+
+.contact-content-table-usernameFullinformation {
+
+}
+
+.contact-content-table-usernameFullinformation div p {
+    padding: 20px 0;
+}
+
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content-table-usernameAndIcons" */
+
+.userIconTable {
+    background-color: white;
+    filter: drop-shadow(0 0 0.045rem gray);
+    border-radius: 100%;
+    width: 128px;
+    height: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userIconTable p {
+    /* background-color: #FF7A00; */
+    width: 120px;
+    height: 122px;
+    border-radius: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+}
+
+
+/* &&&&&&&&&&&&&&&&&&&& */
+
+
+.userIconTableNameDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 287px;
+    height: 88px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    justify-content: center;
+}
+
+.userIconTableNameDiv Div {
+    width: max-content;
+}
+
+
+/* UNTERGEORDNET ".contact-content-table-usernameFullinformation" */
+
+.contact-content-information {
+    font-size: 18px;
+    padding: 36px 0;
+}
+
+
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".userIconTableNameDiv" */
+
+.contact-content-table-editAndDeleteIcons {
+    display: flex;
+    gap: 16px;
+}
+
+.contact-content-table-editAndDeleteIcons div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+/* 
+██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
+██║░░░██║████╗░██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝░██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗░██║██╔════╝╚══██╔══╝
+██║░░░██║██╔██╗██║░░░██║░░░█████╗░░██████╔╝██║░░██╗░█████╗░░██║░░██║██████╔╝██║░░██║██╔██╗██║█████╗░░░░░██║░░░
+██║░░░██║██║╚████║░░░██║░░░██╔══╝░░██╔══██╗██║░░╚██╗██╔══╝░░██║░░██║██╔══██╗██║░░██║██║╚████║██╔══╝░░░░░██║░░░
+╚██████╔╝██║░╚███║░░░██║░░░███████╗██║░░██║╚██████╔╝███████╗╚█████╔╝██║░░██║██████╔╝██║░╚███║███████╗░░░██║░░░
+░╚═════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░ */
+
+/* UNTERGEORDNET ".contact-content-table-editAndDeleteIcons" */
+
+.editAndDeleteBtn:hover {
+    color: var(--background-color-hover);
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img {
+    display: block;
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img-1 {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* Div mit Contact Successfully created */
+.contactSuccessfullyCreated {
+    animation: flyIn 4s ease-out; /* Animation anwenden */
+    z-index: 99;
+}
+
+@keyframes flyIn {
+    0% {
+        z-index: 99;
+        position: absolute;
+        bottom: 128px;
+        transform: translateX(1200px);; /* Startpunkt: Außerhalb des Containers unten */
+        opacity: 0; /* Unsichtbar */
+    }
+    60% {
+        z-index: 99;
+        position: absolute;
+        bottom: 128px;
+        transform: translateX(0); /* Endpunkt: Im Container */
+        opacity: 1; /* Sichtbar */
+    }
+    75% {
+        z-index: 99;
+        position: absolute;
+        bottom: 128px;
+        transform: translateX(0); /* Endpunkt: Im Container */
+        opacity: 1; /* Sichtbar */
+    }
+    100% {
+        z-index: 99;
+        position: absolute;
+        bottom: 128px;
+        transform: translateX(1200px); /* Startpunkt: Außerhalb des Containers unten */
+    }
+}

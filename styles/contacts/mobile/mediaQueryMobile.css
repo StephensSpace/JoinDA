@@ -1,0 +1,23 @@
+@media (max-width: 396px) {
+    .contact-content-table-usernameAndIcons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .modal-left {
+        width: 320px;
+    }
+
+    .modal-right {
+        width: 320px;
+    }
+
+    .modal-inputfield input {
+        width: 306px;
+    }
+
+    .contactSuccessfullyCreated {
+        width: 296px !important;
+    }
+}
+

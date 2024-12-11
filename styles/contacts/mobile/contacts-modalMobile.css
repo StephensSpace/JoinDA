@@ -1,0 +1,269 @@
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+}
+
+.modal-left {
+    display: flex;
+    color: white;
+    border-top-left-radius: 32px;
+    background-color: var(--background-color-nav);
+    border-top-right-radius: 32px;
+    border-bottom-left-radius: unset;
+    width: 396px;
+    height: 352px;
+    justify-content: space-between;
+    padding-left: 32px;
+}
+
+.modal-left-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: normal !important;
+    padding: unset;
+    align-items: start;
+}
+
+
+.modal-left h1 {
+    font-weight: 700;
+    padding: 12px 0;
+    font-size: 47px;
+    line-height: 56.4px;
+}
+
+.modal-left p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.modal-left hr {
+    margin-top: 12px;
+    height: 3px;
+    border: var(--background-color-hover);
+    max-width: 90px;
+    border-radius: 2px;
+    background: var(--background-color-hover);
+    width: 100%;
+}
+
+.modal-right {
+    display: flex;
+    flex-direction: column;
+    border-bottom-right-radius: 32px;
+    background-color: var(--background-color-header);
+    justify-content: center;
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 32px;
+    height: 400px;
+    width: 396px;
+}
+
+.modal-right-div {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    padding: unset;
+}
+
+
+.modal-right-bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-userImg-Background {
+    margin: 0;
+    background-color: white;
+    filter: drop-shadow(0 0 0.045rem gray);
+    border-radius: 100%;
+    width: 128px;
+    height: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    left: 50%;
+    top: 47.5%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-userIcon-name-div p {
+    width: 120px !important;
+    height: 120px !important;
+    font-size: 47px !important;
+    line-height: 56.4px !important;
+    font-weight: 500 !important;
+}
+
+.modal-userImg {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #D1D1D1;
+    border-radius: 100%;
+}
+
+.modal-userImg img {
+    width: 36px;
+}
+
+.modal-inputfield-div {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+.modal-left-top {
+    display: flex;
+    color: white;
+    height: 24px;
+    width: 24px;
+    justify-content: center;
+    align-items: center;
+    padding: 36px;
+}
+
+.modal-right-top div {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-right-top img {
+    cursor: pointer;
+}
+
+.modal-inputfield-div form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.modal-inputfield {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-inputfield input {
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    background-origin: content-box;
+    border-radius: 10px;
+    border: solid 1.5px lightgray;
+    width: 364px;
+    height: 41px;
+    padding: 13px 21px;
+}
+
+.person-icon {
+    background: url(/assets/icons/person.png) no-repeat right;
+    background-size: auto;
+}
+
+.check-icon {
+    background: url(/assets/icons/mail.png) no-repeat right;
+    background-size: auto;
+}
+
+.phone-icon {
+    background: url(/assets/icons/contacts/call.png) no-repeat right;
+    background-size: auto;
+}
+
+.modal-inputfield-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    height: 51px;
+}
+
+.modal-inputfield-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 18px 10px;
+    border-radius: 10px;
+    border: solid 1px;
+    cursor: pointer;
+}
+
+#cancelBtn {
+    width: 82px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+#cancelBtn Div {
+    width: 24px;
+    height: 24px;
+}
+
+.hidden {
+    display: none;
+}
+
+.cancel-icon {
+    width: 10.5px;
+    height: 10.5px;
+}
+
+#createContactBtn {
+    width: 99px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+#createContactBtn p {
+    font-weight: 600;
+}
+
+#createContactBtn Div {
+    width: 24px;
+    height: 24px;
+}
+
+.create-icon {
+    width: 15.5px;
+    height: 11.2px;
+}
+
+#createContactBtn_addContact {
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+}

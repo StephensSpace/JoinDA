@@ -10,5 +10,15 @@
     --background-color-overlay: #0097A7;    /* Dunkleres Blau */
     --background-color-highlight: #00838F;  /* Tiefes Türkis */
     --background-color-deep: #006064;       /* Dunkles Zyan */
+    /* Font Colors */
+    --font-color-sidebar-btns: #CDCDCD;
+    --font-color-sidebar-a: #A8A8A8;
+    /* Hover Colors */
+    --background-color-hover-navbar-btns: #2A3D59; 
     --background-color-hover: #29ABE2;      /* Hover für Add new contact & Add task*/
+    --background-color-hover-contact: #F0F0F0; /* Hover für Kontakte in Kontaktliste */
+    /* Background Colors */
+    --background-color-body: #f4f4f4; /* Hintergrundfarbe für body allg. */
+    --background-color-sidebar: #2A3647; /* Hintergrundfarbe für die Sidebar allg. */
+    --background-color-active: #091931; /* Hintergrundfarbe für Aktiv ausgewählte Seite in Sidebar */
   }

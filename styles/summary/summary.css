@@ -474,6 +474,10 @@
         gap: 4px;
     }
 
+    #deadlineDate {
+        font-size: 19px;
+    }
+
     .urgentDeadlineDiv:hover {
         padding: unset;
         gap: 4px
@@ -490,6 +494,6 @@
     
     #daytime {
         white-space: nowrap;
-    }
-    
+    }   
 }
+

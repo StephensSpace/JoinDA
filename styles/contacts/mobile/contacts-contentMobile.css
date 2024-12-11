@@ -1,0 +1,257 @@
+
+
+/* CONTENT */
+.content {
+    top: 80px;
+    bottom: 80px;
+    /* overflow-y: auto; */
+    position: absolute;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--background-color-main);
+}
+
+.edit-delete-btn-background {
+    position: absolute;
+    bottom: 24px;
+    right: 16px;
+}
+
+
+.edit-delete-btn {
+    display: flex;
+    justify-content: center;
+    background: var(--background-color-nav);
+    border-radius: 100%;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.edit-delete-btn:active {
+    background: var(--background-color-hover);
+}
+
+/* Popup Div */
+.popupDiv {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: blue;
+    width: 80px;
+    height: 80px;
+}
+
+
+/* Contact Content Head & alle darunter Divs */
+.contact-content-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact-content-tilte {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-content-tilte h1 {
+    font-size: 47px;
+    font-weight: 700;
+    line-height: 56.4px;
+}
+
+.contact-content-tilte hr {
+    order: 3;
+    width: 90px;
+    height: 3px;
+    background: var(--background-color-section);
+    border: var(--background-color-section);
+    border-radius: 8px;
+}
+
+.contact-content-tilte p {
+    font-size: 20px;
+    line-height: 24px;
+}
+
+
+.contact-content-table-usernameAndIcons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.userIconTable-Background {
+    margin: 0;
+    background-color: white;
+    filter: drop-shadow(0 0 0.045rem gray);
+    border-radius: 100%;
+    width: 86px;
+    height: 86px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userIconTableNameDiv span {
+    font-weight: 700 !important;
+    font-size: 36px;
+    line-height: 43.2px;
+}
+
+.contact-content-table {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.contact-content-table-usernameFullinformation {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.contact-content-information {
+    font-size: 20px !important;
+    line-height: 24px !important;
+}
+
+.contact-content-table-usernameFullinformation h4 {
+    font-size: 16px;
+    line-height: 19.2px;
+    font-weight: 700;
+}
+
+.contact-content-table-usernameFullinformation p {
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+
+/* Die Bearbeitungs Buttons */
+.contact-content-table-editAndDeleteIcons {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: var(--background-color-header);
+    z-index: 1;
+    width: 116px;
+    height: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 24px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+}
+
+.editAndDeleteBtn, 
+.editAndDeleteBtn1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 96px;
+    height: 40px;
+    padding-left: 8px;
+}
+
+.editAndDeleteBtn:hover, 
+.editAndDeleteBtn1:hover {
+    border-radius: 8px;
+    background: #EEEEEE;
+    color: var(--background-color-aside);
+}
+
+.editAndDeleteBtn:hover p, 
+.editAndDeleteBtn1:hover p {
+    font-weight: 800;
+}
+
+
+.editAndDeleteBtn p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    width: 30px;
+    height: 19px;
+}
+
+.editAndDeleteBtn-Img, 
+.editAndDeleteBtn-Img-1 {
+    width: 24px;
+    height: 24px;
+}
+
+.editAndDeleteBtn1 p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    width: 49px;
+    height: 19px;
+}
+
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 16px;
+    gap: 32px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+}
+
+/* Pfeil zum zurück gehen in Kontaktliste */ 
+.contact-content-back {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+/* Div mit Contact Successfully created */
+.contactSuccessfullyCreated {
+    animation: flyIn 2s ease-out; /* Animation anwenden */
+    z-index: 99;
+}
+
+@keyframes flyIn {
+    0% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        bottom: 0px;
+        transform: translateY(120px);; /* Startpunkt: Außerhalb des Containers unten */
+        opacity: 0; /* Unsichtbar */
+    }
+    60% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        transform: translateY(-50px); /* Endpunkt: Im Container */
+        opacity: 1; /* Sichtbar */
+    }
+    75% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        transform: translateY(-50px); /* Endpunkt: Im Container */
+        opacity: 1; 
+    }
+    100% {
+        z-index: 99;
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        transform: translateY(160px); /* Startpunkt: Außerhalb des Containers unten */
+    }
+}

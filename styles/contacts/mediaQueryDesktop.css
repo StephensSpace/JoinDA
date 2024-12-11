@@ -1,0 +1,425 @@
+
+@media (max-width: 1340px) {
+
+    /* Content Table */
+    .contact-board {
+        max-width: 400px;
+    }
+
+    .contact-content {
+        left: 632px;
+        gap: 40px;
+    }
+
+    /* Linkes Modal */
+    .modal-left {
+        width: 424px;
+    }
+    
+    /* Rechtes Modal */
+    .modal-right {
+        width: 704px;
+    }
+
+    .modal-userImg-Background {
+        margin: 56px;
+    }
+}
+
+@media (max-width: 1240px) {
+
+    /* Modal allg. */
+    .modal {
+        flex-direction: column;
+    }
+
+    /* Contacts Content */
+    .contact-content {
+        display: flex;
+        align-items: center;
+        left: 552px;
+        padding: 0;
+    }
+
+    .contact-content-head {
+        flex-direction: column;
+    }
+
+    .contact-content-head hr {
+        width: 59px;
+        height: 0;
+    }
+
+    .contact-content-table {
+        position: absolute;
+        top: 205px;
+        gap: 24px;
+        align-items: center;
+    }
+
+    .contact-content-table-usernameFullinformation {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        text-align: center;
+    }
+
+    .contact-content-information {
+        display: contents;
+        font-weight: 600;
+    }
+
+    .contact-content-table-usernameFullinformation div p {
+        padding: 6px 0;
+    }
+
+    /* Linkes Modal */
+
+    .modal-left {
+        width: 704px;
+        border-top-right-radius: 32px;
+        border-bottom-left-radius: unset;
+        height: 250px;
+    }
+
+    .modal-left img {
+        max-width: 48px;
+        max-height: 59px;
+    }
+
+    .modal-left-div {
+        padding: unset;
+        align-items: center;
+    }
+
+    /* Rechtes Modal */
+
+    .modal-right {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 32px;
+        height: 400px;
+    }
+
+    .modal-right-div {
+        padding: unset;
+    }
+
+    .modal-right-top {
+        display: none;
+    }
+
+    /* Add New Contact Btn */
+    .add-new-contact-btn {
+        width: 256px;
+        left: calc(50% - 256px / 2);
+    }
+
+    /* Contact Board oder Liste */
+    .contact-board {
+        width: 320px;
+    }
+
+    .contact-content-table-usernameAndIcons {
+        flex-direction: column;
+        gap: 8px;
+        max-height: unset;
+    }
+
+    .userIconTableNameDiv {
+        align-items: center;
+        width: unset;
+    }
+
+    .user-shortcut-email {
+        font-size: 13px;
+    }
+
+}
+
+@media (max-width: 1050px) {
+
+    /* Modal allg. */
+    .modal {
+        
+    }
+
+    /* Contacts Content */
+    .contact-content {
+        left: 552px;
+        width: -webkit-fill-available;
+    }
+
+    .contact-content-head {
+        
+    }
+
+    .contact-content-head hr {
+        
+    }
+
+    .contact-content-table {
+        gap: 16px;
+    }
+
+    .contact-content-table-usernameAndIcons {
+        flex-direction: column;
+        max-height: unset;
+    }
+
+    .contact-content-table-usernameAndIcons span {
+        font-weight: 600 !important;
+        font-size: 34px;
+    }
+
+    .userIconTableNameDiv {
+        align-items: center;
+    }
+
+    .contact-content-table-usernameFullinformation {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-content-table-usernameFullinformation Div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    
+
+    /* Linkes Modal */
+
+    .modal-left {
+        
+    }
+
+    .modal-left img {
+        
+    }
+
+    .modal-left-div {
+      
+    }
+
+    /* Rechtes Modal */
+
+    .modal-right {
+    
+    }
+
+    .modal-right-div {
+
+    }
+
+    .modal-right-top {
+
+    }
+
+    /* Add New Contact Btn */
+
+    .add-new-contact-btn {
+
+    }
+
+    /* Contact Board oder Liste */
+
+    .contact-board {
+
+    }
+}
+
+@media (max-width: 800px) {
+    /* Allg. zum Modal */
+    .modal-left {
+        width: 640px;
+    }
+
+    .modal-right {
+        width: 640px;
+    }
+
+    .modal-userImg-Background {
+        margin: 32px;
+    }
+
+    .modal-inputfield input {
+        width: 404px;
+    }
+
+    .modal-inputfield-buttons {
+        width: 404px;
+    }
+}
+
+@media (max-width: 900px) {
+
+        /* Header allg. */
+
+        header {
+            padding: 20px 40px 20px 280px;
+        }
+
+        /* Sidebar allg. */
+
+        .sidebar {
+            width: 164px;
+        }
+
+        .navBarBtns {
+            width: 198px;
+        }
+
+        /* Modal allg. */
+
+        .modal {
+        
+        }
+    
+        /* Contacts Content */
+    
+        .contact-content {
+            left: 412px;
+        }
+    
+        .contact-content-head {
+            
+        }
+    
+        .contact-content-head hr {
+            
+        }
+    
+        .contact-content-table {
+
+        }
+    
+        .contact-content-table-usernameAndIcons {
+
+        }
+    
+        .userIconTableNameDiv {
+
+        }
+    
+        .contact-content-table-usernameFullinformation {
+
+        }
+    
+        .contact-content-table-usernameFullinformation Div {
+ 
+        }
+    
+        /* Linkes Modal */
+    
+        .modal-left {
+            
+        }
+    
+        .modal-left img {
+            
+        }
+    
+        .modal-left-div {
+          
+        }
+    
+        /* Rechtes Modal */
+    
+        .modal-right {
+        
+        }
+    
+        .modal-right-div {
+    
+        }
+    
+        .modal-right-top {
+    
+        }
+    
+        /* Add New Contact Btn */
+    
+        .add-new-contact-btn {
+            width: 200px;
+            left: calc(50% - 200px / 2);
+            gap: 0;
+            flex-direction: column-reverse;
+        }
+
+        .add-new-contact-btn p {
+            font-size: 16px;
+        }
+
+        .add-new-contact-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+    
+        /* Contact Board oder Liste */
+    
+        .contact-board {
+            left: 164px;
+            width: 248px;
+            padding: 0 20px;
+        }
+
+        .user-shortcut-email {
+            font-size: 11px;
+        }
+}
+
+@media (max-width: 748px) {
+
+    .navBarBtns {
+        width: 198px;
+    }
+
+    .contact-board {
+        left: 164px;
+        width: 248px;
+        padding: 0 20px;
+    }
+
+    .add-new-contact-btn {
+        width: 200px;
+        left: calc(50% - 200px / 2);
+        gap: 0;
+        flex-direction: column-reverse;
+    }
+
+    .contact-content {
+        left: 412px;
+    }
+
+    .contact-content-head {
+        gap: 16px;
+    }
+
+    .contact-content-head h1 {
+        font-size: 48px;
+    }
+
+    .contact-content-head p {
+        font-size: 21px;
+    }
+
+    .contact-content-table-usernameAndIcons span {
+        font-weight: 600 !important;
+        font-size: 26px;
+    }
+
+    .contact-content-table {
+        top: 178px;
+    }
+}
+
+@media (max-width: 700px) {
+    
+    /* Header allg. */
+    header {
+        padding: 20px 40px 20px 216px;
+    }
+
+}

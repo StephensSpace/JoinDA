@@ -1,0 +1,107 @@
+
+
+/* Allg. zum Contact Board */
+.contact-board {
+
+}
+
+.user-contact {
+    display: flex;
+    gap: 8px;
+}
+
+/* Add New Contact Btn */
+.add-new-contact-btn {
+    display: flex;
+    justify-content: center;
+    background: var(--background-color-nav);
+    border-radius: 100%;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.add-new-contact-btn img {
+    width: 32px;
+    height: 32px;
+}
+
+.add-new-contact-btn:active {
+    border-color: var(--background-color-hover);
+    background: var(--background-color-hover);
+}
+
+.add-new-contact-background {
+    position: absolute;
+    bottom: 24px;
+    right: 16px;
+    z-index: 1;
+}
+
+#contactList {
+    height: inherit;
+    padding: 0 36px;
+}
+  
+
+.contact-board {
+    position: absolute;
+    background: white;
+    width: -webkit-fill-available;
+    height: 100%;
+    max-height: calc(100vh - 96px);
+    z-index: 0;
+    filter: drop-shadow(-5px 8px 5px);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+
+
+
+
+
+
+.user-contact {       
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    padding-left: 2%;
+    color: white;
+}
+
+.user-contact:hover {
+    background-image: linear-gradient(to top, var(--background-color-hover-contact) 0%, #F9F9F9 50%);
+    border-radius: 8px;
+}
+
+
+.clicked-Background {
+    background-color: var(--background-color-nav) !important;
+    border-radius: 8px;
+    background-image: none !important;
+    color: white !important;
+}
+
+.clicked-Background p {
+    color: white !important;
+}
+
+.user-symbole {
+    background-color: white;
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headLetter {
+    font-size: large;
+    padding: 20px;
+}
