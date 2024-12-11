@@ -25,7 +25,8 @@
     <script src="./script/contacts/contacts.js"></script>
     <script src="./script/contacts/contacts-templates.js"></script>
     <script src="./script/checkMaxWidth.js"></script>
-
+    <!-- <script src="./script/setProfile.js" defer></script>
+    <script src="./script/userMenu.js" defer></script> --> 
 </head>
 <body onload="initContacts()">
 
@@ -62,7 +63,6 @@
     </nav>
 
     <aside>
-
         <!-- Header -->
         <header>
             <div>
@@ -94,17 +94,14 @@
                 </div>
             </div>
         </header>
-
         <!-- Hauptinhalt -->
         <main class="content">
-
             <div class="contact-board">
                 <div class="add-new-contact-background">
                     <div class="add-new-contact-btn" onclick="openAddContactModal()">
                             <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
                     </div>
                 </div>
-
                 <div id="contactList">
 
                 </div>
@@ -118,10 +115,7 @@
                 <div class="contact-content-table" id="contact-content-table">
                 </div>
             </div>
-        
         </main>
-    
     </aside>
-
 </body>
 </html>

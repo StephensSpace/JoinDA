@@ -49,7 +49,6 @@ function logOutBtn() {
 
 function helpBtn() {
     const currentUrl = window.location.href;
-
     if (currentUrl.includes("Mobile")) {
         window.location.href = "helpMobile.html";
     } else {
