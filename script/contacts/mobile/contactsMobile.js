@@ -28,38 +28,25 @@ function contactSuccessfullyCreated() {
 
 // Zum zurück kommen vom Contact Table zur Contact List
 function goBackToContactList() {
-    // zeige wieder die Kontaktliste an
-    document.getElementsByClassName('contact-board')[0].style.display = "unset";
-    // leere den Contact Informations Bereich
-    document.getElementById('contact-content-table').innerHTML = "";
-    // entfern den edit und delete button in der Kontaktlisten Ansicht
-    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "none";  
-    // Entfernt das Kontakt Details Template von der HTML 
-    document.getElementsByClassName('contact-content')[0].style.display = "none";
-    // fügt button "add new contact" hinzu 
-    document.getElementsByClassName('add-new-contact-background')[0].style.display = "unset";
+    document.getElementsByClassName('contact-board')[0].style.display = "unset"; // zeige wieder die Kontaktliste an
+    document.getElementById('contact-content-table').innerHTML = ""; // leere den Contact Informations Bereich
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "none"; // entfern den edit und delete button in der Kontaktlisten Ansicht
+    document.getElementsByClassName('contact-content')[0].style.display = "none"; // Entfernt das Kontakt Details Template von der HTML 
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "unset"; // fügt button "add new contact" hinzu 
 }
 
 // Funktion zum rendern der User Details ins Contact Content Table
 async function renderContactInfosInContactsTableMobile(index) {
-    //document.getElementsByClassName('contact-content')[0].style.display = "flex";
-    document.getElementsByClassName('contact-board')[0].style.display = "none";
-    //  fügt Kontaktinformation Template + button edit contact hinzu 
-    document.getElementsByClassName('contact-content')[0].style.display = "flex";
-    //contactContentTemplate() + editAndDeleteBtnTemplate();
-
-    // mache sichtbar den edit und delete button in der Kontaktlisten Ansicht
-    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset";
-    // Get Contact information into "contact-content-table"
-    await renderContactInfosInContactsTable(index);
-    // entfernt den add new contact button in der Kontakt Details Ansicht
-    document.getElementsByClassName('add-new-contact-background')[0].style.display = "none";
+    document.getElementsByClassName('contact-board')[0].style.display = "none"; //document.getElementsByClassName('contact-content')[0].style.display = "flex";
+    document.getElementsByClassName('contact-content')[0].style.display = "flex"; //  fügt Kontaktinformation Template + button edit contact hinzu 
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset"; // mache sichtbar den edit und delete button in der Kontaktlisten Ansicht
+    await renderContactInfosInContactsTable(index); // Get Contact information into "contact-content-table"
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "none"; // entfernt den add new contact button in der Kontakt Details Ansicht
 }
 
 // openup Popup-Div 
 function openPopupDiv() {
     if (document.getElementById('popupDiv') == null) {        // Wenn Popup doc... = true; also wenn er da ist, dann else
-        //document.getElementsByClassName('content')[0].innerHTML += editAndDeletePopUpDivTemplate();
         document.getElementsByClassName('contact-content-table-editAndDeleteIcons')[0].style.display = "flex";
     }
 }
@@ -76,21 +63,7 @@ function deleteContactMobile(userIndex) {
     renderContactsInToContactList();
 }
 
-
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-// ###############################################################################################
-
-
-
-
-// Allg. Funktionen Mobile angepasst.
+// Allg. Funktionen Mobile angepasst
 
 // Color Template für un- und definierte User
 const BACKGROUND_COLORS_LETTERS = {
@@ -101,7 +74,7 @@ const BACKGROUND_COLORS_LETTERS = {
     "DE": "#FC71FF",
     "EF": "#FFBB2B",
     "EM": "#1FD7C1",
-    "MB": "#462F8A", //sogar 1 extra
+    "MB": "#462F8A",
     "TW": "#FF4646",
     "SM": "#00BEE8",
     },
@@ -115,7 +88,6 @@ const BACKGROUND_COLORS_LETTERS = {
     "6": "#C3FF2B",
     }
 }
-
 
 // Initialisierung Schritt
 async function initContacts() {
@@ -238,7 +210,7 @@ async function editContactInModal(userIndex) {
     await renderContactsInToContactList();
     await renderContactInfosInContactsTable(userIndex);
 }
-
+// auslagerung 
 async function editContactInModalTryCatch(userIndex, inputfieldName, inputfieldEmail, inputfieldPhone, dataRef) {
     try {
         const NAME = inputfieldName.value;
@@ -270,7 +242,6 @@ async function deleteContact(userIndex) {
     }
     closeModal();
 }
-
 
 // Add Contact 
 async function addNewContact() {
@@ -381,13 +352,17 @@ function rgbInHexa(userIndex) {
     }
 }
 
-
 // last user has no padding at bottom so added
 function addMarginOnLastUser() {
     let lengthOfCurrentUsersInList = document.getElementsByClassName("user-contact").length;
     let lastUserInList = document.getElementsByClassName("user-contact")[(lengthOfCurrentUsersInList - 1)];
     lastUserInList.style.marginBottom = ("20px");
 }
+
+
+
+
+
 
 //############################################################
 

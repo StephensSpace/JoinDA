@@ -3,18 +3,14 @@
 // Container Template zur Trennung durch Anfangsbuchstaben Firstname
 function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     return `
-    <div class="headLetterDiv" id="headLetterDiv">
-
-        <div class="headLetter" id="headLetter">
-            ${getFirstnameLetter(USER_NAME)}
+        <div class="headLetterDiv" id="headLetterDiv">
+            <div class="headLetter" id="headLetter">
+                ${getFirstnameLetter(USER_NAME)}
+            </div>
+            <hr style="width: -webkit-fill-available; margin-bottom: 8px; ">
         </div>
-
-        <hr style="width: -webkit-fill-available; margin-bottom: 8px; ">
-
-    </div>
     ` 
 }
-
 
 // Erstellt das ICON-Template vor dem Namen & Email des User in der Kontaktliste
 function userIconTemplateContactList(userName, userIndex) {
@@ -23,25 +19,19 @@ function userIconTemplateContactList(userName, userIndex) {
         let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
-        
         let color = getBackgroundForDefinedLetters(getFirstLetters);
         if (color == undefined || rgbInHexa(userIndex) == color) {
             color = getRandomeColor(color);   
         }
         return `
-            
             <p id="userIconContactList_${userIndex}" style="background-color: ${color}; width: 32px; height: 32px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
-
         `
     } else {
-
         let getFirstLetters = firstLetterFullName[0]; 
         return `
-
             <p id="userIconContactList_${userIndex}" style="background-color: ${'aqua'}; width: 32px; height: 32px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
-            
         `
     }
 }
@@ -53,26 +43,19 @@ function userIconTemplateContactTable(userName, userIndex) {
         let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
-    
         let color = document.getElementById(`userIconContactList_${(userIndex)}`)?.style.backgroundColor;
         return `
-            
             <p id="userIconContactTable-${userIndex}" style="background-color: ${color}; width: 120px; height: 120px; 
             border-radius: 100%; color: white; display: flex; justify-content: center; align-items: center; font-size: 48px;">${getFirstLetters}</p>
-            
         `
     } else {
-
         let getFirstLetters = firstLetterFullName[0]; 
-        return `
-              
+        return `  
             <p id="userIconContactTable-${userIndex}" style="background-color: ${'aqua'}; width: 120px; height: 120px; 
             border-radius: 100%; display: flex; justify-content: center; align-items: center;">${getFirstLetters}</p>
-            
         `
     }
 }
-
 
 // Template für gesamte User Ansicht unter "Add new contact"
 function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
@@ -117,11 +100,8 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
                 </div>
             </div>
         </div>
-        
         <div class="contact-content-table-usernameFullinformation">
-            
             <p class="contact-content-information">Contact Information</p>
-            
             <div>
                 <h4>E-Mail</h4>
                 <p><a href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a></p>
@@ -137,124 +117,102 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
 // Modal Template für Add-New Contact
 function modalAddContactTemplate() {
     return `
-    
-    <modal onclick="closeModal()" class="modal-background" id="modal-background">
-        <modal onclick="eventBubbling(event)" class="modal" id="modal">
-            <div class="modal-left modal-same-padding-left">
-                <div class="modal-left-div modal-same-padding">
-                    
-                    <img src="./assets/img/logo-2.png">
-                    <h1>Add contact</h1>
-                    <p>Tasks are better with a team!</p>
-                    
-                    <hr>
-                </div>
-            </div>
-
-            <div class="modal-right modal-same-padding-right">
-                <div class="modal-right-div modal-same-padding">
-                    
-                    <div class="modal-right-bottom">
-                        <div class="modal-userImg-Background">
-                            <div class="modal-userImg">
-                                <img src="./assets/icons/contacts/person-addNewContact.png">
-                            </div>
-                        </div>
-
-                        <div class="modal-inputfield-div">
-                            <div class="modal-right-top">
-                                <div>
-                                    <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
-                                </div>
-                            </div>
-                            
-                            <form onsubmit="addNewContactFunc(); return false">
-                                <div class="modal-inputfield">
-                                    <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                    <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                    <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
-                                </div>
-                            
-                                <div class="modal-inputfield-buttons">
-                                    <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">
-                                        <p>Cancel</p> 
-
-                                        <div>
-                                            <img id="cancel-icon" class="cancel-icon hidden" src="./assets/icons/contacts/Vector-X-blue.png">
-                                            <img id="cancel-icon1" class="cancel-icon" src="./assets/icons/contacts/Vector-X.png">
-                                        </div>
-                                    </button>
-                                    
-                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">
-                                        <p>Create contact</p>
-                                        
-                                        <div>
-                                            <img class="create-icon" src="./assets/icons/contacts/check.png">
-                                        </div>
-                                    </button>
-                                </div>
-                            </form>
-
-                        </div>
-
+        <modal onclick="closeModal()" class="modal-background" id="modal-background">
+            <modal onclick="eventBubbling(event)" class="modal" id="modal">
+                <div class="modal-left modal-same-padding-left">
+                    <div class="modal-left-div modal-same-padding">
+                        <img src="./assets/img/logo-2.png">
+                        <h1>Add contact</h1>
+                        <p>Tasks are better with a team!</p>
+                        <hr>
                     </div>
                 </div>
-            </div>
+                <div class="modal-right modal-same-padding-right">
+                    <div class="modal-right-div modal-same-padding">
+                        <div class="modal-right-bottom">
+                            <div class="modal-userImg-Background">
+                                <div class="modal-userImg">
+                                    <img src="./assets/icons/contacts/person-addNewContact.png">
+                                </div>
+                            </div>
+                            <div class="modal-inputfield-div">
+                                <div class="modal-right-top">
+                                    <div>
+                                        <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                                    </div>
+                                </div>
+                                <form onsubmit="addNewContactFunc(); return false">
+                                    <div class="modal-inputfield">
+                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
+                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
+                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
+                                    </div>
+                                    <div class="modal-inputfield-buttons">
+                                        <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">
+                                            <p>Cancel</p> 
+                                            <div>
+                                                <img id="cancel-icon" class="cancel-icon hidden" src="./assets/icons/contacts/Vector-X-blue.png">
+                                                <img id="cancel-icon1" class="cancel-icon" src="./assets/icons/contacts/Vector-X.png">
+                                            </div>
+                                        </button>
+                                        <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">
+                                            <p>Create contact</p>
+                                            <div>
+                                                <img class="create-icon" src="./assets/icons/contacts/check.png">
+                                            </div>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </modal>
         </modal>
-    </modal>
     `
 }
 
 // Modal Template für Edit
 function modalEditContactTemplate(userIndex, USER_NAME) {
     return `
-    
-    <modal onclick="closeModal()" class="modal-background" id="modal-background">
-        <modal onclick="eventBubbling(event)" class="modal" id="modal">
-            <div class="modal-left modal-same-padding-left">
-                <div class="modal-left-div modal-same-padding">
-                    <img src="./assets/img/logo-2.png">
-                    <h1>Edit contact</h1>
-                    <hr>
-                </div>
-            </div>
-
-            <div class="modal-right modal-same-padding-right">
-                <div class="modal-right-div modal-same-padding">
-                    
-                    <div class="modal-right-bottom">
-                    
-                        <div class="modal-userIcon-name">
-                            <div class="modal-userIcon-name-div">
-                                ${userIconTemplateContactTable(USER_NAME, userIndex)}
-                            </div>
-                        </div>
-
-                        <div class="modal-inputfield-div">
-                            <div class="modal-right-top">
-                                <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
-                            </div>
-                            
-                            <form onsubmit="editContactInModal(${userIndex}); return false">
-                                <div class="modal-inputfield">
-                                    <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                    <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                    <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
-                                </div>
-                            
-                                <div class="modal-inputfield-buttons">
-                                    <button id="cancelBtn" type="button" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
-                                    <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
-                                </div>
-                            </form>
-
-                        </div>
-
+        <modal onclick="closeModal()" class="modal-background" id="modal-background">
+            <modal onclick="eventBubbling(event)" class="modal" id="modal">
+                <div class="modal-left modal-same-padding-left">
+                    <div class="modal-left-div modal-same-padding">
+                        <img src="./assets/img/logo-2.png">
+                        <h1>Edit contact</h1>
+                        <hr>
                     </div>
                 </div>
-            </div>
+                <div class="modal-right modal-same-padding-right">
+                    <div class="modal-right-div modal-same-padding">
+                        <div class="modal-right-bottom">
+                            <div class="modal-userIcon-name">
+                                <div class="modal-userIcon-name-div">
+                                    ${userIconTemplateContactTable(USER_NAME, userIndex)}
+                                </div>
+                            </div>
+                            <div class="modal-inputfield-div">
+                                <div class="modal-right-top">
+                                    <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                                </div>
+                                <form onsubmit="editContactInModal(${userIndex}); return false">
+                                    <div class="modal-inputfield">
+                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
+                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
+                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
+                                    </div>
+                                    <div class="modal-inputfield-buttons">
+                                        <button id="cancelBtn" type="button" onclick="deleteContact(${userIndex})" style="background: var(--background-color-header);">Delete</button>
+                                        <button id="createContactBtn" type="submit" style="background: var(--background-color-nav); color: white;">Save <img src="./assets/icons/contacts/check.png"></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </modal>
         </modal>
-    </modal>
     `
 }
 

@@ -229,29 +229,6 @@
     }
 }
 
-@media (max-width: 800px) {
-    /* Allg. zum Modal */
-    .modal-left {
-        width: 640px;
-    }
-
-    .modal-right {
-        width: 640px;
-    }
-
-    .modal-userImg-Background {
-        margin: 32px;
-    }
-
-    .modal-inputfield input {
-        width: 404px;
-    }
-
-    .modal-inputfield-buttons {
-        width: 404px;
-    }
-}
-
 @media (max-width: 900px) {
 
         /* Header allg. */
@@ -267,6 +244,10 @@
         }
 
         .navBarBtns {
+            width: 198px;
+        }
+
+        .navBarBtns:hover {
             width: 198px;
         }
 
@@ -368,6 +349,29 @@
         .user-shortcut-email {
             font-size: 11px;
         }
+}
+
+@media (max-width: 800px) {
+    /* Allg. zum Modal */
+    .modal-left {
+        width: 640px;
+    }
+
+    .modal-right {
+        width: 640px;
+    }
+
+    .modal-userImg-Background {
+        margin: 32px;
+    }
+
+    .modal-inputfield input {
+        width: 404px;
+    }
+
+    .modal-inputfield-buttons {
+        width: 404px;
+    }
 }
 
 @media (max-width: 748px) {
