@@ -81,7 +81,7 @@ function closeModal() {
 // Fügt das Modal in "Conctact-Content" ein, legt sich jedoch durch Z-Index über alles andere!
 function openAddContactModal() {
     const CONTACT_CONTENT_REF = document.getElementsByClassName('content')[0];
-    CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
+    CONTACT_CONTENT_REF.insertAdjacentHTML("afterbegin", modalAddContactTemplate())
 }
 
 // Returns the User Information of each User
@@ -115,7 +115,7 @@ async function renderContactInfosInContactsTable(userIndex) {
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
-    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
+    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);   
 }
 
 // auslagerung von dem input im edit & contact modal
@@ -315,6 +315,7 @@ function contactSuccessfullyCreated() {
     }, delay);
 }
 
+// Lösche FlyAnimation zwecks neuladung des doms bei modal öffnung
 
 
 
@@ -345,9 +346,41 @@ function clickedUser() {
         contact.classList.toggle('clicked-Background');
       });
     });
-  }
+}
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// Guck ob benötigt wird....
+
+
+// Zum zurück kommen vom Contact Table zur Contact List
+function goBackToContactList() {
+    document.getElementsByClassName('contact-board')[0].style.display = "unset"; // zeige wieder die Kontaktliste an
+    document.getElementById('contact-content-table').innerHTML = ""; // leere den Contact Informations Bereich
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "none"; // entfern den edit und delete button in der Kontaktlisten Ansicht
+    document.getElementsByClassName('contact-content')[0].style.display = "none"; // Entfernt das Kontakt Details Template von der HTML 
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "unset"; // fügt button "add new contact" hinzu 
+}
+
+// Funktion zum rendern der User Details ins Contact Content Table
+async function renderContactInfosInContactsTableMobile(index) {
+    document.getElementsByClassName('contact-board')[0].style.display = "none"; //document.getElementsByClassName('contact-content')[0].style.display = "flex";
+    document.getElementsByClassName('contact-content')[0].style.display = "flex"; //  fügt Kontaktinformation Template + button edit contact hinzu 
+    document.getElementsByClassName('edit-delete-btn-background')[0].style.display = "unset"; // mache sichtbar den edit und delete button in der Kontaktlisten Ansicht
+    await renderContactInfosInContactsTable(index); // Get Contact information into "contact-content-table"
+    document.getElementsByClassName('add-new-contact-background')[0].style.display = "none"; // entfernt den add new contact button in der Kontakt Details Ansicht
+}
 

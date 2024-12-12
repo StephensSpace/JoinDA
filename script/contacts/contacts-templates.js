@@ -1,5 +1,4 @@
 
-
 // Container Template zur Trennung durch Anfangsbuchstaben Firstname
 function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     return `
@@ -70,7 +69,7 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
                     <p class="user-shortcut-name" style="color: black">${USER_NAME}</p>
                 </div>
                 <div>
-                    <p class="user-shortcut-email"  style="color: #007CEE;">${USER_EMAIL}</p>
+                    <p class="user-shortcut-email"  style="color: #007CEE !important;">${USER_EMAIL}</p>
                 </div>
             </div>
         </div>
@@ -80,7 +79,7 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
 // Unter Contacts | Better with a Team Template
 function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
     return `
-        <div class="contact-content-table-usernameAndIcons">
+        <div class="contact-content-table-usernameAndIcons flyAnimation">
             <div class="userIconTable">
                 ${userIconTemplateContactTable(USER_NAME, userIndex)}
             </div>
@@ -100,7 +99,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
                 </div>
             </div>
         </div>
-        <div class="contact-content-table-usernameFullinformation">
+        <div class="contact-content-table-usernameFullinformation flyAnimation">
             <p class="contact-content-information">Contact Information</p>
             <div>
                 <h4>E-Mail</h4>
@@ -228,22 +227,3 @@ function contactSuccessfullyCreatedTemplate() {
         </div>
     `
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
