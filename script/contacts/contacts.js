@@ -184,6 +184,7 @@ async function deleteContact(userIndex) {
 
 // Add Contact 
 async function addNewContactFunc(params) {
+    document.getElementById('contact-content-table').innerHTML = "";
     await addNewContact();
     contactSuccessfullyCreated();
 }

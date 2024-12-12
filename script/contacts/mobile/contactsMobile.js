@@ -12,6 +12,7 @@ async function addNewContactMobile() {
     document.getElementsByClassName('contact-content')[0].style.display = "flex";
     await addNewContact ();
     contactSuccessfullyCreated();
+    document.getElementById('contact-content-table').innerHTML = "";
 }
 
 // Funktion zum Rein & wieder rausnehmen der Div mit "Contact Successfully Created!"
