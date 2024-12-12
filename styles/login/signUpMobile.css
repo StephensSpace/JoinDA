@@ -237,3 +237,12 @@ a:hover {
         right: calc(94px - (396px - 100vw));
     }
 }
+
+@media (max-height: 776px) and (max-width: 400px) {
+   
+    #newUserSpan {
+        width: fit-content;
+        font-size: 18px;
+    }
+
+}

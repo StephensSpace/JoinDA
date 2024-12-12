@@ -1,3 +1,7 @@
+/**
+ * 
+ * @param {form} event 
+ */
 function SignUp(event) {
     document.getElementById('msgBox2').classList.add('visabilityHidden');
     event.preventDefault();

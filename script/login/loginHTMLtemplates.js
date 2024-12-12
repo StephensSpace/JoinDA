@@ -1,3 +1,9 @@
+
+/**
+ * 
+ * @returns HTML Code für das Registrierungs Formular, öffnet sich in einem Overlay
+ * 
+ */
 function loginForm() {
     return `<h1>Log in</h1>
         <div class="vector"></div>
@@ -19,6 +25,11 @@ function loginForm() {
         </form>`;
 }
 
+/**
+ * 
+ * @returns das Standart Login Formular mit E mail und passwort abfrage; wird gerendert
+ *          nachdem das registrieungs Formular geschlossen wurde
+ */
 function signUpForm() {
     return `<div class="arrowLeft" onclick="backToLogin()">
             <img src="./assets/buttons/arrowLeft.png" id="arrowLeft">

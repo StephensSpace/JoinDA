@@ -286,3 +286,28 @@ input[type="name"]::placeholder {
         right: 45px;
     }
 }
+
+@media(max-height: 940px) {
+    .not-a-user {
+        margin-bottom: 80px;
+    }
+}
+
+@media(max-height: 776px) {
+    .not-a-user {
+        position: absolute;
+        top: 0;
+        left: 100px;
+    }
+    .logo {
+        width: 75px;
+    }
+}
+
+@media (max-height: 776px) and (max-width: 400px) {
+    .not-a-user {
+        gap: 4px;
+        width: fit-content;
+    }
+
+}
