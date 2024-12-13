@@ -44,13 +44,10 @@ function fetchTasks(callback) {
 function renderTasks(tasks) {
   for (let taskId in tasks) {
     const task = tasks[taskId];
-
-    // Validierung: Überspringe ungültige Einträge
     if (!task || typeof task !== "object" || !task.title) {
       console.warn(`Ungültige Aufgabe für ID ${taskId}:`, task);
-      continue; // Ignoriere diesen Eintrag
+      continue;
     }
-
     addTaskToBoard(task);
   }
 }
@@ -75,12 +72,10 @@ function renderTasksOnBoard() {
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
-
   if (tasksContainer && noTasksMessage) {
     const visibleTasks = tasksContainer.querySelectorAll(".task-card");
     noTasksMessage.style.display = visibleTasks.length ? "none" : "block";
   } else {
-    console.error("Tasks container oder NoTasksMessage nicht gefunden.");
   }
 }
 
@@ -286,22 +281,18 @@ function removeInitialFromSelected(initials, selectedContainer) {
 function saveTaskToFirebase(task) {
   const newTaskRef = firebase.database().ref("/tasks/").push();
   task.id = newTaskRef.key;
-
   if (!task.category || task.category.trim() === "") {
-    console.error(
-      "Kategorie nicht gesetzt. Aufgabe kann nicht gespeichert werden."
-    );
     return;
   }
 
   newTaskRef
     .set(task)
     .then(() => {
+      updateTaskOnBoard(taskId, task);
       addTaskToBoard(task);
       enableDragAndDrop();
     })
-    .catch((error) => {
-      console.error("Fehler beim Speichern der Aufgabe in Firebase:", error);
+    .catch(() => {
     });
 }
 
