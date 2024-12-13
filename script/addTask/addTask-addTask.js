@@ -40,7 +40,6 @@ function handleTaskSubmit(e) {
       });
     } else {
       saveTaskToFirebase(task).then(() => {
-        renderTasks();
       });
     }
     closeModal();

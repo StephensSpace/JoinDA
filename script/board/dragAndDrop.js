@@ -8,7 +8,6 @@ function startDragging(event, taskCard) {
 
 function updateTaskTypeInFirebase(taskId, newType) {
   if (!taskId || !newType) {
-    console.error("Ungültige Parameter: taskId oder newType fehlt.");
     return;
   }
 

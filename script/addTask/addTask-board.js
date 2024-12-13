@@ -34,7 +34,6 @@ function fetchTasks(callback) {
       if (!tasks) {
         return;
       }
-
       callback(tasks);
     })
     .catch(() => {
