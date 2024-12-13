@@ -1,60 +1,66 @@
 function createTaskCard(task) {
   if (!task || typeof task !== "object") {
-    return null;
+    console.error("Ungültige Aufgabe übergeben:", task);
+    return null; // Gibt null zurück, wenn die Task ungültig ist
   }
+
   const members = Array.isArray(task.members) ? task.members : [];
+  const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+  const totalSubtasks = subtasks.length;
+  const completedSubtasks = subtasks.filter((st) => st.completed).length;
+  const progressPercent =
+    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
   card.dataset.id = task.id;
-  const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
-  const completedSubtasks = task.subtasks
-    ? task.subtasks.filter((st) => st.completed).length
-    : 0;
-  const progressPercent =
-    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
   card.innerHTML = `
-        <div class="task-category" style="background-color: ${
-          task.category === "User Story" ? "#0038FF" : "#1FD7C1"
-        }; color: white;">
-          ${task.category || "Technical Task"}
-        </div>
-        <h3>${task.title}</h3>
-        <p>${task.description || "No description provided"}</p>
-        <div class="progress-container">
-          <div class="progress">
-            <div class="progress-bar" style="width: ${progressPercent}%;"></div>
-          </div>
-          <div class="progress-text">
-            <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
-          </div>
-        </div>
-        <div class="task-footer">
-          <div class="avatars">
-            ${task.members
-              .map(
-                (name) => `
-              <div class="avatar" style="background-color: ${getColorForContact(
-                name
-              )};">
-                ${getInitials(name)}
-              </div>`
-              )
-              .join("")}
-          </div>
-          <img src="./assets/icons/${task.priority.toLowerCase()}.png" alt="${
-    task.priority
-  }" class="priority-icon" />
-        </div>
-      `;
+    <div class="task-category" style="background-color: ${
+      task.category === "User Story" ? "#0038FF" : "#1FD7C1"
+    }; color: white;">
+      ${task.category || "Technical Task"}
+    </div>
+    <h3>${task.title || "Untitled Task"}</h3>
+    <p>${task.description || "No description provided"}</p>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+      </div>
+      <div class="progress-text">
+        <span>${completedSubtasks}/${totalSubtasks} Subtasks</span>
+      </div>
+    </div>
+    <div class="task-footer">
+      <div class="avatars">
+        ${members
+          .map(
+            (name) => `
+          <div class="avatar" style="background-color: ${getColorForContact(
+            name
+          )};">
+            ${getInitials(name)}
+          </div>`
+          )
+          .join("")}
+      </div>
+      <img src="./assets/icons/${task.priority?.toLowerCase() || "low"}.png" 
+           alt="${task.priority || "Low"}" 
+           class="priority-icon" />
+    </div>
+  `;
+
   card.addEventListener("dragstart", (e) => startDragging(e, card));
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
   card.addEventListener("click", () => showTaskDetails(task));
+
   return card;
 }
+
 
 function renderSubtaskUI(subtaskElement, subtask) {
   subtaskElement.src = `./assets/icons/${

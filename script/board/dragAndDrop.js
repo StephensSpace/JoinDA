@@ -10,7 +10,6 @@ function updateTaskTypeInFirebase(taskId, newType) {
   if (!taskId || !newType) {
     return;
   }
-
   firebase
     .database()
     .ref(`/tasks/${taskId}`)
