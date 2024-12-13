@@ -53,7 +53,7 @@ function renderTasks(tasks) {
 function renderTasksOnBoard() {
   fetchTasks((tasks) => {
     document.querySelectorAll(".board-column").forEach((column) => {
-      const columnType = column.getAttribute("data-status");
+      const columnType = column.getAttribute("data-type");
       const tasksContainer = column.querySelector(".tasks-container");
       tasksContainer.innerHTML = "";
       Object.values(tasks)
@@ -62,6 +62,7 @@ function renderTasksOnBoard() {
           const taskCard = createTaskCard(task);
           tasksContainer.appendChild(taskCard);
         });
+        updateNoTasksMessage(column);
     });
     enableDragAndDrop();
   });
@@ -110,7 +111,6 @@ function collectSubtasksData() {
   return subtasks;
 }
 
-
 function updateTaskInFirebase(taskId, updatedData) {
   firebase
     .database()
@@ -122,7 +122,6 @@ function updateTaskInFirebase(taskId, updatedData) {
     .catch(() => {
     });
 }
-
 
 function updateTaskOnBoard(taskId, taskData) {
   removeTaskFromBoard(taskId);
@@ -164,7 +163,6 @@ function populateEditTaskForm(task) {
   const actionButton = document.getElementById("createTaskButton");
   actionButton.textContent = "Edit Task";
 }
-
 
 function closeTaskDetailsModal() {
   document.getElementById("taskDetailsModal").style.display = "none";
@@ -381,7 +379,6 @@ function selectContact(option, initials, color, selectedContainer, contactName, 
 
   toggleIcons(selectIcon, selectedIcon, true);
 }
-
 
 function updateSelectedMembers() {
   const selectedContainer = document.getElementById(

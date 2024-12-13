@@ -41,7 +41,7 @@ function handleTaskSubmit(e) {
       firebase.database().ref(`/tasks/${currentTaskId}`).once("value").then((snapshot) => {
         const updatedTask = snapshot.val();
         Object.assign(currentTask, updatedTask);
-        showTaskDetails(currentTask)
+        showTaskDetails(currentTask);
         closeModal();
         resetAddTaskModal();
       });
@@ -54,16 +54,18 @@ function handleTaskSubmit(e) {
 }
 
 function taskList() {
-  return {
+  const typeInput = document.getElementById("taskTypeInput");
+  const task = {
     title: document.getElementById("taskTitle").value,
     description: document.getElementById("taskDescription").value,
     dueDate: document.getElementById("taskDueDate").value,
     type: selectedType,
-    category: document.getElementById("taskTypeInput").value,
+    category: typeInput.value,
     priority: selectedPriority || "Medium",
     subtasks: subtasksArray,
     members: selectedMembers,
   };
+  return task;
 }
 
 function checkTitle() {
