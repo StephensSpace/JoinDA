@@ -1,35 +1,8 @@
 function startDragging(event, taskCard) {
   currentDraggedTask = {
-    id: taskCard.dataset.id,
-    category: taskCard.dataset.category,
+    id: taskCard.dataset.id
   };
   event.dataTransfer.setData("text/plain", taskCard.dataset.id);
-}
-
-function dropTask(event, newStatus) {
-  const taskId = event.dataTransfer.getData("text/plain");
-  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
-  if (taskCard) {
-    const oldStatus = taskCard.dataset.status;
-    taskCard.dataset.status = newStatus;
-
-    const newColumn = document.querySelector(
-      `.board-column[data-status="${newStatus}"] .tasks-container`
-    );
-    if (newColumn) {
-      newColumn.appendChild(taskCard);
-      updateTaskStatusInFirebase(taskId, newStatus);
-
-      updateNoTasksMessage(
-        document.querySelector(`.board-column[data-status="${oldStatus}"]`)
-      );
-      updateNoTasksMessage(
-        document.querySelector(`.board-column[data-status="${newStatus}"]`)
-      );
-    } else {
-      console.error(`Spalte für Status ${newStatus} nicht gefunden.`);
-    }
-  }
 }
 
 function enableDragAndDrop() {
@@ -80,21 +53,19 @@ function allowDrop(event) {
 function handleDrop(event, zone) {
   event.preventDefault();
   const draggedTaskId = event.dataTransfer.getData("text/plain");
-  const newStatus = zone.getAttribute("data-status");
+  const newType = zone.getAttribute("data-type");
   if (!draggedTaskId) {
-    console.error("Keine gültige Aufgabe wird gezogen.");
     return;
   }
   const draggedTask = document.querySelector(
     `.task-card[data-id="${draggedTaskId}"]`
   );
   if (!draggedTask) {
-    console.error("Zugezogene Aufgabe konnte nicht gefunden werden.");
     return;
   }
   zone.querySelector(".tasks-container").appendChild(draggedTask);
   if (typeof updateTaskStatusInFirebase === "function") {
-    updateTaskStatusInFirebase(draggedTaskId, newStatus);
+    updateTaskStatusInFirebase(draggedTaskId, newType);
   }
   checkAllColumnsForTasks();
 }

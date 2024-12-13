@@ -146,7 +146,7 @@
   .form-column-right {
     position: absolute;
     left: 74px;
-    margin-top: 340px;
+    margin-top: 350px;
   }
 
   .priority {
@@ -164,6 +164,7 @@
     justify-content: space-between;
     gap: 10px;
     margin-bottom: 20px;
+    width: 445px;
   }
 
   .form-column-left {
@@ -285,6 +286,9 @@
 
   .tasks-container {
     flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
   }
 
   .board-column {
@@ -424,12 +428,12 @@
   }
 
   .form-column-left {
-    left: 100px;
+    left: 65px;
     top: 61px;
   }
 
   .form-column-right {
-    left: 100px;
+    left: 65px;
     margin-top: 0;
     top: 420px;
     height: 475px;
@@ -446,7 +450,7 @@
   .bg-mobile-buttons {
     background-color: #ffffff;
     height: 100px;
-    width: 100%;
+    width: 100px;
     left: 3px;
     position: fixed;
     top: 888px;
@@ -457,6 +461,8 @@
     left: 350px;
     position: fixed;
     cursor: pointer;
+    z-index: 5;
+    top: 916px;
   }
 
   .add-task-label {
@@ -531,7 +537,7 @@
 
   .board-container {
     left: 7px;
-    width: 280px;
+    width: 319px;
   }
 
   #taskDetailTitle {

@@ -28,11 +28,9 @@ function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
     .ref(`/tasks/${taskId}/subtasks/${subtaskIndex}`)
     .update({ completed })
     .then(() => {
-      console.log("Subtask erfolgreich aktualisiert.");
     })
     .catch((error) => {
       console.error(
-        "Fehler beim Aktualisieren der Subtask in Firebase:",
         error
       );
     });

@@ -12,12 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
     populateContactsDropdown(contacts);
   });
 
-  const editButton = document.querySelector(".edit-btn");
-  if (editButton) {
-    editButton.addEventListener("click", () => {
-      openEditTaskModal();
-    });
+
+document.querySelector(".edit-btn").addEventListener("click", () => {
+  if (currentTask) {
+    isEditMode = true;
+    currentTaskId = currentTask.id;
+    populateEditTaskForm(currentTask);
+    document.getElementById("addTaskModal").style.display = "block";
   }
+});
+
 
   const taskDetailsCloseBtn = document.querySelector(
     "#taskDetailsModal .close-button"

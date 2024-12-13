@@ -1,3 +1,9 @@
+@media screen and (max-width: 1410px) {
+  .addTask-buttons {
+  left: 1100px;
+}
+}
+
 @media screen and (max-width: 1400px) {
   .form-column-left {
     width: 350px;
@@ -194,7 +200,9 @@
 
   .addTask-buttons {
     left: 195px;
-    top: 760px;
+    position: absolute;
+    top: 0;
+    padding: 20px;
   }
 
   .bg-mobile-buttons {

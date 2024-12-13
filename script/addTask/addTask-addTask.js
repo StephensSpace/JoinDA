@@ -32,7 +32,8 @@ function handleTaskSubmit(e) {
   const isTitleValid = checkTitle();
   const isDateValid = checkDueDate();
   if (isCategoryValid && isTitleValid && isDateValid) {
-    if (isEditMode) {
+    const task = taskList(); // Hier Task holen
+    if (isEditMode && currentTaskId) {
       updateTaskInFirebase(currentTaskId, task);
     } else {
       saveTaskToFirebase(task);
@@ -40,8 +41,8 @@ function handleTaskSubmit(e) {
     closeModal();
     resetAddTaskModal();
   }
-  taskList();
 }
+
 
 function taskList() {
   const typeInput = document.getElementById("taskTypeInput");
@@ -55,6 +56,7 @@ function taskList() {
     subtasks: subtasksArray,
     members: selectedMembers,
   };
+  return task;
 }
 
 function checkTitle() {

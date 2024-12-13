@@ -6,16 +6,6 @@ function startDragging(event, taskCard) {
   event.dataTransfer.setData("text/plain", taskCard.dataset.id);
 }
 
-function onTaskDrop(event, taskId, newType) {
-  event.preventDefault();
-  updateTaskTypeInFirebase(taskId, newType);
-  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
-  const newColumn = document.querySelector(
-    `.board-column[data-type="${newType}"] .tasks-container`
-  );
-  newColumn.appendChild(taskCard);
-}
-
 function updateTaskTypeInFirebase(taskId, newType) {
   const taskRef = firebase.database().ref(`/tasks/${taskId}`);
   taskRef
@@ -73,7 +63,7 @@ function allowDrop(event) {
 function handleDrop(event, zone) {
   event.preventDefault();
   const draggedTaskId = event.dataTransfer.getData("text/plain");
-  const newStatus = zone.getAttribute("data-status");
+  const newType= zone.getAttribute("data-type");
   if (!draggedTaskId) {
     return;
   }
@@ -85,7 +75,7 @@ function handleDrop(event, zone) {
   }
   zone.querySelector(".tasks-container").appendChild(draggedTask);
   if (typeof updateTaskTypeInFirebase === "function") {
-    updateTaskTypeInFirebase(draggedTaskId, newStatus);
+    updateTaskTypeInFirebase(draggedTaskId, newType);
   }
   checkAllColumnsForTasks();
 }
@@ -149,7 +139,6 @@ function updateSubtaskProgress(task) {
   if (progressBar) progressBar.style.width = `${progressPercent}%`;
   if (progressText)
     progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
-  progressPercent();
 }
 
 function progressPercent() {
@@ -191,15 +180,17 @@ function progressBar() {
   }
 }
 
-function setupSubtaskCheckboxListener() {
+function setupSubtaskCheckboxListener(task) {
   const subtaskContainer = document.getElementById("taskSubtasks");
+  if (!subtaskContainer) return;
   subtaskContainer.addEventListener("change", (event) => {
     if (event.target.type === "checkbox") {
-      const subtaskIndex = event.target.dataset.index;
-      currentTask.subtasks[subtaskIndex].completed = event.target.checked;
-      updateSubtaskProgress(currentTask.id);
-      renderTaskSubtasks(currentTask);
-      saveTaskToFirebase(currentTask);
+      const subtaskIndex = parseInt(event.target.dataset.index, 10);
+      task.subtasks[subtaskIndex].completed = event.target.checked;
+      updateSubtaskInFirebase(task.id, subtaskIndex, task.subtasks[subtaskIndex].completed);
+      updateTaskProgress(task);
+      updateTaskOnBoard(task.id, task);
     }
   });
 }
+

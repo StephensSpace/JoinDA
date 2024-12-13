@@ -8,7 +8,7 @@ function openAddTaskModal(type) {
 }
 
 function addTaskToBoard(task) {
-  const status = task.type || "todo";
+  const status = task.type || "";
   const boardColumn = document.querySelector(
     `.board-column[data-status="${status}"]`
   );
@@ -32,25 +32,34 @@ function handleTaskSubmit(e) {
   const isTitleValid = checkTitle();
   const isDateValid = checkDueDate();
   if (isCategoryValid && isTitleValid && isDateValid) {
-    if (isEditMode) {
+    const task = taskList();
+    if (!task) {
+      return;
+    }
+    if (isEditMode && currentTaskId) {
       updateTaskInFirebase(currentTaskId, task);
+      firebase.database().ref(`/tasks/${currentTaskId}`).once("value").then((snapshot) => {
+        const updatedTask = snapshot.val();
+        Object.assign(currentTask, updatedTask);
+        showTaskDetails(currentTask)
+        closeModal();
+        resetAddTaskModal();
+      });
     } else {
       saveTaskToFirebase(task);
+      closeModal();
+      resetAddTaskModal();
     }
-    closeModal();
-    resetAddTaskModal();
   }
-  taskList();
 }
 
 function taskList() {
-  const typeInput = document.getElementById("taskTypeInput");
-  const task = {
+  return {
     title: document.getElementById("taskTitle").value,
     description: document.getElementById("taskDescription").value,
     dueDate: document.getElementById("taskDueDate").value,
-    type: selectedType || "todo",
-    category: typeInput.value,
+    type: selectedType,
+    category: document.getElementById("taskTypeInput").value,
     priority: selectedPriority || "Medium",
     subtasks: subtasksArray,
     members: selectedMembers,
@@ -158,8 +167,7 @@ function setupSecondDropdown() {
     "secondDropdownSelectedText"
   );
   const categoryInput = document.getElementById("taskCategoryInput");
-  const typeInput = document.getElementById("taskTypeInput");
-  // Toggle dropdown visibility and arrow rotation
+  const taskTypeInput  = document.getElementById("taskTypeInput");
   secondDropdown.addEventListener("click", (event) => {
     event.stopPropagation();
     const isOpen = secondDropdown.classList.toggle("open");
@@ -171,7 +179,7 @@ function setupSecondDropdown() {
     if (event.target.classList.contains("second-dropdown-option")) {
       const selectedCategory = event.target.dataset.value;
       secondSelectedText.textContent = selectedCategory;
-      typeInput.value = selectedCategory;
+      taskTypeInput.value = selectedCategory;
       secondOptionsContainer
         .querySelectorAll(".second-dropdown-option")
         .forEach((option) => {

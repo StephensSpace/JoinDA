@@ -53,11 +53,11 @@ function renderTasks(tasks) {
 function renderTasksOnBoard() {
   fetchTasks((tasks) => {
     document.querySelectorAll(".board-column").forEach((column) => {
-      const category = column.getAttribute("data-status");
+      const columnType = column.getAttribute("data-status");
       const tasksContainer = column.querySelector(".tasks-container");
       tasksContainer.innerHTML = "";
-      tasks
-        .filter((task) => task.category === category)
+      Object.values(tasks)
+        .filter((task) => task.type === columnType)
         .forEach((task) => {
           const taskCard = createTaskCard(task);
           tasksContainer.appendChild(taskCard);
@@ -66,6 +66,7 @@ function renderTasksOnBoard() {
     enableDragAndDrop();
   });
 }
+
 
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
@@ -98,12 +99,30 @@ function openEditTaskModal() {
   }
 }
 
-async function updateTaskInFirebase(task) {
-  try {
-    const taskRef = firebase.database().ref(`tasks/${task.id}`);
-    await taskRef.update({ type: task.type });
-  } catch (error) {}
+function collectSubtasksData() {
+  const subtasks = [];
+  document.querySelectorAll(".edit-subtask").forEach((subtaskElement) => {
+    subtasks.push({
+      title: subtaskElement.querySelector(".subtask-title").value,
+      completed: subtaskElement.querySelector(".subtask-checkbox").checked,
+    });
+  });
+  return subtasks;
 }
+
+
+function updateTaskInFirebase(taskId, updatedData) {
+  firebase
+    .database()
+    .ref(`/tasks/${taskId}`)
+    .update(updatedData)
+    .then(() => {
+      updateTaskOnBoard(taskId, updatedData);
+    })
+    .catch(() => {
+    });
+}
+
 
 function updateTaskOnBoard(taskId, taskData) {
   removeTaskFromBoard(taskId);
@@ -134,8 +153,8 @@ function populateEditTaskForm(task) {
   document.getElementById("taskDueDate").value = task.dueDate || "";
   selectedPriority = task.priority || "Medium";
   updatePriorityButtons();
-  selectedCategory = task.category;
-  document.getElementById("taskTypeInput").value = task.category || "";
+  selectedType = task.type;
+  document.getElementById("taskTypeInput").value = task.category || ""; 
   document.getElementById("secondDropdownSelectedText").textContent =
     task.category || "Select a category";
   selectedMembers = task.members || [];
@@ -145,6 +164,7 @@ function populateEditTaskForm(task) {
   const actionButton = document.getElementById("createTaskButton");
   actionButton.textContent = "Edit Task";
 }
+
 
 function closeTaskDetailsModal() {
   document.getElementById("taskDetailsModal").style.display = "none";
@@ -233,34 +253,44 @@ function searchInput() {
 
 function toggleContactSelection(option, initials, color, selectedContainer) {
   const contactName = option.dataset.value;
-  const isSelected = option.classList.contains("selected");
-  if (isSelected) {
-    option.classList.remove("selected");
-    option.style.backgroundColor = "";
-    option.style.color = "";
-    removeInitialFromSelected(initials, selectedContainer);
-    selectedMembers = selectedMembers.filter(
-      (member) => member !== contactName
-    );
-  } else {
-    option.classList.add("selected");
-    option.style.backgroundColor = "#091931";
-    option.style.color = "white";
-    addInitialToSelected(initials, color, selectedContainer);
-    if (!selectedMembers.includes(contactName)) {
-      selectedMembers.push(contactName);
-    }
-  }
-  selectIcon();
-}
-
-function selectIcon() {
   const selectIcon = option.querySelector(".select-icon");
   const selectedIcon = option.querySelector(".selected-icon");
-  selectIcon.classList.remove("icon-visible");
-  selectIcon.classList.add("icon-hidden");
-  selectedIcon.classList.remove("icon-hidden");
-  selectedIcon.classList.add("icon-visible");
+
+  if (!selectIcon || !selectedIcon) {
+    console.error("Icons für Auswahl nicht gefunden.");
+    return;
+  }
+
+  const isSelected = option.classList.contains("selected");
+  if (isSelected) {
+    deselectContact(option, initials, selectedContainer, contactName, selectIcon, selectedIcon);
+  } else {
+    selectContact(option, initials, color, selectedContainer, contactName, selectIcon, selectedIcon);
+  }
+}
+
+function deselectContact(option, initials, selectedContainer, contactName, selectIcon, selectedIcon) {
+  option.classList.remove("selected");
+  option.style.backgroundColor = "";
+  option.style.color = "";
+  removeInitialFromSelected(initials, selectedContainer);
+  selectedMembers = selectedMembers.filter((member) => member !== contactName);
+
+  toggleIcons(selectIcon, selectedIcon, false);
+}
+
+function toggleIcons(selectIcon, selectedIcon, isSelected) {
+  if (isSelected) {
+    selectIcon.classList.remove("icon-visible");
+    selectIcon.classList.add("icon-hidden");
+    selectedIcon.classList.remove("icon-hidden");
+    selectedIcon.classList.add("icon-visible");
+  } else {
+    selectIcon.classList.remove("icon-hidden");
+    selectIcon.classList.add("icon-visible");
+    selectedIcon.classList.remove("icon-visible");
+    selectedIcon.classList.add("icon-hidden");
+  }
 }
 
 function addInitialToSelected(initials, color, selectedContainer) {
@@ -302,19 +332,6 @@ function filterTasks() {
 }
 filterTasks();
 
-function collectFormData() {
-  return {
-    title: document.getElementById("taskTitle").value,
-    Description: document.getElementById("taskDescription").value,
-    Date: document.getElementById("taskDueDate").value,
-    Prio: selectedPriority,
-    category: document.getElementById("taskTypeInput").value,
-    members: selectedMembers,
-    subtasks: subtasksArray,
-    type: document.getElementById("taskCategoryInput").value || "Task",
-  };
-}
-
 function saveTaskToFirebase(task) {
   const newTaskRef = firebase.database().ref("/tasks/").push();
   task.id = newTaskRef.key;
@@ -352,12 +369,19 @@ function setupContactsSelection() {
     });
 }
 
-function selectContact(contactName) {
+function selectContact(option, initials, color, selectedContainer, contactName, selectIcon, selectedIcon) {
+  option.classList.add("selected");
+  option.style.backgroundColor = "#091931";
+  option.style.color = "white";
+  addInitialToSelected(initials, color, selectedContainer);
+
   if (!selectedMembers.includes(contactName)) {
     selectedMembers.push(contactName);
-    updateSelectedMembers();
   }
+
+  toggleIcons(selectIcon, selectedIcon, true);
 }
+
 
 function updateSelectedMembers() {
   const selectedContainer = document.getElementById(

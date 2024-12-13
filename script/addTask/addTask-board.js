@@ -37,8 +37,7 @@ function fetchTasks(callback) {
 
       callback(tasks);
     })
-    .catch((error) => {
-      console.error("Fehler beim Abrufen der Aufgaben:", error);
+    .catch(() => {
     });
 }
 
@@ -64,7 +63,7 @@ function renderTasksOnBoard() {
       tasksContainer.innerHTML = "";
 
       tasks
-        .filter((task) => task.category === category)
+        .filter((task) => task.type === category)
         .forEach((task) => {
           const taskCard = createTaskCard(task);
           tasksContainer.appendChild(taskCard);
@@ -288,19 +287,6 @@ function removeInitialFromSelected(initials, selectedContainer) {
       span.remove();
     }
   });
-}
-
-function collectFormData() {
-  return {
-    title: document.getElementById("taskTitle").value,
-    Description: document.getElementById("taskDescription").value,
-    Date: document.getElementById("taskDueDate").value,
-    Prio: selectedPriority,
-    category: document.getElementById("taskTypeInput").value,
-    members: selectedMembers,
-    subtasks: subtasksArray,
-    type: document.getElementById("taskCategoryInput").value || "Task",
-  };
 }
 
 function saveTaskToFirebase(task) {
