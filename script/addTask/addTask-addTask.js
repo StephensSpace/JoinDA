@@ -32,17 +32,21 @@ function handleTaskSubmit(e) {
   const isTitleValid = checkTitle();
   const isDateValid = checkDueDate();
   if (isCategoryValid && isTitleValid && isDateValid) {
-    const task = taskList(); // Hier Task holen
+    const task = taskList();
     if (isEditMode && currentTaskId) {
-      updateTaskInFirebase(currentTaskId, task);
+      updateTaskInFirebase(currentTaskId, task).then(() => {
+        updateTaskOnBoard(currentTaskId, task);
+        renderTasks();
+      });
     } else {
-      saveTaskToFirebase(task);
+      saveTaskToFirebase(task).then(() => {
+        renderTasks();
+      });
     }
     closeModal();
     resetAddTaskModal();
   }
 }
-
 
 function taskList() {
   const typeInput = document.getElementById("taskTypeInput");

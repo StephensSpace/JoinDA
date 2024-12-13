@@ -24,10 +24,18 @@ function getColorForContact(name) {
 
 function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
   if (!taskId || subtaskIndex === undefined || completed === undefined) {
+    console.error("Ungültige Parameter für die Subtask-Synchronisation:", {
+      taskId,
+      subtaskIndex,
+      completed,
+    });
     return;
   }
+
   firebase
     .database()
     .ref(`/tasks/${taskId}/subtasks/${subtaskIndex}`)
     .update({ completed })
+    .catch((error) => console.error("Fehler beim Synchronisieren mit Firebase:", error));
 }
+

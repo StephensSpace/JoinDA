@@ -34,7 +34,6 @@ function fetchTasks(callback) {
       if (!tasks) {
         return;
       }
-
       callback(tasks);
     })
     .catch(() => {});
@@ -48,6 +47,7 @@ function renderTasks(tasks) {
     }
     addTaskToBoard(task);
   }
+  checkAllColumnsForTasks();
 }
 
 function renderTasksOnBoard() {
@@ -62,21 +62,22 @@ function renderTasksOnBoard() {
           const taskCard = createTaskCard(task);
           tasksContainer.appendChild(taskCard);
         });
-        updateNoTasksMessage(column);
+      updateNoTasksMessage(column);
     });
+    checkAllColumnsForTasks();
     enableDragAndDrop();
   });
 }
 
-
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
-  if (!tasksContainer || !noTasksMessage) {
-    return;
+
+  if (tasksContainer && noTasksMessage) {
+    const visibleTasks = tasksContainer.querySelectorAll(".task-card");
+    noTasksMessage.style.display = visibleTasks.length ? "none" : "block";
+  } else {
   }
-  const hasTasks = tasksContainer.children.length > 0;
-  noTasksMessage.style.display = hasTasks ? "none" : "block";
 }
 
 function createAssignedToList(task) {
@@ -117,7 +118,8 @@ function updateTaskInFirebase(taskId, updatedData) {
     .ref(`/tasks/${taskId}`)
     .update(updatedData)
     .then(() => {
-      updateTaskOnBoard(taskId, updatedData);
+      tasksMap[taskId] = { ...tasksMap[taskId], ...updatedData };
+      updateTaskOnBoard(taskId, tasksMap[taskId]);
     })
     .catch(() => {
     });
@@ -127,6 +129,7 @@ function updateTaskOnBoard(taskId, taskData) {
   removeTaskFromBoard(taskId);
   taskData.id = taskId;
   addTaskToBoard(taskData);
+  checkAllColumnsForTasks();
 }
 
 function loadTasksFromFirebase() {
@@ -331,17 +334,16 @@ function filterTasks() {
 filterTasks();
 
 function saveTaskToFirebase(task) {
-  const newTaskRef = firebase.database().ref("/tasks/").push();
-  task.id = newTaskRef.key;
-
-  if (!task.category || task.category.trim() === "") {
-    return;
-  }
-  newTaskRef.set(task).then(() => {
-    addTaskToBoard(task);
-    enableDragAndDrop();
-  });
+  const taskId = firebase.database().ref("/tasks").push().key;
+  task.id = taskId;
+  firebase.database().ref(`/tasks/${taskId}`).set(task)
+    .then(() => {
+      console.log("Task successfully saved!");
+      updateTaskOnBoard(taskId, task);
+    })
+    .catch((error) => console.error("Error saving task:", error));
 }
+
 
 function updatePriorityButtons() {
   document.querySelectorAll(".priority-btn").forEach((btn) => {

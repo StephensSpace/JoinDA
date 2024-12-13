@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Event Listener für die "+"-Buttons in den Spalten
   const addTaskTypeButtons = document.querySelectorAll(
     ".add-task-btn-category"
   );
@@ -93,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Event Listener für den "Subtask hinzufügen"-Button
   const subtaskInput = document.getElementById("subtaskInput");
   const subtaskAddButton = document.querySelector(".subtask-add-button");
   subtaskAddButton.addEventListener("click", () => {
@@ -118,19 +116,12 @@ function setupSubtaskIconClickListeners(task) {
       const subtask = task.subtasks[subtaskIndex];
 
       if (subtask) {
-        // Toggle completed state
         subtask.completed = !subtask.completed;
-
-        // Update icon
         event.target.src = `./assets/icons/${
           subtask.completed ? "checked" : "unchecked"
         }.png`;
         event.target.alt = subtask.completed ? "Completed" : "Incomplete";
-
-        // Sync with Firebase
         updateSubtaskInFirebase(task.id, subtaskIndex, subtask.completed);
-
-        // Update progress
         updateSubtaskProgress(task);
       }
     });

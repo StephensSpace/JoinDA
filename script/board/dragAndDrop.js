@@ -7,12 +7,22 @@ function startDragging(event, taskCard) {
 }
 
 function updateTaskTypeInFirebase(taskId, newType) {
-  const taskRef = firebase.database().ref(`/tasks/${taskId}`);
-  taskRef
+  if (!taskId || !newType) {
+    console.error("Ungültige Parameter: taskId oder newType fehlt.");
+    return;
+  }
+
+  firebase
+    .database()
+    .ref(`/tasks/${taskId}`)
     .update({ type: newType })
-    .then(() => {})
-    .catch(() => {});
+    .then(() => {
+      checkAllColumnsForTasks();
+    })
+    .catch(() => {
+    });
 }
+
 
 function enableDragAndDrop() {
   const taskCards = document.querySelectorAll(".task-card");
@@ -63,26 +73,35 @@ function allowDrop(event) {
 function handleDrop(event, zone) {
   event.preventDefault();
   const draggedTaskId = event.dataTransfer.getData("text/plain");
-  const newType= zone.getAttribute("data-type");
-  if (!draggedTaskId) {
+  const newType = zone.getAttribute("data-type");
+  if (!draggedTaskId || !newType) {
     return;
   }
-  const draggedTask = document.querySelector(
-    `.task-card[data-id="${draggedTaskId}"]`
-  );
+  const draggedTask = document.querySelector(`.task-card[data-id="${draggedTaskId}"]`);
   if (!draggedTask) {
     return;
   }
   zone.querySelector(".tasks-container").appendChild(draggedTask);
-  if (typeof updateTaskTypeInFirebase === "function") {
-    updateTaskTypeInFirebase(draggedTaskId, newType);
-  }
+  updateTaskTypeInFirebase(draggedTaskId, newType);
+  renderTasksOnBoard();
   checkAllColumnsForTasks();
 }
 
 function checkAllColumnsForTasks() {
   const columns = document.querySelectorAll(".board-column");
-  columns.forEach((column) => updateNoTasksMessage(column));
+  columns.forEach((column) => {
+    const tasksContainer = column.querySelector(".tasks-container");
+    const noTasksMessage = column.querySelector(".no-tasks");
+
+    if (!tasksContainer || !noTasksMessage) {
+      return;
+    }
+    if (tasksContainer.children.length > 0) {
+      noTasksMessage.style.display = "none";
+    } else {
+      noTasksMessage.style.display = "block";
+    }
+  });
 }
 
 function handleSubtaskProgressUpdate() {

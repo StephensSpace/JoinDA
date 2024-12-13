@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     populateContactsDropdown(contacts);
   });
 
-
 document.querySelector(".edit-btn").addEventListener("click", () => {
   if (currentTask) {
     isEditMode = true;
@@ -21,7 +20,6 @@ document.querySelector(".edit-btn").addEventListener("click", () => {
     document.getElementById("addTaskModal").style.display = "block";
   }
 });
-
 
   const taskDetailsCloseBtn = document.querySelector(
     "#taskDetailsModal .close-button"

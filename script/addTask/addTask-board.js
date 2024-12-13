@@ -61,7 +61,6 @@ function renderTasksOnBoard() {
       const category = column.getAttribute("data-status");
       const tasksContainer = column.querySelector(".tasks-container");
       tasksContainer.innerHTML = "";
-
       tasks
         .filter((task) => task.type === category)
         .forEach((task) => {
@@ -69,20 +68,20 @@ function renderTasksOnBoard() {
           tasksContainer.appendChild(taskCard);
         });
     });
-
-    enableDragAndDrop(); // Nur einmal aufrufen
+    enableDragAndDrop();
   });
 }
 
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
-  if (!tasksContainer || !noTasksMessage) {
-    console.error("tasksContainer oder noTasksMessage nicht gefunden.");
-    return;
+
+  if (tasksContainer && noTasksMessage) {
+    const visibleTasks = tasksContainer.querySelectorAll(".task-card");
+    noTasksMessage.style.display = visibleTasks.length ? "none" : "block";
+  } else {
+    console.error("Tasks container oder NoTasksMessage nicht gefunden.");
   }
-  const hasTasks = tasksContainer.children.length > 0;
-  noTasksMessage.style.display = hasTasks ? "none" : "block";
 }
 
 function createAssignedToList(task) {
@@ -118,8 +117,7 @@ function updateTaskInFirebase(taskId, taskData) {
         updateTaskDetailsModal(currentTask);
       }
     })
-    .catch((error) => {
-      console.error("Fehler beim Aktualisieren der Aufgabe:", error);
+    .catch(() => {
     });
 }
 
@@ -204,32 +202,28 @@ function setupDropdownSearchInline() {
   const dropdown = document.getElementById("taskAssignedDropdown");
   const optionsContainer = document.getElementById("taskAssignedOptions");
   const searchInput = document.getElementById("taskSearchInput");
-  const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder"); // Specific trigger for toggling
+  const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
 
   if (!dropdown || !optionsContainer || !searchInput) {
     console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");
     return;
   }
 
-  // Toggle dropdown visibility when clicking on the trigger
   dropdownTrigger.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevents the click from propagating to the document
+    event.stopPropagation();
     const isOpen = dropdown.classList.toggle("open");
     optionsContainer.classList.toggle("hidden", !isOpen);
   });
 
-  // Close dropdown when clicking outside
   document.addEventListener("click", () => {
     optionsContainer.classList.add("hidden");
     dropdown.classList.remove("open");
   });
 
-  // Fetch and populate contacts
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
   });
 
-  // Filter options based on search input
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
     const options = optionsContainer.querySelectorAll(".dropdown-option");
@@ -346,21 +340,17 @@ function updateSelectedMembers() {
   const selectedContainer = document.getElementById(
     "selectedContactsContainer"
   );
-  selectedContainer.innerHTML = ""; // Vorherige Mitglieder entfernen
-
+  selectedContainer.innerHTML = "";
   selectedMembers.forEach((member) => {
     const initials = getInitials(member);
     const color = getColorForContact(member);
-
     const span = document.createElement("span");
     span.className = "selected-contact-initials";
     span.textContent = initials;
     span.style.backgroundColor = color;
-
     selectedContainer.appendChild(span);
   });
 }
-
 fetchContacts((contacts) => {
   populateContactsDropdown(Object.values(contacts));
 });
