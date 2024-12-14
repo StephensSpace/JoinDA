@@ -14,6 +14,11 @@ fetchTasks((tasks) => {
   tasksMap = tasks;
 });
 
+/**
+ * Fetches user contacts from Firebase and executes a callback with the results.
+ * @param {Function} callback - The callback function to handle the fetched contacts.
+ */
+
 function fetchUsers(callback) {
   firebase
     .database()
@@ -23,6 +28,11 @@ function fetchUsers(callback) {
       callback(snapshot.val());
     });
 }
+
+/**
+ * Fetches tasks from Firebase and executes a callback with the task data.
+ * @param {Function} callback - The callback function to process the fetched tasks.
+ */
 
 function fetchTasks(callback) {
   firebase
@@ -39,6 +49,11 @@ function fetchTasks(callback) {
     .catch(() => {});
 }
 
+/**
+ * Renders tasks onto the board by iterating over each task object.
+ * @param {Object} tasks - An object containing all task details.
+ */
+
 function renderTasks(tasks) {
   for (let taskId in tasks) {
     const task = tasks[taskId];
@@ -51,6 +66,9 @@ function renderTasks(tasks) {
   enableDragAndDrop();
 }
 
+/**
+ * Fetches and renders tasks onto the board columns.
+ */
 
 function renderTasksOnBoard() {
   fetchTasks((tasks) => {
@@ -71,6 +89,10 @@ function renderTasksOnBoard() {
   });
 }
 
+/**
+ * Loads tasks from Firebase and populates the respective board columns.
+ */
+
 function loadTasksFromFirebase() {
   const tasksRef = firebase.database().ref("tasks");
   tasksRef.once("value", (snapshot) => {
@@ -88,6 +110,11 @@ function loadTasksFromFirebase() {
   });
 }
 
+/**
+ * Updates the "No Tasks" message in a column based on the number of tasks present.
+ * @param {HTMLElement} column - The board column to check.
+ */
+
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
@@ -98,6 +125,12 @@ function updateNoTasksMessage(column) {
   } else {
   }
 }
+
+/**
+ * Creates the HTML structure for the list of assigned users in a task.
+ * @param {Object} task - The task object containing member details.
+ * @returns {string} The HTML string of assigned members.
+ */
 
 function createAssignedToList(task) {
   const members = task.members || [];
@@ -111,6 +144,10 @@ function createAssignedToList(task) {
     .join("");
 }
 
+/**
+ * Opens the modal for editing a task and populates it with the current task's data.
+ */
+
 function openEditTaskModal() {
   if (currentTask) {
     isEditMode = true;
@@ -119,6 +156,11 @@ function openEditTaskModal() {
     document.getElementById("addTaskModal").style.display = "block";
   }
 }
+
+/**
+ * Collects the subtasks data from the edit modal inputs.
+ * @returns {Array} An array of subtask objects with title and completion status.
+ */
 
 function collectSubtasksData() {
   const subtasks = [];
@@ -130,6 +172,12 @@ function collectSubtasksData() {
   });
   return subtasks;
 }
+
+/**
+ * Updates a task's data in Firebase and refreshes it on the board.
+ * @param {string} taskId - The ID of the task to update.
+ * @param {Object} updatedData - The updated task data to save in Firebase.
+ */
 
 function updateTaskInFirebase(taskId, updatedData) {
   firebase
@@ -144,12 +192,23 @@ function updateTaskInFirebase(taskId, updatedData) {
     });
 }
 
+/**
+ * Updates a task's representation on the board.
+ * @param {string} taskId - The ID of the task.
+ * @param {Object} taskData - The updated task data.
+ */
+
 function updateTaskOnBoard(taskId, taskData) {
   removeTaskFromBoard(taskId);
   taskData.id = taskId;
   addTaskToBoard(taskData);
   checkAllColumnsForTasks();
 }
+
+/**
+ * Populates the edit task modal form with the details of the selected task.
+ * @param {Object} task - The task object containing all details.
+ */
 
 function populateEditTaskForm(task) {
   document.getElementById("taskTitle").value = task.title || "";
@@ -169,9 +228,17 @@ function populateEditTaskForm(task) {
   actionButton.textContent = "Edit Task";
 }
 
+/**
+ * Closes the task details modal.
+ */
+
 function closeTaskDetailsModal() {
   document.getElementById("taskDetailsModal").style.display = "none";
 }
+
+/**
+ * Deletes the currently selected task from Firebase and the board.
+ */
 
 function deleteCurrentTask() {
   if (currentTaskId) {
@@ -184,12 +251,23 @@ function deleteCurrentTask() {
   }
 }
 
+/**
+ * Deletes a task from Firebase.
+ * @param {string} taskId - The ID of the task to delete.
+ * @returns {Promise<void>} A promise resolving when the task is deleted.
+ */
+
 function deleteTaskFromFirebase(taskId) {
   return firebase
     .database()
     .ref("/tasks/" + taskId)
     .remove();
 }
+
+/**
+ * Removes a task from the board.
+ * @param {string} taskId - The ID of the task to remove.
+ */
 
 function removeTaskFromBoard(taskId) {
   const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
@@ -200,11 +278,20 @@ function removeTaskFromBoard(taskId) {
   }
 }
 
+/**
+ * Resets the "Add Task" form inputs and states.
+ */
+
 function resetAddTaskForm() {
   document.getElementById("addTaskForm").reset();
   selectedMembers = [];
   updateSelectedMembers();
 }
+
+/**
+ * Fetches contacts from Firebase and executes a callback with the results.
+ * @param {Function} callback - The callback function to process the fetched contacts.
+ */
 
 function fetchContacts(callback) {
   firebase
@@ -217,6 +304,10 @@ function fetchContacts(callback) {
     })
     .catch(() => {});
 }
+
+/**
+ * Initializes the dropdown search functionality for task assignment.
+ */
 
 function setupDropdownSearchInline() {
   const dropdown = document.getElementById("taskAssignedDropdown");
@@ -240,6 +331,10 @@ function setupDropdownSearchInline() {
   searchInput();
 }
 
+/**
+ * Handles the input event for searching within the dropdown options.
+ */
+
 function searchInput() {
   const searchInput = document.getElementById("taskSearchInput");
   searchInput.addEventListener("input", () => {
@@ -253,6 +348,14 @@ function searchInput() {
     });
   });
 }
+
+/**
+ * Toggles the selection of a contact in the dropdown.
+ * @param {HTMLElement} option - The dropdown option element.
+ * @param {string} initials - The contact's initials.
+ * @param {string} color - The color associated with the contact.
+ * @param {HTMLElement} selectedContainer - The container for selected contacts.
+ */
 
 function toggleContactSelection(option, initials, color, selectedContainer) {
   const contactName = option.dataset.value;
@@ -272,6 +375,16 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
   }
 }
 
+/**
+ * Deselects a contact from the dropdown and updates the UI accordingly.
+ * @param {HTMLElement} option - The dropdown option element representing the contact.
+ * @param {string} initials - The initials of the contact to deselect.
+ * @param {HTMLElement} selectedContainer - The container where selected contacts are displayed.
+ * @param {string} contactName - The name of the contact to deselect.
+ * @param {HTMLElement} selectIcon - The icon element representing the unselected state.
+ * @param {HTMLElement} selectedIcon - The icon element representing the selected state.
+ */
+
 function deselectContact(option, initials, selectedContainer, contactName, selectIcon, selectedIcon) {
   option.classList.remove("selected");
   option.style.backgroundColor = "";
@@ -281,6 +394,13 @@ function deselectContact(option, initials, selectedContainer, contactName, selec
 
   toggleIcons(selectIcon, selectedIcon, false);
 }
+
+/**
+ * Toggles the visibility of select and selected icons based on the selection state.
+ * @param {HTMLElement} selectIcon - The icon element representing the unselected state.
+ * @param {HTMLElement} selectedIcon - The icon element representing the selected state.
+ * @param {boolean} isSelected - Indicates whether the contact is selected (`true`) or not (`false`).
+ */
 
 function toggleIcons(selectIcon, selectedIcon, isSelected) {
   if (isSelected) {
@@ -296,6 +416,13 @@ function toggleIcons(selectIcon, selectedIcon, isSelected) {
   }
 }
 
+/**
+ * Adds a contact's initials to the selected container with the specified background color.
+ * @param {string} initials - The initials of the contact to add.
+ * @param {string} color - The background color associated with the contact.
+ * @param {HTMLElement} selectedContainer - The container where selected contacts are displayed.
+ */
+
 function addInitialToSelected(initials, color, selectedContainer) {
   const span = document.createElement("span");
   span.className = "selected-contact-initials";
@@ -303,6 +430,12 @@ function addInitialToSelected(initials, color, selectedContainer) {
   span.style.backgroundColor = color;
   selectedContainer.appendChild(span);
 }
+
+/**
+ * Removes a contact's initials from the selected container.
+ * @param {string} initials - The initials of the contact to remove.
+ * @param {HTMLElement} selectedContainer - The container where selected contacts are displayed.
+ */
 
 function removeInitialFromSelected(initials, selectedContainer) {
   const spans = selectedContainer.querySelectorAll(
@@ -314,6 +447,10 @@ function removeInitialFromSelected(initials, selectedContainer) {
     }
   });
 }
+
+/**
+ * Filters tasks on the board based on the search input value.
+ */
 
 function filterTasks() {
   const searchInput = document.getElementById("searchInput");
@@ -335,6 +472,11 @@ function filterTasks() {
 }
 filterTasks();
 
+/**
+ * Saves a task to Firebase and updates the board.
+ * @param {Object} task - The task object to save.
+ */
+
 function saveTaskToFirebase(task) {
   const taskId = firebase.database().ref("/tasks").push().key;
   task.id = taskId;
@@ -346,6 +488,9 @@ function saveTaskToFirebase(task) {
     .catch((error) => console.error("Error saving task:", error));
 }
 
+/**
+ * Updates the appearance of priority buttons based on the selected priority.
+ */
 
 function updatePriorityButtons() {
   document.querySelectorAll(".priority-btn").forEach((btn) => {
@@ -360,6 +505,10 @@ function updatePriorityButtons() {
   });
 }
 
+/**
+ * Sets up event listeners for selecting contacts in the dropdown.
+ */
+
 function setupContactsSelection() {
   document
     .querySelectorAll("#taskAssignedOptions .dropdown-option")
@@ -370,6 +519,17 @@ function setupContactsSelection() {
       });
     });
 }
+
+/**
+ * Selects a contact from the dropdown and updates the UI accordingly.
+ * @param {HTMLElement} option - The dropdown option element representing the contact.
+ * @param {string} initials - The initials of the selected contact.
+ * @param {string} color - The background color associated with the selected contact.
+ * @param {HTMLElement} selectedContainer - The container where selected contacts are displayed.
+ * @param {string} contactName - The name of the selected contact.
+ * @param {HTMLElement} selectIcon - The icon element representing the unselected state.
+ * @param {HTMLElement} selectedIcon - The icon element representing the selected state.
+ */
 
 function selectContact(option, initials, color, selectedContainer, contactName, selectIcon, selectedIcon) {
   option.classList.add("selected");
@@ -383,6 +543,10 @@ function selectContact(option, initials, color, selectedContainer, contactName, 
 
   toggleIcons(selectIcon, selectedIcon, true);
 }
+
+/**
+ * Updates the display of selected members in the "Add Task" modal.
+ */
 
 function updateSelectedMembers() {
   const selectedContainer = document.getElementById(
