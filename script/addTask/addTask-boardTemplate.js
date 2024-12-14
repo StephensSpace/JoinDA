@@ -1,3 +1,9 @@
+/**
+ * Creates a task card element based on the given task details.
+ * @param {Object} task - The task object containing details like title, category, priority, and subtasks.
+ * @returns {HTMLElement} The created task card element.
+ */
+
 function createTaskCard(task) {
   const card = document.createElement("div");
   card.className = "task-card";
@@ -73,9 +79,14 @@ function createTaskCard(task) {
   return card;
 }
 
-// Funktion zur Berechnung der Initialen
+/**
+ * Generates the initials from a given name.
+ * @param {string} name - The full name of the contact.
+ * @returns {string} The initials of the name in uppercase.
+ */
+
 function getInitials(name) {
-  if (!name) return "?"; // Fallback für leere Namen
+  if (!name) return "?";
   return name
     .split(" ")
     .map((n) => n[0])
@@ -83,7 +94,12 @@ function getInitials(name) {
     .toUpperCase();
 }
 
-// Funktion zur Berechnung der Hintergrundfarbe basierend auf dem Namen
+/**
+ * Assigns a unique color to a contact based on their name.
+ * @param {string} name - The contact's name.
+ * @returns {string} The color code associated with the contact.
+ */
+
 function getColorForContact(name) {
   const colors = [
     "#FF7A00",
@@ -96,9 +112,15 @@ function getColorForContact(name) {
     "#FF4646",
     "#00BEE8",
   ];
-  let index = name.charCodeAt(0) % colors.length; // Basierend auf dem ersten Buchstaben
+  let index = name.charCodeAt(0) % colors.length;
   return colors[index];
 }
+
+/**
+ * Creates a progress bar and text for a task's subtasks.
+ * @param {Object} task - The task object containing subtasks.
+ * @returns {string} The HTML string for the subtasks progress UI.
+ */
 
 function createSubtasksProgress(task) {
   const total = task.subtasks ? task.subtasks.length : 0;
@@ -119,6 +141,11 @@ function createSubtasksProgress(task) {
   }
   return "<span>No Subtasks</span>";
 }
+
+/**
+ * Displays the details of a task in a modal, including category, title, description, due date, priority, and members.
+ * @param {Object} task - The task object to display.
+ */
 
 function showTaskDetails(task) {
   currentTask = task;
@@ -158,10 +185,15 @@ function showTaskDetails(task) {
             </div>`
         )
         .join("")
-    : "<p>No members assigned</p>";
+: "<p>No members assigned</p>";
 
-  // Display Subtasks with Checkbox
-  function renderTaskSubtasks(task) {
+/**
+ * Renders the subtasks of a task into the subtasks container element in the UI.
+ * @param {Object} task - The task object containing subtasks.
+ * @param {Array} task.subtasks - The array of subtasks, each with a title and completion state.
+ */
+
+function renderTaskSubtasks(task) {
     const subtasksContainer = document.getElementById("taskSubtasks");
     subtasksContainer.innerHTML = createSubtasksList(task);
     if (!subtasksContainer) {
@@ -190,6 +222,11 @@ function showTaskDetails(task) {
   attachSubtaskProgressListener(task);
 }
 
+/**
+ * Adds a new subtask with the given title to the subtasks array and updates the list UI.
+ * @param {string} title - The title of the subtask to add.
+ */
+
 function addSubtask(title) {
   if (title) {
     subtasksArray.push({ title, completed: false });
@@ -198,10 +235,13 @@ function addSubtask(title) {
   }
 }
 
-// Funktion zum Aktualisieren der Subtasks-Liste
+/**
+ * Updates the UI for the subtask list based on the current subtasks array.
+ */
+
 function updateSubtasksList() {
   const subtaskList = document.getElementById("subtaskList");
-  subtaskList.innerHTML = ""; // Liste leeren
+  subtaskList.innerHTML = "";
 
   subtasksArray.forEach((subtask, index) => {
     const li = document.createElement("li");
@@ -226,23 +266,22 @@ function updateSubtasksList() {
     subtaskList.appendChild(li);
   });
 
-  setupSubtaskActions(); // Bearbeiten- und Löschen-Listener hinzufügen
+  setupSubtaskActions();
 }
 
-// Event-Listener für Bearbeiten und Löschen
+/**
+ * Sets up event listeners for subtask action buttons (edit and delete).
+ */
+
 function setupSubtaskActions() {
   const editIcons = document.querySelectorAll(".subtask-edit-icon");
   const deleteIcons = document.querySelectorAll(".subtask-delete-icon");
-
-  // Bearbeiten
   editIcons.forEach((icon) => {
     icon.addEventListener("click", () => {
       const index = icon.dataset.index;
       editSubtask(index);
     });
   });
-
-  // Löschen
   deleteIcons.forEach((icon) => {
     icon.addEventListener("click", () => {
       const index = icon.dataset.index;
@@ -251,7 +290,11 @@ function setupSubtaskActions() {
   });
 }
 
-// Bearbeiten einer Subtask
+/**
+ * Edits the title of a subtask and updates the subtask list.
+ * @param {number} index - The index of the subtask to edit.
+ */
+
 function editSubtask(index) {
   const span = document.querySelectorAll(".subtask-title")[index];
   const input = document.createElement("input");
@@ -268,6 +311,12 @@ function editSubtask(index) {
   input.addEventListener("blur", save);
 }
 
+/**
+ * Saves the edited title of a subtask and updates the subtask list.
+ * @param {number} index - The index of the subtask to update.
+ * @param {string} newTitle - The new title for the subtask.
+ */
+
 function saveEditedSubtask(index, newTitle) {
   if (newTitle) {
     subtasksArray[index].title = newTitle;
@@ -275,10 +324,21 @@ function saveEditedSubtask(index, newTitle) {
   updateSubtasksList();
 }
 
+/**
+ * Deletes a subtask by its index and updates the subtask list.
+ * @param {number} index - The index of the subtask to delete.
+ */
+
 function deleteSubtask(index) {
   subtasksArray.splice(index, 1);
   updateSubtasksList();
 }
+
+/**
+ * Creates a list of subtasks with their completion states.
+ * @param {Object} task - The task object containing subtasks.
+ * @returns {string} The HTML string for the subtasks list.
+ */
 
 function createSubtasksList(task) {
   if (task.subtasks && task.subtasks.length > 0) {
@@ -306,45 +366,41 @@ function createSubtasksList(task) {
   return "<li>No subtasks</li>";
 }
 
-// Event Listener for Subtask Icons
+/**
+ * Sets up click listeners for subtask icons to toggle their completion state and update progress.
+ * @param {Object} task - The task object containing subtasks.
+ */
+
 function setupSubtaskIconClickListeners(task) {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
   if (!taskCard) {
-    console.error(`Task card with ID ${task.id} not found.`);
     return;
   }
-
   const subtaskItems = taskCard.querySelectorAll(".subtask-item");
-
   subtaskItems.forEach((item) => {
     const checkbox = item.querySelector(".subtask-checkbox img");
-
     if (!checkbox) {
-      console.error("Subtask icon not found.");
       return;
     }
-
     checkbox.addEventListener("click", () => {
       const subtaskIndex = parseInt(item.dataset.index, 10);
       if (isNaN(subtaskIndex) || !task.subtasks[subtaskIndex]) {
-        console.error("Invalid subtask index.");
         return;
       }
-
-      // Toggle the subtask's completion state
       const subtask = task.subtasks[subtaskIndex];
       subtask.completed = !subtask.completed;
-
-      // Update the icon
       checkbox.src = `./assets/icons/${
         subtask.completed ? "checked" : "unchecked"
       }.png`;
-
-      // Update progress bar and text
       updateTaskProgress(task);
     });
   });
 }
+
+/**
+ * Updates the task details modal with the given task's information.
+ * @param {Object} task - The task object to display in the modal.
+ */
 
 function updateTaskDetailsModal(task) {
   document.getElementById("taskType").innerHTML = `
@@ -358,9 +414,8 @@ function updateTaskDetailsModal(task) {
     task.description || "No description provided";
   document.getElementById("taskDetailDueDate").innerText =
     task.dueDate || "N/A";
-  // Stelle sicher, dass das Prio-Icon zurückgesetzt wird
   const priorityContainer = document.getElementById("taskDetailPriority");
-  priorityContainer.innerHTML = ""; // Zurücksetzen
+  priorityContainer.innerHTML = "";
   const priorityIcon =
     task.priority === "Urgent"
       ? "./assets/icons/urgent.png"
@@ -388,6 +443,12 @@ function updateTaskDetailsModal(task) {
     : "<p>No members assigned</p>";
 }
 
+/**
+ * Creates avatar elements for all members assigned to a task.
+ * @param {Object} task - The task object containing member details.
+ * @returns {string} The HTML string for the avatar elements.
+ */
+
 function createAssignedAvatars(task) {
   if (task.members && task.members.length > 0) {
     let avatars = task.members
@@ -401,6 +462,11 @@ function createAssignedAvatars(task) {
   }
   return "";
 }
+
+/**
+ * Populates the contacts dropdown with the available contacts for task assignment.
+ * @param {Object} contacts - An object containing contact details.
+ */
 
 function populateContactsDropdown(contacts) {
   const optionsContainer = document.getElementById("taskAssignedOptions");

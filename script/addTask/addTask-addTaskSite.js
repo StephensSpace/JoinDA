@@ -1,35 +1,41 @@
-// Funktion zur Speicherung der Aufgabe
+/**
+ * Saves a task to Firebase and assigns it a unique ID.
+ * Redirects to the "board.html" page upon successful save.
+ * @param {Object} task - The task object containing all task details.
+ */
+
 function saveTaskToFirebase(task) {
   const newTaskRef = firebase.database().ref("/tasks/").push();
   task.id = newTaskRef.key;
 
   if (!task.category || task.category.trim() === "") {
-    console.error(
-      "Kategorie nicht gesetzt. Aufgabe kann nicht gespeichert werden."
-    );
     return;
   }
 
   newTaskRef
     .set(task)
     .then(() => {
-      // Nach Erstellung zur board.html navigieren
       window.location.href = "board.html";
     })
-    .catch((error) => {
-      console.error("Fehler beim Speichern der Aufgabe in Firebase:", error);
-    });
 }
 
-// Subtask hinzufügen
+/**
+ * Adds a subtask with the given title to the subtasks array and updates the UI.
+ * @param {string} title - The title of the subtask to add.
+ */
+
 function addSubtask(title) {
-  if (title) {
+  if (title && !subtasksArray.some(subtask => subtask.title === title)) {
     subtasksArray.push({ title, completed: false });
     updateSubtasksList();
   }
 }
 
-// Ausgewählte Kontakte anzeigen
+/**
+ * Updates the display of selected members in the UI.
+ * Joins the selected members into a single string and displays them.
+ */
+
 function updateSelectedMembers() {
   const selectedContainer = document.getElementById(
     "selectedContactsContainer"
@@ -37,7 +43,11 @@ function updateSelectedMembers() {
   selectedContainer.innerHTML = selectedMembers.join(", ");
 }
 
-// Event-Listener für Subtasks hinzufügen
+/**
+ * Initializes the "Add Subtask" button with a click event listener.
+ * Adds a subtask to the list when the button is clicked.
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
   const subtaskAddButton = document.getElementById("subtaskAddButton");
   if (subtaskAddButton) {

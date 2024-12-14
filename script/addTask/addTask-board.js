@@ -14,6 +14,11 @@ fetchTasks((tasks) => {
   tasksMap = tasks;
 });
 
+/**
+ * Fetches user contacts from Firebase and executes a callback with the results.
+ * @param {Function} callback - The callback function to handle the fetched contacts.
+ */
+
 function fetchUsers(callback) {
   firebase
     .database()
@@ -23,6 +28,11 @@ function fetchUsers(callback) {
       callback(snapshot.val());
     });
 }
+
+/**
+ * Fetches tasks from Firebase and executes a callback with the task data.
+ * @param {Function} callback - The callback function to process the fetched tasks.
+ */
 
 function fetchTasks(callback) {
   firebase
@@ -40,6 +50,11 @@ function fetchTasks(callback) {
     });
 }
 
+/**
+ * Renders tasks onto the board by iterating over each task object.
+ * @param {Object} tasks - An object containing all task details.
+ */
+
 function renderTasks(tasks) {
   for (let taskId in tasks) {
     const task = tasks[taskId];
@@ -50,6 +65,10 @@ function renderTasks(tasks) {
     addTaskToBoard(task);
   }
 }
+
+/**
+ * Fetches and renders tasks onto the board columns.
+ */
 
 function renderTasksOnBoard() {
   fetchTasks((tasks) => {
@@ -68,6 +87,11 @@ function renderTasksOnBoard() {
   });
 }
 
+/**
+ * Updates the "No Tasks" message in a column based on the number of tasks present.
+ * @param {HTMLElement} column - The board column to check.
+ */
+
 function updateNoTasksMessage(column) {
   const tasksContainer = column.querySelector(".tasks-container");
   const noTasksMessage = column.querySelector(".no-tasks");
@@ -77,6 +101,12 @@ function updateNoTasksMessage(column) {
   } else {
   }
 }
+
+/**
+ * Creates the HTML structure for the list of assigned users in a task.
+ * @param {Object} task - The task object containing member details.
+ * @returns {string} The HTML string of assigned members.
+ */
 
 function createAssignedToList(task) {
   const members = task.members || [];
@@ -90,6 +120,10 @@ function createAssignedToList(task) {
     .join("");
 }
 
+/**
+ * Opens the modal for editing a task and populates it with the current task's data.
+ */
+
 function openEditTaskModal() {
   if (currentTask) {
     isEditMode = true;
@@ -98,6 +132,12 @@ function openEditTaskModal() {
     document.getElementById("addTaskModal").style.display = "block";
   }
 }
+
+/**
+ * Updates a task's data in Firebase and refreshes it on the board.
+ * @param {string} taskId - The ID of the task to update.
+ * @param {Object} updatedData - The updated task data to save in Firebase.
+ */
 
 function updateTaskInFirebase(taskId, taskData) {
   firebase
@@ -115,11 +155,22 @@ function updateTaskInFirebase(taskId, taskData) {
     });
 }
 
+/**
+ * Updates a task's representation on the board.
+ * @param {string} taskId - The ID of the task.
+ * @param {Object} taskData - The updated task data.
+ */
+
 function updateTaskOnBoard(taskId, taskData) {
   removeTaskFromBoard(taskId);
   taskData.id = taskId;
   addTaskToBoard(taskData);
 }
+
+/**
+ * Populates the edit task modal form with the details of the selected task.
+ * @param {Object} task - The task object containing all details.
+ */
 
 function populateEditTaskForm(task) {
   document.getElementById("taskTitle").value = task.title || "";
@@ -139,9 +190,17 @@ function populateEditTaskForm(task) {
   actionButton.textContent = "Edit Task";
 }
 
+/**
+ * Closes the task details modal.
+ */
+
 function closeTaskDetailsModal() {
   document.getElementById("taskDetailsModal").style.display = "none";
 }
+
+/**
+ * Deletes the currently selected task from Firebase and the board.
+ */
 
 function deleteCurrentTask() {
   if (currentTaskId) {
@@ -156,12 +215,23 @@ function deleteCurrentTask() {
   }
 }
 
+/**
+ * Deletes a task from Firebase.
+ * @param {string} taskId - The ID of the task to delete.
+ * @returns {Promise<void>} A promise resolving when the task is deleted.
+ */
+
 function deleteTaskFromFirebase(taskId) {
   return firebase
     .database()
     .ref("/tasks/" + taskId)
     .remove();
 }
+
+/**
+ * Removes a task from the board.
+ * @param {string} taskId - The ID of the task to remove.
+ */
 
 function removeTaskFromBoard(taskId) {
   const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
@@ -172,11 +242,20 @@ function removeTaskFromBoard(taskId) {
   }
 }
 
+/**
+ * Resets the "Add Task" form inputs and states.
+ */
+
 function resetAddTaskForm() {
   document.getElementById("addTaskForm").reset();
   selectedMembers = [];
   updateSelectedMembers();
 }
+
+/**
+ * Fetches contacts from Firebase and executes a callback with the results.
+ * @param {Function} callback - The callback function to process the fetched contacts.
+ */
 
 function fetchContacts(callback) {
   firebase
@@ -191,6 +270,10 @@ function fetchContacts(callback) {
       console.error("Error fetching contacts:", error);
     });
 }
+
+/**
+ * Initializes the dropdown search functionality for task assignment.
+ */
 
 function setupDropdownSearchInline() {
   const dropdown = document.getElementById("taskAssignedDropdown");
@@ -230,6 +313,14 @@ function setupDropdownSearchInline() {
   });
 }
 
+/**
+ * Toggles the selection of a contact in the dropdown and updates the UI.
+ * @param {HTMLElement} option - The dropdown option element.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} color - The background color associated with the contact.
+ * @param {HTMLElement} selectedContainer - The container for selected contacts.
+ */
+
 function toggleContactSelection(option, initials, color, selectedContainer) {
   const contactName = option.dataset.value;
   const isSelected = option.classList.contains("selected");
@@ -258,6 +349,13 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
   }
 }
 
+/**
+ * Adds a contact's initials to the selected container.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} color - The background color associated with the contact.
+ * @param {HTMLElement} selectedContainer - The container for selected contacts.
+ */
+
 function addInitialToSelected(initials, color, selectedContainer) {
   const span = document.createElement("span");
   span.className = "selected-contact-initials";
@@ -265,6 +363,12 @@ function addInitialToSelected(initials, color, selectedContainer) {
   span.style.backgroundColor = color;
   selectedContainer.appendChild(span);
 }
+
+/**
+ * Removes a contact's initials from the selected container.
+ * @param {string} initials - The initials of the contact.
+ * @param {HTMLElement} selectedContainer - The container for selected contacts.
+ */
 
 function removeInitialFromSelected(initials, selectedContainer) {
   const spans = selectedContainer.querySelectorAll(
@@ -276,6 +380,11 @@ function removeInitialFromSelected(initials, selectedContainer) {
     }
   });
 }
+
+/**
+ * Saves a task to Firebase, assigns it a unique ID, and updates the board.
+ * @param {Object} task - The task object containing all details.
+ */
 
 function saveTaskToFirebase(task) {
   const newTaskRef = firebase.database().ref("/tasks/").push();
@@ -295,6 +404,10 @@ function saveTaskToFirebase(task) {
     });
 }
 
+/**
+ * Updates the appearance of priority buttons based on the selected priority.
+ */
+
 function updatePriorityButtons() {
   document.querySelectorAll(".priority-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.priority === selectedPriority);
@@ -308,6 +421,10 @@ function updatePriorityButtons() {
   });
 }
 
+/**
+ * Sets up click listeners for selecting contacts in the dropdown.
+ */
+
 function setupContactsSelection() {
   document
     .querySelectorAll("#taskAssignedOptions .dropdown-option")
@@ -319,12 +436,21 @@ function setupContactsSelection() {
     });
 }
 
+/**
+ * Adds a contact to the selected members list if not already added.
+ * @param {string} contactName - The name of the contact to select.
+ */
+
 function selectContact(contactName) {
   if (!selectedMembers.includes(contactName)) {
     selectedMembers.push(contactName);
     updateSelectedMembers();
   }
 }
+
+/**
+ * Updates the UI to display the currently selected members.
+ */
 
 function updateSelectedMembers() {
   const selectedContainer = document.getElementById(

@@ -1,3 +1,8 @@
+/**
+ * Opens the "Add Task" modal, resets its fields, and populates the contacts dropdown.
+ * @param {string} [type] - The type of task to pre-select in the modal.
+ */
+
 function openAddTaskModal(type) {
   resetAddTaskModal();
   selectedType = type || "";
@@ -6,6 +11,11 @@ function openAddTaskModal(type) {
     populateContactsDropdown(contacts);
   });
 }
+
+/**
+ * Adds a task to the appropriate column on the board.
+ * @param {Object} task - The task object containing its details.
+ */
 
 function addTaskToBoard(task) {
   const status = task.type || "todo";
@@ -25,6 +35,11 @@ function addTaskToBoard(task) {
   });
   updateNoTasksMessage(boardColumn);
 }
+
+/**
+ * Handles the submission of the "Add Task" form, validates inputs, and saves the task.
+ * @param {Event} e - The submit event triggered by the form.
+ */
 
 function handleTaskSubmit(e) {
   e.preventDefault();
@@ -47,6 +62,11 @@ function handleTaskSubmit(e) {
   }
 }
 
+/**
+ * Constructs and returns a task object from the modal's input fields.
+ * @returns {Object} The task object containing all relevant task details.
+ */
+
 function taskList() {
   const typeInput = document.getElementById("taskTypeInput");
   const task = {
@@ -62,6 +82,11 @@ function taskList() {
   return task;
 }
 
+/**
+ * Validates the title input field of the task.
+ * @returns {boolean} `true` if the title is valid, otherwise `false`.
+ */
+
 function checkTitle() {
   const titleInput = document.getElementById("taskTitle");
   const titleError = document.getElementById("titleError");
@@ -74,6 +99,11 @@ function checkTitle() {
     return true;
   }
 }
+
+/**
+ * Validates the due date input field of the task.
+ * @returns {boolean} `true` if the due date is valid, otherwise `false`.
+ */
 
 function checkDueDate() {
   const dateInput = document.getElementById("taskDueDate");
@@ -88,6 +118,11 @@ function checkDueDate() {
   }
 }
 
+/**
+ * Validates the category input field of the task.
+ * @returns {boolean} `true` if the category is valid, otherwise `false`.
+ */
+
 function checkCategory() {
   const typeInput = document.getElementById("taskTypeInput");
   const categoryError = document.getElementById("msg-box");
@@ -99,6 +134,11 @@ function checkCategory() {
     return true;
   }
 }
+
+/**
+ * Updates the priority icon in the task details based on the selected priority.
+ * @param {string} priority - The priority level ("Urgent", "Medium", or "Low").
+ */
 
 function updatePriorityIcon(priority) {
   const priorityIcon = document.getElementById("taskDetailPriorityIcon");
@@ -116,6 +156,10 @@ function updatePriorityIcon(priority) {
     }
   }
 }
+
+/**
+ * Resets all fields in the "Add Task" modal to their default state.
+ */
 
 function resetAddTaskModal() {
   document.getElementById("taskTitle").value = "";
@@ -137,6 +181,10 @@ function resetAddTaskModal() {
   hideErrorMessages();
 }
 
+/**
+ * Hides all error messages in the "Add Task" modal.
+ */
+
 function hideErrorMessages() {
   const titleError = document.getElementById("titleError");
   const dateError = document.getElementById("dueDateError");
@@ -146,6 +194,10 @@ function hideErrorMessages() {
   if (categoryError) categoryError.classList.add("hidden");
 }
 
+/**
+ * Closes the "Add Task" modal and redirects to the referring page or board.
+ */
+
 function closeModal() {
   if (document.referrer) {
     window.location.href = document.referrer;
@@ -154,39 +206,27 @@ function closeModal() {
   }
 }
 
+/**
+ * Sets up the dropdown menu for selecting a task category.
+ */
+
 function setupSecondDropdown() {
   const secondDropdown = document.getElementById("secondDropdown");
-  const secondOptionsContainer = document.getElementById(
-    "secondOptionsContainer"
-  );
+  const secondOptionsContainer = document.getElementById("secondOptionsContainer");
   const secondArrow = document.getElementById("secondDropdownArrow");
-  const secondSelectedText = document.getElementById(
-    "secondDropdownSelectedText"
-  );
+  const secondSelectedText = document.getElementById("secondDropdownSelectedText");
   const categoryInput = document.getElementById("taskCategoryInput");
-  const typeInput = document.getElementById("taskTypeInput");
+  const taskTypeInput = document.getElementById("taskTypeInput");
+
   secondDropdown.addEventListener("click", (event) => {
     event.stopPropagation();
-    const isOpen = secondDropdown.classList.toggle("open");
-    secondOptionsContainer.classList.toggle("hidden", !isOpen);
-    secondArrow.classList.toggle("open", isOpen);
+    toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow);
   });
+
   secondOptionsContainer.addEventListener("click", (event) => {
-    if (event.target.classList.contains("second-dropdown-option")) {
-      const selectedCategory = event.target.dataset.value;
-      secondSelectedText.textContent = selectedCategory;
-      typeInput.value = selectedCategory;
-      secondOptionsContainer
-        .querySelectorAll(".second-dropdown-option")
-        .forEach((option) => {
-          option.classList.remove("selected");
-        });
-      event.target.classList.add("selected");
-      secondDropdown.classList.remove("open");
-      secondOptionsContainer.classList.add("hidden");
-      secondArrow.classList.remove("open");
-    }
+    handleOptionSelection(event, secondDropdown, secondOptionsContainer, secondArrow, secondSelectedText, taskTypeInput);
   });
+
   document.addEventListener("click", (event) => {
     if (!secondDropdown.contains(event.target)) {
       secondDropdown.classList.remove("open");
@@ -194,4 +234,39 @@ function setupSecondDropdown() {
       secondArrow.classList.remove("open");
     }
   });
+}
+
+/**
+ * Toggles the visibility and state of the second dropdown menu.
+ * @param {HTMLElement} secondDropdown - The dropdown element.
+ * @param {HTMLElement} secondOptionsContainer - The options container element.
+ * @param {HTMLElement} secondArrow - The dropdown arrow element.
+ */
+
+function toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow) {
+  const isOpen = secondDropdown.classList.toggle("open");
+  secondOptionsContainer.classList.toggle("hidden", !isOpen);
+  secondArrow.classList.toggle("open", isOpen);
+}
+
+/**
+ * Handles selection of an option in the second dropdown menu.
+ * @param {Event} event - The click event on the dropdown option.
+ * @param {HTMLElement} secondDropdown - The dropdown element.
+ * @param {HTMLElement} secondOptionsContainer - The options container element.
+ * @param {HTMLElement} secondArrow - The dropdown arrow element.
+ * @param {HTMLElement} secondSelectedText - The element displaying the selected option text.
+ * @param {HTMLElement} taskTypeInput - The input element to store the selected type.
+ */
+
+function handleOptionSelection(event, secondDropdown, secondOptionsContainer, secondArrow, secondSelectedText, taskTypeInput) {
+  if (!event.target.classList.contains("second-dropdown-option")) return;
+  const selectedCategory = event.target.dataset.value;
+  secondSelectedText.textContent = selectedCategory;
+  taskTypeInput.value = selectedCategory;
+  secondOptionsContainer.querySelectorAll(".second-dropdown-option").forEach((option) => option.classList.remove("selected"));
+  event.target.classList.add("selected");
+  secondDropdown.classList.remove("open");
+  secondOptionsContainer.classList.add("hidden");
+  secondArrow.classList.remove("open");
 }

@@ -1,9 +1,19 @@
+/**
+ * Initializes the drag event for a task card and sets its data for transfer.
+ * @param {DragEvent} event - The dragstart event triggered by the task card.
+ * @param {HTMLElement} taskCard - The task card being dragged.
+ */
+
 function startDragging(event, taskCard) {
   currentDraggedTask = {
     id: taskCard.dataset.id
   };
   event.dataTransfer.setData("text/plain", taskCard.dataset.id);
 }
+
+/**
+ * Enables drag-and-drop functionality for task cards and sets up drop zones.
+ */
 
 function enableDragAndDrop() {
   const taskCards = document.querySelectorAll(".task-card");
@@ -36,19 +46,39 @@ function enableDragAndDrop() {
   });
 }
 
+/**
+ * Handles the start of a drag event for a task card.
+ * @param {DragEvent} event - The dragstart event.
+ */
+
 function handleDragStart(event) {
   console.log("Drag gestartet: ", event.target.dataset.id);
   event.dataTransfer.setData("text/plain", event.target.dataset.id);
   currentDraggedTask = event.target;
 }
 
+/**
+ * Handles the end of a drag event by resetting the dragged task state.
+ */
+
 function handleDragEnd() {
   currentDraggedTask = null;
 }
 
+/**
+ * Allows a drop event to occur on a valid drop zone.
+ * @param {DragEvent} event - The dragover event.
+ */
+
 function allowDrop(event) {
   event.preventDefault();
 }
+
+/**
+ * Handles the drop event, moves the task to the new column, and updates its type in Firebase.
+ * @param {DragEvent} event - The drop event.
+ * @param {HTMLElement} zone - The drop zone where the task is dropped.
+ */
 
 function handleDrop(event, zone) {
   event.preventDefault();
@@ -70,10 +100,18 @@ function handleDrop(event, zone) {
   checkAllColumnsForTasks();
 }
 
+/**
+ * Checks all board columns and updates the "No Tasks" message if needed.
+ */
+
 function checkAllColumnsForTasks() {
   const columns = document.querySelectorAll(".board-column");
   columns.forEach((column) => updateNoTasksMessage(column));
 }
+
+/**
+ * Sets up a listener for subtask progress updates and handles checkbox changes.
+ */
 
 function handleSubtaskProgressUpdate() {
   document
@@ -92,6 +130,13 @@ function handleSubtaskProgressUpdate() {
     });
 }
 
+/**
+ * Updates the completion status of a subtask in the task object and Firebase.
+ * @param {string} taskId - The ID of the task containing the subtask.
+ * @param {number} subtaskIndex - The index of the subtask in the task's subtasks array.
+ * @param {boolean} completed - Whether the subtask is completed.
+ */
+
 function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
   const task = tasksMap[taskId];
   if (!task || !Array.isArray(task.subtasks)) {
@@ -106,6 +151,11 @@ function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
     console.error("Subtask nicht gefunden:", subtaskIndex);
   }
 }
+
+/**
+ * Updates the progress bar and text for a task based on its completed subtasks.
+ * @param {Object} task - The task object containing subtasks.
+ */
 
 function updateTaskProgress(task) {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
@@ -126,6 +176,12 @@ function updateTaskProgress(task) {
     progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
   }
 }
+
+/**
+ * Updates the progress bar and text for a specific task card.
+ * @param {HTMLElement} taskCard - The task card element.
+ * @param {Object} task - The task object containing subtasks.
+ */
 
 function updateSubtaskProgress(taskCard, task) {
   const totalSubtasks = task.subtasks.length;
