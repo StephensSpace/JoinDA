@@ -8,10 +8,8 @@ function openAddTaskModal(type) {
 }
 
 function addTaskToBoard(task) {
-  const status = task.type || "";
-  const boardColumn = document.querySelector(
-    `.board-column[data-status="${status}"]`
-  );
+  const type = task.type || '';
+  const boardColumn = document.querySelector(`.board-column[data-type="${type}"]`);
   if (!boardColumn) return;
   const tasksContainer = boardColumn.querySelector(".tasks-container");
   if (!tasksContainer) return;

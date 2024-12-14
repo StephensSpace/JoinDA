@@ -1,21 +1,18 @@
 function createTaskCard(task) {
   if (!task || typeof task !== "object") {
     console.error("Ungültige Aufgabe übergeben:", task);
-    return null; // Gibt null zurück, wenn die Task ungültig ist
+    return null;
   }
-
   const members = Array.isArray(task.members) ? task.members : [];
   const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
   const totalSubtasks = subtasks.length;
   const completedSubtasks = subtasks.filter((st) => st.completed).length;
   const progressPercent =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
-
   const card = document.createElement("div");
   card.className = "task-card";
   card.setAttribute("draggable", "true");
   card.dataset.id = task.id;
-
   card.innerHTML = `
     <div class="task-category" style="background-color: ${
       task.category === "User Story" ? "#0038FF" : "#1FD7C1"
@@ -50,14 +47,12 @@ function createTaskCard(task) {
            class="priority-icon" />
     </div>
   `;
-
   card.addEventListener("dragstart", (e) => startDragging(e, card));
   card.addEventListener("dragend", () => {
     currentDraggedTask = null;
     draggedTask = null;
   });
   card.addEventListener("click", () => showTaskDetails(task));
-
   return card;
 }
 

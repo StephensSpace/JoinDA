@@ -48,7 +48,9 @@ function renderTasks(tasks) {
     addTaskToBoard(task);
   }
   checkAllColumnsForTasks();
+  enableDragAndDrop();
 }
+
 
 function renderTasksOnBoard() {
   fetchTasks((tasks) => {
@@ -65,6 +67,23 @@ function renderTasksOnBoard() {
       updateNoTasksMessage(column);
     });
     checkAllColumnsForTasks();
+    enableDragAndDrop();
+  });
+}
+
+function loadTasksFromFirebase() {
+  const tasksRef = firebase.database().ref("tasks");
+  tasksRef.once("value", (snapshot) => {
+    const tasks = snapshot.val();
+    Object.values(tasks).forEach((task) => {
+      const column = document.querySelector(
+        `.board-column[data-type="${task.type}"] .tasks-container`
+      );
+      if (column) {
+        const taskCard = createTaskCard(task);
+        column.appendChild(taskCard);
+      }
+    });
     enableDragAndDrop();
   });
 }
@@ -130,23 +149,6 @@ function updateTaskOnBoard(taskId, taskData) {
   taskData.id = taskId;
   addTaskToBoard(taskData);
   checkAllColumnsForTasks();
-}
-
-function loadTasksFromFirebase() {
-  const tasksRef = firebase.database().ref("tasks");
-  tasksRef.once("value", (snapshot) => {
-    const tasks = snapshot.val();
-    Object.values(tasks).forEach((task) => {
-      const column = document.querySelector(
-        `.board-column[data-type="${task.type}"] .tasks-container`
-      );
-      if (column) {
-        const taskCard = createTaskCard(task);
-        column.appendChild(taskCard);
-      }
-    });
-    enableDragAndDrop();
-  });
 }
 
 function populateEditTaskForm(task) {
