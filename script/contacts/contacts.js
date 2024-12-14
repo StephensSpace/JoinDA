@@ -26,17 +26,36 @@ const BACKGROUND_COLORS_LETTERS = {
     }
 }
 
-// Initialisierung Schritt
+/**
+ * Initialisiert die Kontakte, indem alle Kontakte gerendert werden.
+ * @async
+ * @function Initialisierungsschritt wird ausgelöst wenn die Seite neu läd
+ * @returns {Promise<void>} Ein Promise, das den gesament Kontent rein rendert, 
+ * der am Anfang rein gerendert werden soll
+ */
 async function initContacts() {
     await renderAll();
 }
 
 // Rendere alle Funktionen 
+/**
+ * Eine Sammlung der Dinge die direkt reingerendert werden.
+ * @async
+ * @function renderAll rendert den gesament Kontent
+ * @returns {Promise<void>}
+ * @example <div class="user-contact" onclick="renderContactInfosInContactsTable(0)"> ... </div>
+ */
 async function renderAll() {
     await renderContactsInToContactList();
 }
 
 // bekomme die allg. Daten aus der Firebase
+/**
+ * @async
+ * @function getFirebaseData gibt die 
+ * @param {string} - führt zum Contacts 
+ * @returns {Promise<void>} gibt die Daten der 
+ */
 async function getFirebaseData(path = "/") {
     const SNAPSHOT = await firebase.database().ref(path).once('value');
     const RESULT = SNAPSHOT.val(); // Ergebnis als Object
@@ -315,14 +334,6 @@ function contactSuccessfullyCreated() {
         }
     }, delay);
 }
-
-// Lösche FlyAnimation zwecks neuladung des doms bei modal öffnung
-
-
-
-
-
-
 
 
 
