@@ -159,38 +159,21 @@ function closeModal() {
 
 function setupSecondDropdown() {
   const secondDropdown = document.getElementById("secondDropdown");
-  const secondOptionsContainer = document.getElementById(
-    "secondOptionsContainer"
-  );
+  const secondOptionsContainer = document.getElementById("secondOptionsContainer");
   const secondArrow = document.getElementById("secondDropdownArrow");
-  const secondSelectedText = document.getElementById(
-    "secondDropdownSelectedText"
-  );
+  const secondSelectedText = document.getElementById("secondDropdownSelectedText");
   const categoryInput = document.getElementById("taskCategoryInput");
-  const taskTypeInput  = document.getElementById("taskTypeInput");
+  const taskTypeInput = document.getElementById("taskTypeInput");
+
   secondDropdown.addEventListener("click", (event) => {
     event.stopPropagation();
-    const isOpen = secondDropdown.classList.toggle("open");
-    secondOptionsContainer.classList.toggle("hidden", !isOpen);
-    secondArrow.classList.toggle("open", isOpen);
+    toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow);
   });
 
   secondOptionsContainer.addEventListener("click", (event) => {
-    if (event.target.classList.contains("second-dropdown-option")) {
-      const selectedCategory = event.target.dataset.value;
-      secondSelectedText.textContent = selectedCategory;
-      taskTypeInput.value = selectedCategory;
-      secondOptionsContainer
-        .querySelectorAll(".second-dropdown-option")
-        .forEach((option) => {
-          option.classList.remove("selected");
-        });
-      event.target.classList.add("selected");
-      secondDropdown.classList.remove("open");
-      secondOptionsContainer.classList.add("hidden");
-      secondArrow.classList.remove("open");
-    }
+    handleOptionSelection(event, secondDropdown, secondOptionsContainer, secondArrow, secondSelectedText, taskTypeInput);
   });
+
   document.addEventListener("click", (event) => {
     if (!secondDropdown.contains(event.target)) {
       secondDropdown.classList.remove("open");
@@ -198,4 +181,22 @@ function setupSecondDropdown() {
       secondArrow.classList.remove("open");
     }
   });
+}
+
+function toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow) {
+  const isOpen = secondDropdown.classList.toggle("open");
+  secondOptionsContainer.classList.toggle("hidden", !isOpen);
+  secondArrow.classList.toggle("open", isOpen);
+}
+
+function handleOptionSelection(event, secondDropdown, secondOptionsContainer, secondArrow, secondSelectedText, taskTypeInput) {
+  if (!event.target.classList.contains("second-dropdown-option")) return;
+  const selectedCategory = event.target.dataset.value;
+  secondSelectedText.textContent = selectedCategory;
+  taskTypeInput.value = selectedCategory;
+  secondOptionsContainer.querySelectorAll(".second-dropdown-option").forEach((option) => option.classList.remove("selected"));
+  event.target.classList.add("selected");
+  secondDropdown.classList.remove("open");
+  secondOptionsContainer.classList.add("hidden");
+  secondArrow.classList.remove("open");
 }
