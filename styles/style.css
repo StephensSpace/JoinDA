@@ -1,8 +1,16 @@
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-VariableFont_opsz\,wght.ttf") format("woff2"),
+       url("./assets/fonts/Inter-Italic-VariableFont_opsz\,wght.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   line-height: 120%;
 }
@@ -13,6 +21,7 @@ body {
   background-color: #f4f4f4;
   overflow-x: hidden;
   height: 100%;
+  font-family: "Inter";
   overflow-y: auto;
   max-width: 1920px;
 }
@@ -86,13 +95,3 @@ main {
   display: flex;
   padding: 0 !important;
 }
-
-@font-face {
-  font-family: "Inter";
-  src: url("/assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("woff2"),
-       url("/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-

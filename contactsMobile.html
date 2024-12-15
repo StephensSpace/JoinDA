@@ -26,7 +26,6 @@
     <script src="./script/checkMaxWidth.js"></script>
     <script src="./script/setProfile.js" defer></script>
     <script src="./script/userMenu.js" defer></script>
-    
 </head>
 
 <body onload="initContacts()">
@@ -34,34 +33,25 @@
     <header>
         <img src="./assets/img/logo.png" id="logo">
         <div>
-            <div id="userProfil" onclick="openUserMenu()">
+            <div id="userProfil">
                 <span id="initials" >SM</span>
             </div>
         </div>
         <div class="userMenu dNone" id="userMenu">
             <div class="userMenuButton" onclick="helpBtn()">
-                <span class="userMenuBtnSpan">
-                    Help
-                </span>
+                <span class="userMenuBtnSpan">Help</span>
             </div>
             <div class="userMenuButton" onclick="menuLegalBtn()">
-                <span class="userMenuBtnSpan">
-                    Legal Notice
-                </span>
+                <span class="userMenuBtnSpan">Legal Notice</span>
             </div>
             <div class="userMenuButton" onclick="menuPrivacyBtn()">
-                <span class="userMenuBtnSpan">
-                    Privacy Policy
-                </span>
+                <span class="userMenuBtnSpan">Privacy Policy</span>
             </div>
             <div class="userMenuButton" onclick="logOutBtn()">
-                <span class="userMenuBtnSpan">
-                    Log out
-                </span>
+                <span class="userMenuBtnSpan">Log out</span>
             </div>
         </div>
     </header>
-
     <!-- Hauptinhalt -->
     <main class="content">
         <!-- Contact Content Board/ Contactlist -->
@@ -71,12 +61,10 @@
             </div>
         </div>
         <div class="contact-board">
-            
             <div id="contactList">
 
             </div>
         </div>
-        
         <!-- Contact Content Table -->
         <div class="contact-content" onclick="closePopupDiv()">
             <div class="contact-content-head">
@@ -95,14 +83,12 @@
 
             </div>
         </div>
-        <!-- Edit & Del Btn -->
         <div class="edit-delete-btn-background" onclick="openPopupDiv()">
             <div class="edit-delete-btn" onclick="">
                 <img src="./assets/icons/contacts/more_vert.png" alt="./assets/icons/contacts/more_vert.png">
             </div>
         </div>
     </main>
-    
     <!-- Navigation Bar -->
     <nav>
         <!--Jungs hier die klasse activ setzen bei eurer Seite -->
@@ -131,7 +117,5 @@
             </div>
         </div>
     </nav>
-    
 </body>
-
 </html>

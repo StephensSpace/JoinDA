@@ -75,7 +75,7 @@
 
 .contact-content-head h1 {
     width: max-content;
-    /* height: 73px; */
+    font-family: "Inter";
     font-weight: 700;
     font-size: 61px;
     line-height: 120%;

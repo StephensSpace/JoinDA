@@ -11,7 +11,7 @@ const BACKGROUND_COLORS_LETTERS = {
     "DE": "#FC71FF",
     "EF": "#FFBB2B",
     "EM": "#1FD7C1",
-    "MB": "#462F8A", //sogar 1 extra
+    "MB": "#462F8A",
     "TW": "#FF4646",
     "SM": "#00BEE8",
     },
@@ -25,7 +25,6 @@ const BACKGROUND_COLORS_LETTERS = {
     "6": "#C3FF2B",
     }
 }
-
 
 // Initialisierung Schritt
 async function initContacts() {
@@ -183,9 +182,7 @@ async function deleteContact(userIndex) {
     closeModal();
 }
 
-
 // Add Contact 
-
 async function addNewContactFunc(params) {
     await addNewContact();
     contactSuccessfullyCreated();
@@ -299,13 +296,33 @@ function rgbInHexa(userIndex) {
     }
 }
 
-
 // last user has no padding at bottom so added
 function addMarginOnLastUser() {
     let lengthOfCurrentUsersInList = document.getElementsByClassName("user-contact").length;
     let lastUserInList = document.getElementsByClassName("user-contact")[(lengthOfCurrentUsersInList - 1)];
     lastUserInList.style.marginBottom = ("20px");
 }
+
+// Funktion zum Rein & wieder rausnehmen der Div mit "Contact Successfully Created!"
+function contactSuccessfullyCreated() {
+    document.getElementsByClassName('contact-content')[0].innerHTML += contactSuccessfullyCreatedTemplate();
+    const element = document.getElementsByClassName('contactSuccessfullyCreated')[0];
+    const delay = 3750;
+    setTimeout(() => {
+        if (element) {
+            element.remove(); // Element aus dem DOM entfernen
+        }
+    }, delay);
+}
+
+
+
+
+
+
+
+
+
 
 
 //############################################################
@@ -332,17 +349,5 @@ function clickedUser() {
 
 
 
-// Funktion zum Rein & wieder rausnehmen der Div mit "Contact Successfully Created!"
-function contactSuccessfullyCreated() {
-    document.getElementsByClassName('contact-content')[0].innerHTML += contactSuccessfullyCreatedTemplate();
 
-    const element = document.getElementsByClassName('contactSuccessfullyCreated')[0];
-    const delay = 3750;
-
-    setTimeout(() => {
-        if (element) {
-            element.remove(); // Element aus dem DOM entfernen
-        }
-    }, delay);
-}
 

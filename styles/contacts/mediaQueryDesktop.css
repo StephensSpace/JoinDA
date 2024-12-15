@@ -229,29 +229,6 @@
     }
 }
 
-@media (max-width: 800px) {
-    /* Allg. zum Modal */
-    .modal-left {
-        width: 640px;
-    }
-
-    .modal-right {
-        width: 640px;
-    }
-
-    .modal-userImg-Background {
-        margin: 32px;
-    }
-
-    .modal-inputfield input {
-        width: 404px;
-    }
-
-    .modal-inputfield-buttons {
-        width: 404px;
-    }
-}
-
 @media (max-width: 900px) {
 
         /* Header allg. */
@@ -260,85 +237,22 @@
             padding: 20px 40px 20px 280px;
         }
 
-        /* Sidebar allg. */
+        .navBarBtns,
+        .activ,
+        .navBarBtns:hover {
+            width: 164px;
+            padding: 8px 12px;
+        }
 
+        .navBarBtnsDiv,
         .sidebar {
             width: 164px;
         }
 
-        .navBarBtns {
-            width: 198px;
-        }
-
-        /* Modal allg. */
-
-        .modal {
-        
-        }
-    
-        /* Contacts Content */
-    
         .contact-content {
             left: 412px;
         }
     
-        .contact-content-head {
-            
-        }
-    
-        .contact-content-head hr {
-            
-        }
-    
-        .contact-content-table {
-
-        }
-    
-        .contact-content-table-usernameAndIcons {
-
-        }
-    
-        .userIconTableNameDiv {
-
-        }
-    
-        .contact-content-table-usernameFullinformation {
-
-        }
-    
-        .contact-content-table-usernameFullinformation Div {
- 
-        }
-    
-        /* Linkes Modal */
-    
-        .modal-left {
-            
-        }
-    
-        .modal-left img {
-            
-        }
-    
-        .modal-left-div {
-          
-        }
-    
-        /* Rechtes Modal */
-    
-        .modal-right {
-        
-        }
-    
-        .modal-right-div {
-    
-        }
-    
-        .modal-right-top {
-    
-        }
-    
-        /* Add New Contact Btn */
     
         .add-new-contact-btn {
             width: 200px;
@@ -368,6 +282,29 @@
         .user-shortcut-email {
             font-size: 11px;
         }
+}
+
+@media (max-width: 800px) {
+    /* Allg. zum Modal */
+    .modal-left {
+        width: 640px;
+    }
+
+    .modal-right {
+        width: 640px;
+    }
+
+    .modal-userImg-Background {
+        margin: 32px;
+    }
+
+    .modal-inputfield input {
+        width: 404px;
+    }
+
+    .modal-inputfield-buttons {
+        width: 404px;
+    }
 }
 
 @media (max-width: 748px) {

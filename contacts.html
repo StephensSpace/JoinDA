@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
 
     <!-- Css -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/color-template.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/header.css">
@@ -24,14 +22,12 @@
 
     <!-- Js -->
     <script src="./script/firebase-config.js"></script>
-    <script src="./script/setProfile.js" defer></script>
-    <script src="./script/userMenu.js" defer></script>
     <script src="./script/contacts/contacts.js"></script>
     <script src="./script/contacts/contacts-templates.js"></script>
     <script src="./script/checkMaxWidth.js"></script>
-
+    <script src="./script/setProfile.js" defer></script>
+    <script src="./script/userMenu.js" defer></script> 
 </head>
-
 <body onload="initContacts()">
 
     <!-- Seitenleiste mit Logo -->
@@ -43,8 +39,7 @@
             <div class="navBarBtns" onclick="summaryBtn()">
                 <img src="./assets/icons/summary.png">
                 <span>Summary</span>
-            </div>
-            <div class="navBarBtns" onclick="addTaskBtn()">
+            </div> <div class="navBarBtns" onclick="addTaskBtn()">
                 <img src="./assets/icons/add_task.png" alt="">
                 <span>Add Task</span>
             </div>
@@ -68,15 +63,15 @@
     </nav>
 
     <aside>
-
         <!-- Header -->
         <header>
+
             <div>
-                <span>Kanban Project Managment Tool</span>
+                <span id="managmentTool">Kanban Project Managment Tool</span>
             </div>
             <div>
                 <div>
-                    <img src="./assets/img/help.png" alt="./assets/icons/help.png" onclick="helpBtn()"
+                    <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()"
                         style="cursor: pointer;">
                 </div>
                 <div id="userProfil" onclick="openUserMenu()">
@@ -101,18 +96,14 @@
                 </div>
             </div>
         </header>
-
         <!-- Hauptinhalt -->
         <main class="content">
-
             <div class="contact-board">
                 <div class="add-new-contact-background">
                     <div class="add-new-contact-btn" onclick="openAddContactModal()">
-                        <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png"
-                            alt="./assets/icons/contacts/person_add.png">
+                            <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
                     </div>
                 </div>
-
                 <div id="contactList">
 
                 </div>
@@ -126,11 +117,7 @@
                 <div class="contact-content-table" id="contact-content-table">
                 </div>
             </div>
-
         </main>
-
     </aside>
-
 </body>
-
 </html>
