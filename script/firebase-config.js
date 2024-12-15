@@ -12,6 +12,6 @@ const FIREBASE_CONFIG = {
 
 // Firebase initialisieren
 const APP = firebase.initializeApp(FIREBASE_CONFIG);
-const DATABASE = firebase.database();
+const DATABASE = firebase.database(APP);
 
 

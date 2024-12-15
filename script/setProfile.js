@@ -1,7 +1,7 @@
 
 function checkLogedUser() {
-    if (typeof window.logedUser === "undefined" || logedUser === null) {
-        window.logedUser = checkStorageForUser(); // logedUser nur definieren, wenn sie nicht existiert
+    if (!logedUser) {
+        logedUser = checkStorageForUser();
         selectInitials();
     } else {
         selectInitials();

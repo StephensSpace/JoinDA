@@ -37,19 +37,18 @@ function menuPrivacyBtn() {
 }
 
 function logOutBtn() {
-    localStorage.removeItem('User');
-    sessionStorage.removeItem('User');
     const currentUrl = window.location.href;
     if (currentUrl.includes("Mobile")) {
         window.location.href = "loginMobile.html";
     } else {
         window.location.href = "login.html";
-    }
+    };
+    localStorage.removeItem('logedUser');
+    sessionStorage.removeItem('logedUser');
 }
 
 function helpBtn() {
     const currentUrl = window.location.href;
-
     if (currentUrl.includes("Mobile")) {
         window.location.href = "helpMobile.html";
     } else {

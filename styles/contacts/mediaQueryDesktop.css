@@ -138,23 +138,10 @@
 
 @media (max-width: 1050px) {
 
-    /* Modal allg. */
-    .modal {
-        
-    }
-
     /* Contacts Content */
     .contact-content {
         left: 552px;
         width: -webkit-fill-available;
-    }
-
-    .contact-content-head {
-        
-    }
-
-    .contact-content-head hr {
-        
     }
 
     .contact-content-table {
@@ -185,74 +172,61 @@
         flex-direction: column;
         align-items: center;
     }
-
-    
-
-    /* Linkes Modal */
-
-    .modal-left {
-        
-    }
-
-    .modal-left img {
-        
-    }
-
-    .modal-left-div {
-      
-    }
-
-    /* Rechtes Modal */
-
-    .modal-right {
-    
-    }
-
-    .modal-right-div {
-
-    }
-
-    .modal-right-top {
-
-    }
-
-    /* Add New Contact Btn */
-
-    .add-new-contact-btn {
-
-    }
-
-    /* Contact Board oder Liste */
-
-    .contact-board {
-
-    }
 }
 
 @media (max-width: 900px) {
 
-        /* Header allg. */
+    header {
+        padding: 20px 40px 20px 280px;
+    }
 
-        header {
-            padding: 20px 40px 20px 280px;
-        }
+    .navBarBtns,
+    .activ,
+    .navBarBtns:hover {
+        width: 164px;
+        padding: 8px 12px;
+    }
 
-        .navBarBtns,
-        .activ,
-        .navBarBtns:hover {
-            width: 164px;
-            padding: 8px 12px;
-        }
+    .navBarBtnsDiv,
+    .sidebar {
+        width: 164px;
+    }
 
-        .navBarBtnsDiv,
-        .sidebar {
-            width: 164px;
-        }
+    .contact-content {
+        left: 412px;
+    }
 
-        .contact-content {
-            left: 412px;
-        }
+
+    .add-new-contact-btn {
+        width: 200px;
+        left: calc(50% - 200px / 2);
+        gap: 0;
+        flex-direction: column-reverse;
+    }
+
+    .add-new-contact-btn p {
+        font-size: 16px;
+    }
+
+    .add-new-contact-btn img {
+        width: 24px;
+        height: 24px;
+    }
+
+
+    /* Contact Board oder Liste */
+
+    .contact-board {
+        left: 164px;
+        width: 248px;
+        padding: 0 20px;
+    }
+
+    .user-shortcut-email {
+        font-size: 11px;
+    }
     
+        /* Add New Contact Btn */
     
         .add-new-contact-btn {
             width: 200px;

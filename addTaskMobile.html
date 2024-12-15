@@ -1,213 +1,290 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>addTaskMobile</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/img/logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./styles/color-template.css" />
+    <link rel="stylesheet" href="./styles/headerMobile.css" />
+    <link rel="stylesheet" href="./styles/addTask/addTaskMobile.css" />
+    <link rel="stylesheet" href="./styles/addTask/addTask-media-querry.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <script src="./script/firebase-config.js"></script>
+    <script src="./script/setProfile.js" defer></script>
+    <script src="./script/userMenu.js" defer></script>
+    <script src="./script/checkMaxWidth.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>addTaskMobile</title>
-  <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/color-template.css" />
-  <link rel="stylesheet" href="./styles/headerMobile.css" />
-  <link rel="stylesheet" href="./styles/addTask/addTaskMobile.css" />
-  <link rel="stylesheet" href="./styles/addTask/addTask-media-querry.css" />
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
-  <script src="./script/firebase-config.js"></script>
-  <script src="./script/setProfile.js" defer></script>
-  <script src="./script/userMenu.js" defer></script>
-  <script src="./script/checkMaxWidth.js"></script>
-</head>
-
-<body>
-  <header>
-    <img src="./assets/img/logo.png" id="logo" />
-    <div>
-      <div id="userProfil" onclick="openUserMenu()">
-        <span id="initials">SM</span>
-      </div>
-    </div>
-    <div class="userMenu dNone" id="userMenu">
-      <div class="userMenuButton" onclick="helpBtn()">
-        <span class="userMenuBtnSpan">
-          Help
-        </span>
-      </div>
-      <div class="userMenuButton" onclick="menuLegalBtn()">
-        <span class="userMenuBtnSpan">
-          Legal Notice
-        </span>
-      </div>
-      <div class="userMenuButton" onclick="menuPrivacyBtn()">
-        <span class="userMenuBtnSpan">
-          Privacy Policy
-        </span>
-      </div>
-      <div class="userMenuButton" onclick="logOutBtn()">
-        <span class="userMenuBtnSpan">
-          Log out
-        </span>
-      </div>
-    </div>
-  </header>
-
-  <nav>
-    <!--Jungs hier die klasse activ setzen bei eurer Seite -->
-    <div class="outerButtonDiv" onclick="summaryBtn()">
-      <div class="innerMenuButton">
-        <img src="./assets/icons/summary24.png" alt="">
-        <span class="mobileMenuBtns">Summary</span>
-      </div>
-    </div>
-    <div class="outerButtonDiv" onclick="boardBtn()">
-      <div class="innerMenuButton">
-        <img src="./assets/icons/board24.png" alt="">
-        <span class="mobileMenuBtns">Board</span>
-      </div>
-    </div>
-    <div class="outerButtonDiv activ" onclick="addTaskBtn()">
-      <div class="innerMenuButton">
-        <img src="./assets/icons/addTask24.png" alt="">
-        <span class="mobileMenuBtns">Add Task</span>
-      </div>
-    </div>
-    <div class="outerButtonDiv" onclick="contactsBtn()">
-      <div class="innerMenuButton">
-        <img src="./assets/icons/contacts24.png" alt="">
-        <span class="mobileMenuBtns">Contacts</span>
-      </div>
-    </div>
-  </nav>
-  <main>
-    <h2 id="addTaskModalTitle" class="contentH2">Add Task</h2>
-  </main>
-  <div class="addTaskContent">
-    <div class="form-column-left">
-      <div class="addTask-headlines">
-        <label for="taskTitle">Title <span class="required">*</span></label>
-      </div>
-      <input type="text" id="taskTitle" name="taskTitle" required placeholder="Enter task title" />
-      <div id="titleError" class="error-message hidden">
-        Bitte füge ein Title ein.
-      </div>
-      <div class="addTask-headlines">
-        <label for="taskDescription">Description</label>
-      </div>
-      <textarea id="taskDescription" name="taskDescription" placeholder="Enter task description"></textarea>
-
-      <div class="addTask-headlines">
-        <label for="taskAssigned">Assigned to</label>
-      </div>
-      <div id="taskAssignedContainer" class="assigned-container">
-        <div id="taskAssignedDropdown" class="custom-dropdown dropdown">
-          <div class="dropdown-placeholder">
-            Select contacts
-            <div class="arrow">
-              <img id="dropdownArrow" class="dropdownarrow" src="./assets/icons/arrow_drop_down.png"
-                alt="Dropdown arrow" />
-            </div>
-          </div>
-          <div id="taskAssignedOptions" class="dropdown-options hidden">
-            <input type="text" id="taskSearchInput" class="dropdown-search" placeholder="Search contacts..." />
-          </div>
+  <body>
+    <header>
+      <img src="./assets/img/logo.png" id="logo" />
+      <div>
+        <div id="userProfil">
+          <span id="initials">SM</span>
         </div>
-        <div id="selectedContactsContainer" class="selected-contacts-container"></div>
       </div>
-    </div>
-    <div class="form-column-right">
-      <!-- Due Date -->
-      <div class="addTask-headlines">
-        <label for="taskDueDate">Due Date <span class="required">*</span></label>
-      </div>
-      <input type="date" id="taskDueDate" onclick="this.showPicker()" required />
-      <div id="dueDateError" class="error-message hidden">
-        Bitte wähle ein Datum aus.
-      </div>
-
-      <!-- Priority -->
-      <div class="addTask-headlines">
-        <label for="taskPriority">Prio</label>
-      </div>
-      <div class="priority">
-        <button id="urgentBtn" class="priority-btn" data-priority="Urgent" type="button">
-          <img src="./assets/icons/urgent.png" id="urgentIcon" class="priority-icon" alt="Urgent" />
-          Urgent
-        </button>
-        <button id="mediumBtn" class="priority-btn" data-priority="Medium" type="button">
-          <img src="./assets/icons/medium.png" id="mediumIcon" class="priority-icon" alt="Medium" />
-          Medium
-        </button>
-        <button id="lowBtn" class="priority-btn" data-priority="Low" type="button">
-          <img src="./assets/icons/low.png" id="lowIcon" class="priority-icon" alt="Low" />
-          Low
-        </button>
-      </div>
-
-      <!-- Kategorieauswahl -->
-      <div class="addTask-headlines">
-        <label for="taskCategoryInput">Category <span class="required">*</span></label>
-      </div>
-      <div id="taskCategoryContainer" class="assigned-container">
-        <div id="secondDropdown" class="custom-second-dropdown">
-          <div class="second-dropdown-placeholder">
-            <span id="secondDropdownSelectedText">Select task category</span>
-            <div class="second-arrow">
-              <img id="secondDropdownArrow" class="second-dropdown-arrow" src="./assets/icons/arrow_drop_down.png"
-                alt="Dropdown arrow" />
-            </div>
-          </div>
-          <div id="secondOptionsContainer" class="second-dropdown-options hidden">
-            <div class="second-dropdown-option" data-value="Technical Task">
-              Technical Task
-            </div>
-            <div class="second-dropdown-option" data-value="User Story">
-              User Story
-            </div>
-          </div>
+      <div class="userMenu dNone" id="userMenu">
+        <div class="userMenuButton" onclick="helpBtn()">
+          <span class="userMenuBtnSpan"> Help </span>
         </div>
-        <input type="hidden" id="taskCategoryInput" name="taskCategory" value="" required />
-        <span id="msg-box" class="hidden">Bitte wählen Sie eine Category aus</span>
-        <div id="selectedCategoryContainer"></div>
-        <input type="hidden" id="taskTypeInput" value="" />
+        <div class="userMenuButton" onclick="menuLegalBtn()">
+          <span class="userMenuBtnSpan"> Legal Notice </span>
+        </div>
+        <div class="userMenuButton" onclick="menuPrivacyBtn()">
+          <span class="userMenuBtnSpan"> Privacy Policy </span>
+        </div>
+        <div class="userMenuButton" onclick="logOutBtn()">
+          <span class="userMenuBtnSpan"> Log out </span>
+        </div>
       </div>
+    </header>
 
-      <!-- Subtasks -->
-      <div class="addTask-headlines">Subtasks</div>
-      <div class="subtask-input-container">
-        <div class="subtask-input-wrapper">
-          <input type="text" id="subtaskInput" class="subtask-input" placeholder="Add a subtask" />
-          <button type="button" class="subtask-add-button">
-            <img src="./assets/icons/add_hover.png" alt="Add" />
+    <nav>
+      <div class="outerButtonDiv">
+        <div class="innerMenuButton">
+          <img src="./assets/icons/summary24.png" alt="" />
+          <span class="mobileMenuBtns">Summary</span>
+        </div>
+      </div>
+      <div class="outerButtonDiv">
+        <div class="innerMenuButton">
+          <img src="./assets/icons/board24.png" alt="" />
+          <span class="mobileMenuBtns">Board</span>
+        </div>
+      </div>
+      <div class="outerButtonDiv activ">
+        <div class="innerMenuButton">
+          <img src="./assets/icons/addTask24.png" alt="" />
+          <span class="mobileMenuBtns">Add Task</span>
+        </div>
+      </div>
+      <div class="outerButtonDiv">
+        <div class="innerMenuButton">
+          <img src="./assets/icons/contacts24.png" alt="" />
+          <span class="mobileMenuBtns">Contacts</span>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <h2 id="addTaskModalTitle" class="contentH2">Add Task</h2>
+    </main>
+    <div class="addTaskContent">
+      <div class="form-column-left">
+        <div class="addTask-headlines">
+          <label for="taskTitle">Title <span class="required">*</span></label>
+        </div>
+        <input
+          type="text"
+          id="taskTitle"
+          name="taskTitle"
+          required
+          placeholder="Enter task title"
+        />
+        <div id="titleError" class="error-message hidden">
+          Bitte füge ein Title ein.
+        </div>
+        <div class="addTask-headlines">
+          <label for="taskDescription">Description</label>
+        </div>
+        <textarea
+          id="taskDescription"
+          name="taskDescription"
+          placeholder="Enter task description"
+        ></textarea>
+
+        <div class="addTask-headlines">
+          <label for="taskAssigned">Assigned to</label>
+        </div>
+        <div id="taskAssignedContainer" class="assigned-container">
+          <div id="taskAssignedDropdown" class="custom-dropdown dropdown">
+            <div class="dropdown-placeholder">
+              Select contacts
+              <div class="arrow">
+                <img
+                  id="dropdownArrow"
+                  class="dropdownarrow"
+                  src="./assets/icons/arrow_drop_down.png"
+                  alt="Dropdown arrow"
+                />
+              </div>
+            </div>
+            <div id="taskAssignedOptions" class="dropdown-options hidden">
+              <input
+                type="text"
+                id="taskSearchInput"
+                class="dropdown-search"
+                placeholder="Search contacts..."
+              />
+            </div>
+          </div>
+          <div
+            id="selectedContactsContainer"
+            class="selected-contacts-container"
+          ></div>
+        </div>
+      </div>
+      <div class="form-column-right">
+        <!-- Due Date -->
+        <div class="addTask-headlines">
+          <label for="taskDueDate"
+            >Due Date <span class="required">*</span></label
+          >
+        </div>
+        <input
+          type="date"
+          id="taskDueDate"
+          onclick="this.showPicker()"
+          required
+        />
+        <div id="dueDateError" class="error-message hidden">
+          Bitte wähle ein Datum aus.
+        </div>
+
+        <!-- Priority -->
+        <div class="addTask-headlines">
+          <label for="taskPriority">Prio</label>
+        </div>
+        <div class="priority">
+          <button
+            id="urgentBtn"
+            class="priority-btn"
+            data-priority="Urgent"
+            type="button"
+          >
+            <img
+              src="./assets/icons/urgent.png"
+              id="urgentIcon"
+              class="priority-icon"
+              alt="Urgent"
+            />
+            Urgent
+          </button>
+          <button
+            id="mediumBtn"
+            class="priority-btn"
+            data-priority="Medium"
+            type="button"
+          >
+            <img
+              src="./assets/icons/medium.png"
+              id="mediumIcon"
+              class="priority-icon"
+              alt="Medium"
+            />
+            Medium
+          </button>
+          <button
+            id="lowBtn"
+            class="priority-btn"
+            data-priority="Low"
+            type="button"
+          >
+            <img
+              src="./assets/icons/low.png"
+              id="lowIcon"
+              class="priority-icon"
+              alt="Low"
+            />
+            Low
           </button>
         </div>
-      </div>
-      <ul id="subtaskList" class="subtask-list">
-        <!-- Subtasks werden hier dynamisch eingefügt -->
-      </ul>
-      <div class="add-task-label">
-        <label for="required"><span class="required">*</span>This field is required</label>
-      </div>
-    </div>
-    <div class="add-task-label">
-      <label for="required"><span class="required">*</span>This field is required</label>
-    </div>
-  </div>
-  <div class="bg-mobile-buttons">
-    <div class="addTask-buttons">
-      <button class="cancel-btn" id="cancelButton">Cancel x</button>
-      <button type="submit" id="createTaskButton" class="create-task-btn">
-        Create Task ✓
-      </button>
-    </div>
-  </div>
-  <!-- Haupt-JavaScript -->
-  <script src="./script/addTask/addTask-utils.js"></script>
-  <script src="./script/addTask/addTask-addTask.js"></script>
-  <script src="./script/addTask/addTask-board.js"></script>
-  <script src="./script/addTask/addTask-eventListener.js"></script>
-  <script src="./script/addTask/addTask-boardTemplate.js"></script>
-  <script src="./script/addTask/addTask-addTaskSite.js"></script>
-  <script src="./script/addTask/addTask-dragAndDrop.js"></script>
-</body>
 
+        <!-- Kategorieauswahl -->
+        <div class="addTask-headlines">
+          <label for="taskCategoryInput"
+            >Category <span class="required">*</span></label
+          >
+        </div>
+        <div id="taskCategoryContainer" class="assigned-container">
+          <div id="secondDropdown" class="custom-second-dropdown">
+            <div class="second-dropdown-placeholder">
+              <span id="secondDropdownSelectedText">Select task category</span>
+              <div class="second-arrow">
+                <img
+                  id="secondDropdownArrow"
+                  class="second-dropdown-arrow"
+                  src="./assets/icons/arrow_drop_down.png"
+                  alt="Dropdown arrow"
+                />
+              </div>
+            </div>
+            <div
+              id="secondOptionsContainer"
+              class="second-dropdown-options hidden"
+            >
+              <div class="second-dropdown-option" data-value="Technical Task">
+                Technical Task
+              </div>
+              <div class="second-dropdown-option" data-value="User Story">
+                User Story
+              </div>
+            </div>
+          </div>
+          <input
+            type="hidden"
+            id="taskCategoryInput"
+            name="taskCategory"
+            value=""
+            required
+          />
+          <span id="msg-box" class="hidden"
+            >Bitte wählen Sie eine Category aus</span
+          >
+          <div id="selectedCategoryContainer"></div>
+          <input type="hidden" id="taskTypeInput" value="" />
+        </div>
+
+        <!-- Subtasks -->
+        <div class="addTask-headlines">Subtasks</div>
+        <div class="subtask-input-container">
+          <div class="subtask-input-wrapper">
+            <input
+              type="text"
+              id="subtaskInput"
+              class="subtask-input"
+              placeholder="Add a subtask"
+            />
+            <button type="button" class="subtask-add-button">
+              <img src="./assets/icons/add_hover.png" alt="Add" />
+            </button>
+          </div>
+        </div>
+        <ul id="subtaskList" class="subtask-list">
+          <!-- Subtasks werden hier dynamisch eingefügt -->
+        </ul>
+        <div class="add-task-label">
+          <label for="required"
+            ><span class="required">*</span>This field is required</label
+          >
+        </div>
+      </div>
+      <div class="add-task-label">
+        <label for="required"
+          ><span class="required">*</span>This field is required</label
+        >
+      </div>
+    </div>
+    <div class="bg-mobile-buttons">
+      <div class="addTask-buttons">
+        <button class="cancel-btn" id="cancelButton">Cancel x</button>
+        <button type="submit" id="createTaskButton" class="create-task-btn">
+          Create Task ✓
+        </button>
+      </div>
+    </div>
+    <!-- Haupt-JavaScript -->
+    <script src="./script/addTask/addTask-utils.js"></script>
+    <script src="./script/addTask/addTask-addTask.js"></script>
+    <script src="./script/addTask/addTask-board.js"></script>
+    <script src="./script/addTask/addTask-eventListener.js"></script>
+    <script src="./script/addTask/addTask-boardTemplate.js"></script>
+    <script src="./script/addTask/addTask-addTaskSite.js"></script>
+    <script src="./script/addTask/addTask-dragAndDrop.js"></script>
+  </body>
 </html>

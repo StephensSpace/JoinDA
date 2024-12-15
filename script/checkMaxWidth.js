@@ -13,5 +13,9 @@ function checkViewport() {
         }
     }
 }
+
+// Event Listener für resize-Ereignis
 window.addEventListener('resize', checkViewport);
+
+// Direkt beim Laden der Seite die Viewport-Größe überprüfen
 checkViewport();
