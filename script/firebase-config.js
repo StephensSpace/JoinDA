@@ -1,5 +1,20 @@
 
-// Firebase-Konfiguration
+
+/**
+ * Firebase-Konfigurationsdetails.
+ * 
+ * Diese Konstante enthält die notwendigen Informationen zur Initialisierung der Verbindung
+ * mit Firebase. Die Werte müssen mit den Projektdetails aus der Firebase-Konsole übereinstimmen.
+ * 
+ * @constant {Object} FIREBASE_CONFIG
+ * @property {string} apiKey - Der API-Schlüssel des Firebase-Projekts, der für die Authentifizierung verwendet wird.
+ * @property {string} authDomain - Die Authentifizierungs-Domain des Firebase-Projekts.
+ * @property {string} databaseURL - Die URL der Firebase-Realtime-Datenbank.
+ * @property {string} projectId - Die Projekt-ID des Firebase-Projekts.
+ * @property {string} storageBucket - Der Storage-Bucket für Dateien in Firebase.
+ * @property {string} messagingSenderId - Die Sender-ID für Firebase Cloud Messaging.
+ * @property {string} appId - Die App-ID des Firebase-Projekts.
+ */
 const FIREBASE_CONFIG = {
     apiKey: "AIzaSyCeDJLaxR5LOFSo6e48oPoNUDZTed8KTl0",
     authDomain: "joinda-1dd15.firebaseapp.com",
