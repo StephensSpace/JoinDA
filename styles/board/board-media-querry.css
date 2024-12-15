@@ -278,9 +278,9 @@
 
   .board-container {
     display: flex;
-    gap: 80px;
+    gap: 100px;
     flex-direction: column;
-    top: 352px;
+    top: 340px;
     width: 375px;
   }
 
@@ -289,6 +289,7 @@
     overflow-y: hidden;
     overflow-x: scroll;
     width: 100%;
+    height: 240px;
   }
 
   .board-column {
@@ -399,7 +400,7 @@
   }
 
   .no-tasks {
-    width: 370px;
+    width: 375px;
     left: 2px;
     position: absolute;
     margin-top: -28px;
@@ -481,6 +482,10 @@
 @media screen and (max-width: 530px) {
   .modal-content {
     width: 308px;
+  }
+
+  .no-tasks{
+    width: 305px;
   }
 
   .form-column-left {
