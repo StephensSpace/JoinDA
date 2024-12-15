@@ -1,3 +1,9 @@
+/**
+ * Generates the initials from a given name.
+ * @param {string} name - The full name of the contact.
+ * @returns {string} The initials of the name in uppercase.
+ */
+
 function getInitials(name) {
   return name
     .split(" ")
@@ -5,6 +11,12 @@ function getInitials(name) {
     .join("")
     .toUpperCase();
 }
+
+/**
+ * Assigns a unique color to a contact based on their name.
+ * @param {string} name - The contact's name.
+ * @returns {string} The color code associated with the contact.
+ */
 
 function getColorForContact(name) {
   const colors = [
@@ -22,17 +34,22 @@ function getColorForContact(name) {
   return colors[index];
 }
 
+/**
+ * Updates the completion status of a specific subtask in Firebase.
+ * @param {string} taskId - The ID of the task containing the subtask.
+ * @param {number} subtaskIndex - The index of the subtask in the task's subtasks array.
+ * @param {boolean} completed - The new completion status of the subtask.
+ */
+
 function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
   firebase
     .database()
     .ref(`/tasks/${taskId}/subtasks/${subtaskIndex}`)
     .update({ completed })
     .then(() => {
-      console.log("Subtask erfolgreich aktualisiert.");
     })
     .catch((error) => {
       console.error(
-        "Fehler beim Aktualisieren der Subtask in Firebase:",
         error
       );
     });

@@ -24,6 +24,37 @@
   .task-card {
     width: 185px;
   }
+
+  .modal-content{
+    width: 1065px;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .modal-content{
+    width: 860px;
+  }
+
+  .form-column-right{
+    width: 300px;
+    left: 500.25px;
+  }
+
+  .form-column-left{
+    width: 300px;
+  }
+
+  .divider{
+    left: 410.25px;
+  }
+
+  .priority{
+    width: 300px;
+  }
+
+  .addTask-buttons{
+    left: 490.25px;
+  }
 }
 
 @media screen and (max-width: 1220px) {
@@ -61,10 +92,90 @@
     left: 330px;
   }
 
-  .modal-content {
-    width: 1050px;
+  .modal-content{
+    width: 860px;
   }
 }
+
+@media screen and (max-width: 1050px) {
+  .modal-content {
+    width: 835px;
+  }
+
+  .form-column-right {
+    width: 338px;
+    left: 470.25px;
+  }
+
+  .priority {
+    width: 336px;
+  }
+
+  .addTask-buttons {
+    width: 230px;
+    left: 582.25px;
+  }
+
+  .form-column-left {
+    width: 300px;
+  }
+
+  .divider {
+    left: 415.25px;
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 80px;
+  }
+
+  .modal-content::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .modal-content {
+    width: 605px;
+    height: 810px;
+  }
+
+  .form-column-right {
+    position: absolute;
+    left: 74px;
+    margin-top: 350px;
+  }
+
+  .priority {
+    width: 336px;
+  }
+
+  .addTask-buttons {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    z-index: 3;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 445px;
+  }
+
+  .form-column-left {
+    width: 338px;
+  }
+
+  .divider {
+    display: none;
+  }
+}
+
 
 @media screen and (max-width: 990px) {
   .search-bar {
@@ -125,31 +236,6 @@
     flex: 1 1 100%;
     gap: 0;
   }
-
-  .modal-content {
-    width: 960px;
-  }
-
-  .form-column-right {
-    width: 338px;
-    left: 565.25px;
-  }
-
-  .priority {
-    width: 336px;
-  }
-
-  .addTask-buttons {
-    width: 230px;
-  }
-
-  .form-column-left {
-    width: 336px;
-  }
-
-  .divider {
-    left: 480.25px;
-  }
 }
 
 @media screen and (max-width: 900px) {
@@ -192,14 +278,18 @@
 
   .board-container {
     display: flex;
-    gap: 80px;
+    gap: 100px;
     flex-direction: column;
-    top: 352px;
+    top: 340px;
     width: 375px;
   }
 
   .tasks-container {
     flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    height: 240px;
   }
 
   .board-column {
@@ -230,100 +320,11 @@
     background: url(../../assets/buttons/addTaskButtonMobileHover.svg) no-repeat
       center;
   }
-
-  .modal-content {
-    width: 835px;
-  }
-
-  .form-column-right {
-    width: 338px;
-    left: 470.25px;
-  }
-
-  .priority {
-    width: 336px;
-  }
-
-  .addTask-buttons {
-    width: 230px;
-    left: 582.25px;
-  }
-
-  .form-column-left {
-    width: 300px;
-  }
-
-  .divider {
-    left: 415.25px;
-  }
 }
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 740px) {
   .modal-content {
-    width: 765px;
-  }
-
-  .form-column-right {
-    width: 338px;
-    left: 415.25px;
-  }
-
-  .priority {
-    width: 336px;
-  }
-
-  .addTask-buttons {
-    width: 230px;
-    left: 524.25px;
-  }
-
-  .form-column-left {
-    width: 300px;
-  }
-
-  .divider {
-    left: 373.25px;
-  }
-}
-
-@media screen and (max-width: 770px) {
-  .modal-content {
-    width: 700px;
-  }
-
-  .form-column-right {
-    width: 245px;
-    left: 375.25px;
-  }
-
-  .priority {
-    width: 245px;
-    gap: 2px;
-  }
-
-  .addTask-buttons {
-    width: 230px;
-    left: 450.25px;
-  }
-
-  .form-column-left {
-    width: 245px;
-  }
-
-  .divider {
-    left: 330.25px;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .modal-content {
-    width: 660px;
-  }
-
-  .addTask-buttons {
-    width: 183px;
-    left: 435.25px;
-    top: 760px;
+    width: 510px;
   }
 }
 
@@ -386,6 +387,9 @@
     left: 0;
     gap: 5px;
     margin-top: -45px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
   }
 
   .board-column {
@@ -396,10 +400,10 @@
   }
 
   .no-tasks {
-    width: 370px;
-    left: -25px;
+    width: 375px;
+    left: 2px;
     position: absolute;
-    margin-top: -50px;
+    margin-top: -28px;
   }
 
   .task-card {
@@ -425,12 +429,12 @@
   }
 
   .form-column-left {
-    left: 100px;
+    left: 65px;
     top: 61px;
   }
 
   .form-column-right {
-    left: 100px;
+    left: 65px;
     margin-top: 0;
     top: 420px;
     height: 475px;
@@ -447,7 +451,7 @@
   .bg-mobile-buttons {
     background-color: #ffffff;
     height: 100px;
-    width: 100%;
+    width: 100px;
     left: 3px;
     position: fixed;
     top: 888px;
@@ -458,6 +462,8 @@
     left: 350px;
     position: fixed;
     cursor: pointer;
+    z-index: 5;
+    top: 916px;
   }
 
   .add-task-label {
@@ -476,6 +482,10 @@
 @media screen and (max-width: 530px) {
   .modal-content {
     width: 308px;
+  }
+
+  .no-tasks{
+    width: 305px;
   }
 
   .form-column-left {
@@ -532,7 +542,7 @@
 
   .board-container {
     left: 7px;
-    width: 280px;
+    width: 319px;
   }
 
   #taskDetailTitle {

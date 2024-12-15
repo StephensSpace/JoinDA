@@ -37,20 +37,13 @@
 /* UNTERGEORDNET ".contact-board" */
 
 .add-new-contact-background {
-    filter: drop-shadow(-6px 10px 6px white);
-    position: sticky;
-    width: auto;
-    height: 101px;
-    left: calc(50% - 456px / 2);
-    top: 0px;
-    background: var(--background-color-header);
-
-    /* Neu Dflex */
-    filter: drop-shadow(-6px 10px 6px white);
-    background-color: white;
-    padding: 20px 0;
     position: sticky;
     top: 0;
+    left: calc(50% - 456px / 2);
+    width: auto;
+    height: 101px;
+    background: var(--background-color-header);
+    padding: 20px 0;
 }
 
 /* 

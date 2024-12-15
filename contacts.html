@@ -26,7 +26,7 @@
     <script src="./script/contacts/contacts-templates.js"></script>
     <script src="./script/checkMaxWidth.js"></script>
     <script src="./script/setProfile.js" defer></script>
-    <script src="./script/userMenu.js" defer></script> 
+    <script src="./script/userMenu.js" defer></script>
 </head>
 <body onload="initContacts()">
 
@@ -65,12 +65,14 @@
     <aside>
         <!-- Header -->
         <header>
+
             <div>
-                <span>Kanban Project Managment Tool</span>
+                <span id="managmentTool">Kanban Project Managment Tool</span>
             </div>
             <div>
                 <div>
-                    <img src="./assets/icons/help.png" alt="./assets/icons/help.png" onclick="helpBtn()" style="cursor: pointer;">
+                    <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()"
+                        style="cursor: pointer;">
                 </div>
                 <div id="userProfil" onclick="openUserMenu()">
                     <span id="initials"></span>
@@ -96,10 +98,14 @@
         </header>
         <!-- Hauptinhalt -->
         <main class="content">
+            <div class="hallo">
+
+            </div>
             <div class="contact-board">
                 <div class="add-new-contact-background">
                     <div class="add-new-contact-btn" onclick="openAddContactModal()">
-                            <p>Add new contact</p><img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
+                        <p>Add new contact</p>
+                        <img src="./assets/icons/contacts/person_add.png" alt="./assets/icons/contacts/person_add.png">
                     </div>
                 </div>
                 <div id="contactList">
@@ -113,6 +119,7 @@
                     <p>Better with a team</p>
                 </div>
                 <div class="contact-content-table" id="contact-content-table">
+
                 </div>
             </div>
         </main>

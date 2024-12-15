@@ -2,61 +2,63 @@ document.addEventListener("DOMContentLoaded", () => {
   setupDropdownSearchInline();
   setupSubtaskIconClickListeners();
   setupSecondDropdown();
-  enableDragAndDrop();
   saveDefaultTasks();
+  
   fetchTasks((tasks) => {
-    renderTasks(tasks);
+      renderTasks(tasks);
+      enableDragAndDrop();
   });
+  
   fetchContacts((contacts) => {
-    populateContactsDropdown(contacts);
+      populateContactsDropdown(contacts);
   });
 
-  const editButton = document.querySelector(".edit-btn");
+const editButton = document.querySelector(".edit-btn");
   if (editButton) {
     editButton.addEventListener("click", () => {
       openEditTaskModal();
     });
-  }
+}
 
-  const taskDetailsCloseBtn = document.querySelector(
+const taskDetailsCloseBtn = document.querySelector(
     "#taskDetailsModal .close-button"
   );
   if (taskDetailsCloseBtn) {
     taskDetailsCloseBtn.addEventListener("click", () => {
       document.getElementById("taskDetailsModal").style.display = "none";
     });
-  }
+}
 
-  const createTaskButton = document.getElementById("createTaskButton");
+const createTaskButton = document.getElementById("createTaskButton");
   if (createTaskButton) {
     createTaskButton.addEventListener("click", handleTaskSubmit);
-  }
+}
 
-  document.getElementById("addTaskButton").addEventListener("click", () => {
+document.getElementById("addTaskButton").addEventListener("click", () => {
     if (window.innerWidth <= 660) {
       window.location.href = "./addTask.html";
     } else {
       openAddTaskModal();
     }
-  });
+});
 
-  const addTaskCloseBtn = document.querySelector("#addTaskModal .close-button");
+const addTaskCloseBtn = document.querySelector("#addTaskModal .close-button");
   if (addTaskCloseBtn) {
     addTaskCloseBtn.addEventListener("click", () => {
       document.getElementById("addTaskModal").style.display = "none";
     });
-  }
+}
 
-  const cancelButton = document.getElementById("cancelButton");
+const cancelButton = document.getElementById("cancelButton");
   if (cancelButton) {
     cancelButton.addEventListener("click", (event) => {
       event.preventDefault();
       resetAddTaskModal();
       closeModal();
     });
-  }
+}
 
-  const priorityButtons = document.querySelectorAll(".priority-btn");
+const priorityButtons = document.querySelectorAll(".priority-btn");
   priorityButtons.forEach((button) => {
     button.addEventListener("click", () => {
       priorityButtons.forEach((btn) => {
@@ -73,16 +75,16 @@ document.addEventListener("DOMContentLoaded", () => {
         icon.style.filter = "brightness(0) invert(1)";
       }
     });
-  });
+});
 
-  const deleteButton = document.querySelector(".delete-btn");
+const deleteButton = document.querySelector(".delete-btn");
   if (deleteButton) {
     deleteButton.addEventListener("click", () => {
       deleteCurrentTask();
     });
-  }
+}
 
-  const addTaskTypeButtons = document.querySelectorAll(
+const addTaskTypeButtons = document.querySelectorAll(
     ".add-task-btn-category"
   );
   addTaskTypeButtons.forEach((button) => {
@@ -90,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const type = button.getAttribute("data-type");
       openAddTaskModal(type);
     });
-  });
+});
 
-  const subtaskInput = document.getElementById("subtaskInput");
+const subtaskInput = document.getElementById("subtaskInput");
   const subtaskAddButton = document.querySelector(".subtask-add-button");
   subtaskAddButton.addEventListener("click", () => {
     addSubtask(subtaskInput.value.trim());

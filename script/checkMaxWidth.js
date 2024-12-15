@@ -1,3 +1,17 @@
+/**
+ * Überprüft die Bildschirmbreite und wechselt ab einer Breite von
+ * weniger als 660px die HTML-Datei.
+ * 
+ * @function checkViewport
+ * @returns {void} Git keinen Wert zurück.
+ * @example
+ * Wenn die Bildschirm größe kleiner als 660px ist,
+ * dann wechselt die jeweilige Desktop-HTML zu der 
+ * Mobile-HTML.
+ * Bspw. 
+ * >660px = contacts.html
+ * <660px = contactsMobile.html
+ */
 function checkViewport() {
     const currentPage = window.location.pathname.split('/').pop();
     const isMobilePage = currentPage.includes('Mobile.html');

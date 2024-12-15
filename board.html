@@ -55,6 +55,7 @@
           <div class="navBarBtns" onclick="document.getElementById('lNotice').click()">
               <a href="legal_notice.html" id="lNotice">Legal Notice</a>
           </div>
+      </div>
     </nav>
 
     <aside>
@@ -65,7 +66,8 @@
         </div>
         <div>
             <div>
-                <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()" style="cursor: pointer;">
+                <img src="./assets/img/help.png" alt="./assets/img/help.png" onclick="helpBtn()"
+                    style="cursor: pointer;">
             </div>
             <div id="userProfil" onclick="openUserMenu()">
                 <span id="initials"></span>
@@ -132,7 +134,7 @@
 
         <div class="board-container">
           <!-- To do column -->
-          <div class="board-column" data-status="todo">
+          <div class="board-column" data-type="todo">
             <div class="no-tasks">No tasks To do</div>
             <div class="tasks-container">
 
@@ -140,7 +142,7 @@
         </div>
 
         <!-- In progress column -->
-        <div class="board-column" data-status="in-progress">
+        <div class="board-column" data-type="in-progress">
           <div class="no-tasks">No tasks In progress</div>
           <div class="tasks-container">
 
@@ -148,7 +150,7 @@
         </div>
 
         <!-- Await feedback column -->
-        <div class="board-column" data-status="await-feedback">
+        <div class="board-column" data-type="await-feedback">
           <div class="no-tasks">No tasks Await Feedback</div>
           <div class="tasks-container">
 
@@ -156,7 +158,7 @@
         </div>
 
         <!-- Done column -->
-        <div class="board-column" data-status="done">
+        <div class="board-column" data-type="done">
           <div class="no-tasks">No tasks Done</div>
           <div class="tasks-container">
 
@@ -391,8 +393,6 @@
                 <div id="selectedCategoryContainer"></div>
                 <input type="hidden" id="taskTypeInput" value="" />
               </div>
-
-              <!-- Subtasks -->
 <div class="addTask-headlines">Subtasks</div>
 <div class="subtask-input-container">
   <div class="subtask-input-wrapper">
@@ -408,12 +408,10 @@
   </div>
 </div>
 <ul id="subtaskList" class="subtask-list">
-  <!-- Subtasks werden hier dynamisch eingefügt -->
 </ul>
 
 
             <div class="form-actions">
-              <!-- Actions -->
               <div class="addTask-buttons">
                 <button class="cancel-btn" id="cancelButton">Cancel x</button>
                 <button type="submit" id="createTaskButton" class="create-task-btn">Create Task ✓
@@ -435,6 +433,6 @@
     <script src="./script/checkMaxWidth.js"></script>
     <script src="./script/board/responsiveAddTask.js"></script>
     <script src="./script/userMenu.js" defer></script>
-    <script src="./script/setProfile.js" defer></script>
+    <!-- <script src="./script/setProfile.js" defer></script> -->
   </body>
 </html>

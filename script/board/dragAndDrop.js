@@ -1,3 +1,9 @@
+/**
+ * Initializes the drag event for a task card and sets its data.
+ * @param {DragEvent} event - The dragstart event triggered by the task card.
+ * @param {HTMLElement} taskCard - The task card being dragged.
+ */
+
 function startDragging(event, taskCard) {
   currentDraggedTask = {
     id: taskCard.dataset.id,
@@ -6,23 +12,30 @@ function startDragging(event, taskCard) {
   event.dataTransfer.setData("text/plain", taskCard.dataset.id);
 }
 
-function onTaskDrop(event, taskId, newType) {
-  event.preventDefault();
-  updateTaskTypeInFirebase(taskId, newType);
-  const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
-  const newColumn = document.querySelector(
-    `.board-column[data-type="${newType}"] .tasks-container`
-  );
-  newColumn.appendChild(taskCard);
-}
+/**
+ * Updates the type (column) of a task in Firebase.
+ * @param {string} taskId - The ID of the task to update.
+ * @param {string} newType - The new type (column) for the task.
+ */
 
 function updateTaskTypeInFirebase(taskId, newType) {
-  const taskRef = firebase.database().ref(`/tasks/${taskId}`);
-  taskRef
+  if (!taskId || !newType) {
+    return;
+  }
+  firebase
+    .database()
+    .ref(`/tasks/${taskId}`)
     .update({ type: newType })
-    .then(() => {})
-    .catch(() => {});
+    .then(() => {
+      checkAllColumnsForTasks();
+    })
+    .catch(() => {
+    });
 }
+
+/**
+ * Enables drag-and-drop functionality for all task cards and sets up drop zones.
+ */
 
 function enableDragAndDrop() {
   const taskCards = document.querySelectorAll(".task-card");
@@ -38,6 +51,10 @@ function enableDragAndDrop() {
   });
   dropZones();
 }
+
+/**
+ * Sets up drop zones for columns and attaches dragover, dragleave, and drop event listeners.
+ */
 
 function dropZones() {
   const dropZones = document.querySelectorAll(".board-column");
@@ -57,43 +74,80 @@ function dropZones() {
   });
 }
 
+/**
+ * Handles the start of a drag event for a task card.
+ * @param {DragEvent} event - The dragstart event.
+ */
+
 function handleDragStart(event) {
   event.dataTransfer.setData("text/plain", event.target.dataset.id);
   currentDraggedTask = event.target;
 }
 
+/**
+ * Handles the end of a drag event by resetting the dragged task.
+ */
+
 function handleDragEnd() {
   currentDraggedTask = null;
 }
+
+/**
+ * Allows a drop event to occur on a valid drop zone.
+ * @param {DragEvent} event - The dragover event.
+ */
 
 function allowDrop(event) {
   event.preventDefault();
 }
 
+/**
+ * Handles the drop event, moves the task to the new column, and updates Firebase.
+ * @param {DragEvent} event - The drop event.
+ * @param {HTMLElement} zone - The drop zone element.
+ */
+
 function handleDrop(event, zone) {
   event.preventDefault();
   const draggedTaskId = event.dataTransfer.getData("text/plain");
-  const newStatus = zone.getAttribute("data-status");
-  if (!draggedTaskId) {
+  const newType = zone.getAttribute("data-type");
+  if (!draggedTaskId || !newType) {
     return;
   }
-  const draggedTask = document.querySelector(
-    `.task-card[data-id="${draggedTaskId}"]`
-  );
+  const draggedTask = document.querySelector(`.task-card[data-id="${draggedTaskId}"]`);
   if (!draggedTask) {
     return;
   }
   zone.querySelector(".tasks-container").appendChild(draggedTask);
-  if (typeof updateTaskTypeInFirebase === "function") {
-    updateTaskTypeInFirebase(draggedTaskId, newStatus);
-  }
+  updateTaskTypeInFirebase(draggedTaskId, newType);
+  renderTasksOnBoard();
   checkAllColumnsForTasks();
 }
 
+/**
+ * Checks all board columns for tasks and toggles the "No Tasks" message accordingly.
+ */
+
 function checkAllColumnsForTasks() {
   const columns = document.querySelectorAll(".board-column");
-  columns.forEach((column) => updateNoTasksMessage(column));
+  columns.forEach((column) => {
+    const tasksContainer = column.querySelector(".tasks-container");
+    const noTasksMessage = column.querySelector(".no-tasks");
+
+    if (!tasksContainer || !noTasksMessage) {
+      return;
+    }
+    if (tasksContainer.children.length > 0) {
+      noTasksMessage.style.display = "none";
+    } else {
+      noTasksMessage.style.display = "block";
+    }
+  });
 }
+
+/**
+ * Sets up a listener for subtask progress updates and handles checkbox changes.
+ */
 
 function handleSubtaskProgressUpdate() {
   document
@@ -112,6 +166,13 @@ function handleSubtaskProgressUpdate() {
     });
 }
 
+/**
+ * Updates the completion status of a subtask in Firebase and on the board.
+ * @param {string} taskId - The ID of the task containing the subtask.
+ * @param {number} subtaskIndex - The index of the subtask in the task's subtasks array.
+ * @param {boolean} completed - Whether the subtask is completed.
+ */
+
 function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
   const task = tasksMap[taskId];
   if (!task || !Array.isArray(task.subtasks)) {
@@ -124,6 +185,11 @@ function handleSubtaskCompletion(taskId, subtaskIndex, completed) {
   } else {
   }
 }
+
+/**
+ * Updates the progress of a task based on its completed subtasks and updates the board UI.
+ * @param {Object} task - The task object containing subtasks.
+ */
 
 function updateTaskProgress(task) {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
@@ -139,6 +205,11 @@ function updateTaskProgress(task) {
     progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
 }
 
+/**
+ * Updates the subtask progress in the progress bar and text on the board UI.
+ * @param {Object} task - The task object containing subtasks.
+ */
+
 function updateSubtaskProgress(task) {
   const totalSubtasks = task.subtasks.length;
   const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
@@ -149,8 +220,15 @@ function updateSubtaskProgress(task) {
   if (progressBar) progressBar.style.width = `${progressPercent}%`;
   if (progressText)
     progressText.textContent = `${completedSubtasks}/${totalSubtasks} Subtasks`;
-  progressPercent();
 }
+
+/**
+ * Updates the progress bar and progress text for a specific task on the board.
+ * @param {Object} task - The task object containing subtasks.
+ * @param {number} progressPercent - The progress percentage to display (0–100).
+ * @param {number} completedSubtasks - The number of completed subtasks.
+ * @param {number} totalSubtasks - The total number of subtasks in the task.
+ */
 
 function progressPercent() {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
@@ -163,6 +241,11 @@ function progressPercent() {
   }
 }
 
+/**
+ * Attaches a listener for subtask checkbox changes to update the progress.
+ * @param {Object} task - The task object containing subtasks.
+ */
+
 function attachSubtaskProgressListener(task) {
   const subtasksContainer = document.getElementById("taskSubtasks");
   subtasksContainer.addEventListener("change", (event) => {
@@ -174,6 +257,11 @@ function attachSubtaskProgressListener(task) {
   });
   progressBar();
 }
+
+/**
+ * Updates the progress bar and progress text for a task on the board.
+ * @param {Object} task - The task object containing subtasks.
+ */
 
 function progressBar() {
   const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
@@ -191,15 +279,22 @@ function progressBar() {
   }
 }
 
-function setupSubtaskCheckboxListener() {
+/**
+ * Sets up a listener for subtask checkboxes and updates their progress on change.
+ * @param {Object} task - The task object containing subtasks.
+ */
+
+function setupSubtaskCheckboxListener(task) {
   const subtaskContainer = document.getElementById("taskSubtasks");
+  if (!subtaskContainer) return;
   subtaskContainer.addEventListener("change", (event) => {
     if (event.target.type === "checkbox") {
-      const subtaskIndex = event.target.dataset.index;
-      currentTask.subtasks[subtaskIndex].completed = event.target.checked;
-      updateSubtaskProgress(currentTask.id);
-      renderTaskSubtasks(currentTask);
-      saveTaskToFirebase(currentTask);
+      const subtaskIndex = parseInt(event.target.dataset.index, 10);
+      task.subtasks[subtaskIndex].completed = event.target.checked;
+      updateSubtaskInFirebase(task.id, subtaskIndex, task.subtasks[subtaskIndex].completed);
+      updateTaskProgress(task);
+      updateTaskOnBoard(task.id, task);
     }
   });
 }
+

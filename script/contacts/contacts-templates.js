@@ -1,6 +1,14 @@
+// Für Desktop
 
-
-// Container Template zur Trennung durch Anfangsbuchstaben Firstname
+/**
+ * Container Template zur Trennung durch Anfangsbuchstaben vom Vornamen.
+ * 
+ * @function contactBoardFirstLetterHeadTemplate
+ * @param {string} USER_NAME Parameter der den ganzen Namen übergibt
+ * @returns {string} Das HTML-Template für die Anzeige des obersten Buchstaben in der Kontaktliste.
+ * @example
+ * "A", "B" oder "C" bis zu "Z".
+ */
 function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     return `
         <div class="headLetterDiv" id="headLetterDiv">
@@ -12,10 +20,19 @@ function contactBoardFirstLetterHeadTemplate(USER_NAME) {
     ` 
 }
 
-// Erstellt das ICON-Template vor dem Namen & Email des User in der Kontaktliste
-function userIconTemplateContactList(userName, userIndex) {
-    let firstLetterFullName = userName;
-    if (userName.includes(" ")) {        
+/**
+ * Erstellt das ICON vor dem Namen & Email des Kontakts in der Kontaktliste.
+ * 
+ * @function userIconTemplateContactList
+ * @param {string} USER_NAME Parameter der den ganzen Namen übergibt
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
+ * @returns {string} Das HTML-Template für die Anzeige des UserIcon in der Kontaktliste vor dem vollen Namen eines Kontakts.
+ * @example
+ * "AM" -> mit der Background Color bspw. Orange
+ */
+function userIconTemplateContactList(USER_NAME, userIndex) {
+    let firstLetterFullName = USER_NAME;
+    if (USER_NAME.includes(" ")) {        
         let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
@@ -36,10 +53,19 @@ function userIconTemplateContactList(userName, userIndex) {
     }
 }
 
-// Erstellt das ICON-Template vor dem Namen des User in dem Content-Table
-function userIconTemplateContactTable(userName, userIndex) {
-    let firstLetterFullName = userName;
-    if (userName.includes(" ")) {        
+/**
+ * Erstellt das ICON vor dem Namen des Kontakts in dem Content-Table.
+ * 
+ * @function userIconTemplateContactTable
+ * @param {string} USER_NAME Parameter der den ganzen Namen übergibt
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
+ * @returns {string} Das HTML-Template für das User Icon im Contact Table.
+ * @example
+ * "AM" -> mit der Background Color bspw. Orange. in dem Content-Table
+ */
+function userIconTemplateContactTable(USER_NAME, userIndex) {
+    let firstLetterFullName = USER_NAME;
+    if (USER_NAME.includes(" ")) {        
         let getFirstLetters = firstLetterFullName.split(" ")          // Teilt den String in Wörter auf
         .map(word => word[0])                                         // Nimmt den ersten Buchstaben jedes Wortes
         .join("");                                                    // Fügt die Buchstaben zu einem String zusammen
@@ -57,7 +83,15 @@ function userIconTemplateContactTable(userName, userIndex) {
     }
 }
 
-// Template für gesamte User Ansicht unter "Add new contact"
+/**
+ * Template für jeden gerenderten Kontakt unter "Add new contact" in der Kontaktliste.
+ * 
+ * @function contactBoradUserTemplate
+ * @param {string} USER_NAME Parameter der den ganzen Namen übergibt
+ * @param {string} USER_EMAIL Parameter der die E-Mail übergibt
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
+ * @returns {string} Das HTML-Template für die Kontakte in der Kontaktliste.
+ */
 function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
     return `
         ${contactBoardFirstLetterHeadTemplate(USER_NAME)}
@@ -70,17 +104,26 @@ function contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex) {
                     <p class="user-shortcut-name" style="color: black">${USER_NAME}</p>
                 </div>
                 <div>
-                    <p class="user-shortcut-email"  style="color: #007CEE;">${USER_EMAIL}</p>
+                    <p class="user-shortcut-email"  style="color: #007CEE !important;">${USER_EMAIL}</p>
                 </div>
             </div>
         </div>
     `
 }
 
-// Unter Contacts | Better with a Team Template
+/**
+ * Template für die gesamten Kontakt-Informationen im Contact Table. 
+ * 
+ * @function contactContentTableTemplate
+ * @param {string} USER_NAME Parameter der den ganzen Namen übergibt
+ * @param {string} USER_EMAIL Parameter der die E-Mail übergibt
+ * @param {string} USER_PHONE_NUMB Parameter der die Telefonummer übergibt
+
+ * @returns {string} Das HTML-Template für die gesamte Kontakt-Information im Contact Table.
+ */
 function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB) {
     return `
-        <div class="contact-content-table-usernameAndIcons">
+        <div class="contact-content-table-usernameAndIcons flyAnimation">
             <div class="userIconTable">
                 ${userIconTemplateContactTable(USER_NAME, userIndex)}
             </div>
@@ -100,7 +143,7 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
                 </div>
             </div>
         </div>
-        <div class="contact-content-table-usernameFullinformation">
+        <div class="contact-content-table-usernameFullinformation flyAnimation">
             <p class="contact-content-information">Contact Information</p>
             <div>
                 <h4>E-Mail</h4>
@@ -114,7 +157,12 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
     `
 }
 
-// Modal Template für Add-New Contact
+/**
+ * Das Modal Template für Add-New Contact.
+ * 
+ * @function modalAddContactTemplate
+ * @returns {string} Das HTML-Template für das gesamte "Add Contact" Modal.
+ */
 function modalAddContactTemplate() {
     return `
         <modal onclick="closeModal()" class="modal-background" id="modal-background">
@@ -172,7 +220,14 @@ function modalAddContactTemplate() {
     `
 }
 
-// Modal Template für Edit
+/**
+ * Das Modal Template für Edit Contact.
+ * 
+ * @function modalEditContactTemplate
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
+ * @param {string} USER_NAME Parameter der den ganzen Namen übergibt
+ * @returns {string} Das HTML-Template für das gesamte "Edit Contact" Modal.
+ */
 function modalEditContactTemplate(userIndex, USER_NAME) {
     return `
         <modal onclick="closeModal()" class="modal-background" id="modal-background">
@@ -216,7 +271,12 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
     `
 }
 
-// Template für die Created Kontakt DIV
+/**
+ * Template für die "Contact Successfully Created" Div.
+ * 
+ * @function contactSuccessfullyCreatedTemplate
+ * @returns {string}  Das HTML-Template für das animierte "Contact Successfully Created".
+ */
 function contactSuccessfullyCreatedTemplate() {
     return `
         <div class="contactSuccessfullyCreated" style="background: #2A3647; color: white; width: 326px; height: 74px; 
@@ -228,22 +288,3 @@ function contactSuccessfullyCreatedTemplate() {
         </div>
     `
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
