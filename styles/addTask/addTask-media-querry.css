@@ -72,11 +72,11 @@
   }
 
   .contentH2 {
-    width: 100%;
+    width: fit-content;
     height: 90px;
     top: 100px;
     position: fixed;
-    z-index: 5;
+    z-index: 2;
     background-color: #f6f7f8;
   }
 

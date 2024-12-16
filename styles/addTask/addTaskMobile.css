@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Intel";
+  font-family: "Inter";
   src: url("./assets/font/Inter-VariableFont_opsz,wght.ttf") format("ttf");
 }
 
@@ -7,16 +7,7 @@
   background-color: #f6f7f8;
   margin: 0;
   padding: 0;
-  font-family: "Inter-VariableFont_opsz,wght";
-}
-
-main {
-  width: 100%;
-  height: 112px;
-  top: 80px;
-  position: fixed;
-  z-index: 5;
-  background-color: #f6f7f8;
+  font-family: "Inter";
 }
 
 .content-board {
@@ -342,13 +333,15 @@ textarea {
   font-size: 47px;
   font-weight: 700;
   line-height: 56.4px;
-  width: 214px;
+  width: 80%;
   height: 56px;
   top: 48px;
   left: 16px;
   gap: 20px;
   position: absolute;
   display: flex;
+  z-index: 2;
+
 }
 
 .form-row {
@@ -962,7 +955,7 @@ textarea {
   color: white;
 }
 
-/ .dropdown-option.selected .select-icon .selected-icon {
+.dropdown-option.selected .select-icon .selected-icon {
   background-color: #091931;
   color: white;
 }
