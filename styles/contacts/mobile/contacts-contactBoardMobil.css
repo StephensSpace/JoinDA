@@ -27,8 +27,7 @@
     height: 32px;
 }
 
-.add-new-contact-btn:active {
-    border-color: var(--background-color-hover);
+.add-new-contact-btn:hover {
     background: var(--background-color-hover);
 }
 
