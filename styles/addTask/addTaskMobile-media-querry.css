@@ -1,0 +1,90 @@
+@media screen and (max-width: 510px) {
+     body {
+       position: absolute;
+       overflow-y: scroll;
+     }
+   
+     body::-webkit-scrollbar {
+       display: none;
+     }
+   
+     .form-column-left {
+       left: 60px;
+     }
+   
+     .form-column-right {
+       left: 60px;
+     }
+   
+     .addTask-buttons {
+       left: 150px;
+     }
+}
+   
+@media screen and (max-width: 470px) {
+     .form-column-left {
+       left: 50px;
+     }
+   
+     .form-column-right {
+       left: 50px;
+     }
+   
+     .addTask-buttons {
+       left: 40px;
+     }
+   
+     .subtask-add-button {
+       left: 180px;
+     }
+   
+     input[type="text"],
+     input[type="date"],
+     select,
+     textarea {
+       width: 300px;
+     }
+   
+     .priority {
+       width: 300px;
+     }
+   
+     .assigned-container {
+       width: 300px;
+     }
+}
+   
+@media screen and (max-width: 380px) {
+     .form-column-left {
+       left: 8px;
+     }
+   
+     .form-column-right {
+       left: 8px;
+     }
+   
+     .addTask-buttons {
+       left: 8px;
+       gap: 1px;
+     }
+   
+     input[type="text"],
+     input[type="date"],
+     select,
+     textarea {
+       width: 300px;
+     }
+   
+     .priority {
+       width: 300px;
+     }
+   
+     .assigned-container {
+       width: 300px;
+     }
+   
+     .add-task-label {
+       left: 6px;
+     }
+}
+   
