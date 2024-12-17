@@ -137,6 +137,13 @@
 }
 
 @media (max-width: 1050px) {
+
+        /* Header allg. */
+
+        header {
+            padding: 20px 40px 20px 280px;
+        }
+    
         /* Contacts Content */
     
         .contact-content {
@@ -191,7 +198,7 @@
 
         /* Contact Board oder Liste */
         .contact-board {
-            height: 51.33%;
+            height: 280px;
             bottom: 0;
             top: unset;
             width: -webkit-fill-available;
