@@ -233,6 +233,10 @@
     cursor: pointer;
 }
 
+.contact-content-back:hover {
+    background: #EEEEEE;
+    border-radius: 100%;
+}
 
 /* Div mit Contact Successfully created */
 .contactSuccessfullyCreated {
