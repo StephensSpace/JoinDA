@@ -148,6 +148,7 @@
 
     .h1Div h1 {
         font-size: 42px;
+        white-space: nowrap;
     }
 
     .h1UnderlineDiv {
@@ -157,6 +158,7 @@
 
     .h1UnderlineDiv p {
         font-size: 23px;
+        padding-left: 22px;
     }
 
 }
@@ -262,6 +264,7 @@
 
     .h1UnderlineDiv p {
         font-size: 22px;
+        width: 200px;
     }
 
 
