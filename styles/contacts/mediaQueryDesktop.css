@@ -198,7 +198,7 @@
 
         /* Contact Board oder Liste */
         .contact-board {
-            height: 51.4%;
+            height: 280px;
             bottom: 0;
             top: unset;
             width: -webkit-fill-available;

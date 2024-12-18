@@ -145,10 +145,6 @@
     align-items: center;
 }
 
-#closeX {
-    cursor: pointer;
-}
-
 .userIconTable p {
     /* background-color: #FF7A00; */
     width: 120px;

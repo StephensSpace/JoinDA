@@ -144,6 +144,10 @@
     padding: 36px;
 }
 
+.modal-left-top img {
+    cursor: pointer;
+}
+
 .modal-right-top div {
     width: 24px;
     height: 24px;
