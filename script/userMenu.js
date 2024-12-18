@@ -40,8 +40,12 @@ function logOutBtn() {
     const currentUrl = window.location.href;
     if (currentUrl.includes("Mobile")) {
         window.location.href = "loginMobile.html";
+        sessionStorage.removeItem('User')
+        localStorage.removeItem('User')
     } else {
         window.location.href = "login.html";
+        sessionStorage.removeItem('User')
+        localStorage.removeItem('User')
     };
     localStorage.removeItem('logedUser');
     sessionStorage.removeItem('logedUser');

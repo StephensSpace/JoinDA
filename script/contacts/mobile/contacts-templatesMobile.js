@@ -246,7 +246,7 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
                         <hr>
                     </div>
                     <div class="modal-left-top">
-                        <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X-white.png">
+                        <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X-white.png" id="closeX">
                     </div>
                 </div>
 

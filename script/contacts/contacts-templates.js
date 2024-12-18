@@ -186,7 +186,7 @@ function modalAddContactTemplate() {
                             <div class="modal-inputfield-div">
                                 <div class="modal-right-top">
                                     <div>
-                                        <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                                        <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png" id="closeX">
                                     </div>
                                 </div>
                                 <form onsubmit="addNewContactFunc(); return false">
@@ -249,7 +249,7 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
                             </div>
                             <div class="modal-inputfield-div">
                                 <div class="modal-right-top">
-                                    <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png">
+                                    <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png" id="closeX">
                                 </div>
                                 <form onsubmit="editContactInModal(${userIndex}); return false">
                                     <div class="modal-inputfield">

@@ -19,6 +19,9 @@
     right: 16px;
 }
 
+#closeX {
+    cursor: pointer;
+}
 
 .edit-delete-btn {
     display: flex;
@@ -32,7 +35,7 @@
     cursor: pointer;
 }
 
-.edit-delete-btn:active {
+.edit-delete-btn:hover {
     background: var(--background-color-hover);
 }
 
@@ -151,10 +154,6 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
 }
 
-#closeX {
-    cursor: pointer;
-}
-
 .editAndDeleteBtn, 
 .editAndDeleteBtn1 {
     display: flex;
@@ -163,7 +162,6 @@
     width: 96px;
     height: 40px;
     padding-left: 8px;
-    cursor: pointer;
 }
 
 .editAndDeleteBtn:hover, 
@@ -211,6 +209,23 @@
     overflow-y: auto;
 }
 
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img {
+    display: block;
+}
+
+.editAndDeleteBtn:hover .editAndDeleteBtn-Img-1 {
+    display: none;
+}
+
+.editAndDeleteBtn1:hover .editAndDeleteBtn-Img {
+    display: block;
+}
+
+.editAndDeleteBtn1:hover .editAndDeleteBtn-Img-1 {
+    display: none;
+}
+
+
 /* Pfeil zum zurück gehen in Kontaktliste */ 
 .contact-content-back {
     width: 32px;
@@ -221,6 +236,10 @@
     cursor: pointer;
 }
 
+.contact-content-back:hover {
+    background: #EEEEEE;
+    border-radius: 100%;
+}
 
 /* Div mit Contact Successfully created */
 .contactSuccessfullyCreated {

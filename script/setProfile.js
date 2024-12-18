@@ -1,8 +1,8 @@
 
 function checkLogedUser() {
     if (typeof window.logedUser === "undefined" || logedUser === null) {
-        window.logedUser = checkStorageForUser(); // logedUser nur definieren, wenn sie nicht existiert
-        selectInitials();
+        let logedUser = checkStorageForUser(); // logedUser nur definieren, wenn sie nicht existiert
+        selectInitials(logedUser);
     } else {
         selectInitials();
     }
@@ -17,7 +17,7 @@ function checkStorageForUser() {
     }
 }
 
-function selectInitials() {
+function selectInitials(logedUser) {
     if (logedUser.includes(" ")) {
         const words = logedUser.split(" ");
         const initials = words[0][0].toUpperCase() + words[1][0].toUpperCase();
