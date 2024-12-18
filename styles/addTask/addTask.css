@@ -493,7 +493,6 @@ textarea {
 .add-task-label {
   width: 170px;
   height: 27px;
-  position: absolute;
   top: 824px;
   left: 328px;
 }
@@ -503,9 +502,6 @@ textarea {
   gap: 16px;
   width: 309px;
   height: 56px;
-  top: 824px;
-  position: fixed;
-  left: 1095px;
 }
 
 .cancel-btn {
