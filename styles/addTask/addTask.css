@@ -960,7 +960,7 @@ textarea {
   color: white;
 }
 
-/ .dropdown-option.selected .select-icon .selected-icon {
+.dropdown-option.selected .select-icon .selected-icon {
   background-color: #091931;
   color: white;
 }

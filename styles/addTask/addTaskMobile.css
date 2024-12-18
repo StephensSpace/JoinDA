@@ -377,10 +377,9 @@ textarea {
   display: flex;
   flex-direction: column;
   width: 396px;
-  min-height: 100vh;
   top: 570px;
   left: 110px;
-  margin-top: 0;
+  padding-bottom: 166px;
   position: absolute;
 }
 
@@ -490,23 +489,15 @@ textarea {
 .add-task-label {
   width: 170px;
   height: 27px;
-  position: relative;
-  top: 50px;
-  left: 0;
   margin-top: 20px;
-}
-
-.add-task-label label{
-  position: relative;
-    top: -65px;
 }
 
 .bg-mobile-buttons {
   background-color: #f6f7f8;
   position: fixed;
   width: 100%;
-  top: 747px;
-  left: 0;
+  bottom: 80px;
+  left: 105px;
   right: 0;
   z-index: 5;
   height: 84px;
@@ -517,10 +508,8 @@ textarea {
   gap: 16px;
   width: 309px;
   height: 56px;
-  top: 760px;
-  position: fixed;
-  left: 195px;
   z-index: 5;
+  margin-left: 5px;
 }
 
 .cancel-btn {
@@ -988,7 +977,7 @@ textarea {
   color: white;
 }
 
-/ .dropdown-option.selected .select-icon .selected-icon {
+.dropdown-option.selected .select-icon .selected-icon {
   background-color: #091931;
   color: white;
 }
