@@ -169,12 +169,6 @@
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-
-
-
-
-
-
 #createContactBtn:hover {
     border-color: var(--background-color-hover) !important;
     background: var(--background-color-hover) !important;
@@ -206,19 +200,19 @@
 
 
 .person-icon {
-    background: url(/assets/icons/person.png) no-repeat right;
+    background: url(/Join/assets/icons/person.png) no-repeat right;
     background-size: 16px;
     
 }
 
 .check-icon {
-    background: url(/assets/icons/mail.png) no-repeat right;
+    background: url(/Join/assets/icons/mail.png) no-repeat right;
     background-size: 16px;
     
 }
 
 .phone-icon {
-    background: url(/assets/icons/contacts/call.png) no-repeat right;
+    background: url(/Join/assets/icons/contacts/call.png) no-repeat right;
     background-size: 16px;
     
 }
