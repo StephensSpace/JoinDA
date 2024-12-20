@@ -10,13 +10,24 @@ let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebaseda
  * (zuerst Logo dann "notAUser") regelt
  */
 window.addEventListener("load", () => {
-    setTimeout(() => {
+    let animationed = sessionStorage.getItem('animation');
+    if (!animationed) {
+        setTimeout(() => {
+            document.getElementById("loginContainer").classList.remove('dNone');
+            document.getElementById("loginContainer").classList.add('login-container');
+            document.getElementById("notAUser").classList.remove('dNone');
+            document.getElementById("notAUser").classList.add('not-a-user');
+            document.getElementById("ppAndLnBox").classList.remove('dNone');
+            sessionStorage.setItem('animation', 'true');
+        }, 4000);
+    } else {
         document.getElementById("loginContainer").classList.remove('dNone');
         document.getElementById("loginContainer").classList.add('login-container');
+        document.getElementById("logoContainer").classList.remove('logo-container');
+        document.getElementById("logoContainer").classList.add('logo-container-final');
         document.getElementById("notAUser").classList.remove('dNone');
         document.getElementById("notAUser").classList.add('not-a-user');
-        document.getElementById("ppAndLnBox").classList.remove('dNone');
-    }, 4000); 
+    }
 });
 /**
  * in der Funktion guestlogin die onclick auf dem Gästelogin button liegt, wird der
@@ -27,7 +38,7 @@ async function guestLogin() {
     try {
         const User = await fetch(UserDatabaseURL + 'Guest.json')
         const GuestUser = await User.json();
-        sessionStorage.setItem("User", GuestUser.name); 
+        sessionStorage.setItem("User", GuestUser.name);
     } catch (error) {
         console.error("Fehler beim Gastlogin:", error);
     }

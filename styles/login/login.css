@@ -36,6 +36,15 @@ body {
     top: calc(50% - 493px/2);
 }
 
+.logo-container-final {
+    display: flex !important;
+    position: absolute;
+    top: 67px;
+    left: 67px;
+    opacity: 1; /* Finaler Zustand */
+    z-index: 5;
+}
+
 .login-container h1,
 .signUpContainer h1 {
     width: 315px;
@@ -296,8 +305,8 @@ button {
     }
 
     100% {
-        top: 10px;
-        left: 10px;
+        top: 67px;
+        left: 67px;
         transform: translate(0, 0);
     }
 }
