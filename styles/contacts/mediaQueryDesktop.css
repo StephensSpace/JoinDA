@@ -1,9 +1,5 @@
 @media (max-width: 1340px) {
 
-    /* Content Table */
-    .contact-board {
-        /*max-width: 400px;*/
-    }
 
     .contact-content {
         left: 632px;
@@ -160,8 +156,9 @@
         z-index: 3;
         position: fixed;
         background-color: #f4f7f9;
-        width: auto;
+        width: calc(100% - 232px);
         top: 96px;
+        left: 232px;
     }
 
     .contact-content-head hr {
@@ -244,6 +241,7 @@
 
     .contact-content-head {
         flex-direction: column;
+        width: calc(100% - 232px);
     }
 
     .contact-content-head hr {
