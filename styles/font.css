@@ -6,3 +6,13 @@
     font-weight: normal;
     font-style: normal;
 } 
+
+/* Für Local */
+
+@font-face {
+    font-family: "Inter";
+    src: url("/assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("woff"),
+        url("/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+} 
