@@ -12,23 +12,32 @@ let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebaseda
 window.addEventListener("load", () => {
     let animationed = sessionStorage.getItem('animation');
     if (!animationed) {
-        setTimeout(() => {
-            document.getElementById("loginContainer").classList.remove('dNone');
-            document.getElementById("loginContainer").classList.add('login-container');
-            document.getElementById("notAUser").classList.remove('dNone');
-            document.getElementById("notAUser").classList.add('not-a-user');
-            document.getElementById("ppAndLnBox").classList.remove('dNone');
-            sessionStorage.setItem('animation', 'true');
-        }, 4000);
+        logoAnimation()
     } else {
+        logoWasAnimatedBefore()  
+    }
+});
+
+function logoAnimation() {
+    setTimeout(() => {
         document.getElementById("loginContainer").classList.remove('dNone');
+        document.getElementById("loginContainer").classList.add('login-container');
+        document.getElementById("notAUser").classList.remove('dNone');
+        document.getElementById("notAUser").classList.add('not-a-user');
+        document.getElementById("ppAndLnBox").classList.remove('dNone');
+        sessionStorage.setItem('animation', 'true');
+    }, 4000);
+}
+
+function logoWasAnimatedBefore() {
+    document.getElementById("loginContainer").classList.remove('dNone');
         document.getElementById("loginContainer").classList.add('login-container');
         document.getElementById("logoContainer").classList.remove('logo-container');
         document.getElementById("logoContainer").classList.add('logo-container-final');
         document.getElementById("notAUser").classList.remove('dNone');
         document.getElementById("notAUser").classList.add('not-a-user');
-    }
-});
+}
+
 /**
  * in der Funktion guestlogin die onclick auf dem Gästelogin button liegt, wird der
  * Gast User aus der Datanbank gefetcht und dann in den sessionStorage als User hinterlegt.

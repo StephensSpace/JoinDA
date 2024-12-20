@@ -9,6 +9,23 @@ let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebaseda
  * (zuerst Logo dann "notAUser") regelt
  */
 window.addEventListener("load", () => {
+    let animationed = sessionStorage.getItem('animation');
+    if (!animationed) {
+        logoAnimation()
+    } else {
+        document.getElementById("logo").src = "./assets/img/logo.png";
+        document.getElementById("logoContainer").classList.remove('logo-container');
+        document.getElementById("logo").classList.add('logo-container-final');
+        document.getElementById("loginContainer").classList.remove('dNone');
+        document.getElementById("loginContainer").classList.add('login-container');
+        document.getElementById("notAUser").classList.remove('visabilityHidden');
+        document.getElementById("ppAndLnBox").classList.remove('dNone');
+        document.querySelector('.overlay').classList.add('dNone');
+    }
+
+});
+
+function logoAnimation() {
     setTimeout(() => {
         setTimeout(() => {
             document.getElementById("logo").src = "./assets/img/logo.png";
@@ -25,7 +42,7 @@ window.addEventListener("load", () => {
             overlay.classList.add('dNone');
         }, 2000);
     }, 3200);
-});
+}
 
 /**
  * in der Funktion guestlogin die onclick auf dem Gästelogin button liegt, wird der
@@ -36,7 +53,7 @@ async function guestLogin() {
     try {
         const User = await fetch(UserDatabaseURL + 'Guest.json')
         const GuestUser = await User.json();
-        sessionStorage.setItem("User", GuestUser.name); 
+        sessionStorage.setItem("User", GuestUser.name);
     } catch (error) {
         console.error("Fehler beim Gastlogin:", error);
     }
@@ -88,11 +105,11 @@ function checkPw(mail, password, data) {
     if (fittingUser) {
         const rememberMe = document.getElementById('rememberMee').checked;
         if (rememberMe) {
-            localStorage.setItem("User", fittingUser.name); 
+            localStorage.setItem("User", fittingUser.name);
         } else {
-            sessionStorage.setItem("User", fittingUser.name); 
+            sessionStorage.setItem("User", fittingUser.name);
         }
-        window.location.href = "welcome.html"; 
+        window.location.href = "welcome.html";
     } else {
         document.getElementById('msgBox').classList.remove('dNone');
         document.getElementById('msgBox').classList.add('dBlock');

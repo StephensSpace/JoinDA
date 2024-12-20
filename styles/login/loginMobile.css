@@ -28,6 +28,15 @@ body {
     transition: opacity 1.5s ease-in;
 }
 
+.logo-container-final {
+    display: flex !important;
+    position: absolute;
+    top: 37px;
+    left: 38px;
+    opacity: 1; /* Finaler Zustand */
+    z-index: 5;
+}
+
 .overlay.transparent {
     opacity: 0;
 }
@@ -220,8 +229,8 @@ input[type="name"]::placeholder {
     }
 
     100% {
-        top: 10px;
-        left: 10px;
+        top: 37px;
+        left: 38px;
         transform: translate(0, 0);
     }
 }
@@ -251,6 +260,13 @@ input[type="name"]::placeholder {
 
 .visabilityHidden {
     visibility: hidden;
+}
+
+@media (max-width: 460px) {
+    .logo-container-final {
+        left: 8px;
+        top: 9px;
+    }
 }
 
 @media (max-width: 396px) {
@@ -299,9 +315,6 @@ input[type="name"]::placeholder {
         top: 0;
         left: 100px;
     }
-    .logo {
-        width: 75px;
-    }
 }
 
 @media (max-height: 776px) and (max-width: 400px) {
@@ -310,4 +323,31 @@ input[type="name"]::placeholder {
         width: fit-content;
     }
 
+}
+
+@media (max-height: 840px) {
+    #logo {
+        width: 70px;
+    }
+}
+
+@media (max-height: 710px) {
+    #logo {
+        width: 60px;
+    }
+}
+
+@media (max-height: 660px) {
+    .logo-container-final {
+        left: 10px;
+        top: 90px;
+    }
+
+    .ppAndLnBox {
+        bottom: 8px !important;
+    }
+
+    .not-a-user {
+        left: unset;
+    }
 }

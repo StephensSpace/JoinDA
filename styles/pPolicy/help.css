@@ -82,3 +82,14 @@ h2 {
     height: auto;
 }
 
+@media (max-width: 780px) {
+    h1 {
+      font-size: 41px;
+      justify-content: flex-start;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  }
+
