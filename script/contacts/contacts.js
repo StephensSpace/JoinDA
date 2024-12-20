@@ -198,7 +198,7 @@ async function renderContactsInToContactList() {
  */
 async function renderContactInfosInContactsTable(userIndex) {
     const OBJECT = await getFirebaseData(path = "/contacts");
-    clickedUser();
+    clickedUser(userIndex);
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
@@ -544,21 +544,22 @@ function contactSuccessfullyCreated() {
  * Funktion die zeigt welcher Kontakt in der Kontaktliste angeklickt wurde.
  * 
  * @function clickedUser
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
  * @returns {void} Gibt keinen Wert zurück.
  */
-function clickedUser() {
+function clickedUser(userIndex) {
     const contacts = document.getElementsByClassName('user-contact');
-    Array.from(contacts).forEach((contact) => {
-      contact.addEventListener('click', () => {
-        Array.from(contacts).forEach((item) => {
-          item.classList.remove('clicked-Background'); 
-        });
-        contact.classList.toggle('clicked-Background');
-      });
-    });
+    const contactClicked = document.getElementsByClassName('user-contact')[userIndex];
+    contactClicked.classList.add('clicked-Background')
+    for (let i = 0; i < contacts.length; i++) {
+        const element = contacts[i];
+        if (i == userIndex) {
+            contactClicked.classList.add('clicked-Background')
+        } else {   
+            element.classList.remove('clicked-Background');
+        }
+    }
 }
-
-
 
 
 
