@@ -622,17 +622,20 @@ function addMarginOnLastUser() {
  * Funktion die zeigt welcher Kontakt in der Kontaktliste angeklickt wurde.
  * 
  * @function clickedUser
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
  * @returns {void} Gibt keinen Wert zurück.
  */
-function clickedUser() {
+function clickedUser(userIndex) {
     const contacts = document.getElementsByClassName('user-contact');
-    Array.from(contacts).forEach((contact) => {
-      contact.addEventListener('click', () => {
-        Array.from(contacts).forEach((item) => {
-          item.classList.remove('clicked-Background'); 
-        });
-        contact.classList.toggle('clicked-Background');
-      });
-    });
-  }
+    const contactClicked = document.getElementsByClassName('user-contact')[userIndex];
+    contactClicked.classList.add('clicked-Background')
+    for (let i = 0; i < contacts.length; i++) {
+        const element = contacts[i];
+        if (i == userIndex) {
+            contactClicked.classList.add('clicked-Background')
+        } else {   
+            element.classList.remove('clicked-Background');
+        }
+    }
+}
 
