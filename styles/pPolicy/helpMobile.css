@@ -10,6 +10,7 @@ h1 {
     height: 56px;
     left: 16px;
     top: 128px;
+    font-size: 47px;
 }
 
 #helpTxtBox {
@@ -19,8 +20,8 @@ h1 {
     padding: 0px;
     gap: 24px;
     position: absolute;
-    left: calc(50% + 10px);
-    top: 311px;
+    left: calc(46.8% + 10px);
+    top: 216px;
     transform: translateX(-50%);
     max-width: 630px;
     width: calc(100% - 40px);

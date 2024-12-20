@@ -8,9 +8,8 @@
 
 .pp {
     display: flex;
-    text-align: center;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin: 50px 50px 50px 282px;
     gap: 20px;
 }

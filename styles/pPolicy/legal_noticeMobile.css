@@ -1,12 +1,15 @@
 .ln {
   display: flex;
-  text-align: center;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
-  margin: 100px 20px;
+  margin: 124px 20px;
   padding-bottom: 50px;
   overflow-y: auto;
+}
+
+h1 {
+  font-size: 47px;
 }
 
 #arrowLeft {
