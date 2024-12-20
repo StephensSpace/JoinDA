@@ -202,13 +202,11 @@ async function renderContactInfosInContactsTable(userIndex) {
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
-    if (document.getElementsByClassName('contact-content-table-usernameAndIcons')[0]?.classList[1] == 'flyAnimation') {
-        document.getElementsByClassName('contact-content-table-usernameAndIcons')[0]?.classList.remove('flyAnimation');
-        document.getElementsByClassName('contact-content-table-usernameFullinformation')[0]?.classList.remove('flyAnimation');
-        
+    if (document.getElementById(`userIconContactList_${userIndex}`).innerHTML == document.getElementById(`userIconContactTable-${userIndex}`)?.innerHTML) {
+
     } else {
+        CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);   
     }
-    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);    
 }
 
 /**
