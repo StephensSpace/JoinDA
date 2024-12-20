@@ -128,7 +128,9 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
                 ${userIconTemplateContactTable(USER_NAME, userIndex)}
             </div>
             <div class="userIconTableNameDiv">
-                <div> <span style="font-weight: 500;">${USER_NAME}</span> </div>
+                <div> 
+                    <span style="font-weight: 500;">${USER_NAME}</span> 
+                </div>
                 <div class="contact-content-table-editAndDeleteIcons">
                     <div class="editAndDeleteBtn" onclick="openEditContactModal(${userIndex})">
                         <img class="editAndDeleteBtn-Img-1" src="./assets/icons/contacts/edit.png" alt="./assets/icons/edit.png"> 
@@ -144,7 +146,9 @@ function contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHON
             </div>
         </div>
         <div class="contact-content-table-usernameFullinformation flyAnimation">
-            <p class="contact-content-information">Contact Information</p>
+            <p class="contact-content-information">
+                Contact Information
+            </p>
             <div>
                 <h4>E-Mail</h4>
                 <p><a href="mailto:${USER_EMAIL}" style="text-decoration: none;">${USER_EMAIL}</a></p>

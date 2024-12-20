@@ -609,15 +609,6 @@ function addMarginOnLastUser() {
     lastUserInList.style.marginBottom = ("20px");
 }
 
-
-
-//############################################################
-
-//                WORKING ON FUNKTIONEN                     //
-
-//############################################################
-
-
 /**
  * Funktion die zeigt welcher Kontakt in der Kontaktliste angeklickt wurde.
  * 
@@ -638,4 +629,13 @@ function clickedUser(userIndex) {
         }
     }
 }
+
+//############################################################
+
+//                WORKING ON FUNKTIONEN                     //
+
+//############################################################
+
+
+
 

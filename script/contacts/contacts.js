@@ -202,7 +202,13 @@ async function renderContactInfosInContactsTable(userIndex) {
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
-    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);   
+    if (document.getElementsByClassName('contact-content-table-usernameAndIcons')[0]?.classList[1] == 'flyAnimation') {
+        document.getElementsByClassName('contact-content-table-usernameAndIcons')[0]?.classList.remove('flyAnimation');
+        document.getElementsByClassName('contact-content-table-usernameFullinformation')[0]?.classList.remove('flyAnimation');
+        
+    } else {
+    }
+    CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);    
 }
 
 /**
@@ -532,6 +538,13 @@ function contactSuccessfullyCreated() {
     }, delay);
 }
 
+/**
+ * Funktion die zeigt welcher Kontakt in der Kontaktliste angeklickt wurde.
+ * 
+ * @function clickedUser
+ * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
+ * @returns {void} Gibt keinen Wert zurück.
+ */
 function clickedUser(userIndex) {
     const contacts = document.getElementsByClassName('user-contact');
     const contactClicked = document.getElementsByClassName('user-contact')[userIndex];
@@ -553,15 +566,15 @@ function clickedUser(userIndex) {
 //############################################################
 
 
-/**
- * Funktion die zeigt welcher Kontakt in der Kontaktliste angeklickt wurde.
- * 
- * @function clickedUser
- * @param {number} userIndex Der Index des Kontakts in der Kontaktliste
- * @returns {void} Gibt keinen Wert zurück.
- */
 
 
+//                                                                    statt 0 muss hier der Index des Users aus der list rein
+//                                                                       && dann vergleichen
+if (document.getElementsByClassName('user-contact clicked-Background')[0] == 12) {
+    
+} else {
+    
+}
 
 
 
