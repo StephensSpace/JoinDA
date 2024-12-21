@@ -308,7 +308,7 @@ async function renderContactsInToContactList() {
  */
 async function renderContactInfosInContactsTable(userIndex) {
     const OBJECT = await getFirebaseData(path = "/contacts");
-    clickedUser();
+    clickedUser(userIndex);
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
     const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
