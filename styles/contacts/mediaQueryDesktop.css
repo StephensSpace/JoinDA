@@ -155,7 +155,7 @@
         flex-direction: row;
         z-index: 3;
         position: fixed;
-        background-color: #f4f7f9;
+        background-color: var(--background-color-body);
         width: calc(100% - 232px);
         top: 96px;
         left: 232px;

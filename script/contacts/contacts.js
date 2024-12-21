@@ -564,18 +564,3 @@ function clickedUser(userIndex) {
 //############################################################
 
 
-
-
-//                                                                    statt 0 muss hier der Index des Users aus der list rein
-//                                                                       && dann vergleichen
-if (document.getElementsByClassName('user-contact clicked-Background')[0] == 12) {
-    
-} else {
-    
-}
-
-
-
-
-
-
