@@ -112,17 +112,9 @@
 }
 
 
-/* &&&&&&&&&&&&&&&&&&&& */
-
-
-.contact-content-table-usernameFullinformation {
-
-}
-
 .contact-content-table-usernameFullinformation div p {
     padding: 20px 0;
 }
-
 
 /* 
 ██╗░░░██╗███╗░░██╗████████╗███████╗██████╗░░██████╗░███████╗░█████╗░██████╗░██████╗░███╗░░██╗███████╗████████╗
@@ -231,7 +223,6 @@
 .hidden {
     display: none;
 }
-
 
 /* Div mit Contact Successfully created */
 .contactSuccessfullyCreated {

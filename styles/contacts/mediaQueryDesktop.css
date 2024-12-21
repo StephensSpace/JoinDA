@@ -1,6 +1,5 @@
 @media (max-width: 1340px) {
 
-
     .contact-content {
         left: 632px;
         gap: 40px;
@@ -23,12 +22,10 @@
 
 @media (max-width: 1240px) {
 
-    /* Modal allg. */
     .modal {
         flex-direction: column;
     }
 
-    /* Contacts Content */
     .contact-content {
         display: flex;
         align-items: center;
@@ -68,8 +65,6 @@
         padding: 6px 0;
     }
 
-    /* Linkes Modal */
-
     .modal-left {
         width: 704px;
         border-top-right-radius: 32px;
@@ -86,8 +81,6 @@
         padding: unset;
         align-items: center;
     }
-
-    /* Rechtes Modal */
 
     .modal-right {
         border-top-right-radius: unset;
@@ -139,8 +132,6 @@
         padding: 20px 40px 20px 280px;
     }
 
-    /* Contacts Content */
-
     .contact-content {
         top: 96px;
         left: 232px;
@@ -155,7 +146,7 @@
         flex-direction: row;
         z-index: 3;
         position: fixed;
-        background-color: var(--background-color-body);
+        background-color: #f4f7f9;
         width: calc(100% - 232px);
         top: 96px;
         left: 232px;
@@ -177,13 +168,9 @@
         gap: 24px;
     }
 
-
-
     .contact-content-table-editAndDeleteIcons {
         width: 100%;
     }
-
-    /* Add New Contact Btn */
 
     .add-new-contact-btn {
         width: -webkit-fill-available;
@@ -199,7 +186,6 @@
         height: 28px;
     }
 
-    /* Contact Board oder Liste */
     .contact-board {
         height: 51.4%;
         bottom: 0;
@@ -236,9 +222,6 @@
         width: 404px;
     }
 
-
-    /* Alles zu Contact Content Table */
-
     .contact-content-head {
         flex-direction: column;
         width: calc(100% - 232px);
@@ -256,6 +239,5 @@
     .contact-content-table-editAndDeleteIcons {
         justify-content: center;
     }
-
 
 }

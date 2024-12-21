@@ -193,11 +193,12 @@ function modalAddContactTemplate() {
                                         <img onclick="closeModal()" src="./assets/icons/contacts/Vector-X.png" id="closeX">
                                     </div>
                                 </div>
-                                <form onsubmit="addNewContactFunc(); return false">
+                                <form onsubmit="addNewContactFunc(); return false" novalidate>
                                     <div class="modal-inputfield">
-                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
+                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name">
+                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" oninput="checkMail(this.value)">
+                                        <span id="msgBoxMail" class="dNone"></span>
+                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone"> 
                                     </div>
                                     <div class="modal-inputfield-buttons">
                                         <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">

@@ -263,6 +263,17 @@ async function editContactInModal(userIndex) {
     await renderContactsInToContactList();
     await renderContactInfosInContactsTable(userIndex);
 }
+
+function checkMail(value) {
+    if(!value.includes("@") || !value.includes(".")) {
+        document.getElementById('msgBoxMail').classList.remove('dNone');
+        document.getElementById('msgBoxMail').innerHTML = 'Please enter a valid E-Mail adress';        
+    } else {
+        document.getElementById('msgBoxMail').classList.add('dNone');
+    }
+}
+
+
 /**
  * Auslagerunsfunktion, welche die Daten in die Firebase hochläd/ pusht.
  * Dabei Loggt der in der Console, den erfolgreichen Upload oder meldet Fehler bei 
