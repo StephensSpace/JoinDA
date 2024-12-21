@@ -396,9 +396,7 @@ async function editContactInModalTryCatch(userIndex, inputfieldName, inputfieldE
         })
         const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
         CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
-        console.log("Kontakt erfolgreich in Firebase geändert!");
     } catch (error) {
-        console.error("Fehler beim ändern des Kontakts in Firebase:", error);
     }
 }
 
@@ -416,9 +414,7 @@ async function deleteContact(userIndex) {
     try {
         const dataRef = firebase.database().ref("/contacts/" + `${USER}`); // Erstelle eine Referenz zu den Daten
         await dataRef.remove(); // Lösche die Daten
-        console.log("Kontakt erfolgreich gelöscht!");
     } catch (error) {
-        console.error("Fehler beim Löschen des Kontaktes:", error);
     }
     closeModal();
 }
@@ -505,9 +501,7 @@ async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
         })
         const userIndex = await getUserIndex(NAME); // get userIndex of Firebase 
         await renderContactTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB); // rendert User Information in Content-Table 
-        console.log("Kontakt erfolgreich in Firebase angelegt!");
     } catch (error) {
-        console.error("Fehler beim anlegen eines neuen Kontaktes in Firebase:", error);
     }
 }
 
