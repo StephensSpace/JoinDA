@@ -18,20 +18,10 @@
 
 .modal {
     display: flex;
-    /* align-items: center; */
+    align-items: center;
+    height: -webkit-fill-available;
+    justify-content: center;
     z-index: 4;
-}
-
-.modal-same-height {
-    /* height: 270px; */
-}
-
-.modal-same-padding-left {
-    /* padding: 32px 0px 64px 28px;        rechts 0 */
-}
-
-.modal-same-padding-right {
-    /* padding: 32px 28px 64px 0px;         links 0 */
 }
 
 .modal-same-padding {
@@ -66,7 +56,6 @@
     height: 24px;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
 }
 
 .modal-right-bottom {
@@ -78,7 +67,6 @@
     display: flex;
     gap: 24px;
     flex-direction: column;
-    /* justify-content: center; */
 }
 
 .modal-inputfield {
@@ -87,8 +75,6 @@
     gap: 32px;
     width: 422px;
     height: 215px;
-    /* padding-top: 44px; */
-    /* padding-bottom: 32px; */
 }
 
 .modal-inputfield-buttons {
@@ -107,16 +93,6 @@
     border-radius: 10px;
     border: solid 1px;
     cursor: pointer;
-}
-
-/* .modal-inputfield-buttons button:hover {
-    border-color: var(--background-color-aside);
-    color: var(--background-color-aside);
-    filter: drop-shadow(0 1px 1px);
-} */
-
-#cancelBtn, #createContactBtn {
-    /* transition: background-color 0.25s, border-color 0.25s, color 0.25s, filter 0.25s; */
 }
 
 #cancelBtn {
@@ -231,7 +207,6 @@
 
 
 .modal-userImg {
-    /* margin: 76px; */
     width: 120px;
     height: 120px;
     display: flex;
@@ -267,10 +242,8 @@
 .modal-left {
     display: flex;
     height: 594px;
-    /* align-items: center; */
     width: 467px;
     justify-content: center;
-
     color: white;
     border-top-left-radius: 32px;
     border-bottom-left-radius: 32px;

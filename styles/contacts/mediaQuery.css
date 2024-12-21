@@ -2,8 +2,8 @@
 
 
     .contact-content {
-        left: 632px;
-        gap: 40px;
+        left: 688px;
+        padding-left: 1.5rem;
     }
 
     /* Linkes Modal */
@@ -153,7 +153,6 @@
     .contact-content-head {
         justify-content: center;
         flex-direction: row;
-        z-index: 3;
         position: fixed;
         background-color: var(--background-color-body);
         width: calc(100% - 232px);
@@ -168,7 +167,7 @@
 
     .contact-content-table {
         position: relative;
-        padding-top: 100px;
+        padding-top: 180px;
         top: unset;
     }
 
