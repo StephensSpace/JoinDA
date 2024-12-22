@@ -237,6 +237,8 @@ function eventBubbling(event) {
  */
 function closeModal() {
     document.getElementsByTagName('modal')[0]?.remove();
+    buffer = [];
+    bufferEdit = [];
 }
 
 /**
@@ -247,6 +249,7 @@ function closeModal() {
 function openAddContactModal() {
     const CONTACT_CONTENT_REF = document.getElementsByClassName('content')[0];
     CONTACT_CONTENT_REF.innerHTML += modalAddContactTemplate();
+    checkInputValid()
 }
 
 /**
@@ -348,6 +351,8 @@ async function openEditContactModal(userIndex) {
     inputfieldName.value = USER_NAME;
     inputfieldEmail.value = USER_EMAIL;
     inputfieldPhone.value = USER_PHONE_NUMB;
+    checkMailEdit(document.getElementById('inputEmail').value);
+    checkPhoneEdit(document.getElementById('inputPhone').value);
 }
 
 /**
@@ -631,5 +636,97 @@ function clickedUser(userIndex) {
 //############################################################
 
 
+/**
+ *      Für das Add-Template (Kontakt hinzufügen)
+*/
 
 
+let buffer = [];
+
+function checkMail(value) {
+    const msgBoxMail = document.getElementById('msgBoxMail');
+
+    if (!value?.includes("@") || !value?.includes(".")) {
+        msgBoxMail?.classList.remove('dNone');
+        msgBoxMail.innerHTML = 'Please enter a valid E-Mail adress';
+        buffer.splice(0, 1 ,"");
+        checkInputValid()
+    } else {
+        msgBoxMail?.classList.add('dNone');
+        return true & buffer.splice(0, 1, "trueMail") & checkInputValid()
+    }
+}
+
+function checkPhone(value) {
+    const msgBoxTel = document.getElementById('msgBoxTel');
+
+    if (!/^[0-9+\-\/]+$/.test(value)) {
+        msgBoxTel?.classList.remove('dNone');
+        msgBoxTel.innerHTML = 'Please only enter Numbers / + and -';
+        buffer.splice(1, 2, "");
+        checkInputValid()
+    } else {
+        msgBoxTel?.classList.add('dNone');
+        return true & buffer.splice(1, 2, "truePhone") & checkInputValid()
+    }
+}
+
+function checkInputValid() {
+    if (document.getElementById('inputName').value == '' || !(buffer[0] == 'trueMail') || !(buffer[1] == 'truePhone')) {
+        document.getElementById('createContactBtn_addContact').style.background = '';
+        document.getElementById('createContactBtn_addContact').type = '';
+        document.getElementById('createContactBtn_addContact').style.pointerEvents = 'none';
+    } else {
+        document.getElementById('createContactBtn_addContact').style.background = '#2a3647';
+        document.getElementById('createContactBtn_addContact').type = 'submit';
+        document.getElementById('createContactBtn_addContact').style.pointerEvents = '';
+    }
+}
+
+
+
+/**
+ *      Für das Edit-Template (Kontakt bearbeiten)
+*/
+
+let bufferEdit = [];
+
+function checkMailEdit(value) {
+    const msgBoxMail = document.getElementById('msgBoxMail');
+    
+    if (!value?.includes("@") || !value?.includes(".")) {
+        msgBoxMail?.classList.remove('dNone');
+        msgBoxMail.innerHTML = 'Please enter a valid E-Mail adress';
+        bufferEdit.splice(0, 1 ,"");
+        checkInputValidEdit()
+    } else {
+        msgBoxMail?.classList.add('dNone');
+        return true & bufferEdit.splice(0, 1, "trueMail") & checkInputValidEdit()
+    }
+}
+
+function checkPhoneEdit(value) {
+    const msgBoxTel = document.getElementById('msgBoxTel');
+    
+    if (!/^[0-9+\-\/]+$/.test(value)) {
+        msgBoxTel?.classList.remove('dNone');
+        msgBoxTel.innerHTML = 'Please only enter Numbers / + and -';
+        bufferEdit.splice(1, 2, "");
+        checkInputValidEdit()
+    } else {
+        msgBoxTel?.classList.add('dNone');
+        return true & bufferEdit.splice(1, 2, "truePhone") & checkInputValidEdit()
+    }
+}
+
+function checkInputValidEdit() {
+    if (document.getElementById('inputName').value == '' || !(bufferEdit[0] == 'trueMail') || !(bufferEdit[1] == 'truePhone')) {
+        document.getElementById('createContactBtn').style.background = '';
+        document.getElementById('createContactBtn').type = '';
+        document.getElementById('createContactBtn').style.pointerEvents = 'none';
+    } else {
+        document.getElementById('createContactBtn').style.background = '#2a3647';
+        document.getElementById('createContactBtn').type = 'submit';
+        document.getElementById('createContactBtn').style.pointerEvents = '';
+    }
+}

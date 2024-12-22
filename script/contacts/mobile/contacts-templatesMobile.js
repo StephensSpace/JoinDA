@@ -192,11 +192,13 @@ function modalAddContactTemplate() {
 
                             <div class="modal-inputfield-div">
 
-                                <form onsubmit="addNewContactMobile(); return false">
+                                <form onsubmit="addNewContactMobile(); return false" novalidate>
                                     <div class="modal-inputfield">
-                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
+                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" oninput="checkInputValid()">
+                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" oninput="checkMail(this.value)">
+                                        <span id="msgBoxMail" class="dNone"></span>
+                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" oninput="checkPhone(this.value)"> 
+                                        <span id="msgBoxTel" class="dNone"></span>
                                     </div>
 
                                     <div class="modal-inputfield-buttons">
@@ -256,11 +258,13 @@ function modalEditContactTemplate(userIndex, USER_NAME) {
                         <div class="modal-right-bottom">
 
                             <div class="modal-inputfield-div">
-                                <form onsubmit="editContactInModal(${userIndex}); return false">
+                                <form onsubmit="editContactInModal(${userIndex}); return false" novalidate>
                                     <div class="modal-inputfield">
-                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" required>
-                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" required>
-                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" required> 
+                                        <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name" oninput="checkInputValidEdit()">
+                                        <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" oninput="checkMailEdit(this.value)">
+                                        <span id="msgBoxMail" class="dNone"></span>
+                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" oninput="checkPhoneEdit(this.value)"> 
+                                        <span id="msgBoxTel" class="dNone"></span>
                                     </div>
 
                                     <div class="modal-inputfield-buttons">
