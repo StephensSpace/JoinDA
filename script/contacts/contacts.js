@@ -3,25 +3,25 @@
 // Globale Variabeln
 const logedUser = sessionStorage.getItem('User'); // für Stephen 
 const BACKGROUND_COLORS_LETTERS = {
-    "defined":{
-    "AM": "#FF7A00",
-    "AS": "#9327FF",
-    "BZ": "#6E52FF",
-    "DE": "#FC71FF",
-    "EF": "#FFBB2B",
-    "EM": "#1FD7C1",
-    "MB": "#462F8A",
-    "TW": "#FF4646",
-    "SM": "#00BEE8",
+    "defined": {
+        "AM": "#FF7A00",
+        "AS": "#9327FF",
+        "BZ": "#6E52FF",
+        "DE": "#FC71FF",
+        "EF": "#FFBB2B",
+        "EM": "#1FD7C1",
+        "MB": "#462F8A",
+        "TW": "#FF4646",
+        "SM": "#00BEE8",
     },
-    "undefined":{
-    "0": "#FF745E",
-    "1": "#FFC701",
-    "2": "#FFE62B",
-    "3": "#FF5EB3",
-    "4": "#FFA35E",
-    "5": "#0038FF",
-    "6": "#C3FF2B",
+    "undefined": {
+        "0": "#FF745E",
+        "1": "#FFC701",
+        "2": "#FFE62B",
+        "3": "#FF5EB3",
+        "4": "#FFA35E",
+        "5": "#0038FF",
+        "6": "#C3FF2B",
     }
 }
 
@@ -70,7 +70,7 @@ async function getFirebaseData(path = "/") {
  * @returns {Promise<number>} gibt die genaue Anzahl der in Firebase vorhandenen Kontakte zurück.
  */
 async function getContactsLength() {
-    const ALL_CONTACTS = (await getFirebaseData(`contacts/`));   
+    const ALL_CONTACTS = (await getFirebaseData(`contacts/`));
     const LENGTH_OF_ALL_CONTACTS = Object.keys(ALL_CONTACTS).length;
     return LENGTH_OF_ALL_CONTACTS;
 }
@@ -89,7 +89,7 @@ function checkHeadLetter() {
         let x = headLetter[(index)].innerHTML;
         let y = headLetter[(index + 1)]?.innerHTML;
         if (x == y) {
-            headLetterDiv[(index+1)].remove();
+            headLetterDiv[(index + 1)].remove();
         }
     }
 }
@@ -164,8 +164,8 @@ async function getUserInfos(userIndex) {
     const USER = Object.keys(OBJECT)[userIndex];
     const USER_NAME = (await getFirebaseData(`contacts/${USER}`)).name;
     const USER_EMAIL = (await getFirebaseData(`contacts/${USER}`)).email;
-    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number; 
-    return {userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB}
+    const USER_PHONE_NUMB = (await getFirebaseData(`contacts/${USER}`)).phone_number;
+    return { userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB }
 }
 
 /**
@@ -178,16 +178,16 @@ async function getUserInfos(userIndex) {
 async function renderContactsInToContactList() {
     const CONTACTS_LIST = document.getElementById('contactList');
     CONTACTS_LIST.innerHTML = "";
-    for (let userIndex = 0; userIndex < await getContactsLength(); userIndex++) { 
-      const {USER_NAME, USER_EMAIL} = await getUserInfos(userIndex);
-      getFirstnameLetter(USER_NAME);                    // Übergebe User Namen
-      contactBoardFirstLetterHeadTemplate(USER_NAME);   // Übergebe User Namen
-      CONTACTS_LIST.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex)
-      checkHeadLetter();
+    for (let userIndex = 0; userIndex < await getContactsLength(); userIndex++) {
+        const { USER_NAME, USER_EMAIL } = await getUserInfos(userIndex);
+        getFirstnameLetter(USER_NAME);                    // Übergebe User Namen
+        contactBoardFirstLetterHeadTemplate(USER_NAME);   // Übergebe User Namen
+        CONTACTS_LIST.innerHTML += contactBoradUserTemplate(USER_NAME, USER_EMAIL, userIndex)
+        checkHeadLetter();
     }
-    addMarginOnLastUser();                                
+    addMarginOnLastUser();
 }
-  
+
 /**
  * Funktion zum rein rendern der Kontakt-Informationen in den Content-Table.
  * 
@@ -201,11 +201,11 @@ async function renderContactInfosInContactsTable(userIndex) {
     clickedUser(userIndex);
     const USER = Object.keys(OBJECT)[userIndex];
     const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
-    const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
+    const { USER_NAME, USER_EMAIL, USER_PHONE_NUMB } = await getUserInfos(userIndex);
     if (document.getElementById(`userIconContactList_${userIndex}`).innerHTML == document.getElementById(`userIconContactTable-${userIndex}`)?.innerHTML) {
 
     } else {
-        CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);   
+        CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, USER_NAME, USER_EMAIL, USER_PHONE_NUMB);
     }
 }
 
@@ -224,7 +224,7 @@ function getInputfieldContactModalInfos() {
     const inputfieldName = document.getElementById('inputName');
     const inputfieldEmail = document.getElementById('inputEmail');
     const inputfieldPhone = document.getElementById('inputPhone');
-    return {inputfieldName, inputfieldEmail, inputfieldPhone}
+    return { inputfieldName, inputfieldEmail, inputfieldPhone }
 }
 
 /**
@@ -235,10 +235,10 @@ function getInputfieldContactModalInfos() {
  * @returns {void} Gibt keinen Wert zurück. 
  */
 async function openEditContactModal(userIndex) {
-    const CONTACT_CONTENT_REF = document.getElementsByClassName('content')[0]; 
-    const {USER_NAME, USER_EMAIL, USER_PHONE_NUMB} = await getUserInfos(userIndex);
+    const CONTACT_CONTENT_REF = document.getElementsByClassName('content')[0];
+    const { USER_NAME, USER_EMAIL, USER_PHONE_NUMB } = await getUserInfos(userIndex);
     CONTACT_CONTENT_REF.innerHTML += modalEditContactTemplate(userIndex, USER_NAME);
-    const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();
+    const { inputfieldName, inputfieldEmail, inputfieldPhone } = getInputfieldContactModalInfos();
     inputfieldName.value = USER_NAME;
     inputfieldEmail.value = USER_EMAIL;
     inputfieldPhone.value = USER_PHONE_NUMB;
@@ -254,7 +254,7 @@ async function openEditContactModal(userIndex) {
  * @returns {Promise<void>} Ein Promise, das darauf wartet, dass alle Änderungen durchgeführt und die Anzeige aktualisiert wird.
  */
 async function editContactInModal(userIndex) {
-    const {inputfieldName, inputfieldEmail, inputfieldPhone} = getInputfieldContactModalInfos();
+    const { inputfieldName, inputfieldEmail, inputfieldPhone } = getInputfieldContactModalInfos();
     const OBJECT = await getFirebaseData(path = "/contacts");
     const USER = Object.keys(OBJECT)[userIndex];
     const dataRef = firebase.database().ref("/contacts/" + `${USER}`);
@@ -265,11 +265,22 @@ async function editContactInModal(userIndex) {
 }
 
 function checkMail(value) {
-    if(!value.includes("@") || !value.includes(".")) {
-        document.getElementById('msgBoxMail').classList.remove('dNone');
-        document.getElementById('msgBoxMail').innerHTML = 'Please enter a valid E-Mail adress';        
+    const msgBoxMail = document.getElementById('msgBoxMail');
+    if (!value.includes("@") || !value.includes(".")) {
+        msgBoxMail.classList.remove('dNone');
+        msgBoxMail.innerHTML = 'Please enter a valid E-Mail adress';
     } else {
-        document.getElementById('msgBoxMail').classList.add('dNone');
+        msgBoxMail.classList.add('dNone');
+    }
+}
+
+function checkPhone(value) {
+    const msgBoxTel = document.getElementById('msgBoxTel');
+    if (!/^[0-9+\-\/]+$/.test(value)) {
+        msgBoxTel.classList.remove('dNone');
+        msgBoxTel.innerHTML = 'Please only enter Numbers / + and -';
+    } else {
+        msgBoxTel.classList.add('dNone');
     }
 }
 
@@ -293,7 +304,7 @@ async function editContactInModalTryCatch(userIndex, inputfieldName, inputfieldE
         const NAME = inputfieldName.value;
         const EMAIL = inputfieldEmail.value;
         const PHONE_NUMB = inputfieldPhone.value;
-        await dataRef.set ({
+        await dataRef.set({
             name: NAME,
             email: EMAIL,
             phone_number: PHONE_NUMB,
@@ -355,15 +366,15 @@ async function addNewContact() {
     const EMAIL = (document.getElementById('inputEmail').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputEmail').value.split(' ')[0].slice(1)); // make firstletter uppercase
     const PHONE_NUMB = document.getElementById('inputPhone').value;
     if (CHECK_INPUT_NAME.includes(" ")) {   // checkt ob vor- & nachname vorhanden sind
-        const NAME = ((document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1)) 
-        + " " + 
-        (document.getElementById('inputName').value.split(' ')[1][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[1].slice(1))); // make firstname + lastname with uppercase firstletters
-        const dataRef = firebase.database().ref("/contacts/" + NAME); 
-        await addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
+        const NAME = ((document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1))
+            + " " +
+            (document.getElementById('inputName').value.split(' ')[1][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[1].slice(1))); // make firstname + lastname with uppercase firstletters
+        const dataRef = firebase.database().ref("/contacts/" + NAME);
+        await addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);
     } else {
         const NAME = (document.getElementById('inputName').value.split(' ')[0][0].toUpperCase() + document.getElementById('inputName').value.split(' ')[0].slice(1));   // If we only have the firstname
-        const dataRef = firebase.database().ref("/contacts/" + NAME); 
-        await addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);  
+        const dataRef = firebase.database().ref("/contacts/" + NAME);
+        await addNewContactIfElse(NAME, EMAIL, PHONE_NUMB, dataRef);
     }
 }
 
@@ -403,7 +414,7 @@ async function getUserIndex(NAME) {
         const USER = Object.entries(OBJECT)[i][0];
         if (USER == NAME) {
             return i;
-        } 
+        }
     }
 }
 
@@ -418,7 +429,7 @@ async function getUserIndex(NAME) {
  */
 async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
     try {
-        await dataRef.set ({
+        await dataRef.set({
             name: NAME,
             email: EMAIL,
             phone_number: PHONE_NUMB,
@@ -490,7 +501,7 @@ function getRandomeColor(color) {
     let getRandomColor = Object.entries(BACKGROUND_COLORS_LETTERS.undefined)[randomIndex][1];
     if (colorOftheAboveIcon == getRandomColor) {
         getRandomeColor(color);
-    } 
+    }
     return getRandomColor;
 }
 
@@ -503,8 +514,8 @@ function getRandomeColor(color) {
  * @returns {string} gibt den Farbcode in Hexadezimal zurück
  */
 function rgbInHexa(userIndex) {
-    if (document.getElementById(`userIconContactList_${(userIndex-1)}`) !== null) {
-        let getIconFromAbove = document.getElementById(`userIconContactList_${(userIndex-1)}`).style.backgroundColor;   // auf den vorherigen UserIcon zugreifen und farbcode ziehen in rgb
+    if (document.getElementById(`userIconContactList_${(userIndex - 1)}`) !== null) {
+        let getIconFromAbove = document.getElementById(`userIconContactList_${(userIndex - 1)}`).style.backgroundColor;   // auf den vorherigen UserIcon zugreifen und farbcode ziehen in rgb
         let rgbNumb1_2 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[0]);
         let rgbNumb3_4 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[1]);
         let rgbNumb5_6 = parseInt(getIconFromAbove.replace(/^rgba?\(|\s+|\)$/g, '').split(',')[2]);
@@ -562,7 +573,7 @@ function clickedUser(userIndex) {
         const element = contacts[i];
         if (i == userIndex) {
             contactClicked.classList.add('clicked-Background')
-        } else {   
+        } else {
             element.classList.remove('clicked-Background');
         }
     }

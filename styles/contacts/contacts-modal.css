@@ -31,6 +31,14 @@
     top: 60%;
 }
 
+#msgBoxTel {
+    position: absolute;
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    top: 98%;
+}
+
 
 .modal-same-padding {
     padding-bottom: 104px;

@@ -198,7 +198,8 @@ function modalAddContactTemplate() {
                                         <input type="text" name="name" id="inputName" class="person-icon" placeholder="Name">
                                         <input type="email" name="email" id="inputEmail" class="check-icon" placeholder="Email" oninput="checkMail(this.value)">
                                         <span id="msgBoxMail" class="dNone"></span>
-                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone"> 
+                                        <input type="tel" name="phone" id="inputPhone" class="phone-icon" placeholder="Phone" oninput="checkPhone(this.value)"> 
+                                        <span id="msgBoxTel" class="dNone"></span>
                                     </div>
                                     <div class="modal-inputfield-buttons">
                                         <button id="cancelBtn" type="button" onclick="closeModal()" style="background: var(--background-color-header);">
