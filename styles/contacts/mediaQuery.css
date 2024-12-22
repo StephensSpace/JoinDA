@@ -137,7 +137,6 @@
         left: 232px;
         bottom: 280px;
         height: calc(54.6% - 160px);
-        overflow-y: auto;
         padding: 12px 0;
     }
 
@@ -145,7 +144,7 @@
         justify-content: center;
         flex-direction: row;
         position: fixed;
-        background-color: #f4f7f9;
+        background-color: var(--background-color-body);
         width: calc(100% - 232px);
         top: 96px;
         left: 232px;
@@ -158,7 +157,7 @@
 
     .contact-content-table {
         position: relative;
-        padding-top: 180px;
+        padding-top: 96px;
         top: unset;
     }
 

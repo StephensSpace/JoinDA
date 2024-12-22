@@ -1,5 +1,9 @@
 
 @media (max-height: 650px) {
+    .modal {
+        height: -webkit-fill-available;
+    }
+    
     .modal-inputfield-div form {
         gap: 8px;
     }

@@ -40,7 +40,7 @@
     padding: 0px;
     gap: 30px;
     width: -webkit-fill-available;
-    z-index: -1;
+    z-index: 1;
 }
 
 
@@ -53,7 +53,6 @@
     align-items: flex-start;
     padding: 0px;
     gap: 21px;
-    z-index: -2;
 }
 
 /* 
