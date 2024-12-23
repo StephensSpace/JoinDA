@@ -268,33 +268,6 @@ async function editContactInModal(userIndex) {
     await renderContactInfosInContactsTable(userIndex);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Auslagerunsfunktion, welche die Daten in die Firebase hochläd/ pusht.
  * Dabei Loggt der in der Console, den erfolgreichen Upload oder meldet Fehler bei 
@@ -321,9 +294,8 @@ async function editContactInModalTryCatch(userIndex, inputfieldName, inputfieldE
         })
         const CONTACT_CONTENT_TABLE = document.getElementById('contact-content-table');
         CONTACT_CONTENT_TABLE.innerHTML = contactContentTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB);
-        console.log("Kontakt erfolgreich in Firebase geändert!");
     } catch (error) {
-        console.error("Fehler beim ändern des Kontakts in Firebase:", error);
+
     }
 }
 
@@ -341,9 +313,8 @@ async function deleteContact(userIndex) {
     try {
         const dataRef = firebase.database().ref("/contacts/" + `${USER}`); // Erstelle eine Referenz zu den Daten
         await dataRef.remove(); // Lösche die Daten
-        console.log("Kontakt erfolgreich gelöscht!");
     } catch (error) {
-        console.error("Fehler beim Löschen des Kontaktes:", error);
+
     }
     document.getElementById('contact-content-table').innerHTML = "";
     renderContactsInToContactList();
@@ -446,9 +417,8 @@ async function addNewContactTryCatch(NAME, EMAIL, PHONE_NUMB, dataRef) {
         })
         const userIndex = await getUserIndex(NAME); // get userIndex of Firebase 
         await renderContactTableTemplate(userIndex, NAME, EMAIL, PHONE_NUMB); // rendert User Information in Content-Table 
-        console.log("Kontakt erfolgreich in Firebase angelegt!");
     } catch (error) {
-        console.error("Fehler beim anlegen eines neuen Kontaktes in Firebase:", error);
+
     }
 }
 
@@ -589,15 +559,19 @@ function clickedUser(userIndex) {
     }
 }
 
-//############################################################
-
-//                WORKING ON FUNKTIONEN                     //
-
-//############################################################
-
+/**
+ *      Für das Add-Template (Kontakt hinzufügen)
+*/
 
 let buffer = [];
 
+/**
+ * Überprüft die angegebene E-Mail-Adresse und aktualisiert die Benutzeroberfläche sowie den Validierungspuffer entsprechend.
+ *
+ * @function checkMail
+ * @param {string} value - Die zu überprüfende E-Mail-Adresse.
+ * @returns {boolean} - Gibt `true` zurück, wenn die E-Mail-Adresse gültig ist, ansonsten `undefined`.
+ */
 function checkMail(value) {
     const msgBoxMail = document.getElementById('msgBoxMail');
 
@@ -612,6 +586,14 @@ function checkMail(value) {
     }
 }
 
+/**
+ * Überprüft die angegebene Telefonnummer und aktualisiert die Benutzeroberfläche sowie den Validierungspuffer entsprechend.
+ *
+ * @function checkPhone
+ * @param {string} value - Die zu überprüfende Telefonnummer.
+ * @returns {boolean} - Gibt `true` zurück, wenn die Telefonnummer gültig ist, ansonsten `undefined`.
+ *
+ */
 function checkPhone(value) {
     const msgBoxTel = document.getElementById('msgBoxTel');
 
@@ -626,6 +608,11 @@ function checkPhone(value) {
     }
 }
 
+/**
+ * Überprüft die Validität der Eingaben und aktiviert oder deaktiviert den "Kontakt erstellen"-Button basierend auf den Ergebnissen.
+ *
+ * @function checkInputValid
+ */
 function checkInputValid() {
 
     if (document.getElementById('inputName').value == '' || !(buffer[0] == 'trueMail') || !(buffer[1] == 'truePhone')) {
@@ -646,6 +633,13 @@ function checkInputValid() {
 
 let bufferEdit = [];
 
+/**
+ * Überprüft die angegebene E-Mail-Adresse und aktualisiert die Benutzeroberfläche sowie den Validierungspuffer entsprechend.
+ *
+ * @function checkMail
+ * @param {string} value - Die zu überprüfende E-Mail-Adresse.
+ * @returns {boolean} - Gibt `true` zurück, wenn die E-Mail-Adresse gültig ist, ansonsten `undefined`.
+ */
 function checkMailEdit(value) {
     const msgBoxMail = document.getElementById('msgBoxMail');
     
@@ -660,6 +654,14 @@ function checkMailEdit(value) {
     }
 }
 
+/**
+ * Überprüft die angegebene Telefonnummer und aktualisiert die Benutzeroberfläche sowie den Validierungspuffer entsprechend.
+ *
+ * @function checkPhone
+ * @param {string} value - Die zu überprüfende Telefonnummer.
+ * @returns {boolean} - Gibt `true` zurück, wenn die Telefonnummer gültig ist, ansonsten `undefined`.
+ *
+ */
 function checkPhoneEdit(value) {
     const msgBoxTel = document.getElementById('msgBoxTel');
     
@@ -674,6 +676,11 @@ function checkPhoneEdit(value) {
     }
 }
 
+/**
+ * Überprüft die Validität der Eingaben und aktiviert oder deaktiviert den "Kontakt erstellen"-Button basierend auf den Ergebnissen.
+ *
+ * @function checkInputValid
+ */
 function checkInputValidEdit() {
     if (document.getElementById('inputName').value == '' || !(bufferEdit[0] == 'trueMail') || !(bufferEdit[1] == 'truePhone')) {
         document.getElementById('createContactBtn').style.background = '';
