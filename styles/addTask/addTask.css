@@ -974,3 +974,13 @@ textarea {
   margin: 5px;
   text-transform: uppercase;
 }
+
+.selected-contact-more {
+  display: inline-block;
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  background-color: #ccc;
+}

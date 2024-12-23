@@ -46,8 +46,7 @@ function fetchTasks(callback) {
       }
       callback(tasks);
     })
-    .catch(() => {
-    });
+    .catch(() => {});
 }
 
 /**
@@ -151,8 +150,7 @@ function updateTaskInFirebase(taskId, taskData) {
         updateTaskDetailsModal(currentTask);
       }
     })
-    .catch(() => {
-    });
+    .catch(() => {});
 }
 
 /**
@@ -282,7 +280,6 @@ function setupDropdownSearchInline() {
   const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
 
   if (!dropdown || !optionsContainer || !searchInput) {
-    console.error("Dropdown, OptionsContainer oder Suchfeld nicht gefunden.");
     return;
   }
 
@@ -292,9 +289,11 @@ function setupDropdownSearchInline() {
     optionsContainer.classList.toggle("hidden", !isOpen);
   });
 
-  document.addEventListener("click", () => {
-    optionsContainer.classList.add("hidden");
-    dropdown.classList.remove("open");
+  document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target)) {
+      optionsContainer.classList.add("hidden");
+      dropdown.classList.remove("open");
+    }
   });
 
   fetchContacts((contacts) => {
@@ -400,8 +399,7 @@ function saveTaskToFirebase(task) {
       addTaskToBoard(task);
       enableDragAndDrop();
     })
-    .catch(() => {
-    });
+    .catch(() => {});
 }
 
 /**
@@ -453,11 +451,14 @@ function selectContact(contactName) {
  */
 
 function updateSelectedMembers() {
+  console.log("Aktuell ausgewählte Kontakte:", selectedMembers);
   const selectedContainer = document.getElementById(
     "selectedContactsContainer"
   );
   selectedContainer.innerHTML = "";
-  selectedMembers.forEach((member) => {
+  const maxVisibleContacts = 4;
+  const totalSelected = selectedMembers.length;
+  selectedMembers.slice(0, maxVisibleContacts).forEach((member) => {
     const initials = getInitials(member);
     const color = getColorForContact(member);
     const span = document.createElement("span");
@@ -466,6 +467,14 @@ function updateSelectedMembers() {
     span.style.backgroundColor = color;
     selectedContainer.appendChild(span);
   });
+  if (totalSelected > maxVisibleContacts) {
+    const remainingCount = totalSelected - maxVisibleContacts;
+    const moreSpan = document.createElement("span");
+    moreSpan.className = "selected-contact-more";
+    moreSpan.textContent = `+${remainingCount}`;
+    moreSpan.style.backgroundColor = "#ccc";
+    selectedContainer.appendChild(moreSpan);
+  }
 }
 fetchContacts((contacts) => {
   populateContactsDropdown(Object.values(contacts));

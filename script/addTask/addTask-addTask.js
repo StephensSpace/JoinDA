@@ -54,8 +54,7 @@ function handleTaskSubmit(e) {
         renderTasks();
       });
     } else {
-      saveTaskToFirebase(task).then(() => {
-      });
+      saveTaskToFirebase(task).then(() => {});
     }
     closeModal();
     resetAddTaskModal();
@@ -109,13 +108,20 @@ function checkDueDate() {
   const dateInput = document.getElementById("taskDueDate");
   const dateError = document.getElementById("dueDateError");
   if (!dateInput.value) {
+    dateError.textContent = "Bitte ein Datum auswählen.";
     dateError.classList.remove("hidden");
     dateInput.focus();
     return false;
-  } else {
-    dateError.classList.add("hidden");
-    return true;
   }
+  const today = new Date().toISOString().split("T")[0];
+  if (dateInput.value < today) {
+    dateError.textContent = "Das Datum darf nicht in der Vergangenheit liegen.";
+    dateError.classList.remove("hidden");
+    dateInput.focus();
+    return false;
+  }
+  dateError.classList.add("hidden");
+  return true;
 }
 
 /**
@@ -212,9 +218,13 @@ function closeModal() {
 
 function setupSecondDropdown() {
   const secondDropdown = document.getElementById("secondDropdown");
-  const secondOptionsContainer = document.getElementById("secondOptionsContainer");
+  const secondOptionsContainer = document.getElementById(
+    "secondOptionsContainer"
+  );
   const secondArrow = document.getElementById("secondDropdownArrow");
-  const secondSelectedText = document.getElementById("secondDropdownSelectedText");
+  const secondSelectedText = document.getElementById(
+    "secondDropdownSelectedText"
+  );
   const categoryInput = document.getElementById("taskCategoryInput");
   const taskTypeInput = document.getElementById("taskTypeInput");
 
@@ -224,7 +234,14 @@ function setupSecondDropdown() {
   });
 
   secondOptionsContainer.addEventListener("click", (event) => {
-    handleOptionSelection(event, secondDropdown, secondOptionsContainer, secondArrow, secondSelectedText, taskTypeInput);
+    handleOptionSelection(
+      event,
+      secondDropdown,
+      secondOptionsContainer,
+      secondArrow,
+      secondSelectedText,
+      taskTypeInput
+    );
   });
 
   document.addEventListener("click", (event) => {
@@ -243,7 +260,11 @@ function setupSecondDropdown() {
  * @param {HTMLElement} secondArrow - The dropdown arrow element.
  */
 
-function toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow) {
+function toggleSecondDropdown(
+  secondDropdown,
+  secondOptionsContainer,
+  secondArrow
+) {
   const isOpen = secondDropdown.classList.toggle("open");
   secondOptionsContainer.classList.toggle("hidden", !isOpen);
   secondArrow.classList.toggle("open", isOpen);
@@ -259,14 +280,23 @@ function toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArro
  * @param {HTMLElement} taskTypeInput - The input element to store the selected type.
  */
 
-function handleOptionSelection(event, secondDropdown, secondOptionsContainer, secondArrow, secondSelectedText, taskTypeInput) {
+function handleOptionSelection(
+  event,
+  secondDropdown,
+  secondOptionsContainer,
+  secondArrow,
+  secondSelectedText,
+  taskTypeInput
+) {
   if (!event.target.classList.contains("second-dropdown-option")) return;
   const selectedCategory = event.target.dataset.value;
   secondSelectedText.textContent = selectedCategory;
   taskTypeInput.value = selectedCategory;
-  secondOptionsContainer.querySelectorAll(".second-dropdown-option").forEach((option) => option.classList.remove("selected"));
+  secondOptionsContainer
+    .querySelectorAll(".second-dropdown-option")
+    .forEach((option) => option.classList.remove("selected"));
   event.target.classList.add("selected");
-  secondDropdown.classList.remove("open");
+  secondDropdown.classList.remove("hidden");
   secondOptionsContainer.classList.add("hidden");
   secondArrow.classList.remove("open");
 }

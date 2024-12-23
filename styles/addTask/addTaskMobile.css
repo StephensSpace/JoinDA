@@ -364,6 +364,7 @@ textarea {
   top: 224px;
   left: 110px;
   position: absolute;
+  padding: 0 20px;
 }
 
 .form-column-right {
@@ -372,8 +373,9 @@ textarea {
   width: 396px;
   top: 570px;
   left: 110px;
-  padding-bottom: 166px;
-  position: absolute;
+  position: relative;
+  padding: 0 20px;
+  height: 80vh;
 }
 
 input[type="text"],
@@ -400,7 +402,7 @@ textarea {
 .priority {
   display: flex;
   gap: 8px;
-  width: 440px;
+  width: auto;
   height: 56px;
   top: 120px;
 }

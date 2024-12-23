@@ -34,7 +34,6 @@
 }
 
 @media screen and (max-width: 470px) {
-
   .form-column-left,
   .form-column-right,
   .bg-mobile-buttons {
@@ -45,19 +44,14 @@
     padding-left: 50px;
   }
 
-
-
   .form-column-left,
   .form-column-right {
     width: 300px;
   }
 
   .priority {
-    width: 300px;
-  }
-
-  .assigned-container {
-    width: 300px;
+    width: auto;
+    gap: 0;
   }
 }
 
@@ -74,14 +68,6 @@
 
   .form-column-left,
   .form-column-right {
-    width: 300px;
-  }
-
-  .priority {
-    width: 300px;
-  }
-
-  .assigned-container {
     width: 300px;
   }
 

@@ -188,8 +188,7 @@ function updateTaskInFirebase(taskId, updatedData) {
       tasksMap[taskId] = { ...tasksMap[taskId], ...updatedData };
       updateTaskOnBoard(taskId, tasksMap[taskId]);
     })
-    .catch(() => {
-    });
+    .catch(() => {});
 }
 
 /**
@@ -217,7 +216,7 @@ function populateEditTaskForm(task) {
   selectedPriority = task.priority || "Medium";
   updatePriorityButtons();
   selectedType = task.type;
-  document.getElementById("taskTypeInput").value = task.category || ""; 
+  document.getElementById("taskTypeInput").value = task.category || "";
   document.getElementById("secondDropdownSelectedText").textContent =
     task.category || "Select a category";
   selectedMembers = task.members || [];
@@ -321,9 +320,11 @@ function setupDropdownSearchInline() {
     const isOpen = dropdown.classList.toggle("open");
     optionsContainer.classList.toggle("hidden", !isOpen);
   });
-  document.addEventListener("click", () => {
-    optionsContainer.classList.add("hidden");
-    dropdown.classList.remove("open");
+  document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target)) {
+      optionsContainer.classList.add("hidden");
+      dropdown.classList.remove("open");
+    }
   });
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
@@ -369,9 +370,24 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
 
   const isSelected = option.classList.contains("selected");
   if (isSelected) {
-    deselectContact(option, initials, selectedContainer, contactName, selectIcon, selectedIcon);
+    deselectContact(
+      option,
+      initials,
+      selectedContainer,
+      contactName,
+      selectIcon,
+      selectedIcon
+    );
   } else {
-    selectContact(option, initials, color, selectedContainer, contactName, selectIcon, selectedIcon);
+    selectContact(
+      option,
+      initials,
+      color,
+      selectedContainer,
+      contactName,
+      selectIcon,
+      selectedIcon
+    );
   }
 }
 
@@ -385,7 +401,14 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
  * @param {HTMLElement} selectedIcon - The icon element representing the selected state.
  */
 
-function deselectContact(option, initials, selectedContainer, contactName, selectIcon, selectedIcon) {
+function deselectContact(
+  option,
+  initials,
+  selectedContainer,
+  contactName,
+  selectIcon,
+  selectedIcon
+) {
   option.classList.remove("selected");
   option.style.backgroundColor = "";
   option.style.color = "";
@@ -480,7 +503,10 @@ filterTasks();
 function saveTaskToFirebase(task) {
   const taskId = firebase.database().ref("/tasks").push().key;
   task.id = taskId;
-  firebase.database().ref(`/tasks/${taskId}`).set(task)
+  firebase
+    .database()
+    .ref(`/tasks/${taskId}`)
+    .set(task)
     .then(() => {
       console.log("Task successfully saved!");
       updateTaskOnBoard(taskId, task);
@@ -531,7 +557,15 @@ function setupContactsSelection() {
  * @param {HTMLElement} selectedIcon - The icon element representing the selected state.
  */
 
-function selectContact(option, initials, color, selectedContainer, contactName, selectIcon, selectedIcon) {
+function selectContact(
+  option,
+  initials,
+  color,
+  selectedContainer,
+  contactName,
+  selectIcon,
+  selectedIcon
+) {
   option.classList.add("selected");
   option.style.backgroundColor = "#091931";
   option.style.color = "white";
