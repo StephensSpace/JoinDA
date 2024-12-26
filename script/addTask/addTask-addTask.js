@@ -303,18 +303,25 @@ function handleOptionSelection(
 
 
 function assignedToUserCounter() {
-    if (document.getElementsByClassName('selected-contact-initials').length > 4) {
-      for (let i = 4; i < document.getElementsByClassName('selected-contact-initials').length; i++) {
-        document.getElementsByClassName('selected-contact-initials')[i].style.display = "none"
-        document.getElementsByClassName('numb')[0]?.remove();
-        document.getElementById('selectedContactsContainer').innerHTML += `<span class="numb">+${(i - 3)}</span>`
-      }
-
-      for (let i = document.getElementsByClassName('selected-contact-initials').length; 1; i--) {
-        document.getElementsByClassName('selected-contact-initials')[i].style.display = "unset"
-      }
-    } else {
+  if (document.getElementsByClassName('selected-contact-initials').length > 4) {
+    for (let i = 4; i < document.getElementsByClassName('selected-contact-initials').length; i++) {
+      document.getElementsByClassName('selected-contact-initials')[i].style.display = "none"
       document.getElementsByClassName('numb')[0]?.remove();
+      document.getElementById('selectedContactsContainer').innerHTML += `<span class="numb">+${(i - 3)}</span>`
     }
+  } else {
+    document.getElementsByClassName('numb')[0]?.remove();
+  }
+  assignedToUserCounterDeleteUser();
+}
 
+function assignedToUserCounterDeleteUser() {
+if (document.getElementsByClassName('selected-contact-initials')[0]?.style.display == "none" || 
+      document.getElementsByClassName('selected-contact-initials')[1]?.style.display == "none" || 
+      document.getElementsByClassName('selected-contact-initials')[2]?.style.display == "none" || 
+      document.getElementsByClassName('selected-contact-initials')[3]?.style.display == "none") {
+        for (let index = 0; index < 4; index++) {
+          document.getElementsByClassName('selected-contact-initials')[index].style.display = "flex"
+        }
+  }
 }
