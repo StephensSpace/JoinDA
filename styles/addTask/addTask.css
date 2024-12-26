@@ -984,3 +984,9 @@ textarea {
   text-align: center;
   background-color: #ccc;
 }
+
+
+.selected-contacts-container {
+  display: flex;
+  align-items: center;
+}

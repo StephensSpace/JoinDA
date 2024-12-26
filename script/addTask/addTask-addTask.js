@@ -300,3 +300,17 @@ function handleOptionSelection(
   secondOptionsContainer.classList.add("hidden");
   secondArrow.classList.remove("open");
 }
+
+
+function assignedToUserCounter() {
+    if (document.getElementsByClassName('selected-contact-initials').length > 4) {
+      for (let i = 4; i < document.getElementsByClassName('selected-contact-initials').length; i++) {
+        document.getElementsByClassName('selected-contact-initials')[i].style.display = "none"
+        document.getElementsByClassName('numb')[0]?.remove();
+        document.getElementById('selectedContactsContainer').innerHTML += `<span class="numb">+${(i - 3)}</span>`
+      }
+    } else {
+      document.getElementsByClassName('numb')[0]?.remove();
+    }
+
+}
