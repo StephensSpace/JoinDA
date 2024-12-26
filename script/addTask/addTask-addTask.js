@@ -309,12 +309,10 @@ function assignedToUserCounter() {
         document.getElementsByClassName('numb')[0]?.remove();
         document.getElementById('selectedContactsContainer').innerHTML += `<span class="numb">+${(i - 3)}</span>`
       }
-
       for (let i = document.getElementsByClassName('selected-contact-initials').length; 1; i--) {
         document.getElementsByClassName('selected-contact-initials')[i].style.display = "unset"
       }
     } else {
       document.getElementsByClassName('numb')[0]?.remove();
     }
-
 }
