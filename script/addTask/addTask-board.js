@@ -451,7 +451,6 @@ function selectContact(contactName) {
  */
 
 function updateSelectedMembers() {
-  console.log("Aktuell ausgewählte Kontakte:", selectedMembers);
   const selectedContainer = document.getElementById(
     "selectedContactsContainer"
   );

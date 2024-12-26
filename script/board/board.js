@@ -587,7 +587,9 @@ function updateSelectedMembers() {
     "selectedContactsContainer"
   );
   selectedContainer.innerHTML = "";
-  selectedMembers.forEach((member) => {
+  const maxVisibleContacts = 4;
+  const totalSelected = selectedMembers.length;
+  selectedMembers.slice(0, maxVisibleContacts).forEach((member) => {
     const initials = getInitials(member);
     const color = getColorForContact(member);
     const span = document.createElement("span");
@@ -596,6 +598,14 @@ function updateSelectedMembers() {
     span.style.backgroundColor = color;
     selectedContainer.appendChild(span);
   });
+  if (totalSelected > maxVisibleContacts) {
+    const remainingCount = totalSelected - maxVisibleContacts;
+    const moreSpan = document.createElement("span");
+    moreSpan.className = "selected-contact-more";
+    moreSpan.textContent = `+${remainingCount}`;
+    moreSpan.style.backgroundColor = "#ccc";
+    selectedContainer.appendChild(moreSpan);
+  }
 }
 fetchContacts((contacts) => {
   populateContactsDropdown(Object.values(contacts));
