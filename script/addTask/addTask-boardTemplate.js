@@ -495,8 +495,10 @@ function populateContactsDropdown(contacts) {
       <img class="selected-icon" src="./assets/icons/property-checked.png" alt="Selected Icon">
         `;
     option.addEventListener("click", () => {
-      toggleContactSelection(option, initials, color, selectedContainer);
+      toggleContactSelection(option, initials, color, selectedContainer);+
+      assignedToUserCounter()
     });
     optionsContainer.appendChild(option);
   });
+
 }
