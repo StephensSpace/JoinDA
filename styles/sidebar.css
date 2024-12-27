@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 64px 0px;
-    gap: 103px;
+    gap: 70px;
     position: fixed;
     width: 232px;
     height: 100vh;
@@ -51,9 +51,20 @@
     color: #29ABE2;
 }
 
-@media(max-height: 970px) {
-    .footer {
-        padding-top: 0 !important;
-        justify-content: unset !important;
+@media (max-height: 960px) {
+    .sidebar .footer {
+        padding-top: 60px;
+    }
+
+    
+}
+
+@media (max-height: 720px) {
+    .sidebar .footer {
+        padding-top: 0px;
+    }
+
+    .sidebar {
+        gap: 35px;
     }
 }
