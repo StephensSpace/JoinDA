@@ -67,3 +67,55 @@ h2 {
    left: 16px;
   }
 }
+
+@media(max-width: 450px) {
+  .content {
+      padding-left: 40px;
+      padding-top: 84px;
+  }
+
+  .logo {
+      width: 62px;
+      height: 82px;
+  }
+
+  .backBtn {
+      top: 114px;
+      left: 56px;
+  }
+
+  .pp {
+      margin: 100px 50px 50px 63px
+  }
+
+  .backBtnLink {
+      top: 114px;
+      left: 56px;
+  }
+}
+
+@media(max-width: 394px) {
+  .logo {
+      left: 0;
+  }
+
+  .content {
+      padding-left: 0px;
+      padding-top: 84px;
+  }
+
+  .pp {
+      font-size: 16px;
+      margin: 100px 20px 50px 20px;
+  }
+
+  .backBtn {
+      top: 116px;
+      left: 12px;
+  }
+
+  .backBtnLink {
+      top: 116px;
+      left: 12px;
+  }
+}

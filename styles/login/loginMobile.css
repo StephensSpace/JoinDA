@@ -33,7 +33,8 @@ body {
     position: absolute;
     top: 37px;
     left: 38px;
-    opacity: 1; /* Finaler Zustand */
+    opacity: 1;
+    /* Finaler Zustand */
     z-index: 5;
 }
 
@@ -124,21 +125,21 @@ input[type="name"]::placeholder {
 }
 
 .lock {
-    position: absolute;
-    top: 212px;
-    right: 28px;
+    position: relative;
     margin: 0 auto;
     width: 24px;
     height: 24px;
+    left: 331px;
+    bottom: 46px;
 }
 
 .mail {
-    position: absolute;
-    top: 148px;
-    right: 28px;
+    position: relative;
     margin: 0 auto;
     width: 24px;
     height: 24px;
+    left: 331px;
+    bottom: 36px;
 }
 
 #rememberMe {
@@ -285,49 +286,29 @@ input[type="name"]::placeholder {
     }
 
     .lock {
-        top: 212px;
-        right: calc(73px - (396px - 100vw));
+        left: 252px;
     }
 
     .mail {
-        top: 148px;
-        right: calc(73px - (396px - 100vw));
+        left: 252px;
     }
 }
 
-@media (max-width: 364px) {
-
-    .lock,
-    .mail {
-        right: 45px;
-    }
-}
-
-@media(max-height: 940px) {
+@media(max-height: 966px) {
     .not-a-user {
-        margin-bottom: 80px;
+        margin-bottom: 90px;
     }
 }
 
-@media(max-height: 776px) {
+@media(max-height: 966px) {}
+
+
+@media(max-height: 816px) {
     .not-a-user {
         position: absolute;
         top: 0;
-        left: 100px;
-    }
-}
-
-@media (max-height: 776px) and (max-width: 400px) {
-    .not-a-user {
-        gap: 4px;
-        width: fit-content;
-    }
-
-}
-
-@media (max-height: 840px) {
-    #logo {
-        width: 70px;
+        left: unset;
+        right: 30px;
     }
 }
 
@@ -335,9 +316,48 @@ input[type="name"]::placeholder {
     #logo {
         width: 60px;
     }
+
+    .signUpBtn {
+        width: 75px;
+        height: 34px;
+    }
+
+    .not-a-user {
+        right: 5px;
+        gap: 4px;
+        width: fit-content;
+        left: unset;
+    }
 }
 
-@media (max-height: 660px) {
+@media (max-height: 700px) {
+    .logo {
+        width: 40px !important;
+    }
+}
+
+@media (max-height: 820px) and (max-width: 400px) {
+    .not-a-user {
+        right: 5px;
+        gap: 4px;
+        width: fit-content;
+        left: unset;
+    }
+
+    .signUpBtn {
+        width: 75px;
+        height: 34px;
+    }
+}
+
+@media (max-height: 770px) and (max-width: 620px) {
+    .logo {
+        top: 22px;
+        left: 23px;
+    }
+}
+
+@media (max-height: 657)  and (max-width: 401){
     .logo-container-final {
         left: 10px;
         top: 90px;
@@ -347,7 +367,39 @@ input[type="name"]::placeholder {
         bottom: 8px !important;
     }
 
-    .not-a-user {
-        left: unset;
+}
+
+@media (max-height: 667px) {
+    .logo {
+        top: 5px;
+        left: 6px;
     }
+
+    .signUpContainer {
+        height: 538px !important;
+    }
+
+    .ppAndLnBox {
+        bottom: 8px !important;
+    }
+
+    .person {
+        top: 158px !important;
+    }
+
+    .mailSignUp {
+        top: 230px !important;
+    }
+
+    .lockSignUp {
+        top: 302px !important;
+    }
+
+    .lockSignUp2 {
+        top: 374px !important;
+
+    }
+
+
+
 }

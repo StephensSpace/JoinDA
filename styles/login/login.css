@@ -337,3 +337,14 @@ button {
 .visabilityHidden {
     visibility: hidden;
 }
+
+@media (max-width: 770px) {
+    .logo-container-final {
+        top: 24px;
+        left: 25px;
+    }
+
+    .not-a-user {
+        right: 25px;
+    }
+}
