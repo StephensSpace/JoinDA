@@ -122,10 +122,7 @@
     filter: drop-shadow(0 1px 1px);
 } */
 
-#cancelBtn,
-#createContactBtn {
-    /* transition: background-color 0.25s, border-color 0.25s, color 0.25s, filter 0.25s; */
-}
+
 
 #cancelBtn {
     width: 126px;
