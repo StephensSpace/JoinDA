@@ -362,12 +362,9 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
   const contactName = option.dataset.value;
   const selectIcon = option.querySelector(".select-icon");
   const selectedIcon = option.querySelector(".selected-icon");
-
   if (!selectIcon || !selectedIcon) {
-    console.error("Icons für Auswahl nicht gefunden.");
     return;
   }
-
   const isSelected = option.classList.contains("selected");
   if (isSelected) {
     deselectContact(
@@ -389,6 +386,7 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
       selectedIcon
     );
   }
+  assignedToUserCounter();
 }
 
 /**
@@ -570,11 +568,9 @@ function selectContact(
   option.style.backgroundColor = "#091931";
   option.style.color = "white";
   addInitialToSelected(initials, color, selectedContainer);
-
   if (!selectedMembers.includes(contactName)) {
     selectedMembers.push(contactName);
   }
-
   toggleIcons(selectIcon, selectedIcon, true);
 }
 

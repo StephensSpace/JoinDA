@@ -58,7 +58,6 @@ function renderTasks(tasks) {
   for (let taskId in tasks) {
     const task = tasks[taskId];
     if (!task || typeof task !== "object" || !task.title) {
-      console.warn(`Ungültige Aufgabe für ID ${taskId}:`, task);
       continue;
     }
     addTaskToBoard(task);
@@ -278,28 +277,23 @@ function setupDropdownSearchInline() {
   const optionsContainer = document.getElementById("taskAssignedOptions");
   const searchInput = document.getElementById("taskSearchInput");
   const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
-
   if (!dropdown || !optionsContainer || !searchInput) {
     return;
   }
-
   dropdownTrigger.addEventListener("click", (event) => {
     event.stopPropagation();
     const isOpen = dropdown.classList.toggle("open");
     optionsContainer.classList.toggle("hidden", !isOpen);
   });
-
   document.addEventListener("click", (event) => {
     if (!dropdown.contains(event.target)) {
       optionsContainer.classList.add("hidden");
       dropdown.classList.remove("open");
     }
   });
-
   fetchContacts((contacts) => {
     populateContactsDropdown(contacts);
   });
-
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
     const options = optionsContainer.querySelectorAll(".dropdown-option");
