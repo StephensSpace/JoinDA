@@ -18,6 +18,13 @@ function SignUp(event) {
     password == passwordCheck ? checkNewUserAvailable(userRef, name, email, password) : wrongPwCheck()
 }
 
+function checkPassword(value) {
+    let password = document.getElementById('password').value
+    let messageBox = document.getElementById('msgBox2')
+    password == value ? messageBox.classList.add("visabilityHidden") : messageBox.classList.remove("visabilityHidden"),
+    messageBox.innerHTML = 'Password does not Match';
+}
+
 /**
  * 
  * @param {firebase.database.Reference} userRef eine Referenz die auf das Benutzerverzeichnis verweißt
@@ -76,6 +83,7 @@ async function setUserToFirebase(userRef, name, email, password) {
         document.getElementById('msgBox2').classList.remove("visabilityHidden");
         document.getElementById('msgBox2').innerHTML = 'Username not available';
     }
+    document.getElementById('loginContainer').innerHTML = loginForm();
 }
 /**
  * die Funktion leert die Input Felder des Anmelde Formulars.
@@ -129,9 +137,8 @@ function toggleSubmitButton() {
     const submitButton = document.getElementById('submitButton');
     submitButton.disabled = !(document.getElementById('checkBox').checked &&
         document.getElementById('name').value &&
-        document.getElementById('email').value &&
-        document.getElementById('password').value &&
-        document.getElementById('pwCheck').value);
+        checkMail(document.getElementById('email').value) &&
+        document.getElementById('password').value == document.getElementById('pwCheck').value);
 }
 
 /**
@@ -142,3 +149,26 @@ function backToLogin() {
     document.getElementById('loginContainer').classList.remove('signUpContainer');
     document.getElementById('loginContainer').innerHTML = loginForm()
 }
+
+function checkMail(value) {
+    const msgBoxMail = document.getElementById('msgBoxMail');
+
+    if (!isValidEmail(value)) {
+        msgBoxMail?.classList.remove('dNone');
+        msgBoxMail.innerHTML = 'Please enter a valid E-Mail adress';
+    } else {
+        msgBoxMail?.classList.add('dNone');
+        return true 
+    }
+}
+
+function isValidEmail(value) {
+    if (!value) return false;
+  
+    const hasAtSymbol = value.includes("@");
+    const hasDot = value.includes(".");
+    const atBeforeDot = value.indexOf("@") < value.lastIndexOf(".");
+    const hasTwoLettersAfterDot = value.slice(value.lastIndexOf(".") + 1).length >= 2;
+  
+    return hasAtSymbol && hasDot && atBeforeDot && hasTwoLettersAfterDot;
+  }

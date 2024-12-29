@@ -17,26 +17,28 @@
 
 .modal {
     display: flex;
-    align-items: center;
-
-    justify-content: center;
+    /* align-items: center; */
     z-index: 4;
 }
 
 #msgBoxMail {
     position: absolute;
     color: red;
-    font-size: 0.9rem;
+    font-size: 0.99rem;
+    font-weight: 800;
     margin-top: 0.25rem;
     top: 60%;
+    left: 1%;
 }
 
 #msgBoxTel {
     position: absolute;
     color: red;
-    font-size: 0.9rem;
+    font-size: 0.99rem;
+    font-weight: 800;
     margin-top: 0.25rem;
     top: 98%;
+    left: 1%;
 }
 
 
@@ -72,6 +74,7 @@
     height: 24px;
     display: flex;
     align-items: center;
+    /* justify-content: center; */
 }
 
 .modal-right-bottom {
@@ -83,6 +86,7 @@
     display: flex;
     gap: 24px;
     flex-direction: column;
+    /* justify-content: center; */
 }
 
 .modal-inputfield {
@@ -235,6 +239,7 @@
 
 
 .modal-userImg {
+    /* margin: 76px; */
     width: 120px;
     height: 120px;
     display: flex;
@@ -270,8 +275,10 @@
 .modal-left {
     display: flex;
     height: 594px;
+    /* align-items: center; */
     width: 467px;
     justify-content: center;
+
     color: white;
     border-top-left-radius: 32px;
     border-bottom-left-radius: 32px;

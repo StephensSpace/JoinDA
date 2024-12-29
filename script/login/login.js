@@ -36,6 +36,7 @@ function logoWasAnimatedBefore() {
         document.getElementById("logoContainer").classList.add('logo-container-final');
         document.getElementById("notAUser").classList.remove('dNone');
         document.getElementById("notAUser").classList.add('not-a-user');
+        document.getElementById("ppAndLnBox").classList.remove('dNone');
 }
 
 /**

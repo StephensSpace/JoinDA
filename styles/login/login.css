@@ -8,7 +8,6 @@ body {
     min-height: 100vh;
     background-color: #f4f4f4;
     position: relative;
-    max-width: 1920px;
     font-family: 'Inter' !important;
     font-style: normal !important;
     display: flex;

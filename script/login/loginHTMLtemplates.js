@@ -7,11 +7,12 @@
 function loginForm() {
     return `<h1>Log in</h1>
         <div class="vector"></div>
-        <form onsubmit="login(); return false" method="post">
+        <form onsubmit="login(); return false" method="post" novalidate>
             <div class="lockWrapper">
                 <input type="email" placeholder="Email" id="email" required>
                 <img src="./assets/icons/Login/mail.svg" alt="" class="mail">
             </div>
+            <span id="msgBoxMail" class="dNone"></span>
             <div class="lockWrapper">
                 <input type="password" placeholder="Password" id="password" required>
                 <img src="./assets/icons/Login/lock.svg" alt="" class="lock">
@@ -36,21 +37,23 @@ function signUpForm() {
         </div>
         <h1 id="signUpHeader">Sign up</h1>
         <div class="vector"></div>    
-        <form onsubmit="SignUp(event)" onchange="toggleSubmitButton()">
+        <form onsubmit="SignUp(event)" oninput ="toggleSubmitButton()" novalidate>
         <div class="lockWrapper">
             <input type="name" id="name" required placeholder="Name">
             <img src="./assets/icons/Login/person.svg" alt="" class="person">
         </div>
         <div class="lockWrapper">
-            <input type="email" id="email" required placeholder="Email">
+            <input type="email" id="email" required placeholder="Email" oninput= "checkMail(value)">
             <img src="./assets/icons/Login/mail.svg" alt="" class="mailSignUp">
         </div>
+        <span id="msgBoxMail" class="dNone"></span>
         <div class="lockWrapper">
             <input type="password" id="password" required placeholder="Password">
             <img src="./assets/icons/Login/lock.svg" alt="" class="lockSignUp">
         </div>
         <div class="lockWrapper">
-            <input type="password" id="pwCheck" required placeholder="Confirm Password">
+            <input type="password" id="pwCheck" required placeholder="Confirm Password" 
+            oninput="checkPassword(this.value)">
             <img src="./assets/icons/Login/lock.svg" alt="" class="lockSignUp2">
         </div>
         <div class="privacyCheckbox">

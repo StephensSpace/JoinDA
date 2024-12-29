@@ -31,6 +31,24 @@ a {
     text-decoration: none;
 }
 
+#msgBoxMail {
+    position: absolute;
+    color: red;
+    font-size: 0.99rem;
+    font-weight: 800;
+    top: 48.5%;
+    left: 16%;
+}
+
+.msgBox2 {
+    position: absolute;
+    color: red;
+    font-size: 0.99rem;
+    font-weight: 800;
+    top: 73.8%;
+    left: 16%;
+}
+
 a:hover {
     text-decoration: underline;
     font-weight: 600;
@@ -204,13 +222,6 @@ a:hover {
     line-height: 120%;
     color: #FFFFFF;
     border: none;
-}
-
-.msgBox2 {
-    position: absolute;
-    top: 600px;
-    font-size: 20px;
-    color: coral;
 }
 
 #signUpBtnText {
