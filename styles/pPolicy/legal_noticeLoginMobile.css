@@ -3,30 +3,14 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  max-width: 1920px;
-  margin: 200px 30px 30px 350px;
-}
-
-.content {
-  padding-left: 232px;
-  padding-top: 80px;
+  margin: 124px 20px;
+  padding-bottom: 50px;
   overflow-y: auto;
-  height: fit-content;
 }
 
 h1 {
   font-size: 47px;
 }
-
-h2 {
-  font-size: 27px;
-}
-
-.ln p {
-  max-width: 1400px;
-  width: 100%;
-}
-
 
 #arrowLeft {
   width: 21.33px;
@@ -42,7 +26,7 @@ h2 {
   /* Glatte Übergänge */
   flex-direction: row-reverse;
   width: 100%;
-  max-width: 1920px;
+  max-width: 540px;
   gap: 30px;
 }
 
@@ -54,8 +38,4 @@ h2 {
   /* Beibehaltung des runden Effekts */
 }
 
-@media (max-width: 820px) {
-  .ln {
-    margin: 200px 30px 30px 256px;
-  }
-}
+

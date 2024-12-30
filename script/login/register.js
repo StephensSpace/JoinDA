@@ -83,7 +83,7 @@ async function setUserToFirebase(userRef, name, email, password) {
         document.getElementById('msgBox2').classList.remove("visabilityHidden");
         document.getElementById('msgBox2').innerHTML = 'Username not available';
     }
-    document.getElementById('loginContainer').innerHTML = loginForm();
+    backToLogin();
 }
 /**
  * die Funktion leert die Input Felder des Anmelde Formulars.
@@ -93,6 +93,7 @@ function clearInput() {
     document.getElementById('email').value = ''
     document.getElementById('password').value = ''
     document.getElementById('pwCheck').value = ''
+    document.getElementById('checkBox').checked = false
 }
 /**
  * Diese Funktion löst die Transition slideIn aus indem sie dem element signedUpElement
@@ -147,6 +148,7 @@ function toggleSubmitButton() {
 function backToLogin() {
     document.getElementById('loginContainer').classList.add('login-container');
     document.getElementById('loginContainer').classList.remove('signUpContainer');
+    document.getElementById('notAUser').classList.remove('dNone');
     document.getElementById('loginContainer').innerHTML = loginForm()
 }
 

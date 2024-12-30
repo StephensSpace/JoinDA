@@ -118,5 +118,6 @@ function checkPw(mail, password, data) {
 function loadRegister() {
     document.getElementById('loginContainer').classList.remove('login-container');
     document.getElementById('loginContainer').classList.add('signUpContainer');
+    document.getElementById('notAUser').classList.add('dNone');
     document.getElementById('loginContainer').innerHTML = signUpForm();
 }

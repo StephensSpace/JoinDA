@@ -12,6 +12,8 @@ body {
     font-style: normal !important;
     display: flex;
     justify-content: center;
+    margin: 0 auto;
+    max-width: 1920px;
 }
 
 .logo {
@@ -346,5 +348,48 @@ button {
 
     .not-a-user {
         right: 25px;
+    }
+}
+
+@media (max-height: 880px) and (max-width: 1000px) {
+    .logo-container-final {
+        left: 50px;
+        top: 50px;
+    }
+}
+
+@media (max-height: 740px) and (max-width: 1000px) {
+    .not-a-user {
+        right: 144px;
+        top: 10px;
+    }
+}
+
+@media (max-height: 748px) and (max-width: 1422px) {
+    .not-a-user {
+        right: 200px;
+        top: 10px;
+    }
+}
+
+@media (max-height: 830px) and (max-width: 960px) {
+    .logo-container-final {
+        left: 20px;
+        top: 20px;
+    }
+
+    .logo {
+        width: 80px;
+    }
+
+    .not-a-user {
+        right: 80px;
+        top: 10px;
+    }
+}
+
+@media (max-height: 715px) and (max-width: 850px) {
+    .logo {
+        width: 60px;
     }
 }

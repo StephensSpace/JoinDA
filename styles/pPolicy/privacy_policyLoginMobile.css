@@ -24,28 +24,27 @@ h2 {
 #arrowLeft {
   width: 21.33px;
   height: 20.74px;
+  cursor: pointer;
 }
 
 .arrowLeft {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  right: 48px;
-  top: 148px;
-  flex: none;
-  flex-grow: 0;
-  z-index: 3;
-  cursor: pointer;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out; /* Glatte Übergänge */
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  /* Glatte Übergänge */
+  flex-direction: row-reverse;
+  width: 100%;
+  max-width: 540px;
+  gap: 30px;
 }
 
-.arrowLeft:hover {
+#arrowLeft:hover {
   background-color: lightgrey;
-  transform: scale(1.2); /* Vergrößert das Element um 20% */
-  border-radius: 18px; /* Beibehaltung des runden Effekts */
+  transform: scale(1.2);
+  /* Vergrößert das Element um 20% */
+  border-radius: 18px;
+  /* Beibehaltung des runden Effekts */
 }
 
 
@@ -117,5 +116,11 @@ h2 {
   .backBtnLink {
       top: 116px;
       left: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  .arrowLeft {
+    gap: 10px;
   }
 }

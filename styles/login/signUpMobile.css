@@ -222,11 +222,22 @@ a:hover {
     white-space: nowrap;
 }
 
+#msgBoxMail {
+    position: absolute;
+    color: red;
+    font-size: 0.99rem;
+    font-weight: 800;
+    top: 47.5%;
+    left: 5%;
+}
+
 .msgBox2 {
     position: absolute;
-    top: 557px;
-    font-size: 20px;
-    color: coral;
+    color: red;
+    font-size: 0.99rem;
+    font-weight: 800;
+    top: 71.8%;
+    left: 5%;
 }
 
 @media(max-width: 396px) {
@@ -236,6 +247,15 @@ a:hover {
     .person {
         right: calc(94px - (396px - 100vw));
     }
+    
+    #msgBoxMail {
+        left: 11%;
+    }
+
+    .msgBox2 {
+        left: 11%;
+    }
+
 }
 
 @media (max-height: 776px) and (max-width: 400px) {
