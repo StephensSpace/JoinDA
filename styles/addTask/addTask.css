@@ -345,7 +345,8 @@ textarea {
   width: 278px;
   height: 73px;
   top: 206px;
-  left: 300px;
+  /* left: 300px; */
+  left: 328px;
   gap: 1px;
   position: absolute;
   display: flex;
@@ -355,7 +356,8 @@ textarea {
   width: 1px;
   height: 355px;
   top: 340px;
-  left: 828.25px;
+  /* left: 828.25px; */
+  left: 853.75px;
   border: 1px;
   position: absolute;
   background-color: #ddd;
@@ -375,7 +377,8 @@ textarea {
   width: 500px;
   height: 376px;
   top: 327px;
-  left: 300.5px;
+  /* left: 300.5px; */
+  left: 328px;
   position: absolute;
 }
 
@@ -383,7 +386,8 @@ textarea {
   width: 500px;
   height: 416px;
   top: 327px;
-  left: 900.25px;
+  /* left: 900.25px; */
+  left: 927.75px;
   position: absolute;
 }
 
