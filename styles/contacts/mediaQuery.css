@@ -137,17 +137,14 @@
         left: 232px;
         bottom: 280px;
         height: calc(54.6% - 160px);
-        padding: 12px 0;
+        padding: 110px 0;
     }
 
     .contact-content-head {
         justify-content: center;
         flex-direction: row;
-        position: fixed;
         background-color: var(--background-color-body);
         width: calc(100% - 232px);
-        top: 96px;
-        left: 232px;
     }
 
     .contact-content-head hr {
@@ -157,7 +154,6 @@
 
     .contact-content-table {
         position: relative;
-        padding-top: 160px;
         top: unset;
     }
 
