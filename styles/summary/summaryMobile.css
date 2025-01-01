@@ -1,355 +1,354 @@
 .h1Div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    position: absolute;
-    width: 223px;
-    height: 104px;
-    padding-left: calc(16px + (100vw - 428px) / 2);
-    top: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  position: absolute;
+  width: 223px;
+  height: 104px;
+  padding-left: calc(16px + (100vw - 428px) / 2);
+  top: 128px;
 }
 
 #joinKeyMetrics {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0px 10px;
-    gap: 8px;
-    width: 223px;
-    height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px 10px;
+  gap: 8px;
+  width: 223px;
+  height: 88px;
 }
 
 .h1Div h1 {
-    width: 203px;
-    height: 56px;
-    font-weight: 700;
-    font-size: 47px;
-    color: #000000;
+  width: 203px;
+  height: 56px;
+  font-weight: 700;
+  font-size: 47px;
+  color: #000000;
 }
 
 #devidingVector {
-    width: 90px;
-    height: 0px;
-    border: 2px solid #29ABE2;
-    margin-left: 10px;
+  width: 90px;
+  height: 0px;
+  border: 2px solid #29abe2;
+  margin-left: 10px;
 }
 
 .h1UnderlineDiv {
-    width: 223px;
-    height: 24px;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 120%;
-    color: #2A3647;
-    white-space: nowrap;
+  width: 223px;
+  height: 24px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #2a3647;
+  white-space: nowrap;
 }
 
-
 .cardOverviewDiv {
-    position: absolute;
-    max-width: 396px;
-    height: 384px;
-    left: calc(max(0px, 50% - 396px / 2));
-    top: calc(50% - 384px/2 + 1px);
-    /* Eigene Idee, die Box als Flexbox */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  position: absolute;
+  max-width: 396px;
+  height: 384px;
+  left: calc(max(0px, 50% - 396px / 2));
+  top: calc(50% - 384px / 2 + 1px);
+  /* Eigene Idee, die Box als Flexbox */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .toDoAndDoneDiv {
-    display: flex;
-    justify-content: space-between;
-    max-width: 396px;
-    width: 100%;
-    height: 110px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 396px;
+  width: 100%;
+  height: 110px;
 }
 
 .toDoAndDoneCard {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 38px 58px;
-    gap: 10px;
-    max-width: 186px;
-    height: 110px;
-    width: 100%;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 38px 58px;
+  gap: 10px;
+  max-width: 186px;
+  height: 110px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 #amountUrgentTasksDiv {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 18px;
-    max-width: 108px;
-    width: 100%;
-    height: 73px;
-    justify-content: end;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 18px;
+  max-width: 108px;
+  width: 100%;
+  height: 73px;
+  justify-content: end;
 }
 
 #urgentAmount {
-    font-weight: 600;
-    font-size: 47px;
-    text-align: center;
-    color: #000000;
+  font-weight: 600;
+  font-size: 47px;
+  text-align: center;
+  color: #000000;
 }
 
 #urgentSpam {
-    font-weight: 400;
-    font-size: 14px;
-    color: #2A3647;
+  font-weight: 400;
+  font-size: 14px;
+  color: #2a3647;
 }
 
 #vectorHorizontal {
-    width: 0px;
-    height: 68px;
-    border: 2px solid #D1D1D1;
+  width: 0px;
+  height: 68px;
+  border: 2px solid #d1d1d1;
 }
 
 #deadlineDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
-    max-width: 135px;
-    width: 100%;
-    height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  max-width: 135px;
+  width: 100%;
+  height: 44px;
 }
 
 #deadlineDate {
-    font-weight: 700;
-    font-size: 16px;
-    color: #2A3647;
-    white-space: nowrap;
+  font-weight: 700;
+  font-size: 16px;
+  color: #2a3647;
+  white-space: nowrap;
 }
 
 #upcommingSpan {
-    font-weight: 400;
-    font-size: 14px;
-    color: #2A3647;
-    white-space: nowrap;
+  font-weight: 400;
+  font-size: 14px;
+  color: #2a3647;
+  white-space: nowrap;
 }
 
 .taskOverview {
-    width: 396px;
-    height: 116px;
-    display: flex;
-    justify-content: space-between;
+  width: 396px;
+  height: 116px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .taskOverviewCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 25px 0px;
-    gap: 13px;
-    width: 116px;
-    height: 116px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    box-sizing: border-box;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 0px;
+  gap: 13px;
+  width: 116px;
+  height: 116px;
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .taskCounterDiv {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    width: 54px;
-    height: 90px;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 54px;
+  height: 90px;
 }
 
 .taskCount {
-    white-space: nowrap;
-    font-weight: 600;
-    font-size: 47px;
-    text-align: center;
-    color: #000000;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 47px;
+  text-align: center;
+  color: #000000;
 }
 
 .taskCounterText {
-    font-weight: 400;
-    font-size: 14px;
-    text-align: center;
-    color: #2A3647;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: #2a3647;
 }
 
 .greetingBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 3px;
-    position: absolute;
-    width: 385px;
-    height: 136px;
-    left: 968px;
-    top: 547.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 3px;
+  position: absolute;
+  width: 385px;
+  height: 136px;
+  left: 968px;
+  top: 547.5px;
 }
 
 #urgentTaskBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 28px 0px;
-    gap: 20px;
-    max-width: 396px;
-    width: 100%;
-    height: 110px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 0px;
+  gap: 20px;
+  max-width: 396px;
+  width: 100%;
+  height: 110px;
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 #daytime {
-    font-weight: 500;
-    font-size: 47px;
-    line-height: 120%;
-    color: #2A3647;
+  font-weight: 500;
+  font-size: 47px;
+  line-height: 120%;
+  color: #2a3647;
 }
 
 #userName {
-    font-weight: 700;
-    font-size: 64px;
-    color: #29ABE2;
+  font-weight: 700;
+  font-size: 64px;
+  color: #29abe2;
 }
 
 #toDoCounter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    width: 63px;
-    height: 101px;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  width: 63px;
+  height: 101px;
+  justify-content: center;
 }
 
 #doneCounter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    width: 50px;
-    height: 73px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  width: 50px;
+  height: 73px;
 }
 
 #toDoCounterSpan {
-    font-weight: 600;
-    font-size: 47px;
-    text-align: center;
-    color: #000000;
+  font-weight: 600;
+  font-size: 47px;
+  text-align: center;
+  color: #000000;
 }
 
 #doneCounterSpan {
-    width: 50px;
-    height: 77px;
-    font-weight: 600;
-    font-size: 47px;
-    text-align: center;
-    color: #000000;
+  width: 50px;
+  height: 77px;
+  font-weight: 600;
+  font-size: 47px;
+  text-align: center;
+  color: #000000;
 }
 
 .toDoDoneSpan {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 120%;
-    color: #2A3647;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    white-space: nowrap;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  color: #2a3647;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  white-space: nowrap;
 }
 
 @media (max-width: 396px) {
-    .cardOverviewDiv {
-        max-width: 100%;
-        padding: 10px;
-    }
+  .cardOverviewDiv {
+    max-width: 100%;
+    padding: 10px;
+    padding-top: 80px;
+    gap: 10px;
+  }
 
-    .taskOverview {
-        justify-content: center;
-        padding: 0 10px;
-    }
+  .taskOverview {
+    justify-content: center;
+    padding: 0 10px;
+  }
 
-    #urgentTaskBox {
-        gap: 10px;
-    }
+  #urgentTaskBox {
+    gap: 10px;
+  }
 
-    .toDoAndDoneDiv {
-        justify-content: center;
-    }
+  .toDoAndDoneDiv {
+    justify-content: center;
+  }
 
-    .toDoAndDoneCard {
-        width: 50%;
-        max-width: 186px;
-    }
+  .toDoAndDoneCard {
+    width: 50%;
+    max-width: 186px;
+  }
 }
 
-@media(max-width: 368px) {
-    .taskOverview {
-        max-width: 396px;
-        width: 100%;
-        padding: 0px;
-    }
+@media (max-width: 368px) {
+  .taskOverview {
+    max-width: 396px;
+    width: 100%;
+    padding: 0px;
+  }
 
-    .taskOverviewCard {
-        width: 33.3%;
-    }
+  .taskOverviewCard {
+    width: 33.3%;
+  }
 
-    #urgentTaskBox {
-        padding-left: 6px;
-        gap: 5px;
-        justify-content: flex-start;
-    }
+  #urgentTaskBox {
+    padding-left: 6px;
+    gap: 5px;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 344px) {
-    #deadlineDate {
-        white-space: wrap;
-    }
+  #deadlineDate {
+    white-space: wrap;
+  }
 }
 
-@media(max-height: 860px) {
-    .h1Div {
-        top: 80px;
-        align-items: center;
-        width: -webkit-fill-available;
-        padding: unset;
-    }
+@media (max-height: 860px) {
+  .h1Div {
+    top: 80px;
+    align-items: center;
+    width: -webkit-fill-available;
+    padding: unset;
+  }
 
-    #joinKeyMetrics {
-        align-items: center;
-        padding: 0;
-    }
+  #joinKeyMetrics {
+    align-items: center;
+    padding: 0;
+  }
 
-    .h1Div h1 {
-        width: fit-content;
-    }
+  .h1Div h1 {
+    width: fit-content;
+  }
 
-    .h1UnderlineDiv {
-        width: auto;
-    }
+  .h1UnderlineDiv {
+    width: auto;
+  }
 
-    #devidingVector {
-        margin-left: 0;
-    }
+  #devidingVector {
+    margin-left: 0;
+  }
 }
