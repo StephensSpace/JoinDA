@@ -46,14 +46,35 @@
 }
 
 @media (max-width: 900px) {
-    .cardOverviewDiv,
-    .h1Div {
+    .cardOverviewDiv {
         left: 245px;
+    }
+
+    .h1Div {
+        left: 320px;
     }
     .greetingBox {
         left: 417px;
     }
     
+}
+
+@media (max-width: 870px) {
+    .h1Div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .h1UnderlineDiv {
+        border: unset;
+        width: fit-content;
+        height: auto;
+    }
+
+    .h1Div h1 {
+        border-bottom: solid #29ABE2;;
+    }
 }
 
 @media (max-width: 830px) {
@@ -95,17 +116,9 @@
         left: 363px;
     }
 
-    .h1Div {
-        gap: 5px;
-    }
-
-    .h1UnderlineDiv {
-        width: 270.5px;
-    }
-
 }
 
-@media (max-width: 720px) {
+@media (max-width: 737px) {
     .cardOverviewDiv {
         max-width: 400px;
     }
@@ -119,32 +132,6 @@
         left: 252px;
     }
 
-    .h1Div {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+    
 
-    .h1UnderlineDiv {
-        border: unset;
-        width: fit-content;
-    }
-
-    .h1Div h1 {
-        border-bottom: solid #29ABE2;;
-    }
-
-}
-
-@media(max-height: 900px) {
-    .h1Div {
-        top: 138px;
-    }
-
-    .cardOverviewDiv {
-        top: 230px;
-    }
-
-    .greetingBox {
-        top: 774px;
-    }
 }

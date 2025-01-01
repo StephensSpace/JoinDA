@@ -345,7 +345,7 @@ textarea {
   width: 278px;
   height: 73px;
   top: 206px;
-  /* left: 300px; */
+  white-space: nowrap;
   left: 328px;
   gap: 1px;
   position: absolute;
