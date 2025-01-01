@@ -16,6 +16,7 @@ body {
 
 .logo {
     width: 100px;
+    z-index: 5;
 }
 
 .overlay {
@@ -31,8 +32,8 @@ body {
 .logo-container-final {
     display: flex !important;
     position: absolute;
-    top: 37px;
-    left: 38px;
+    top: 0px;
+    left: 0px;
     opacity: 1;
     /* Finaler Zustand */
     z-index: 5;
@@ -53,7 +54,7 @@ body {
     width: 100%;
     max-width: 396px;
     left: 50%;
-    top: 50%;
+    top: 52%;
     transform: translate(-50%, -50%);
     background: #FFFFFF;
     box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
@@ -230,8 +231,8 @@ input[type="name"]::placeholder {
     }
 
     100% {
-        top: 37px;
-        left: 38px;
+        top: 7px;
+        left: 8px;
         transform: translate(0, 0);
     }
 }

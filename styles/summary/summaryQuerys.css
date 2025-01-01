@@ -104,6 +104,12 @@
         gap: 34px;
     }
 
+    .urgentDeadlineDiv:hover,
+    .toDoAndDoneCard:hover, 
+    .taskOverviewCard:hover {
+        transform: scale(1.03);
+    }
+    
     .taskOverview {
         width: 100%;
     }
@@ -123,6 +129,10 @@
         max-width: 400px;
     }
 
+    .cardOverviewDiv {
+        left: 235px;
+    }
+
     .urgentDeadlineDiv,
     .urgentDeadlineDiv:hover {
         gap: 5px;
@@ -131,7 +141,4 @@
     .greetingBox {
         left: 252px;
     }
-
-    
-
 }
