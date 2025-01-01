@@ -412,7 +412,7 @@
 
   .modal-content-task {
     height: 780px;
-    left: 4px;
+    left: 30px;
   }
 
   .modal-content {
@@ -506,7 +506,7 @@
 
   .modal-content-task {
     width: 308px;
-    height: 764px;
+    height: 780px;
   }
 
   .modal-content-headline {

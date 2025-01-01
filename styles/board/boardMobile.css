@@ -441,6 +441,7 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   gap: 24px;
+  overflow: auto;
 }
 
 #taskDetailsModal .avatar-container {
@@ -522,7 +523,6 @@ ul {
   width: 525px;
   height: 838px;
   left: 640px;
-  top: 50px;
   border-radius: 30px;
   padding: 48px 40px;
   gap: 24px;
@@ -907,7 +907,7 @@ textarea {
 }
 
 .assignedTo {
-  width: 445px;
+  width: 260px;
   height: 208px;
   gap: 8px;
   display: flex;
@@ -922,7 +922,7 @@ textarea {
 }
 
 .taskInfoDueDate {
-  width: 445px;
+  width: 260px;
   height: 24px;
   display: flex;
   flex-direction: column;
