@@ -347,7 +347,7 @@ textarea {
   display: flex;
   background-color: #f6f7f8;
   z-index: 2;
-  padding-left: 110px;
+  padding-left: 133px;
 }
 
 .form-row {
@@ -361,7 +361,7 @@ textarea {
   flex-direction: column;
   width: 396px;
   height: 376px;
-  top: 224px;
+  top: 150px;
   left: 110px;
   position: absolute;
   padding: 0 20px;
@@ -371,7 +371,7 @@ textarea {
   display: flex;
   flex-direction: column;
   width: 396px;
-  top: 570px;
+  top: 500px;
   left: 110px;
   position: relative;
   padding: 0 20px;
