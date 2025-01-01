@@ -6,7 +6,6 @@
 
 function createTaskCard(task) {
   if (!task || typeof task !== "object") {
-    console.error("Ungültige Aufgabe übergeben:", task);
     return null;
   }
   const members = Array.isArray(task.members) ? task.members : [];
@@ -19,6 +18,9 @@ function createTaskCard(task) {
   card.className = "task-card";
   card.setAttribute("draggable", "true");
   card.dataset.id = task.id;
+  const maxVisibleMembers = 4;
+  const visibleMembers = members.slice(0, maxVisibleMembers);
+  const remainingMembers = members.length - maxVisibleMembers;
   card.innerHTML = `
     <div class="task-category" style="background-color: ${
       task.category === "User Story" ? "#0038FF" : "#1FD7C1"
@@ -37,16 +39,23 @@ function createTaskCard(task) {
     </div>
     <div class="task-footer">
       <div class="avatars">
-        ${members
-          .map(
-            (name) => `
-          <div class="avatar" style="background-color: ${getColorForContact(
-            name
-          )};">
-            ${getInitials(name)}
+      ${visibleMembers
+        .map(
+          (name) => `
+        <div class="avatar" style="background-color: ${getColorForContact(
+          name
+        )};">
+          ${getInitials(name)}
+        </div>`
+        )
+        .join("")}
+      ${
+        remainingMembers > 0
+          ? `<div class="avatar" style="background-color: #ccc;">
+            +${remainingMembers}
           </div>`
-          )
-          .join("")}
+          : ""
+      }
       </div>
       <img src="./assets/icons/${task.priority?.toLowerCase() || "low"}.png" 
            alt="${task.priority || "Low"}" 
@@ -159,7 +168,6 @@ function showTaskDetails(task) {
   document.getElementById("taskDetailDueDate").innerText =
     task.dueDate || "N/A";
   renderTaskSubtasks(task);
-
   const priorityIcon =
     task.priority === "Urgent"
       ? "./assets/icons/urgent.png"
@@ -170,18 +178,34 @@ function showTaskDetails(task) {
       ${task.priority || "Medium"} 
       <img src="${priorityIcon}" alt="${task.priority}" class="priority-icon" />
     `;
+  const maxVisibleMembers = 4;
+  const visibleMembers = task.members
+    ? task.members.slice(0, maxVisibleMembers)
+    : [];
+  const remainingMembers = task.members
+    ? task.members.length - maxVisibleMembers
+    : 0;
   document.getElementById("taskAssignedTo").innerHTML = task.members
-    ? task.members
-        .map(
-          (name) => `
-            <div class="avatar-container">
-              <div class="avatar" style="background-color: ${getColorForContact(
-                name
-              )};">${getInitials(name)}</div>
-              <span>${name}</span>
-            </div>`
-        )
-        .join("")
+    ? `
+  ${visibleMembers
+    .map(
+      (name) => `
+        <div class="avatar-container">
+          <div class="avatar" style="background-color: ${getColorForContact(
+            name
+          )};">${getInitials(name)}</div>
+          <span>${name}</span>
+        </div>`
+    )
+    .join("")}
+  ${
+    remainingMembers > 0
+      ? `<div class="avatar-container">
+        <div class="avatar" style="background-color: #ccc;">+${remainingMembers}</div>
+      </div>`
+      : ""
+  }
+`
     : "<p>No members assigned</p>";
   document.getElementById("taskDetailsModal").style.display = "block";
 }

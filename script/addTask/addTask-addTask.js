@@ -227,12 +227,10 @@ function setupSecondDropdown() {
   );
   const categoryInput = document.getElementById("taskCategoryInput");
   const taskTypeInput = document.getElementById("taskTypeInput");
-
   secondDropdown.addEventListener("click", (event) => {
     event.stopPropagation();
     toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow);
   });
-
   secondOptionsContainer.addEventListener("click", (event) => {
     handleOptionSelection(
       event,
@@ -243,7 +241,6 @@ function setupSecondDropdown() {
       taskTypeInput
     );
   });
-
   document.addEventListener("click", (event) => {
     if (!secondDropdown.contains(event.target)) {
       secondDropdown.classList.remove("open");

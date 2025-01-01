@@ -109,18 +109,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const subtaskInput = document.getElementById("subtaskInput");
   const subtaskAddButton = document.querySelector(".subtask-add-button");
-  if (subtaskAddButton) {
-    subtaskAddButton.addEventListener("click", () => {
+  subtaskAddButton.addEventListener("click", () => {
+    addSubtask(subtaskInput.value.trim());
+    subtaskInput.value = "";
+  });
+  subtaskInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
       addSubtask(subtaskInput.value.trim());
-    });
-  }
-
-  if (subtaskInput) {
-    subtaskInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        addSubtask(subtaskInput.value.trim());
-      }
-    });
-  }
+      subtaskInput.value = "";
+    }
+  });
 });
