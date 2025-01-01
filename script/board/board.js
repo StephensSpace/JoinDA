@@ -479,7 +479,11 @@ function filterTasks() {
     const searchTerm = searchInput.value.toLowerCase();
     document.querySelectorAll(".task-card").forEach((task) => {
       const title = task.querySelector("h3").textContent.toLowerCase();
-      task.style.display = title.includes(searchTerm) ? "block" : "none";
+      const description =
+        task.querySelector("p")?.textContent.toLowerCase() || "";
+      const matches =
+        title.includes(searchTerm) || description.includes(searchTerm);
+      task.style.display = matches ? "block" : "none";
     });
     document.querySelectorAll(".board-column").forEach((column) => {
       const tasksContainer = column.querySelector(".tasks-container");
