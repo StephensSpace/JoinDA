@@ -24,7 +24,7 @@
         <img src="./assets/img/logo.png" id="logo">
         <div>
             <div id="userProfil" onclick="openUserMenu()">
-                <span id="initials" >SM</span>
+                <span id="initials">SM</span>
             </div>
         </div>
         <div class="userMenu dNone" id="userMenu">
@@ -50,70 +50,70 @@
             </div>
         </div>
     </header>
+    <div class="content">
+        <div class="h1Div">
+            <div id="joinKeyMetrics">
+                <h1>Join 360</h1>
+                <div class="h1UnderlineDiv">
+                    <p>Key Metrics at a Glance</p>
+                </div>
+            </div>
+            <div id="devidingVector"></div>
+        </div>
 
-    <div class="h1Div">
-        <div id="joinKeyMetrics">
-            <h1>Join 360</h1>
-            <div class="h1UnderlineDiv">
-                <p>Key Metrics at a Glance</p>
+        <div class="cardOverviewDiv">
+            <div class="toDoAndDoneDiv" onclick="boardBtn()">
+                <div class="toDoAndDoneCard">
+                    <img src="./assets/icons/summary/pencil40.png" alt="">
+                    <div id="toDoCounter">
+                        <span id="toDoCounterSpan"></span>
+                        <span class="toDoDoneSpan">To-Do</span>
+                    </div>
+                </div>
+                <div class="toDoAndDoneCard" onclick="boardBtn()">
+                    <img src="./assets/icons/summary/check40.png" alt="">
+                    <div id="doneCounter">
+                        <span id="doneCounterSpan"></span>
+                        <span class="toDoDoneSpan">Done</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="urgentTaskBox" onclick="boardBtn()">
+                <img src="./assets/icons/summary/roundUrgent40.png" alt="">
+                <div id="amountUrgentTasksDiv">
+                    <span id="urgentAmount">1</span>
+                    <span id="urgentSpam">Urgent</span>
+                </div>
+                <div id="vectorHorizontal"></div>
+                <div id="deadlineDiv">
+                    <span id="deadlineDate">October 16, 2022</span>
+                    <span id="upcommingSpan">Upcoming Deadline</span>
+                </div>
+            </div>
+
+            <div class="taskOverview">
+                <div class="taskOverviewCard" onclick="boardBtn()">
+                    <div class="taskCounterDiv">
+                        <span class="taskCount" id="totalCount"></span>
+                        <span class="taskCounterText">Tasks in Board</span>
+                    </div>
+                </div>
+                <div class="taskOverviewCard" onclick="boardBtn()">
+                    <div class="taskCounterDiv">
+                        <span class="taskCount" id="inProgress"></span>
+                        <span class="taskCounterText">Tasks in Progress</span>
+                    </div>
+                </div>
+                <div class="taskOverviewCard" onclick="boardBtn()">
+                    <div class="taskCounterDiv">
+                        <span class="taskCount" id="awaitReview"></span>
+                        <span class="taskCounterText">Awaiting Feedback</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="devidingVector"></div>
     </div>
-
-    <div class="cardOverviewDiv">
-        <div class="toDoAndDoneDiv" onclick="boardBtn()">
-            <div class="toDoAndDoneCard">
-                <img src="./assets/icons/summary/pencil40.png" alt="">
-                <div id="toDoCounter">
-                    <span id="toDoCounterSpan"></span>
-                    <span class="toDoDoneSpan">To-Do</span>
-                </div>
-            </div>
-            <div class="toDoAndDoneCard" onclick="boardBtn()">
-                <img src="./assets/icons/summary/check40.png" alt="">
-                <div id="doneCounter">
-                    <span id="doneCounterSpan"></span>
-                    <span class="toDoDoneSpan">Done</span>
-                </div>
-            </div>
-        </div>
-
-        <div id="urgentTaskBox" onclick="boardBtn()">
-            <img src="./assets/icons/summary/roundUrgent40.png" alt="">
-            <div id="amountUrgentTasksDiv">
-                <span id="urgentAmount">1</span>
-                <span id="urgentSpam">Urgent</span>
-            </div>
-            <div id="vectorHorizontal"></div>
-            <div id="deadlineDiv">
-                <span id="deadlineDate">October 16, 2022</span>
-                <span id="upcommingSpan">Upcoming Deadline</span>
-            </div>
-        </div>
-
-        <div class="taskOverview">
-            <div class="taskOverviewCard" onclick="boardBtn()">
-                <div class="taskCounterDiv">
-                    <span class="taskCount" id="totalCount"></span>
-                    <span class="taskCounterText">Tasks in Board</span>
-                </div>
-            </div>
-            <div class="taskOverviewCard" onclick="boardBtn()">
-                <div class="taskCounterDiv">
-                    <span class="taskCount" id="inProgress"></span>
-                    <span class="taskCounterText">Tasks in Progress</span>
-                </div>
-            </div>
-            <div class="taskOverviewCard" onclick="boardBtn()">
-                <div class="taskCounterDiv">
-                    <span class="taskCount" id="awaitReview"></span>
-                    <span class="taskCounterText">Awaiting Feedback</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <nav>
         <!--Jungs hier die klasse activ setzen bei eurer Seite -->
         <div class="outerButtonDiv activ" onclick="summaryBtn()">

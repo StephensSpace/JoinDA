@@ -387,7 +387,7 @@ input[type="name"]::placeholder {
 
 }
 
-@media (max-height: 667px) {
+@media (max-height: 705px) {
     .logo {
         top: 5px;
         left: 6px;
@@ -418,6 +418,7 @@ input[type="name"]::placeholder {
 
     }
 
+
     .signUpContainer {
         height: 530px !important;
         top: 52% !important;
@@ -426,6 +427,3 @@ input[type="name"]::placeholder {
 
 }
 
-@media (max-height: 650px) {
-    
-}

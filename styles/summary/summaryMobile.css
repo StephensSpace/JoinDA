@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  position: absolute;
+  position: relative;
   width: 223px;
   height: 104px;
   padding-left: calc(16px + (100vw - 428px) / 2);
-  top: 128px;
+  top: 48px;
 }
 
 #joinKeyMetrics {
@@ -19,6 +19,13 @@
   gap: 8px;
   width: 223px;
   height: 88px;
+}
+
+.content {
+  position: absolute;
+  top: 80px;
+  height: 700px;
+  width: 100%;
 }
 
 .h1Div h1 {
@@ -47,11 +54,11 @@
 }
 
 .cardOverviewDiv {
-  position: absolute;
+  position: relative;
   max-width: 396px;
   height: 384px;
   left: calc(max(0px, 50% - 396px / 2));
-  top: calc(50% - 384px / 2 + 1px);
+  top: 100px;
   /* Eigene Idee, die Box als Flexbox */
   display: flex;
   flex-direction: column;
@@ -140,7 +147,7 @@
 }
 
 .taskOverview {
-  width: 396px;
+  width: 100%;
   height: 116px;
   display: flex;
   justify-content: space-between;
@@ -282,11 +289,12 @@
     padding: 10px;
     padding-top: 80px;
     gap: 10px;
+    top: 10px;
   }
 
   .taskOverview {
     justify-content: center;
-    padding: 0 10px;
+    gap: 8px;
   }
 
   #urgentTaskBox {
@@ -327,28 +335,3 @@
   }
 }
 
-@media (max-height: 860px) {
-  .h1Div {
-    top: 80px;
-    align-items: center;
-    width: -webkit-fill-available;
-    padding: unset;
-  }
-
-  #joinKeyMetrics {
-    align-items: center;
-    padding: 0;
-  }
-
-  .h1Div h1 {
-    width: fit-content;
-  }
-
-  .h1UnderlineDiv {
-    width: auto;
-  }
-
-  #devidingVector {
-    margin-left: 0;
-  }
-}
