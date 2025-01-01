@@ -25,34 +25,34 @@
     width: 185px;
   }
 
-  .modal-content{
+  .modal-content {
     width: 1065px;
   }
 }
 
 @media screen and (max-width: 1300px) {
-  .modal-content{
+  .modal-content {
     width: 860px;
   }
 
-  .form-column-right{
+  .form-column-right {
     width: 300px;
     left: 500.25px;
   }
 
-  .form-column-left{
+  .form-column-left {
     width: 300px;
   }
 
-  .divider{
+  .divider {
     left: 410.25px;
   }
 
-  .priority{
+  .priority {
     width: 300px;
   }
 
-  .addTask-buttons{
+  .addTask-buttons {
     left: 490.25px;
   }
 }
@@ -92,7 +92,7 @@
     left: 330px;
   }
 
-  .modal-content{
+  .modal-content {
     width: 860px;
   }
 }
@@ -137,7 +137,7 @@
   .modal-content::-webkit-scrollbar {
     display: none;
   }
-  
+
   .modal-content {
     width: 605px;
     height: 810px;
@@ -175,7 +175,6 @@
     display: none;
   }
 }
-
 
 @media screen and (max-width: 990px) {
   .search-bar {
@@ -386,7 +385,7 @@
     position: absolute;
     left: 0;
     gap: 5px;
-    margin-top: -45px;
+    margin-top: -40px;
     overflow-y: hidden;
     overflow-x: scroll;
     width: 100%;
@@ -484,7 +483,7 @@
     width: 308px;
   }
 
-  .no-tasks{
+  .no-tasks {
     width: 305px;
   }
 
@@ -525,7 +524,8 @@
 
   .search-bar {
     left: -50px;
-    width: 575px;
+    width: 365px;
+    gap: 135px;
   }
 
   .input-container {
@@ -533,11 +533,11 @@
   }
 
   .headlines {
-    left: -50px;
+    left: 5px;
   }
 
   .headlines div {
-    width: 300px;
+    width: 310px;
   }
 
   .board-container {
