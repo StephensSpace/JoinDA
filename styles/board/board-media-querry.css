@@ -307,7 +307,7 @@
   }
 
   .modal-content-task {
-    left: 80px;
+    left: 210px;
   }
 
   .add-Task-Button {
@@ -324,6 +324,10 @@
 @media screen and (max-width: 740px) {
   .modal-content {
     width: 510px;
+  }
+
+  .modal-content-task {
+    left: 130px;
   }
 }
 
@@ -478,7 +482,7 @@
   }
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 560px) {
   .modal-content {
     width: 308px;
   }
@@ -507,6 +511,7 @@
   .modal-content-task {
     width: 308px;
     height: 780px;
+    left: 120px;
   }
 
   .modal-content-headline {
@@ -551,5 +556,11 @@
 
   .task-actions {
     left: 115px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .modal-content-task {
+    left: 5px;
   }
 }
