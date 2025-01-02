@@ -306,8 +306,6 @@ body::-webkit-scrollbar {
 
 .error-message {
   color: red;
-  font-size: 12px;
-  margin-top: 4px;
 }
 
 #msg-box {
@@ -801,7 +799,7 @@ textarea {
 
 .custom-dropdown {
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
   cursor: pointer;
   background-color: white;
@@ -876,7 +874,7 @@ textarea {
   align-items: center;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #fff;
 }
 

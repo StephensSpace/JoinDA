@@ -310,8 +310,6 @@ main {
 
 .error-message {
   color: red;
-  font-size: 12px;
-  margin-top: 4px;
 }
 
 #msg-box {
@@ -380,6 +378,7 @@ textarea {
   /* left: 300.5px; */
   left: 328px;
   position: absolute;
+  padding: 0 20px;
 }
 
 .form-column-right {
@@ -389,6 +388,7 @@ textarea {
   /* left: 900.25px; */
   left: 927.75px;
   position: absolute;
+  padding: 0 20px;
 }
 
 input[type="text"],
@@ -988,7 +988,6 @@ textarea {
   text-align: center;
   background-color: #ccc;
 }
-
 
 .selected-contacts-container {
   display: flex;

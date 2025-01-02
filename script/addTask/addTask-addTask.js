@@ -177,8 +177,21 @@ function resetAddTaskModal() {
   document
     .querySelectorAll(".priority-btn")
     .forEach((btn) => btn.classList.remove("active"));
+  const mediumPriorityButton = document.querySelector(
+    ".priority-btn[data-priority='Medium']"
+  );
+  if (mediumPriorityButton) {
+    mediumPriorityButton.classList.add("active");
+    const icon = mediumPriorityButton.querySelector(".priority-icon");
+    if (icon) icon.style.filter = "brightness(0) invert(1)";
+  }
   selectedMembers = [];
   updateSelectedMembers();
+  document.querySelectorAll(".dropdown-option").forEach((option) => {
+    option.classList.remove("selected");
+    option.style.backgroundColor = "";
+    option.style.color = "";
+  });
   selectedPriority = "Medium";
   selectedCategory = "";
   document.getElementById("taskTypeInput").value = "";
