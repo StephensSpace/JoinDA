@@ -193,6 +193,10 @@ function resetAddTaskModal() {
   selectedPriority = "Medium";
   selectedCategory = "";
   document.getElementById("taskTypeInput").value = "";
+  const subtaskError = document.getElementById("subtaskError");
+  if (subtaskError) {
+    subtaskError.classList.add("hidden");
+  }
   const actionButton = document.getElementById("createTaskButton");
   actionButton.textContent = "Create Task";
   hideErrorMessages();

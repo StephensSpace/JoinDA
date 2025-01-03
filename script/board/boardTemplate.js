@@ -300,7 +300,7 @@ function addSubtask(title) {
 function updateSubtasksList() {
   const subtaskList = document.getElementById("subtaskList");
   subtaskList.innerHTML = "";
-  subtasksArray.forEach((subtask, index) => {
+  subtasksArray.slice(0, 6).forEach((subtask, index) => {
     const li = document.createElement("li");
     li.className = "subtask-item";
     li.innerHTML = `

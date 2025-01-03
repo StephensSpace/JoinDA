@@ -98,15 +98,41 @@ addTaskTypeButtons.forEach((button) => {
 
 const subtaskInput = document.getElementById("subtaskInput");
 const subtaskAddButton = document.querySelector(".subtask-add-button");
-subtaskAddButton.addEventListener("click", () => {
-  addSubtask(subtaskInput.value.trim());
+const subtaskError = document.createElement("div");
+subtaskError.id = "subtaskError";
+subtaskError.className = "error-message hidden";
+subtaskError.textContent = "Limit an Subtasks erreicht.";
+document.querySelector(".subtask-input-container").appendChild(subtaskError);
+
+let subtaskLimit = 6;
+
+function canAddMoreSubtasks() {
+  const subtaskList = document.getElementById("subtaskList");
+  const isLimitReached = subtaskList.children.length >= subtaskLimit;
+  subtaskError.classList.toggle("hidden", !isLimitReached);
+  return !isLimitReached;
+}
+
+function handleSubtaskAddition() {
+  const subtaskValue = subtaskInput.value.trim();
+  if (!subtaskValue) return;
+  const subtaskList = document.getElementById("subtaskList");
+  if (subtaskList.children.length >= subtaskLimit) {
+    subtaskError.classList.remove("hidden");
+    return;
+  }
+  addSubtask(subtaskValue);
   subtaskInput.value = "";
+  subtaskError.classList.add("hidden");
+}
+subtaskAddButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  handleSubtaskAddition();
 });
 subtaskInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    addSubtask(subtaskInput.value.trim());
-    subtaskInput.value = "";
+    handleSubtaskAddition();
   }
 });
 

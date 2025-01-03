@@ -55,6 +55,21 @@ function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
     .database()
     .ref(`/tasks/${taskId}/subtasks/${subtaskIndex}`)
     .update({ completed })
-    .catch((error) => console.error("Fehler beim Synchronisieren mit Firebase:", error));
+    .catch((error) =>
+      console.error("Fehler beim Synchronisieren mit Firebase:", error)
+    );
 }
 
+/**
+ * Fügt eine Subtask hinzu und aktualisiert die Liste, falls das Limit nicht überschritten ist.
+ * @param {string} title - Titel der Subtask.
+ */
+
+function addSubtask(title) {
+  const subtaskList = document.getElementById("subtaskList");
+  if (subtasksArray.length >= 6 || subtaskList.children.length >= 6) {
+    return;
+  }
+  subtasksArray.push({ title, completed: false });
+  updateSubtasksList();
+}
