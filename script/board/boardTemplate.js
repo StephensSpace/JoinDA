@@ -207,6 +207,21 @@ function showTaskDetails(task) {
   }
 `
     : "<p>No members assigned</p>";
+  const taskAssignedOptions = document.querySelectorAll(
+    "#taskAssignedOptions .dropdown-option"
+  );
+  taskAssignedOptions.forEach((option) => {
+    const contactName = option.dataset.value;
+    if (task.members && task.members.includes(contactName)) {
+      option.classList.add("selected");
+      option.style.backgroundColor = "#091931";
+      option.style.color = "white";
+    } else {
+      option.classList.remove("selected");
+      option.style.backgroundColor = "";
+      option.style.color = "";
+    }
+  });
   document.getElementById("taskDetailsModal").style.display = "block";
 }
 
