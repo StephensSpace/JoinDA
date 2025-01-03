@@ -218,6 +218,9 @@
 
   .tasks-container {
     flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
   }
 
   .board-column {
