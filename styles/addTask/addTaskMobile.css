@@ -338,7 +338,7 @@ textarea {
   font-weight: 700;
   line-height: 56.4px;
   width: 100%;
-  height: auto;
+  height: 100px;
   top: 80px;
   gap: 20px;
   position: fixed;
@@ -346,6 +346,7 @@ textarea {
   background-color: #f6f7f8;
   z-index: 2;
   padding-left: 133px;
+  align-items: flex-end;
 }
 
 .form-row {
@@ -358,22 +359,22 @@ textarea {
   display: flex;
   flex-direction: column;
   width: 396px;
-  height: 376px;
-  top: 150px;
+  height: fit-content;
+  top: 170px;
   left: 110px;
   position: absolute;
-  padding: 0 20px;
+  padding: 20px 20px 0px;
 }
 
 .form-column-right {
   display: flex;
   flex-direction: column;
   width: 396px;
-  top: 500px;
+  top: 520px;
   left: 110px;
   position: relative;
-  padding: 0 20px;
-  height: 100vh;
+  padding: 0 20px 185px;
+  height: fit-content;
 }
 
 input[type="text"],

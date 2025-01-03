@@ -4,7 +4,7 @@
   align-items: flex-start;
   gap: 16px;
   position: relative;
-  width: 223px;
+  width: auto;
   height: 104px;
   padding-left: calc(16px + (100vw - 428px) / 2);
   top: 48px;
