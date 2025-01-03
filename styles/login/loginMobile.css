@@ -274,6 +274,12 @@ input[type="name"]::placeholder {
         width: 80px;
     }
 
+    .login-container {
+        transform: translate(-50%);
+        top: 15%;
+
+    }
+
 }
 
 @media (max-width: 396px) {
@@ -302,7 +308,8 @@ input[type="name"]::placeholder {
 
 @media(max-height: 966px) {
     .not-a-user {
-        margin-bottom: 90px;
+        margin-bottom: 82px;
+        width: auto;
     }
 }
 
@@ -314,16 +321,7 @@ input[type="name"]::placeholder {
 }
 
 
-@media(max-height: 850px) {
-    .not-a-user {
-        position: absolute;
-        top: 0;
-        left: unset;
-        right: 10px;
-    }
-}
-
-@media (max-height: 750px) and (max-width: 450px) {
+@media (max-height: 760px) and (max-width: 450px) {
     .logo {
         width: 50px !important;
     }
@@ -338,13 +336,10 @@ input[type="name"]::placeholder {
         height: 34px;
     }
 
-    .not-a-user {
-        right: 5px;
-        gap: 4px;
-        width: fit-content;
-        left: unset;
+    .login-container {
+        top: 76px;
     }
-    
+
 }
 
 
@@ -353,15 +348,17 @@ input[type="name"]::placeholder {
         width: 45px !important;
     }
 
+    .ppAndLnBox {
+        bottom: 12px !important;
+    }
+
+    .not-a-user {
+        margin-bottom: 44px;
+    }
+
 }
 
 @media (max-height: 820px) and (max-width: 400px) {
-    .not-a-user {
-        right: 5px;
-        gap: 4px;
-        width: fit-content;
-        left: unset;
-    }
 
     .signUpBtn {
         width: 75px;
@@ -382,9 +379,6 @@ input[type="name"]::placeholder {
         top: 90px;
     }
 
-    .ppAndLnBox {
-        bottom: 8px !important;
-    }
 
 }
 
@@ -419,12 +413,28 @@ input[type="name"]::placeholder {
 
     }
 
-
     .signUpContainer {
         height: 530px !important;
         top: 52% !important;
         gap: 28px !important;
     }
 
+}
+
+@media (max-height: 684px) {
+    .login-container {
+        top: 66px;
+        height: 485px;
+        padding: 5px 0;
+        transform: translate(-50%);
+    }
+
+    .ppAndLnBox {
+        bottom: 4px !important;
+    }
+
+    .not-a-user {
+        margin-bottom: 34px;
+    }
 }
 
