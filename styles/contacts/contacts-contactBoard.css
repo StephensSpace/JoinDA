@@ -137,6 +137,7 @@
 .user-contact:hover {
     background-image: linear-gradient(to top, var(--background-color-hover-contact) 0%, #F9F9F9 50%);
     border-radius: 8px;
+    scale: 1.05;
 }
 
 
@@ -154,6 +155,7 @@
     border-radius: 8px;
     background-image: none !important;
     color: white !important;
+    scale: 1.05;
 }
 
 .clicked-Background p {
