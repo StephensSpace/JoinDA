@@ -630,7 +630,6 @@ function checkInputValid() {
  *      Für das Edit-Template (Kontakt bearbeiten)
 */
 
-
 let bufferEdit = [];
 
 /**

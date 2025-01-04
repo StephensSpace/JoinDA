@@ -1,10 +1,6 @@
 
 
 /* Allg. zum Contact Board */
-.contact-board {
-
-}
-
 .user-contact {
     display: flex;
     gap: 8px;
@@ -44,7 +40,6 @@
     padding: 0 36px;
 }
   
-
 .contact-board {
     position: absolute;
     background: white;
@@ -56,12 +51,6 @@
     overflow-y: auto;
     scroll-behavior: smooth;
 }
-
-
-
-
-
-
 
 .user-contact {       
     padding: 12px 0;
@@ -78,7 +67,6 @@
     background-image: linear-gradient(to top, var(--background-color-hover-contact) 0%, #F9F9F9 50%);
     border-radius: 8px;
 }
-
 
 .clicked-Background {
     background-color: var(--background-color-nav) !important;

@@ -4,7 +4,6 @@
 .content {
     top: 80px;
     bottom: 80px;
-    /* overflow-y: auto; */
     position: absolute;
     width: -webkit-fill-available;
     display: flex;
@@ -49,7 +48,6 @@
     height: 80px;
 }
 
-
 /* Contact Content Head & alle darunter Divs */
 .contact-content-head {
     display: flex;
@@ -81,7 +79,6 @@
     font-size: 20px;
     line-height: 24px;
 }
-
 
 .contact-content-table-usernameAndIcons {
     display: flex;
@@ -134,7 +131,6 @@
     font-size: 16px;
     line-height: 19.2px;
 }
-
 
 /* Die Bearbeitungs Buttons */
 .contact-content-table-editAndDeleteIcons {
@@ -225,7 +221,6 @@
 .editAndDeleteBtn1:hover .editAndDeleteBtn-Img-1 {
     display: none;
 }
-
 
 /* Pfeil zum zurück gehen in Kontaktliste */ 
 .contact-content-back {

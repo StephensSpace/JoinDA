@@ -1,7 +1,7 @@
+
+
 /* Höhe für das Modal */
-
 @media (max-height: 705px) {
-
     .modal-userImg-Background {
         top: 46.5%; 
         width: 80px;
