@@ -305,49 +305,73 @@ function fetchContacts(callback) {
 }
 
 /**
- * Initializes the dropdown search functionality for task assignment.
+ * Fügt einen Klick-Listener hinzu, um das Dropdown-Menü zu öffnen oder zu schließen.
+ *
+ * @param {HTMLElement} dropdown - Das Dropdown-Element.
+ * @param {HTMLElement} optionsContainer - Der Container mit den Optionen.
  */
 
-function setupDropdownSearchInline() {
-  const dropdown = document.getElementById("taskAssignedDropdown");
-  const optionsContainer = document.getElementById("taskAssignedOptions");
-  const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
-  if (!dropdown || !optionsContainer || !searchInput) {
-    return;
-  }
-  dropdownTrigger.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const isOpen = dropdown.classList.toggle("open");
-    optionsContainer.classList.toggle("hidden", !isOpen);
-  });
-  document.addEventListener("click", (event) => {
-    if (!dropdown.contains(event.target)) {
-      optionsContainer.classList.add("hidden");
-      dropdown.classList.remove("open");
-    }
-  });
-  fetchContacts((contacts) => {
-    populateContactsDropdown(contacts);
-  });
-  searchInput();
-}
-
-/**
- * Handles the input event for searching within the dropdown options.
- */
-
-function searchInput() {
-  const searchInput = document.getElementById("taskSearchInput");
-  searchInput.addEventListener("input", () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const options = optionsContainer.querySelectorAll(".dropdown-option");
-    options.forEach((option) => {
-      const contactName = option.dataset.value.toLowerCase();
-      option.style.display = contactName.includes(searchTerm)
-        ? "block"
-        : "none";
+function setupDropdownTrigger(dropdown, optionsContainer) {
+    const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
+    dropdownTrigger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isOpen = dropdown.classList.toggle("open");
+      optionsContainer.classList.toggle("hidden", !isOpen);
     });
-  });
+    document.addEventListener("click", (event) => {
+      if (!dropdown.contains(event.target)) {
+        optionsContainer.classList.add("hidden");
+        dropdown.classList.remove("open");
+      }
+    });
+}
+  
+/**
+   * Fügt eine Suchfunktion für das Dropdown-Menü hinzu.
+   *
+   * @param {HTMLElement} searchInput - Das Eingabefeld für die Suche.
+   * @param {HTMLElement} optionsContainer - Der Container mit den Optionen.
+   */
+  
+  function setupDropdownSearch(searchInput, optionsContainer) {
+    searchInput.addEventListener("input", () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      const options = optionsContainer.querySelectorAll(".dropdown-option");
+      options.forEach((option) => {
+        const contactName = option.dataset.value.toLowerCase();
+        option.style.display = contactName.includes(searchTerm)
+          ? "block"
+          : "none";
+      });
+    });
+}
+  
+/**
+   * Ruft Kontakte ab und befüllt das Dropdown-Menü.
+   *
+   * @param {Function} fetchContacts - Funktion, um Kontakte abzurufen.
+   */
+  
+function setupContactsDropdown(fetchContacts) {
+    fetchContacts((contacts) => {
+      populateContactsDropdown(contacts);
+    });
+}
+  
+  /**
+   * Initialisiert das Dropdown-Menü mit Suchfunktion und Kontakten.
+   */
+  
+  function setupDropdownSearchInline() {
+    const dropdown = document.getElementById("taskAssignedDropdown");
+    const optionsContainer = document.getElementById("taskAssignedOptions");
+    const searchInput = document.getElementById("taskSearchInput");
+    if (!dropdown || !optionsContainer || !searchInput) {
+      return;
+    }
+    setupDropdownTrigger(dropdown, optionsContainer);
+    setupDropdownSearch(searchInput, optionsContainer);
+    setupContactsDropdown(fetchContacts);
 }
 
 /**
@@ -367,24 +391,9 @@ function toggleContactSelection(option, initials, color, selectedContainer) {
   }
   const isSelected = option.classList.contains("selected");
   if (isSelected) {
-    deselectContact(
-      option,
-      initials,
-      selectedContainer,
-      contactName,
-      selectIcon,
-      selectedIcon
-    );
+    deselectContact(option,initials,selectedContainer,contactName,selectIcon,selectedIcon);
   } else {
-    selectContact(
-      option,
-      initials,
-      color,
-      selectedContainer,
-      contactName,
-      selectIcon,
-      selectedIcon
-    );
+    selectContact(option,initials,color,selectedContainer,contactName,selectIcon,selectedIcon);
   }
   assignedToUserCounter();
 }
@@ -479,18 +488,14 @@ function filterTasks() {
     const searchTerm = searchInput.value.toLowerCase();
     document.querySelectorAll(".task-card").forEach((task) => {
       const title = task.querySelector("h3").textContent.toLowerCase();
-      const description =
-        task.querySelector("p")?.textContent.toLowerCase() || "";
-      const matches =
-        title.includes(searchTerm) || description.includes(searchTerm);
+      const description = task.querySelector("p")?.textContent.toLowerCase() || "";
+      const matches = title.includes(searchTerm) || description.includes(searchTerm);
       task.style.display = matches ? "block" : "none";
     });
     document.querySelectorAll(".board-column").forEach((column) => {
       const tasksContainer = column.querySelector(".tasks-container");
       const noTasksMessage = column.querySelector(".no-tasks");
-      const visibleTasks = tasksContainer.querySelectorAll(
-        ".task-card:not([style*='display: none'])"
-      );
+      const visibleTasks = tasksContainer.querySelectorAll(".task-card:not([style*='display: none'])");
       noTasksMessage.style.display = visibleTasks.length ? "none" : "block";
     });
   });
@@ -559,15 +564,7 @@ function setupContactsSelection() {
  * @param {HTMLElement} selectedIcon - The icon element representing the selected state.
  */
 
-function selectContact(
-  option,
-  initials,
-  color,
-  selectedContainer,
-  contactName,
-  selectIcon,
-  selectedIcon
-) {
+function selectContact(option,initials,color,selectedContainer,contactName,selectIcon,selectedIcon) {
   option.classList.add("selected");
   option.style.backgroundColor = "#091931";
   option.style.color = "white";
@@ -579,34 +576,48 @@ function selectContact(
 }
 
 /**
- * Updates the display of selected members in the "Add Task" modal.
+ * Updates the UI to display the currently selected members.
  */
 
 function updateSelectedMembers() {
-  const selectedContainer = document.getElementById(
-    "selectedContactsContainer"
-  );
-  selectedContainer.innerHTML = "";
-  const maxVisibleContacts = 4;
-  const totalSelected = selectedMembers.length;
-  selectedMembers.slice(0, maxVisibleContacts).forEach((member) => {
-    const initials = getInitials(member);
-    const color = getColorForContact(member);
-    const span = document.createElement("span");
-    span.className = "selected-contact-initials";
-    span.textContent = initials;
-    span.style.backgroundColor = color;
-    selectedContainer.appendChild(span);
-  });
-  if (totalSelected > maxVisibleContacts) {
-    const remainingCount = totalSelected - maxVisibleContacts;
-    const moreSpan = document.createElement("span");
-    moreSpan.className = "selected-contact-more";
-    moreSpan.textContent = `+${remainingCount}`;
-    moreSpan.style.backgroundColor = "#ccc";
-    selectedContainer.appendChild(moreSpan);
-  }
+    const selectedContainer = document.getElementById(
+      "selectedContactsContainer"
+    );
+    selectedContainer.innerHTML = "";
+    const maxVisibleContacts = 4;
+    selectedMembers.slice(0, maxVisibleContacts).forEach((member) => {
+      const initials = getInitials(member);
+      const color = getColorForContact(member);
+      const span = document.createElement("span");
+      span.className = "selected-contact-initials";
+      span.textContent = initials;
+      span.style.backgroundColor = color;
+      selectedContainer.appendChild(span);
+    });
 }
-fetchContacts((contacts) => {
-  populateContactsDropdown(Object.values(contacts));
-});
+  fetchContacts((contacts) => {
+    populateContactsDropdown(Object.values(contacts));
+  });
+  
+/**
+   * Adds a "more" indicator to the selected contacts container if the total number of selected contacts exceeds the maximum visible limit.
+   *
+   * @param {number} totalSelected - The total number of selected contacts.
+   * @param {number} maxVisibleContacts - The maximum number of contacts to display without showing the "more" indicator.
+   * @param {HTMLElement} selectedContainer - The container element where selected contacts are displayed.
+   */
+
+function addMoreIndicator(
+    totalSelected,
+    maxVisibleContacts,
+    selectedContainer
+  ) {
+    if (totalSelected > maxVisibleContacts) {
+      const remainingCount = totalSelected - maxVisibleContacts;
+      const moreSpan = document.createElement("span");
+      moreSpan.className = "selected-contact-more";
+      moreSpan.textContent = `+${remainingCount}`;
+      moreSpan.style.backgroundColor = "#ccc";
+      selectedContainer.appendChild(moreSpan);
+    }
+}

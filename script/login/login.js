@@ -4,7 +4,6 @@
  */
 let UserDatabaseURL = "https://joinda-1dd15-default-rtdb.europe-west1.firebasedatabase.app/User/";
 
-
 /**
  * Event Listerner für die logo Animation. Dieser Enthält mehrere Timeouts um die Abfolge 
  * (zuerst Logo dann "notAUser") regelt
@@ -18,6 +17,15 @@ window.addEventListener("load", () => {
     }
 });
 
+/**
+ * Führt eine Animation aus, die den Übergang vom Logo zur Login-Ansicht darstellt.
+ * 
+ * Diese Funktion wartet 4 Sekunden und führt dann folgende Aktionen aus:
+ * - Entfernt die `dNone`-Klasse vom Login-Container und fügt die Klasse `login-container` hinzu.
+ * - Entfernt die `dNone`-Klasse vom "Not a User"-Abschnitt und fügt die Klasse `not-a-user` hinzu.
+ * - Entfernt die `dNone`-Klasse von der Box für Profilbild und Login-Name.
+ * - Speichert das Flag (`animation: true`) im `sessionStorage`, um anzuzeigen, dass die Animation bereits abgespielt wurde.
+ */
 function logoAnimation() {
     setTimeout(() => {
         document.getElementById("loginContainer").classList.remove('dNone');
@@ -29,6 +37,15 @@ function logoAnimation() {
     }, 4000);
 }
 
+/**
+ * Überspringt die Animation und setzt den Endzustand des Logos und der Login-Ansicht direkt.
+ * 
+ * Diese Funktion:
+ * - Entfernt die `dNone`-Klasse vom Login-Container und fügt die Klasse `login-container` hinzu.
+ * - Entfernt die Klasse `logo-container` und ersetzt sie durch `logo-container-final`, um den endgültigen Zustand des Logos zu setzen.
+ * - Entfernt die `dNone`-Klasse vom "Not a User"-Abschnitt und fügt die Klasse `not-a-user` hinzu.
+ * - Entfernt die `dNone`-Klasse von der Box für Profilbild und Login-Name.
+ */
 function logoWasAnimatedBefore() {
     document.getElementById("loginContainer").classList.remove('dNone');
         document.getElementById("loginContainer").classList.add('login-container');

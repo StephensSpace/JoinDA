@@ -1,0 +1,91 @@
+@media (max-width: 1520px) {
+    .board-container {
+        flex-direction: column;
+    }
+    
+    .board-column {
+        height: fit-content;
+    }
+
+    .tasks-container {
+        flex-direction: row;
+        width: fit-content;
+        height: fit-content;
+        padding: 40px 0;
+    }
+
+    .card {
+        width: -webkit-fill-available;
+        max-width: -webkit-fill-available;
+    }
+
+    .right-section {
+        padding: 0;
+    }
+
+    .board-cards {
+        overflow-x: auto;
+    }
+
+    @media (max-width: 1050px) {
+        .content {
+            margin: 0 64px;
+        }
+
+        hr {
+            margin: 0 16px;
+        }
+
+    }
+
+    @media (max-width: 930px) {
+        .content {
+            margin: 0 32px;
+        }
+
+        .modal-content-task {
+            left: 25%;
+        }
+
+        .input-container {
+            margin: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: flex-start;
+            max-width: 1360px;
+            width: -webkit-fill-available;
+            flex-direction: column;
+        }
+
+        .right-section {
+            display: flex;
+            justify-content: space-between;
+            width: -webkit-fill-available;
+        }
+
+        .task-card {
+            width: 180px;
+            gap: 12px;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .task-card {
+            width: 164px;
+            gap: 6px;
+        }
+
+        .modal-content {
+            padding: 40px 24px;
+        }
+    }
+
+    @media (max-width: 750px) {
+        .modal-content-task {
+            left: 12%;
+        }
+    }
+
+}

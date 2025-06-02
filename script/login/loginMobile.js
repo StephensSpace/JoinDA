@@ -25,6 +25,19 @@ window.addEventListener("load", () => {
 
 });
 
+/**
+ * Führt eine mehrstufige Animation für das Logo und die Login-Ansicht aus.
+ * 
+ * Diese Funktion führt die folgenden Schritte aus:
+ * 1. Wartet 3,2 Sekunden, bevor die Animation beginnt.
+ * 2. Ändert nach 500 Millisekunden die Quelle des Logos (`src`) auf ein neues Bild (`./assets/img/logo.png`).
+ * 3. Fügt der Overlay-Elementklasse `transparent` hinzu, um es schrittweise transparent zu machen.
+ * 4. Nach weiteren 400 Millisekunden:
+ *    - Entfernt die Klasse `dNone` vom Login-Container und fügt `login-container` hinzu, um ihn sichtbar zu machen.
+ *    - Entfernt die Klasse `visabilityHidden` vom "Not a User"-Abschnitt, um ihn sichtbar zu machen.
+ *    - Entfernt die Klasse `dNone` von der Box für Profilbild und Login-Name.
+ * 5. Blendet das Overlay-Element nach weiteren 2 Sekunden vollständig aus, indem die Klasse `dNone` hinzugefügt wird.
+ */
 function logoAnimation() {
     setTimeout(() => {
         setTimeout(() => {

@@ -82,13 +82,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const cancelButton = document.getElementById("cancelButton");
+  const closeCrosses = document.querySelectorAll(".closeCross");
+
   if (cancelButton) {
     cancelButton.addEventListener("click", (event) => {
       event.preventDefault();
       resetAddTaskModal();
+      resetPriorityToMedium();
+      resetSelectedMembers();
+      resetTaskForm();
       closeModal();
     });
   }
+  closeCrosses.forEach((cross) => {
+    cross.addEventListener("click", (event) => {
+      event.preventDefault();
+      resetAddTaskModal();
+      resetPriorityToMedium();
+      resetSelectedMembers();
+      resetTaskForm();
+      closeModal();
+    });
+  });
 
   const deleteButton = document.querySelector(".delete-btn");
   if (deleteButton) {

@@ -95,28 +95,6 @@ function getInitials(name) {
 }
 
 /**
- * Assigns a unique color to a contact based on their name.
- * @param {string} name - The contact's name.
- * @returns {string} The color code associated with the contact.
- */
-
-function getColorForContact(name) {
-  const colors = [
-    "#FF7A00",
-    "#6E52FF",
-    "#9327FF",
-    "#FC71FF",
-    "#FFBB2B",
-    "#1FD7C1",
-    "#462F8A",
-    "#FF4646",
-    "#00BEE8",
-  ];
-  let index = name.charCodeAt(0) % colors.length;
-  return colors[index];
-}
-
-/**
  * Creates a progress bar and text for a task's subtasks.
  * @param {Object} task - The task object containing subtasks.
  * @returns {string} The HTML string for the subtasks progress UI.
@@ -185,15 +163,15 @@ function showTaskDetails(task) {
             </div>`
         )
         .join("")
-: "<p>No members assigned</p>";
+    : "<p>No members assigned</p>";
 
-/**
- * Renders the subtasks of a task into the subtasks container element in the UI.
- * @param {Object} task - The task object containing subtasks.
- * @param {Array} task.subtasks - The array of subtasks, each with a title and completion state.
- */
+  /**
+   * Renders the subtasks of a task into the subtasks container element in the UI.
+   * @param {Object} task - The task object containing subtasks.
+   * @param {Array} task.subtasks - The array of subtasks, each with a title and completion state.
+   */
 
-function renderTaskSubtasks(task) {
+  function renderTaskSubtasks(task) {
     const subtasksContainer = document.getElementById("taskSubtasks");
     subtasksContainer.innerHTML = createSubtasksList(task);
     if (!subtasksContainer) {
@@ -367,37 +345,6 @@ function createSubtasksList(task) {
 }
 
 /**
- * Sets up click listeners for subtask icons to toggle their completion state and update progress.
- * @param {Object} task - The task object containing subtasks.
- */
-
-function setupSubtaskIconClickListeners(task) {
-  const taskCard = document.querySelector(`.task-card[data-id="${task.id}"]`);
-  if (!taskCard) {
-    return;
-  }
-  const subtaskItems = taskCard.querySelectorAll(".subtask-item");
-  subtaskItems.forEach((item) => {
-    const checkbox = item.querySelector(".subtask-checkbox img");
-    if (!checkbox) {
-      return;
-    }
-    checkbox.addEventListener("click", () => {
-      const subtaskIndex = parseInt(item.dataset.index, 10);
-      if (isNaN(subtaskIndex) || !task.subtasks[subtaskIndex]) {
-        return;
-      }
-      const subtask = task.subtasks[subtaskIndex];
-      subtask.completed = !subtask.completed;
-      checkbox.src = `./assets/icons/${
-        subtask.completed ? "checked" : "unchecked"
-      }.png`;
-      updateTaskProgress(task);
-    });
-  });
-}
-
-/**
  * Updates the task details modal with the given task's information.
  * @param {Object} task - The task object to display in the modal.
  */
@@ -495,10 +442,9 @@ function populateContactsDropdown(contacts) {
       <img class="selected-icon" src="./assets/icons/property-checked.png" alt="Selected Icon">
         `;
     option.addEventListener("click", () => {
-      toggleContactSelection(option, initials, color, selectedContainer);+
-      assignedToUserCounter()
+      toggleContactSelection(option, initials, color, selectedContainer);
+      +assignedToUserCounter();
     });
     optionsContainer.appendChild(option);
   });
-
 }

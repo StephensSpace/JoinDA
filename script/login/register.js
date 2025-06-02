@@ -18,6 +18,19 @@ function SignUp(event) {
     password == passwordCheck ? checkNewUserAvailable(userRef, name, email, password) : wrongPwCheck()
 }
 
+/**
+ * Überprüft, ob das eingegebene Passwort mit einem vorgegebenen Wert übereinstimmt, 
+ * und zeigt eine Fehlermeldung an, wenn dies nicht der Fall ist.
+ * 
+ * @param {string} value - Der Wert, mit dem das eingegebene Passwort verglichen werden soll.
+ * 
+ * Diese Funktion:
+ * - Ruft den aktuellen Wert des Passwortfeldes mit der ID `password` ab.
+ * - Überprüft, ob der eingegebene Wert mit dem übergebenen Parameter `value` übereinstimmt:
+ *   - Wenn die Werte übereinstimmen, wird die Klasse `visabilityHidden` zum Nachrichtenfeld (`msgBox2`) hinzugefügt, um es auszublenden.
+ *   - Wenn die Werte nicht übereinstimmen, wird die Klasse `visabilityHidden` vom Nachrichtenfeld entfernt, um die Fehlermeldung anzuzeigen.
+ * - Setzt den Text des Nachrichtenfeldes auf "Password does not Match", wenn die Passwörter nicht übereinstimmen.
+ */
 function checkPassword(value) {
     let password = document.getElementById('password').value
     let messageBox = document.getElementById('msgBox2')
@@ -152,6 +165,20 @@ function backToLogin() {
     document.getElementById('loginContainer').innerHTML = loginForm()
 }
 
+/**
+ * Überprüft, ob die eingegebene E-Mail-Adresse gültig ist, und zeigt eine Fehlermeldung an, wenn dies nicht der Fall ist.
+ * 
+ * @param {string} value - Die zu überprüfende E-Mail-Adresse.
+ * @returns {boolean} - Gibt `true` zurück, wenn die E-Mail-Adresse gültig ist, andernfalls keine Rückgabe.
+ * 
+ * Diese Funktion:
+ * - Ruft die Validierungsfunktion `isValidEmail` auf, um die Gültigkeit der E-Mail-Adresse zu überprüfen.
+ * - Zeigt eine Fehlermeldung im Nachrichtenfeld mit der ID `msgBoxMail` an, wenn die E-Mail ungültig ist:
+ *   - Entfernt die Klasse `dNone`, um das Nachrichtenfeld sichtbar zu machen.
+ *   - Setzt den Text des Nachrichtenfeldes auf "Please enter a valid E-Mail adress".
+ * - Blendet das Nachrichtenfeld aus, wenn die E-Mail-Adresse gültig ist, indem die Klasse `dNone` hinzugefügt wird.
+ * - Gibt `true` zurück, wenn die E-Mail-Adresse gültig ist.
+ */
 function checkMail(value) {
     const msgBoxMail = document.getElementById('msgBoxMail');
 
@@ -164,6 +191,18 @@ function checkMail(value) {
     }
 }
 
+/**
+ * Überprüft, ob eine gegebene E-Mail-Adresse die grundlegenden Validierungskriterien erfüllt.
+ * 
+ * @param {string} value - Die zu validierende E-Mail-Adresse.
+ * @returns {boolean} - Gibt `true` zurück, wenn die E-Mail-Adresse gültig ist, andernfalls `false`.
+ * 
+ * Validierungskriterien:
+ * - Die E-Mail-Adresse muss ein `@`-Symbol enthalten.
+ * - Die E-Mail-Adresse muss einen Punkt (`.`) enthalten.
+ * - Das `@`-Symbol muss vor dem letzten Punkt stehen.
+ * - Es müssen mindestens zwei Zeichen nach dem letzten Punkt vorhanden sein.
+ */
 function isValidEmail(value) {
     if (!value) return false;
   

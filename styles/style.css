@@ -73,7 +73,7 @@ body {
   gap: 20px;
   background: #091931;
   width: 232px;
-  height: 46px;
+  height: 64px !important;
 }
 
 aside {

@@ -138,7 +138,7 @@ function openEditTaskModal() {
  */
 
 function updateTaskInFirebase(taskId, taskData) {
-  firebase
+ return firebase
     .database()
     .ref(`/tasks/${taskId}`)
     .update(taskData)
@@ -240,16 +240,6 @@ function removeTaskFromBoard(taskId) {
 }
 
 /**
- * Resets the "Add Task" form inputs and states.
- */
-
-function resetAddTaskForm() {
-  document.getElementById("addTaskForm").reset();
-  selectedMembers = [];
-  updateSelectedMembers();
-}
-
-/**
  * Fetches contacts from Firebase and executes a callback with the results.
  * @param {Function} callback - The callback function to process the fetched contacts.
  */
@@ -263,23 +253,19 @@ function fetchContacts(callback) {
       const contacts = snapshot.val();
       callback(contacts);
     })
-    .catch((error) => {
-      console.error("Error fetching contacts:", error);
+    .catch(() => {
     });
 }
 
 /**
- * Initializes the dropdown search functionality for task assignment.
+ * Fügt einen Klick-Listener hinzu, um das Dropdown-Menü zu öffnen oder zu schließen.
+ *
+ * @param {HTMLElement} dropdown - Das Dropdown-Element.
+ * @param {HTMLElement} optionsContainer - Der Container mit den Optionen.
  */
 
-function setupDropdownSearchInline() {
-  const dropdown = document.getElementById("taskAssignedDropdown");
-  const optionsContainer = document.getElementById("taskAssignedOptions");
-  const searchInput = document.getElementById("taskSearchInput");
+function setupDropdownTrigger(dropdown, optionsContainer) {
   const dropdownTrigger = dropdown.querySelector(".dropdown-placeholder");
-  if (!dropdown || !optionsContainer || !searchInput) {
-    return;
-  }
   dropdownTrigger.addEventListener("click", (event) => {
     event.stopPropagation();
     const isOpen = dropdown.classList.toggle("open");
@@ -291,9 +277,16 @@ function setupDropdownSearchInline() {
       dropdown.classList.remove("open");
     }
   });
-  fetchContacts((contacts) => {
-    populateContactsDropdown(contacts);
-  });
+}
+
+/**
+ * Fügt eine Suchfunktion für das Dropdown-Menü hinzu.
+ *
+ * @param {HTMLElement} searchInput - Das Eingabefeld für die Suche.
+ * @param {HTMLElement} optionsContainer - Der Container mit den Optionen.
+ */
+
+function setupDropdownSearch(searchInput, optionsContainer) {
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
     const options = optionsContainer.querySelectorAll(".dropdown-option");
@@ -307,168 +300,29 @@ function setupDropdownSearchInline() {
 }
 
 /**
- * Toggles the selection of a contact in the dropdown and updates the UI.
- * @param {HTMLElement} option - The dropdown option element.
- * @param {string} initials - The initials of the contact.
- * @param {string} color - The background color associated with the contact.
- * @param {HTMLElement} selectedContainer - The container for selected contacts.
+ * Ruft Kontakte ab und befüllt das Dropdown-Menü.
+ *
+ * @param {Function} fetchContacts - Funktion, um Kontakte abzurufen.
  */
 
-function toggleContactSelection(option, initials, color, selectedContainer) {
-  const contactName = option.dataset.value;
-  const isSelected = option.classList.contains("selected");
-  const selectIcon = option.querySelector(".select-icon");
-  const selectedIcon = option.querySelector(".selected-icon");
-  if (isSelected) {
-    option.classList.remove("selected");
-    option.style.backgroundColor = "";
-    option.style.color = "";
-    removeInitialFromSelected(initials, selectedContainer);
-    selectedMembers = selectedMembers.filter(
-      (member) => member !== contactName
-    );
-  } else {
-    option.classList.add("selected");
-    option.style.backgroundColor = "#091931";
-    option.style.color = "white";
-    addInitialToSelected(initials, color, selectedContainer);
-    if (!selectedMembers.includes(contactName)) {
-      selectedMembers.push(contactName);
-    }
-    selectIcon.classList.remove("icon-visible");
-    selectIcon.classList.add("icon-hidden");
-    selectedIcon.classList.remove("icon-hidden");
-    selectedIcon.classList.add("icon-visible");
-  }
-}
-
-/**
- * Adds a contact's initials to the selected container.
- * @param {string} initials - The initials of the contact.
- * @param {string} color - The background color associated with the contact.
- * @param {HTMLElement} selectedContainer - The container for selected contacts.
- */
-
-function addInitialToSelected(initials, color, selectedContainer) {
-  const span = document.createElement("span");
-  span.className = "selected-contact-initials";
-  span.textContent = initials;
-  span.style.backgroundColor = color;
-  selectedContainer.appendChild(span);
-}
-
-/**
- * Removes a contact's initials from the selected container.
- * @param {string} initials - The initials of the contact.
- * @param {HTMLElement} selectedContainer - The container for selected contacts.
- */
-
-function removeInitialFromSelected(initials, selectedContainer) {
-  const spans = selectedContainer.querySelectorAll(
-    ".selected-contact-initials"
-  );
-  spans.forEach((span) => {
-    if (span.textContent === initials) {
-      span.remove();
-    }
+function setupContactsDropdown(fetchContacts) {
+  fetchContacts((contacts) => {
+    populateContactsDropdown(contacts);
   });
 }
 
 /**
- * Saves a task to Firebase, assigns it a unique ID, and updates the board.
- * @param {Object} task - The task object containing all details.
+ * Initialisiert das Dropdown-Menü mit Suchfunktion und Kontakten.
  */
 
-function saveTaskToFirebase(task) {
-  const newTaskRef = firebase.database().ref("/tasks/").push();
-  task.id = newTaskRef.key;
-  if (!task.category || task.category.trim() === "") {
+function setupDropdownSearchInline() {
+  const dropdown = document.getElementById("taskAssignedDropdown");
+  const optionsContainer = document.getElementById("taskAssignedOptions");
+  const searchInput = document.getElementById("taskSearchInput");
+  if (!dropdown || !optionsContainer || !searchInput) {
     return;
   }
-
-  newTaskRef
-    .set(task)
-    .then(() => {
-      updateTaskOnBoard(taskId, task);
-      addTaskToBoard(task);
-      enableDragAndDrop();
-    })
-    .catch(() => {});
+  setupDropdownTrigger(dropdown, optionsContainer);
+  setupDropdownSearch(searchInput, optionsContainer);
+  setupContactsDropdown(fetchContacts);
 }
-
-/**
- * Updates the appearance of priority buttons based on the selected priority.
- */
-
-function updatePriorityButtons() {
-  document.querySelectorAll(".priority-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.priority === selectedPriority);
-    const icon = btn.querySelector(".priority-icon");
-    if (icon) {
-      icon.style.filter =
-        btn.dataset.priority === selectedPriority
-          ? "brightness(0) invert(1)"
-          : "none";
-    }
-  });
-}
-
-/**
- * Sets up click listeners for selecting contacts in the dropdown.
- */
-
-function setupContactsSelection() {
-  document
-    .querySelectorAll("#taskAssignedOptions .dropdown-option")
-    .forEach((option) => {
-      option.addEventListener("click", () => {
-        selectedMembers.push(option.dataset.value);
-        updateSelectedMembers();
-      });
-    });
-}
-
-/**
- * Adds a contact to the selected members list if not already added.
- * @param {string} contactName - The name of the contact to select.
- */
-
-function selectContact(contactName) {
-  if (!selectedMembers.includes(contactName)) {
-    selectedMembers.push(contactName);
-    updateSelectedMembers();
-  }
-}
-
-/**
- * Updates the UI to display the currently selected members.
- */
-
-function updateSelectedMembers() {
-  const selectedContainer = document.getElementById(
-    "selectedContactsContainer"
-  );
-  selectedContainer.innerHTML = "";
-  const maxVisibleContacts = 4;
-  const totalSelected = selectedMembers.length;
-  selectedMembers.slice(0, maxVisibleContacts).forEach((member) => {
-    const initials = getInitials(member);
-    const color = getColorForContact(member);
-    const span = document.createElement("span");
-    span.className = "selected-contact-initials";
-    span.textContent = initials;
-    span.style.backgroundColor = color;
-    selectedContainer.appendChild(span);
-  });
-  if (totalSelected > maxVisibleContacts) {
-    const remainingCount = totalSelected - maxVisibleContacts;
-    const moreSpan = document.createElement("span");
-    moreSpan.className = "selected-contact-more";
-    moreSpan.textContent = `+${remainingCount}`;
-    moreSpan.style.backgroundColor = "#ccc";
-    selectedContainer.appendChild(moreSpan);
-  }
-}
-fetchContacts((contacts) => {
-  populateContactsDropdown(Object.values(contacts));
-});

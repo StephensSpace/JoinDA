@@ -4,6 +4,8 @@
   padding: 0;
   font-family: "Inter";
   overflow-y: scroll;
+  width: -webkit-fill-available;
+  max-width: none;
 }
 
 body::-webkit-scrollbar {
@@ -11,8 +13,14 @@ body::-webkit-scrollbar {
 }
 
 main {
+  display: flex;
   flex-direction: column;
-  margin: 0 64px;
+  position: absolute;
+  left: 232px;
+  width: -webkit-fill-available;
+  overflow-y: auto;
+  height: -webkit-fill-available;
+  top: 96px;
 }
 
 .content-board {
@@ -24,19 +32,14 @@ main {
 }
 
 .headlines {
-  width: 1208px;
-  height: 24px;
-  top: 326.5px;
   display: flex;
   gap: 26px;
-  position: relative;
-  left: 230px;
 }
 
 .headlines div {
   display: flex;
   justify-content: space-between;
-  width: 244px;
+  width: -webkit-fill-available;
   height: 24px;
 }
 
@@ -46,7 +49,7 @@ main {
   border-radius: 8px;
   width: 24px;
   height: 24px;
-  font-size: 2rem;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +67,7 @@ main {
 }
 
 .card h2 {
-  font-size: 1.2rem;
+  font-size: 28px;
   text-align: left;
   flex-grow: 1;
   display: flex;
@@ -72,21 +75,17 @@ main {
 }
 
 .search-bar {
-  width: 1208px;
-  height: 232px;
-  top: 96px;
-  left: 232px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
+  max-width: 1360px;
+  width: -webkit-fill-available;
 }
 
 .right-section {
   display: flex;
   align-items: center;
-  width: 504px;
-  height: 48px;
+  padding-right: 50px;
 }
 
 .search-bar input {
@@ -101,8 +100,7 @@ main {
   height: 48px;
   border-radius: 10px;
   cursor: pointer;
-  background: url(../../assets/buttons/addTaskButtonDesktop.svg) no-repeat
-    center;
+  background: url(../../assets/buttons/addTaskButtonDesktop.svg) no-repeat center;
   border: none;
   display: block;
   padding: 0;
@@ -112,8 +110,7 @@ main {
 }
 
 .add-Task-Button:hover {
-  background: url(../../assets/buttons/addTaskButtonDesktopHover.svg) no-repeat
-    center;
+  background: url(../../assets/buttons/addTaskButtonDesktopHover.svg) no-repeat center;
   height: 60px;
   border-radius: 10px;
   border: none;
@@ -152,7 +149,7 @@ main {
   top: 50%;
   right: 3.5px;
   transform: translateY(-50%);
-  background-image: url("../../assets/icons/search.png");
+  background-image: url("/assets/icons/search.png");
   background-size: 32px 32px;
   background-repeat: no-repeat;
   width: 32px;
@@ -178,22 +175,19 @@ main {
 }
 
 .board-container {
-  width: 1208px;
-  height: 688px;
-  top: 360px;
-  left: 284px;
   gap: 26px;
-  position: absolute;
   display: flex;
-  cursor: pointer;
+  justify-content: space-between;
+  max-width: 1360px;
+  width: -webkit-fill-available;
 }
 
 .board-column {
-  width: 246px;
   height: 688px;
   gap: 24px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
+  width: -webkit-fill-available;
 }
 
 .board-column.dragover {
@@ -258,7 +252,6 @@ main {
   flex-direction: column;
   width: 252px;
   height: 263px;
-  padding: 16px 0px 0px 0px;
   gap: 10px;
   border-radius: 24px 0px 0px 0px;
 }
@@ -433,8 +426,10 @@ main {
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
   z-index: 1000;
-  gap: 24px;
+  align-items: center;
+  padding: 20px;
 }
 
 #taskDetailsModal .avatar-container {
@@ -484,19 +479,24 @@ ul {
   margin: 0;
   padding: 40px;
   border-radius: 30px;
-  width: 1116px;
-  height: 838px;
-  position: fixed;
-  top: 4%;
-  left: 18%;
+  width: fit-content;
+  height: fit-content;
   transform: translate(-50%, -50%);
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   animation: slideInFromRight 300ms ease-out forwards;
+  width: 80%;
+  max-width: 1050px;
+  position: fixed;
+  top: 4%;
+  left: 18%;
+  height: fit-content;
 }
 
 .error-message {
   color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 #msg-box {
@@ -515,6 +515,7 @@ ul {
     transform: translateX(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -526,6 +527,7 @@ ul {
     transform: translateX(0);
     opacity: 1;
   }
+
   100% {
     transform: translateX(100%);
     opacity: 0;
@@ -534,18 +536,18 @@ ul {
 
 .modal-content-task {
   background-color: white;
-  width: 525px;
+  width: 100%;
+  max-width: 525px;
   height: 838px;
-  left: 640px;
-  top: 50px;
+  left: 36%;
+  top: 5%;
   border-radius: 30px;
   padding: 48px 40px;
   gap: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  position: absolute;
-  transition: transform 300ms ease-out, opacity 300ms ease-out;
+  position: fixed;
   animation: slideInFromRight 300ms ease-out forwards;
 }
 
@@ -603,11 +605,8 @@ textarea {
   gap: 20px;
 }
 
-.contentH1 {
+h1 {
   font-size: 61px;
-  margin: 0 !important;
-  position: relative;
-  left: 64px;
 }
 
 .contentH2 {
@@ -640,22 +639,13 @@ textarea {
 }
 
 .form-column-left {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 440px;
-  height: 376px;
-  top: 174px;
-  left: 74px;
-  position: absolute;
+  width: -webkit-fill-available;
 }
 
 .form-column-right {
-  width: 440px;
-  height: 416px;
-  top: 174px;
-  left: 610.25px;
-  position: absolute;
+  width: -webkit-fill-available;
 }
 
 input[type="text"],
@@ -681,10 +671,8 @@ textarea {
 
 .priority {
   display: flex;
-  gap: 8px;
-  width: 440px;
-  height: 56px;
-  top: 120px;
+  justify-content: center;
+  gap: 16px;
 }
 
 .priority-btn {
@@ -692,35 +680,38 @@ textarea {
   border: none;
   padding: 16px 10px 16px 10px;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  border-radius: 10px;
-  height: 56px;
-  width: 136px;
   justify-content: center;
+  flex-direction: row-reverse;
+  border-radius: 10px;
+  width: 100px;
+  gap: 2px;
+  height: 44px;
 }
 
 .priority-btn img {
   position: unset !important;
-  width: 30px !important;
-  height: 30px !important;
+  width: 26px !important;
+  height: 26px !important;
+  filter: brightness(0) invert(1) !important;
 }
 
 .priority-btn.clicked {
   color: #ffffff;
 }
 
-.priority-btn[data-priority="Urgent"].active {
+.priority-btn[data-priority="Urgent"].actived {
   background-color: #ff4d4d;
   color: white;
 }
 
-.priority-btn[data-priority="Medium"].active {
+.priority-btn[data-priority="Medium"].actived {
   background-color: #ff9900;
   color: white;
 }
 
-.priority-btn[data-priority="Low"].active {
+.priority-btn[data-priority="Low"].actived {
   background-color: #33cc33;
   color: white;
 }
@@ -750,7 +741,7 @@ textarea {
 }
 
 .priority-btn.active .priority-icon {
-  filter: brightness(0) invert(1);
+  filter: none !important;
 }
 
 .form-actions {
@@ -761,22 +752,11 @@ textarea {
   align-items: center;
 }
 
-.add-task-label {
-  width: 170px;
-  height: 27px;
-  position: absolute;
-  top: 779px;
-  left: 74px;
-}
+.add-task-label {}
 
 .addTask-buttons {
   display: flex;
   gap: 4px;
-  width: 334px;
-  height: 56px;
-  top: 750px;
-  left: 716.25px;
-  position: fixed;
 }
 
 .cancel-btn {
@@ -791,6 +771,9 @@ textarea {
   width: 126px;
   height: 56px;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cancel-btn:hover {
@@ -810,7 +793,15 @@ textarea {
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
-  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  display: flex;
+}
+
+.check {
+  width: 12px;
+  height: 12px;
 }
 
 .create-task-btn:hover {
@@ -1293,4 +1284,71 @@ textarea {
   height: 24px;
   margin: 5px;
   text-transform: uppercase;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  max-width: 253px;
+}
+
+
+.content {
+  position: relative;
+  top: 110px;
+  margin: 0 98px;
+}
+
+.board-container {
+  margin: 32px 0;
+}
+
+.section-columns {
+  display: flex;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+
+hr {
+  margin: 0 32px;
+  color: #D1D1D1;
+}
+
+.section-buttons-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 96px 0 12px 0;
+}
+
+.actived {
+  gap: 20px;
+  background: #091931;
+  width: unset;
+  height: unset;
+}
+
+h2 {
+  font-size: 61px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.closeCross {
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.closeCross:hover {
+  background: #e2e2e2;
 }

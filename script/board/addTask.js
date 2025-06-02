@@ -37,40 +37,76 @@ function addTaskToBoard(task) {
 }
 
 /**
- * Handles the submission of a task form, validating inputs and saving the task.
- * @param {Event} e - The form submit event.
+ * Überprüft die Gültigkeit von Kategorie, Titel und Datum.
+ * @returns {boolean} Gibt `true` zurück, wenn alle Felder gültig sind, sonst `false`.
+ */
+
+function validateTaskFields() {
+    const isCategoryValid = checkCategory();
+    const isTitleValid = checkTitle();
+    const isDateValid = checkDueDate();
+    return isCategoryValid && isTitleValid && isDateValid;
+}
+  
+/**
+ * Verarbeitet und speichert die Task-Daten.
+ * @param {Object} task - Die Task-Daten.
+ */
+
+function processTaskData(task) {
+    if (isEditMode && currentTaskId) {
+      updateTaskInFirebase(currentTaskId, task);
+      updateTaskDetailsFromFirebase(currentTaskId);
+    } else {
+      saveTaskToFirebase(task);
+      closeModalAndReset();
+    }
+}
+  
+/**
+   * Aktualisiert die aktuellen Task-Details aus Firebase.
+   * @param {string} taskId - Die ID der Task.
+   */
+
+function updateTaskDetailsFromFirebase(taskId) {
+    firebase
+      .database()
+      .ref(`/tasks/${taskId}`)
+      .once("value")
+      .then((snapshot) => {
+        const updatedTask = snapshot.val();
+        Object.assign(currentTask, updatedTask);
+        showTaskDetails(currentTask);
+        closeModalAndReset();
+      });
+}
+  
+/**
+ * Haupt-Handler für das Abschicken des Task-Formulars.
+ * @param {Event} e - Das Event-Objekt.
  */
 
 function handleTaskSubmit(e) {
-  e.preventDefault();
-  const isCategoryValid = checkCategory();
-  const isTitleValid = checkTitle();
-  const isDateValid = checkDueDate();
-  if (isCategoryValid && isTitleValid && isDateValid) {
+    e.preventDefault();
+    if (!validateTaskFields()) {
+      return;
+    }
     const task = taskList();
     if (!task) {
       return;
     }
-    if (isEditMode && currentTaskId) {
-      updateTaskInFirebase(currentTaskId, task);
-      firebase
-        .database()
-        .ref(`/tasks/${currentTaskId}`)
-        .once("value")
-        .then((snapshot) => {
-          const updatedTask = snapshot.val();
-          Object.assign(currentTask, updatedTask);
-          showTaskDetails(currentTask);
-          closeModal();
-          resetAddTaskModal();
-        });
-    } else {
-      saveTaskToFirebase(task);
-      closeModal();
-      resetAddTaskModal();
-    }
-  }
+    processTaskData(task);
 }
+  
+/**
+   * Schließt das Modal und setzt es zurück.
+   */
+
+function closeModalAndReset() {
+    closeModal();
+    resetAddTaskModal();
+}
+  
 
 /**
  * Constructs a task object from the modal input fields.
@@ -116,23 +152,31 @@ function checkTitle() {
  */
 
 function checkDueDate() {
-  const dateInput = document.getElementById("taskDueDate");
-  const dateError = document.getElementById("dueDateError");
-  if (!dateInput.value) {
-    dateError.textContent = "Bitte ein Datum auswählen.";
-    dateError.classList.remove("hidden");
-    dateInput.focus();
-    return false;
-  }
-  const today = new Date().toISOString().split("T")[0];
-  if (dateInput.value < today) {
-    dateError.textContent = "Das Datum darf nicht in der Vergangenheit liegen.";
-    dateError.classList.remove("hidden");
-    dateInput.focus();
-    return false;
-  }
-  dateError.classList.add("hidden");
-  return true;
+    const dateInput = document.getElementById("taskDueDate");
+    const dateError = document.getElementById("dueDateError");
+    const today = new Date().toISOString().split("T")[0];
+    if (!dateInput.value) {showDateError(dateError, "Bitte ein Datum auswählen.", dateInput);
+      return false;
+    }
+    if (dateInput.value < today) {showDateError(dateError, "Das Datum darf nicht in der Vergangenheit liegen.", dateInput);
+      return false;
+    }
+    dateError.classList.add("hidden");
+    return true;
+}
+
+/**
+ * Zeigt eine Fehlermeldung für ein Eingabefeld an und setzt den Fokus auf das Feld.
+ *
+ * @param {HTMLElement} errorElement - Das HTML-Element, in dem die Fehlermeldung angezeigt wird.
+ * @param {string} message - Die Fehlermeldung, die angezeigt werden soll.
+ * @param {HTMLElement} inputElement - Das Eingabefeld, auf das der Fokus gesetzt werden soll.
+ */
+  
+function showDateError(errorElement, message, inputElement) {
+    errorElement.textContent = message;
+    errorElement.classList.remove("hidden");
+    inputElement.focus();
 }
 
 /**
@@ -163,44 +207,75 @@ function updatePriorityIcon(priority) {
     if (priority === "Urgent") {
       priorityIcon.innerHTML =
         '<img src="./assets/icons/urgent.png" alt="Urgent">';
-    } else if (priority === "Medium") {
-      priorityIcon.innerHTML =
+    } else if (priority === "Medium") { priorityIcon.innerHTML =
         '<img src="./assets/icons/medium.png" alt="Medium">';
-    } else if (priority === "Low") {
-      priorityIcon.innerHTML = '<img src="./assets/icons/low.png" alt="Low">';
-    } else {
-      priorityIcon.innerHTML = "";
+    } else if (priority === "Low") { priorityIcon.innerHTML = '<img src="./assets/icons/low.png" alt="Low">';
+    } else { priorityIcon.innerHTML = "";
     }
   }
 }
 
 /**
- * Resets all inputs and states in the "Add Task" modal to their default values.
+ * Resets input fields and subtasks in the Add Task modal.
  */
 
 function resetAddTaskModal() {
-  document.getElementById("taskTitle").value = "";
-  document.getElementById("taskDescription").value = "";
-  document.getElementById("taskDueDate").value = "";
-  document.getElementById("subtaskInput").value = "";
-  subtasksArray = [];
-  updateSubtasksList();
-  document
-    .querySelectorAll(".priority-btn")
-    .forEach((btn) => btn.classList.remove("active"));
-  selectedMembers = [];
-  updateSelectedMembers();
-  selectedPriority = "Medium";
-  selectedCategory = "";
-  document.getElementById("taskTypeInput").value = "";
-  const subtaskError = document.getElementById("subtaskError");
-  if (subtaskError) {
-    subtaskError.classList.add("hidden");
-  }
-  const actionButton = document.getElementById("createTaskButton");
-  actionButton.textContent = "Create Task";
-  hideErrorMessages();
+    document.getElementById("taskTitle").value = "";
+    document.getElementById("taskDescription").value = "";
+    document.getElementById("taskDueDate").value = "";
+    document.getElementById("subtaskInput").value = "";
+    subtasksArray = [];
+    updateSubtasksList();
+    resetPriorityToMedium();
 }
+  
+/**
+ * Resets the priority to Medium and updates the UI.
+ */
+
+function resetPriorityToMedium() {
+    document.querySelectorAll(".priority-btn").forEach((btn) =>
+      btn.classList.remove("active")
+    );
+    const mediumPriorityButton = document.querySelector(
+      ".priority-btn[data-priority='Medium']"
+    );
+    if (mediumPriorityButton) {
+      mediumPriorityButton.classList.add("active");
+      const icon = mediumPriorityButton.querySelector(".priority-icon");
+      if (icon) icon.style.filter = "brightness(0) invert(1)";
+    }
+}
+
+/**
+ * Resets selected members and clears the dropdown options.
+ */
+function resetSelectedMembers() {
+    selectedMembers = [];
+    updateSelectedMembers();
+    document.querySelectorAll(".dropdown-option").forEach((option) => {
+      option.classList.remove("selected");
+      option.style.backgroundColor = "";
+      option.style.color = "";
+    });
+}
+  
+/**
+ * Resets the task form fields, category, and button text.
+ */
+
+function resetTaskForm() {
+    selectedCategory = "";
+    document.getElementById("taskTypeInput").value = "";
+    const subtaskError = document.getElementById("subtaskError");
+    if (subtaskError) {
+      subtaskError.classList.add("hidden");
+    }
+    const actionButton = document.getElementById("createTaskButton");
+    actionButton.textContent = "Create Task";
+    hideErrorMessages();
+}
+  
 
 /**
  * Hides all error messages in the modal.
@@ -227,44 +302,50 @@ function closeModal() {
 }
 
 /**
- * Sets up the dropdown menu for selecting a task category.
+ * Sets up event listeners for the second dropdown and handles its toggle behavior.
  */
 
 function setupSecondDropdown() {
-  const secondDropdown = document.getElementById("secondDropdown");
-  const secondOptionsContainer = document.getElementById(
-    "secondOptionsContainer"
-  );
-  const secondArrow = document.getElementById("secondDropdownArrow");
-  const secondSelectedText = document.getElementById(
-    "secondDropdownSelectedText"
-  );
-  const categoryInput = document.getElementById("taskCategoryInput");
-  const taskTypeInput = document.getElementById("taskTypeInput");
-
-  secondDropdown.addEventListener("click", (event) => {
-    event.stopPropagation();
+    const secondDropdown = document.getElementById("secondDropdown");
+    const secondOptionsContainer = document.getElementById("secondOptionsContainer");
+    const secondArrow = document.getElementById("secondDropdownArrow");
+    const secondSelectedText = document.getElementById("secondDropdownSelectedText");
+    const categoryInput = document.getElementById("taskCategoryInput");
+    const taskTypeInput = document.getElementById("taskTypeInput");
+    secondDropdown.addEventListener("click", (event) => {event.stopPropagation();
     toggleSecondDropdown(secondDropdown, secondOptionsContainer, secondArrow);
-  });
-
-  secondOptionsContainer.addEventListener("click", (event) => {
-    handleOptionSelection(
-      event,
-      secondDropdown,
-      secondOptionsContainer,
-      secondArrow,
-      secondSelectedText,
-      taskTypeInput
-    );
-  });
-
-  document.addEventListener("click", (event) => {
-    if (!secondDropdown.contains(event.target)) {
-      secondDropdown.classList.remove("open");
-      secondOptionsContainer.classList.add("hidden");
-      secondArrow.classList.remove("open");
-    }
-  });
+    });
+    secondOptionsContainer.addEventListener("click", (event) => {
+      handleOptionSelection(event,secondDropdown,secondOptionsContainer,secondArrow,secondSelectedText,taskTypeInput);
+    });
+  }
+  
+  /**
+   * Handles clicks outside the dropdown to close it.
+   * @param {HTMLElement} dropdown - The dropdown element.
+   * @param {HTMLElement} optionsContainer - The container for dropdown options.
+   * @param {HTMLElement} arrow - The dropdown arrow element.
+   */
+  function handleOutsideClick(dropdown, optionsContainer, arrow) {
+      document.addEventListener("click", (event) => {
+        if (!dropdown.contains(event.target)) {
+          closeDropdown(dropdown, optionsContainer, arrow);
+        }
+      });
+}
+    
+/**
+ * Closes the dropdown by updating its classes.
+ * @param {HTMLElement} dropdown - The dropdown element.
+ * @param {HTMLElement} optionsContainer - The container for dropdown options.
+ *  * @param {HTMLElement} arrow - The dropdown arrow element.
+ */
+  
+function closeDropdown(dropdown, optionsContainer, arrow) {
+    dropdown.classList.remove("open");
+    optionsContainer.classList.add("hidden");
+    arrow.classList.remove("open");
+    handleOutsideClick(secondDropdown, secondOptionsContainer, secondArrow);
 }
 
 /**
@@ -294,14 +375,7 @@ function toggleSecondDropdown(
  * @param {HTMLElement} taskTypeInput - The input element to store the selected type.
  */
 
-function handleOptionSelection(
-  event,
-  secondDropdown,
-  secondOptionsContainer,
-  secondArrow,
-  secondSelectedText,
-  taskTypeInput
-) {
+function handleOptionSelection(event,secondDropdown,secondOptionsContainer,secondArrow,secondSelectedText,taskTypeInput) {
   if (!event.target.classList.contains("second-dropdown-option")) return;
   const selectedCategory = event.target.dataset.value;
   secondSelectedText.textContent = selectedCategory;
@@ -317,18 +391,10 @@ function handleOptionSelection(
 
 function assignedToUserCounter() {
   if (document.getElementsByClassName("selected-contact-initials").length > 4) {
-    for (
-      let i = 4;
-      i < document.getElementsByClassName("selected-contact-initials").length;
-      i++
-    ) {
-      document.getElementsByClassName("selected-contact-initials")[
-        i
-      ].style.display = "none";
+    for (let i = 4; i < document.getElementsByClassName("selected-contact-initials").length; i++) {
+      document.getElementsByClassName("selected-contact-initials")[i].style.display = "none";
       document.getElementsByClassName("numb")[0]?.remove();
-      document.getElementById(
-        "selectedContactsContainer"
-      ).innerHTML += `<span class="numb">+${i - 3}</span>`;
+      document.getElementById("selectedContactsContainer").innerHTML += `<span class="numb">+${i - 3}</span>`;
     }
   } else {
     document.getElementsByClassName("numb")[0]?.remove();
@@ -338,19 +404,13 @@ function assignedToUserCounter() {
 
 function assignedToUserCounterDeleteUser() {
   if (
-    document.getElementsByClassName("selected-contact-initials")[0]?.style
-      .display == "none" ||
-    document.getElementsByClassName("selected-contact-initials")[1]?.style
-      .display == "none" ||
-    document.getElementsByClassName("selected-contact-initials")[2]?.style
-      .display == "none" ||
-    document.getElementsByClassName("selected-contact-initials")[3]?.style
-      .display == "none"
+    document.getElementsByClassName("selected-contact-initials")[0]?.style.display == "none" ||
+    document.getElementsByClassName("selected-contact-initials")[1]?.style.display == "none" ||
+    document.getElementsByClassName("selected-contact-initials")[2]?.style.display == "none" ||
+    document.getElementsByClassName("selected-contact-initials")[3]?.style.display == "none"
   ) {
     for (let index = 0; index < 4; index++) {
-      document.getElementsByClassName("selected-contact-initials")[
-        index
-      ].style.display = "flex";
+      document.getElementsByClassName("selected-contact-initials")[index].style.display = "flex";
     }
   }
 }

@@ -12,14 +12,6 @@
   font-family: "Inter-VariableFont_opsz,wght";
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 20px;
-}
-
 .content-board {
   padding: 20px;
 }
@@ -310,6 +302,8 @@ main {
 
 .error-message {
   color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 #msg-box {
@@ -337,27 +331,16 @@ textarea {
   height: 100px;
 }
 
-.contentH2 {
+h2 {
   font-size: 61px;
   font-weight: 700;
-  width: 278px;
-  height: 73px;
-  top: 206px;
-  white-space: nowrap;
-  left: 328px;
-  gap: 1px;
-  position: absolute;
-  display: flex;
+  margin-bottom: 32px;
 }
 
 .divider {
   width: 1px;
   height: 355px;
-  top: 340px;
-  /* left: 828.25px; */
-  left: 853.75px;
   border: 1px;
-  position: absolute;
   background-color: #ddd;
   margin: 0 20px;
   align-self: stretch;
@@ -369,26 +352,17 @@ textarea {
 }
 
 .form-column-left {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 500px;
-  height: 376px;
-  top: 327px;
-  /* left: 300.5px; */
-  left: 328px;
-  position: absolute;
-  padding: 0 20px;
+  max-width: 500px;
+  width: -webkit-fill-available;
 }
 
 .form-column-right {
-  width: 500px;
-  height: 416px;
-  top: 327px;
-  /* left: 900.25px; */
-  left: 927.75px;
-  position: absolute;
-  padding: 0 20px;
+  max-width: 500px;
+  width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
 }
 
 input[type="text"],
@@ -415,9 +389,7 @@ textarea {
 .priority {
   display: flex;
   gap: 8px;
-  width: 440px;
   height: 56px;
-  top: 120px;
 }
 
 .priority-btn {
@@ -989,7 +961,44 @@ textarea {
   background-color: #ccc;
 }
 
+
 .selected-contacts-container {
   display: flex;
   align-items: center;
+}
+
+
+
+
+main {
+  position: absolute;
+  top: 206px;
+  left: 232px;
+  margin: 0 98px;
+  width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-columns {
+  display: flex;
+}
+
+hr {
+  margin: 0 20px;
+  width: fit-content;
+}
+
+.section-buttons {
+  margin: 80px 0;
+}
+
+.content {
+  max-width: 1040px;
+}
+
+.section-buttons-div {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }

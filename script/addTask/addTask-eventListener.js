@@ -117,21 +117,18 @@ function handleSubtaskAddition() {
   const subtaskValue = subtaskInput.value.trim();
   if (!subtaskValue) return;
   const subtaskList = document.getElementById("subtaskList");
-  if (subtaskList.children.length >= subtaskLimit) {
-    subtaskError.classList.remove("hidden");
+  if (subtaskList.children.length >= subtaskLimit) { subtaskError.classList.remove("hidden");
     return;
   }
   addSubtask(subtaskValue);
   subtaskInput.value = "";
   subtaskError.classList.add("hidden");
 }
-subtaskAddButton.addEventListener("click", (event) => {
-  event.preventDefault();
+subtaskAddButton.addEventListener("click", (event) => { event.preventDefault();
   handleSubtaskAddition();
 });
 subtaskInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
+  if (event.key === "Enter") { event.preventDefault();
     handleSubtaskAddition();
   }
 });
@@ -141,16 +138,11 @@ function setupSubtaskIconClickListeners(task) {
   icons.forEach((icon) => {
     icon.addEventListener("click", (event) => {
       const subtaskIndex = parseInt(
-        event.target.parentElement.dataset.index,
-        10
-      );
+      event.target.parentElement.dataset.index,10);
       const subtask = task.subtasks[subtaskIndex];
-
-      if (subtask) {
-        subtask.completed = !subtask.completed;
+      if (subtask) { subtask.completed = !subtask.completed;
         event.target.src = `./assets/icons/${
-          subtask.completed ? "checked" : "unchecked"
-        }.png`;
+        subtask.completed ? "checked" : "unchecked"}.png`;
         event.target.alt = subtask.completed ? "Completed" : "Incomplete";
         updateSubtaskInFirebase(task.id, subtaskIndex, subtask.completed);
         updateSubtaskProgress(task);
